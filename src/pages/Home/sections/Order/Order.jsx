@@ -59,7 +59,7 @@ _Please confirm my order!_`;
     return (
         <section id="order" className="py-16 sm:py-24 px-4 bg-[#f8fafc] overflow-hidden">
             <div className="container mx-auto max-w-6xl">
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-12 items-start">
+                <div className="flex flex-col-reverse lg:grid lg:grid-cols-5 gap-8 sm:gap-12 items-start">
 
                     {/* Left Side: Form */}
                     <motion.div
@@ -240,8 +240,8 @@ _Please confirm my order!_`;
                             </div>
                         </div>
 
-                        {/* Offer Badge */}
-                        <div className="bg-primary p-6 rounded-[2rem] text-white shadow-xl shadow-primary/20 flex items-center gap-4">
+                        {/* Offer Badge - Hidden on mobile */}
+                        <div className="hidden md:flex bg-primary p-6 rounded-[2rem] text-white shadow-xl shadow-primary/20 items-center gap-4">
                             <div className="bg-white/10 p-3 rounded-2xl border border-white/20">
                                 <CheckCircle className="text-accent" size={24} />
                             </div>
