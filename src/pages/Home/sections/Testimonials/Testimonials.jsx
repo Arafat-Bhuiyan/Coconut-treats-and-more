@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Gift, Sparkles, Star } from "lucide-react";
 import review1 from "../../../../assets/images/reviews/1.jpeg"
 import review2 from "../../../../assets/images/reviews/2.jpeg"
 import review3 from "../../../../assets/images/reviews/3.jpeg"
@@ -65,6 +65,41 @@ const Testimonials = () => {
 
     return (
         <section id="reviews" className="py-24 bg-secondary/5 overflow-hidden">
+            {/* Promo Banner */}
+            <div className="container mx-auto px-6 mb-16">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    className="bg-primary p-6 md:p-8 rounded-[2.5rem] text-white overflow-hidden relative shadow-2xl"
+                >
+                    <div className="absolute top-0 right-0 p-8 opacity-10 rotate-12">
+                        <Gift size={120} />
+                    </div>
+                    
+                    <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div className="flex items-center gap-6 text-center md:text-left flex-col md:flex-row">
+                            <div className="bg-white/20 p-4 rounded-3xl backdrop-blur-sm">
+                                <Sparkles className="text-accent" size={32} />
+                            </div>
+                            <div>
+                                <h4 className="text-2xl md:text-3xl font-black mb-1">Buy More, Save More!</h4>
+                                <p className="text-base md:text-lg text-white/90 max-w-xl font-medium">
+                                    Order 5 or more boxes to unlock the <span className="text-accent font-bold">৳570/box</span> offer. 
+                                    You're saving ৳30 per box!
+                                </p>
+                            </div>
+                        </div>
+                        <a 
+                            href="#order" 
+                            className="bg-accent hover:bg-accent/90 text-husk px-10 py-4 rounded-2xl font-black text-lg transition-all transform hover:scale-105 shadow-xl shadow-accent/20 whitespace-nowrap"
+                        >
+                            Order Now
+                        </a>
+                    </div>
+                </motion.div>
+            </div>
+
             <div className="container mx-auto px-6 md:px-12 mb-16">
                 <div className="text-center max-w-2xl mx-auto">
                     <h2 className="text-4xl md:text-5xl font-extrabold text-husk mb-4">
