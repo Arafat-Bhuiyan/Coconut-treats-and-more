@@ -16,60 +16,63 @@ const InstagramIcon = ({ size = 24 }) => (
 
 const Footer = () => {
     return (
-        <footer className="bg-primary pt-20 pb-10 px-4 text-milk-white">
-            <div className="container mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 border-b border-milk-white/10 pb-16 mb-8">
-                <div className="md:col-span-5 mt-[-10px]">
-                    <h2 className="text-3xl font-bold mb-6 text-accent">Coconut <span className="text-milk-white">Treats & More</span></h2>
-                    <p className="text-milk-white/80 leading-relaxed mb-8 text-lg font-medium max-w-sm">
+        <footer className="bg-primary pt-16 sm:pt-20 pb-10 px-4 text-milk-white overflow-hidden">
+            <div className="container mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 border-b border-milk-white/10 pb-12 sm:pb-16 mb-8 text-center md:text-left">
+                <div className="md:col-span-5 flex flex-col items-center md:items-start">
+                    <h2 className="text-2xl sm:text-3xl font-black mb-6 text-accent uppercase tracking-tighter">
+                        Coconut <span className="text-milk-white">Treats & More</span>
+                    </h2>
+                    <p className="text-milk-white/70 leading-relaxed mb-8 text-base sm:text-lg font-medium max-w-sm">
                         Bringing the authentic taste of pure coconut pudding to your doorstep. Handmade with love, fresh every day.
                     </p>
-                    <div className="flex gap-4">
-                        <a href="https://www.facebook.com/share/1FXdPxKt9r/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-milk-white/10 flex items-center justify-center hover:bg-accent hover:text-husk transition-all">
-                            <FacebookIcon size={22} />
+                    
+                    <div className="flex gap-4 mb-8">
+                        <a href="https://www.facebook.com/share/1FXdPxKt9r/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-accent hover:text-husk transition-all group">
+                            <FacebookIcon size={22} className="group-hover:scale-110 transition-transform" />
                         </a>
-                        <a href="https://www.instagram.com/coconuttreatsmore?igsh=MWs0Z3NjZ29pbm96MQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-milk-white/10 flex items-center justify-center hover:bg-accent hover:text-husk transition-all">
-                            <InstagramIcon size={22} />
+                        <a href="https://www.instagram.com/coconuttreatsmore?igsh=MWs0Z3NjZ29pbm96MQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-accent hover:text-husk transition-all group">
+                            <InstagramIcon size={22} className="group-hover:scale-110 transition-transform" />
                         </a>
                     </div>
                 </div>
 
-                <div className="md:col-span-3">
-                    <h4 className="font-bold text-xl mb-8 text-accent">Quick Links</h4>
-                    <ul className="space-y-4 text-milk-white/70 font-medium">
-                        <li><a href="#" className="hover:text-accent transition-colors">Home</a></li>
-                        <li><a href="#reviews" className="hover:text-accent transition-colors">Customer Reviews</a></li>
-                        <li><a href="#order" className="hover:text-accent transition-colors">Order Now</a></li>
+                <div className="md:col-span-3 flex flex-col items-center md:items-start">
+                    <h4 className="text-accent font-black text-xs uppercase tracking-widest mb-6">Explore</h4>
+                    <ul className="space-y-4 font-bold text-sm sm:text-base">
+                        <li><a href="#" className="text-milk-white/60 hover:text-accent transition-colors">Home</a></li>
+                        <li><a href="#reviews" className="text-milk-white/60 hover:text-accent transition-colors">Customer Reviews</a></li>
+                        <li><a href="#order" className="text-milk-white/60 hover:text-accent transition-colors font-black">Order Now</a></li>
                     </ul>
                 </div>
 
-                <div className="md:col-span-4">
-                    <h4 className="font-bold text-xl mb-8 text-accent">Contact Us</h4>
-                    <ul className="space-y-6 text-milk-white/70 font-medium">
-                        <li className="flex items-start gap-4">
-                            <div className="bg-milk-white/10 p-2.5 rounded-xl border border-white/5">
+                <div className="md:col-span-4 flex flex-col items-center md:items-start">
+                    <h4 className="text-accent font-black text-xs uppercase tracking-widest mb-6">Quick Contact</h4>
+                    <ul className="space-y-6 w-full max-w-[280px] md:max-w-none">
+                        <li className="flex flex-col md:flex-row items-center md:items-start gap-4">
+                            <div className="bg-white/5 p-3 rounded-xl border border-white/10 shrink-0">
                                 <Phone size={20} className="text-accent" />
                             </div>
-                            <div>
-                                <p className="text-[10px] text-milk-white/40 uppercase font-black mb-1 tracking-widest">Whatsapp</p>
-                                <span className="text-milk-white text-lg font-bold">+880 1618 562 844</span>
+                            <div className="flex flex-col items-center md:items-start">
+                                <p className="text-[10px] text-milk-white/40 uppercase font-black mb-1 tracking-widest">WhatsApp</p>
+                                <span className="text-milk-white text-base sm:text-lg font-black tracking-tight">+880 1618 562 844</span>
                             </div>
                         </li>
-                        <li className="flex items-start gap-4">
-                            <div className="bg-milk-white/10 p-2.5 rounded-xl border border-white/5">
+                        <li className="flex flex-col md:flex-row items-center md:items-start gap-4">
+                            <div className="bg-white/5 p-3 rounded-xl border border-white/10 shrink-0">
                                 <Mail size={20} className="text-accent" />
                             </div>
-                            <div>
+                            <div className="flex flex-col items-center md:items-start">
                                 <p className="text-[10px] text-milk-white/40 uppercase font-black mb-1 tracking-widest">Email Us</p>
-                                <span className="text-milk-white">coconuttreatsmore@gmail.com</span>
+                                <span className="text-milk-white text-sm sm:text-base font-bold break-all">coconuttreatsmore@gmail.com</span>
                             </div>
                         </li>
-                        <li className="flex items-start gap-4">
-                            <div className="bg-milk-white/10 p-2.5 rounded-xl border border-white/5">
+                        <li className="flex flex-col md:flex-row items-center md:items-start gap-4">
+                            <div className="bg-white/5 p-3 rounded-xl border border-white/10 shrink-0">
                                 <MapPin size={20} className="text-accent" />
                             </div>
-                            <div>
+                            <div className="flex flex-col items-center md:items-start">
                                 <p className="text-[10px] text-milk-white/40 uppercase font-black mb-1 tracking-widest">Location</p>
-                                <span className="text-milk-white">Extension Pallabi, Gate no 4, Mirpur, 1216 Dhaka</span>
+                                <span className="text-milk-white text-sm font-bold">Extension Pallabi, Gate 4, Mirpur, Dhaka</span>
                             </div>
                         </li>
                     </ul>
