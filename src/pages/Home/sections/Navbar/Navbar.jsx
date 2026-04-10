@@ -3,7 +3,7 @@ import { ShoppingCart } from "lucide-react";
 
 const Navbar = () => {
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-milk-white/80 backdrop-blur-md border-b border-secondary/20">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-milk-white border-b border-secondary/20 shadow-sm">
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     <span className="text-2xl font-bold text-primary">Coconut<span className="text-accent">Treats&More</span></span>
@@ -11,7 +11,6 @@ const Navbar = () => {
 
                 <div className="hidden md:flex items-center gap-8 text-husk font-medium">
                     <a href="#" className="hover:text-primary transition-colors">Home</a>
-                    <a href="#products" className="hover:text-primary transition-colors">Products</a>
                     <a href="#reviews" className="hover:text-primary transition-colors">Reviews</a>
                 </div>
 

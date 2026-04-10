@@ -58,11 +58,11 @@ const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="relative"
                 >
-                    <div className="absolute -inset-4 bg-secondary/10 rounded-full blur-3xl -z-10"></div>
+                    <div className="absolute -inset-4 bg-secondary/5 rounded-full -z-10"></div>
                     <img
                         src={puddingImg}
                         alt="Delicious Coconut Pudding"
-                        className="w-full h-auto drop-shadow-2xl rounded-3xl"
+                        className="w-full h-auto shadow-2xl rounded-3xl"
                     />
                     <motion.div
                         animate={{ y: [0, -10, 0] }}
