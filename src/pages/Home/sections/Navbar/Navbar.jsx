@@ -14,10 +14,10 @@ const Navbar = () => {
                     <a href="#reviews" className="hover:text-primary transition-colors">Reviews</a>
                 </div>
 
-                <button className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-husk font-bold py-2 px-6 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-accent/20">
+                <a href="#order" className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-husk font-bold py-2 px-6 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-accent/20">
                     <ShoppingCart size={20} />
                     <span>Quick Order</span>
-                </button>
+                </a>
             </div>
         </nav>
     );

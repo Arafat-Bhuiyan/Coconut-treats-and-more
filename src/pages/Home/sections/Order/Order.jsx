@@ -115,18 +115,18 @@ _Please confirm my order!_`;
                             <div className="space-y-4 pt-2">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     {/* bKash Option */}
-                                    <div className="bg-primary/5 p-4 rounded-2xl border border-primary/10 flex flex-col justify-center">
-                                        <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-2">Option 1: bKash Payment</p>
-                                        <p className="text-xs text-husk/80 leading-relaxed font-bold">
+                                    <div className="bg-primary/5 p-5 rounded-2xl border border-primary/10 flex flex-col justify-center">
+                                        <p className="text-xs font-black text-primary uppercase tracking-widest mb-2">Option 1: bKash Payment</p>
+                                        <p className="text-sm md:text-base text-husk/80 leading-relaxed font-bold">
                                             Send money to <span className="text-primary font-black">+8801618562844</span> (Personal).
                                             Write <span className="text-husk font-black">TrxID</span> & <span className="text-husk font-black">Number</span> in note.
                                         </p>
                                     </div>
 
                                     {/* COD Option */}
-                                    <div className="bg-accent/10 p-4 rounded-2xl border border-accent/20 flex flex-col justify-center">
-                                        <p className="text-[10px] font-black text-accent-dark uppercase tracking-widest mb-2">Option 2: Cash on Delivery</p>
-                                        <p className="text-xs text-husk/80 leading-relaxed font-bold">
+                                    <div className="bg-accent/10 p-5 rounded-2xl border border-accent/20 flex flex-col justify-center">
+                                        <p className="text-xs font-black text-accent-dark uppercase tracking-widest mb-2">Option 2: Cash on Delivery</p>
+                                        <p className="text-sm md:text-base text-husk/80 leading-relaxed font-bold">
                                             If you prefer COD, simply write <span className="text-accent-dark font-black">"Cash on Delivery"</span> in the order note below.
                                         </p>
                                     </div>

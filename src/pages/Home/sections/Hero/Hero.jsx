@@ -34,9 +34,9 @@ const Hero = () => {
                         </p>
                     </div>
                     <div className="flex flex-wrap gap-4">
-                        <button className="bg-primary hover:bg-primary/90 text-milk-white font-bold py-4 px-8 rounded-xl transition-all shadow-xl shadow-primary/20">
-                            Order Now on WhatsApp
-                        </button>
+                        <a href="#order" className="inline-block bg-primary hover:bg-primary/90 text-milk-white font-bold py-4 px-8 rounded-xl transition-all shadow-xl shadow-primary/20 text-center">
+                            Order Now
+                        </a>
                         <div className="flex items-center gap-3 px-4">
                             <div className="flex -space-x-2">
                                 {[1, 2, 3, 4].map((i) => (
