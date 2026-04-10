@@ -31,7 +31,7 @@ const Hero = () => {
                         </p>
                         
                         <div className="text-sm sm:text-base text-husk/80 border-l-4 border-accent pl-4 space-y-1 inline-block text-left">
-                            <p><span className="font-black text-husk">Top layer:</span> Refreshing coconut water & chunks</p>
+                            <p><span className="font-black text-husk">Top layer:</span> Refreshing coconut water & coconut chunks</p>
                             <p><span className="font-black text-husk">Bottom layer:</span> Rich, creamy cow milk.</p>
                         </div>
                     </div>
