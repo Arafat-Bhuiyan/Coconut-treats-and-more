@@ -122,10 +122,10 @@ _Please confirm my order!_`;
               <div className="space-y-4 pt-2">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div className="bg-primary/5 p-4 rounded-xl sm:rounded-2xl border border-primary/10 flex flex-col justify-center">
-                    <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1.5">
+                    <p className="text-sm font-black text-primary uppercase tracking-widest mb-1.5">
                       Option 1: bKash
                     </p>
-                    <p className="text-[11px] sm:text-xs text-husk font-bold leading-relaxed">
+                    <p className="text-base sm:text-base text-husk font-bold leading-relaxed">
                       Send money to <span className="text-primary font-black">+8801618562844</span>.
                       Write{" "}
                       <span className="underline decoration-primary/30 underline-offset-2">
@@ -136,10 +136,10 @@ _Please confirm my order!_`;
                   </div>
 
                   <div className="bg-accent/10 p-4 rounded-xl sm:rounded-2xl border border-accent/20 flex flex-col justify-center">
-                    <p className="text-[10px] font-black text-accent-dark uppercase tracking-widest mb-1.5">
+                    <p className="text-sm font-black text-accent-dark uppercase tracking-widest mb-1.5">
                       Option 2: COD
                     </p>
-                    <p className="text-[11px] sm:text-xs text-husk font-bold leading-relaxed">
+                    <p className="text-base sm:text-base text-husk font-bold leading-relaxed">
                       Prefer COD? Write{" "}
                       <span className="text-accent-dark font-black">"Cash on Delivery"</span> in the
                       note.
