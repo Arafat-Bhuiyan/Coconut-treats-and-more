@@ -85,8 +85,8 @@ const Testimonials = () => {
                             <div>
                                 <h4 className="text-xl sm:text-2xl md:text-3xl font-black mb-1">Buy More, Save More!</h4>
                                 <p className="text-sm sm:text-base md:text-lg text-white/90 max-w-xl font-medium leading-relaxed">
-                                    Order 5 or more boxes to unlock the <span className="text-accent font-bold">৳570/box</span> offer. 
-                                    You're saving ৳30 per box!
+                                    Order 10 or more boxes to unlock the <span className="text-accent font-bold">৳550/box</span> offer. 
+                                    You're saving ৳20 per box!
                                 </p>
                             </div>
                         </div>
