@@ -13,11 +13,11 @@ const Order = () => {
     agree: true
   });
 
-  const basePrice = 570;
-  const offerPrice = 550;
+  const basePrice = 600;
+  const offerPrice = 570;
   const deliveryCharge = 80;
 
-  const unitPrice = quantity >= 10 ? offerPrice : basePrice;
+  const unitPrice = quantity >= 5 ? offerPrice : basePrice;
   const totalProductPrice = quantity * unitPrice;
   const totalOrderAmount = totalProductPrice + deliveryCharge;
 
@@ -245,7 +245,7 @@ _Please confirm my order!_`;
                   <span>৳{deliveryCharge}</span>
                 </div>
 
-                {quantity >= 10 && (
+                {quantity >= 5 && (
                   <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -255,7 +255,7 @@ _Please confirm my order!_`;
                       <CheckCircle size={12} /> BULK OFFER
                     </span>
                     <span className="text-xs font-black text-accent-dark">
-                      - ৳{quantity * 20} Saved
+                      - ৳{quantity * 30} Saved
                     </span>
                   </motion.div>
                 )}
@@ -273,10 +273,13 @@ _Please confirm my order!_`;
                 <CheckCircle className="text-accent" size={24} />
               </div>
               <div>
-                <h4 className="font-black text-sm sm:text-base leading-tight">
+                <h4 className="font-black text-base sm:text-lg leading-tight">
                   Buy More, Save More!
                 </h4>
-                <p className="text-xs text-white/80 mt-1">৳550/box for 10+ orders</p>
+                <p className="text-sm text-white/80 mt-1">
+                  Order 5 or more boxes to unlock the ৳570/box offer.
+                  <br /> You're saving ৳30 per box!
+                </p>
               </div>
             </div>
           </motion.div>
