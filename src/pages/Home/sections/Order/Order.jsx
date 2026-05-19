@@ -53,6 +53,18 @@ const Order = () => {
 _Please confirm my order!_`;
 
     const encodedMessage = encodeURIComponent(message);
+    
+    // Facebook Pixel Purchase Tracking
+    if (window.fbq) {
+      window.fbq('track', 'Purchase', {
+        value: totalOrderAmount,
+        currency: 'BDT',
+        content_name: 'Premium Coconut Pudding (6pc Box)',
+        content_type: 'product',
+        num_items: quantity,
+      });
+    }
+
     window.open(`https://wa.me/8801618562844?text=${encodedMessage}`, "_blank");
   };
 
