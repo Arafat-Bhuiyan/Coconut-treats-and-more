@@ -51,6 +51,10 @@ const OrderSuccessPopup = ({ isOpen, onClose, customerName }) => {
               <p className="text-sm text-husk/70 leading-relaxed font-medium mb-6">
                 Thank you <span className="font-bold text-primary">{customerName || "Customer"}</span>! 
                 Your order has been received successfully. We will process it shortly.
+                <br />
+                <span className="block mt-2 text-primary font-bold text-xs sm:text-sm">
+                  আপনার ডেলিভারি ডেট আপনাকে আপনার মোবাইলে SMS বা WhatsApp-এ জানিয়ে দেওয়া হবে।
+                </span>
               </p>
 
               <button

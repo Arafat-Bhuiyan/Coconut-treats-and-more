@@ -58,17 +58,6 @@ const Order = ({ quantity, setQuantity }) => {
       Total_Amount: `৳${totalOrderAmount}`
     };
     
-    // Facebook Pixel Purchase Tracking
-    if (window.fbq) {
-      window.fbq('track', 'Purchase', {
-        value: totalOrderAmount,
-        currency: 'BDT',
-        content_name: 'Premium Coconut Pudding (6pc Box)',
-        content_type: 'product',
-        num_items: quantity,
-      });
-    }
-
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -80,6 +69,17 @@ const Order = ({ quantity, setQuantity }) => {
       });
 
       if (response.ok) {
+        // Facebook Pixel Purchase Tracking (Only fire when order is successful)
+        if (window.fbq) {
+          window.fbq('track', 'Purchase', {
+            value: totalOrderAmount,
+            currency: 'BDT',
+            content_name: 'Premium Coconut Pudding (6pc Box)',
+            content_type: 'product',
+            num_items: quantity,
+          });
+        }
+
         setSubmittedName(formData.name);
         setShowSuccess(true);
         // Reset form
