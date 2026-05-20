@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Send, Minus, Plus, Trash2, CheckCircle } from "lucide-react";
+import { Send, Minus, Plus, Trash2, CheckCircle, Loader2 } from "lucide-react";
 import productImg from "../../../../assets/images/coconuts-treats-more-hero.jpeg";
+import OrderSuccessPopup from "./OrderSuccessPopup";
 
 const Order = ({ quantity, setQuantity }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [submittedName, setSubmittedName] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -28,7 +32,7 @@ const Order = ({ quantity, setQuantity }) => {
     }));
   };
 
-  const handleOrder = (e) => {
+  const handleOrder = async (e) => {
     e.preventDefault();
 
     if (!formData.name || !formData.phone || !formData.address) {
@@ -36,22 +40,23 @@ const Order = ({ quantity, setQuantity }) => {
       return;
     }
 
-    const message = `*New Order from Website*
-*Customer:* ${formData.name}
-*Phone:* ${formData.phone}
-*Address:* ${formData.address}
-*Note:* ${formData.note || "N/A"}
--------------------------
-*Item:* Premium Coconut Pudding (6pc Box)
-*Quantity:* ${quantity} Box(es)
-*Unit Price:* ৳${unitPrice}
-*Product Total:* ৳${totalProductPrice}
-*Delivery:* ৳${deliveryCharge}
-*Total Amount:* ৳${totalOrderAmount}
--------------------------
-_Please confirm my order!_`;
+    setIsSubmitting(true);
 
-    const encodedMessage = encodeURIComponent(message);
+    const emailPayload = {
+      access_key: "d8812e1d-78ce-4959-8fe1-4430144dd80d",
+      subject: "New Order from Website",
+      from_name: formData.name,
+      Customer: formData.name,
+      Phone: formData.phone,
+      Address: formData.address,
+      Note: formData.note || "N/A",
+      Product: "Premium Coconut Pudding (6pc Box)",
+      Quantity: `${quantity} Box(es)`,
+      Unit_Price: `৳${unitPrice}`,
+      Product_Total: `৳${totalProductPrice}`,
+      Delivery_Charge: `৳${deliveryCharge}`,
+      Total_Amount: `৳${totalOrderAmount}`
+    };
     
     // Facebook Pixel Purchase Tracking
     if (window.fbq) {
@@ -64,7 +69,37 @@ _Please confirm my order!_`;
       });
     }
 
-    window.open(`https://wa.me/8801618562844?text=${encodedMessage}`, "_blank");
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(emailPayload)
+      });
+
+      if (response.ok) {
+        setSubmittedName(formData.name);
+        setShowSuccess(true);
+        // Reset form
+        setFormData({
+          name: "",
+          phone: "",
+          address: "",
+          note: "",
+          agree: true
+        });
+        setQuantity(1);
+      } else {
+        alert("Failed to submit order. Please try again or contact us directly.");
+      }
+    } catch (error) {
+      console.error("Order submission error:", error);
+      alert("Something went wrong. Please check your internet connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -193,9 +228,17 @@ _Please confirm my order!_`;
 
               <button
                 type="submit"
-                className="w-full bg-primary hover:bg-primary-dark text-white font-black text-lg py-5 rounded-xl sm:rounded-2xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-primary/30 transform active:scale-[0.98]"
+                disabled={isSubmitting}
+                className="w-full bg-primary hover:bg-primary-dark text-white font-black text-lg py-5 rounded-xl sm:rounded-2xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-primary/30 transform active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                CONFIRM ORDER
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="animate-spin" size={24} />
+                    PROCESSING...
+                  </>
+                ) : (
+                  "CONFIRM ORDER"
+                )}
               </button>
             </form>
           </motion.div>
@@ -296,6 +339,12 @@ _Please confirm my order!_`;
           </motion.div>
         </div>
       </div>
+      
+      <OrderSuccessPopup 
+        isOpen={showSuccess} 
+        onClose={() => setShowSuccess(false)} 
+        customerName={submittedName} 
+      />
     </section>
   );
 };

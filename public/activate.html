@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate Email for Order System</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f8fafc; margin: 0; }
+        .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 400px; }
+        h1 { color: #4A6741; margin-top: 0; }
+        p { color: #555; line-height: 1.6; }
+        button { background: #4A6741; color: white; border: none; padding: 15px 30px; font-size: 18px; font-weight: bold; border-radius: 10px; cursor: pointer; transition: 0.3s; margin-top: 20px; width: 100%; }
+        button:hover { background: #3a5233; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Activate Order System</h1>
+        <p>Because this is your first time receiving orders directly to <b>coconuttreatsmore@gmail.com</b>, you need to verify it.</p>
+        <p>Click the button below. You will be redirected to a verification page, and an email will be sent to your inbox.</p>
+        
+        <form action="https://formsubmit.co/coconuttreatsmore@gmail.com" method="POST">
+            <!-- Hidden inputs to make it a valid submission -->
+            <input type="hidden" name="name" value="Activation Test">
+            <input type="hidden" name="message" value="This is to activate my email.">
+            <button type="submit">Send Activation Email</button>
+        </form>
+    </div>
+</body>
+</html>
