@@ -5,6 +5,7 @@ import Testimonials from "./sections/Testimonials/Testimonials";
 import Order from "./sections/Order/Order";
 import Footer from "./sections/Footer/Footer";
 import PromotionPopup from "./sections/Hero/PromotionPopup";
+import WhatsAppButton from "../../components/WhatsAppButton";
 
 export const Home = () => {
   const [quantity, setQuantity] = useState(1);
@@ -46,6 +47,7 @@ export const Home = () => {
         onClose={() => setShowPromo(false)}
         onClaim={claimOffer}
       />
+      <WhatsAppButton />
     </div>
   );
 };
