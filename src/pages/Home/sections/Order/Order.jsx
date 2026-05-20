@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import { Send, Minus, Plus, Trash2, CheckCircle } from "lucide-react";
 import productImg from "../../../../assets/images/coconuts-treats-more-hero.jpeg";
 
-const Order = () => {
-  const [quantity, setQuantity] = useState(1);
+const Order = ({ quantity, setQuantity }) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -14,10 +13,10 @@ const Order = () => {
   });
 
   const basePrice = 600;
-  const offerPrice = 570;
+  const offerPrice = 540;
   const deliveryCharge = 80;
 
-  const unitPrice = quantity >= 5 ? offerPrice : basePrice;
+  const unitPrice = quantity >= 2 ? offerPrice : basePrice;
   const totalProductPrice = quantity * unitPrice;
   const totalOrderAmount = totalProductPrice + deliveryCharge;
 
@@ -257,7 +256,7 @@ _Please confirm my order!_`;
                   <span>৳{deliveryCharge}</span>
                 </div>
 
-                {quantity >= 5 && (
+                {quantity >= 2 && (
                   <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -267,7 +266,7 @@ _Please confirm my order!_`;
                       <CheckCircle size={12} /> BULK OFFER
                     </span>
                     <span className="text-xs font-black text-accent-dark">
-                      - ৳{quantity * 30} Saved
+                      - ৳{quantity * 60} Saved
                     </span>
                   </motion.div>
                 )}
@@ -289,8 +288,8 @@ _Please confirm my order!_`;
                   Buy More, Save More!
                 </h4>
                 <p className="text-sm text-white/80 mt-1">
-                  Order 5 or more boxes to unlock the ৳570/box offer.
-                  <br /> You're saving ৳30 per box!
+                  Order 2 or more boxes to unlock the ৳540/box offer.
+                  <br /> You're saving ৳60 per box!
                 </p>
               </div>
             </div>

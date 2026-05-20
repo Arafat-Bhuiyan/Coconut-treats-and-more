@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import puddingImg from "../../../../assets/images/coconuts-treats-more-hero.jpeg";
 import logo from "../../../../assets/images/coconuts-treats-more-logo.png";
 
-const Hero = () => {
+const Hero = ({ onOpenPromo }) => {
   return (
     <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 min-h-[90vh] md:min-h-screen flex items-center bg-milk-white overflow-hidden">
       <div className="container mx-auto grid md:grid-cols-2 gap-10 md:gap-12 items-center">
@@ -13,12 +13,38 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className="text-center md:text-left order-2 md:order-1"
         >
-          {/* Logo - Hidden on tiny screens, smaller on mobile */}
-          <img
-            src={logo}
-            alt="Logo"
-            className="w-[8rem] h-[8rem] sm:w-[12rem] sm:h-[12rem] mx-auto md:mx-0 mb-4 sm:mb-6"
-          />
+          <div className="flex flex-col sm:flex-row items-center gap-8 sm:gap-14 md:gap-16 mb-8 justify-center md:justify-start w-full">
+            {/* Logo */}
+            <img
+              src={logo}
+              alt="Logo"
+              className="w-[8rem] h-[8rem] sm:w-[9.5rem] sm:h-[9.5rem] object-contain flex-shrink-0"
+            />
+            
+            {/* Coupon Promo Card Next to Logo */}
+            <div className="bg-[#FAF9F5] border-2 border-dashed border-accent rounded-[1.8rem] p-5 max-w-[300px] sm:max-w-[350px] text-left shadow-xl shadow-primary/5 transform hover:scale-[1.03] transition-all duration-300 relative">
+              {/* Little ticket semi-circle cutouts on left/right edges */}
+              <div className="absolute top-1/2 -left-3 -translate-y-1/2 w-5 h-5 rounded-full bg-milk-white border-r-2 border-dashed border-accent" />
+              <div className="absolute top-1/2 -right-3 -translate-y-1/2 w-5 h-5 rounded-full bg-milk-white border-l-2 border-dashed border-accent" />
+
+              <div className="flex items-center gap-2 mb-2.5">
+                <span className="bg-accent text-husk text-[10px] sm:text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider shadow-sm">
+                  🔥 BULK DEAL
+                </span>
+                <span className="text-xs sm:text-sm font-black text-primary animate-pulse flex items-center gap-1">
+                  Save ৳60 / box
+                </span>
+              </div>
+              <h4 className="font-black text-husk text-base sm:text-lg leading-tight">
+                Buy More, Save More!
+              </h4>
+              <p className="text-xs sm:text-sm text-husk mt-2 leading-relaxed font-bold">
+                Order <span className="text-primary font-black underline underline-offset-4 decoration-accent/60">2 or more boxes</span> to unlock the <span className="text-primary font-black underline underline-offset-4 decoration-accent/60">৳540/box</span> offer.
+                <br />
+                You're saving <span className="text-accent-dark font-black bg-accent/20 px-2 py-0.5 rounded inline-block mt-1 shadow-sm">৳60 per box</span>!
+              </p>
+            </div>
+          </div>
 
           <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/20 text-primary font-black text-xs sm:text-sm mb-6 uppercase tracking-wider">
             🌿 100% Natural Ingredients
@@ -48,14 +74,25 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-6 justify-center md:justify-start">
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 justify-center md:justify-start">
             <a
               href="#order"
               className="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white font-black py-4 px-10 rounded-2xl transition-all shadow-2xl shadow-primary/30 text-center text-lg transform hover:-translate-y-1"
             >
               Order Now
             </a>
-            <div className="flex items-center gap-3">
+            
+            {/* Glowing Promo Badge Trigger */}
+            <button
+              onClick={onOpenPromo}
+              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-accent to-accent/90 hover:from-accent-dark hover:to-accent text-husk font-black py-4 px-6 rounded-2xl transition-all shadow-xl shadow-accent/20 text-center text-base border-2 border-accent/40 transform hover:-translate-y-1 active:scale-[0.98] group relative overflow-hidden cursor-pointer"
+            >
+              <span className="absolute inset-0 bg-white/10 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+              <span className="animate-pulse">🎁</span>
+              <span>Claim Bulk Offer</span>
+            </button>
+
+            <div className="flex items-center gap-3 mt-2 sm:mt-0">
               <div className="flex -space-x-2">
                 {[1, 2, 3, 4].map((i) => (
                   <div
