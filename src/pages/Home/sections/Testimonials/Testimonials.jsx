@@ -72,30 +72,50 @@ const Testimonials = () => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="bg-primary p-6 sm:p-8 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] text-white overflow-hidden relative shadow-2xl"
+                    className="bg-gradient-to-br from-primary via-primary to-accent p-6 sm:p-8 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] text-white overflow-hidden relative shadow-2xl border-2 border-white/10"
                 >
                     <div className="absolute top-0 right-0 p-8 opacity-10 rotate-12 hidden sm:block">
                         <Gift size={120} />
                     </div>
                     
-                    <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8">
+                    <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8">
                         <div className="flex items-center gap-4 sm:gap-6 text-center md:text-left flex-col md:flex-row">
-                            <div className="bg-white/20 p-3 sm:p-4 rounded-2xl sm:rounded-3xl backdrop-blur-sm">
-                                <Sparkles className="text-accent" size={28} sm:size={32} />
+                            <div className="bg-white/15 p-4 rounded-2xl sm:rounded-3xl backdrop-blur-md border border-white/20 shadow-lg flex-shrink-0 animate-pulse">
+                                <Sparkles className="text-[#FEF9C3]" size={30} sm:size={34} />
                             </div>
-                            <div>
-                                <h4 className="text-xl sm:text-2xl md:text-3xl font-black mb-1">Buy More, Save More!</h4>
-                                <p className="text-sm sm:text-base md:text-lg text-white/90 max-w-xl font-medium leading-relaxed">
-                                    Order 2 or more boxes to unlock the <span className="text-accent font-bold">৳540/box</span> offer. 
-                                    You're saving ৳60 per box!
+                            <div className="space-y-3">
+                                <div className="flex flex-wrap items-center justify-center md:justify-start gap-2.5">
+                                    <h4 className="text-2xl sm:text-3xl font-black tracking-tight text-white drop-shadow-md">
+                                        Buy More, Save More!
+                                    </h4>
+                                    <span className="bg-[#FEF9C3] text-amber-900 text-[10px] sm:text-xs font-black px-3 py-1.5 rounded-lg uppercase tracking-wider shadow-md animate-pulse">
+                                        🎁 SUPER SAVER
+                                    </span>
+                                </div>
+                                
+                                <p className="text-sm sm:text-base md:text-lg text-white/95 max-w-2xl font-extrabold leading-relaxed text-center md:text-left">
+                                    Order{" "}
+                                    <span className="bg-white text-primary font-black px-2.5 py-0.5 rounded-lg shadow-sm whitespace-nowrap inline-block transform hover:scale-105 transition-transform">
+                                        2 or more boxes
+                                    </span>{" "}
+                                    to unlock the{" "}
+                                    <span className="bg-[#FEF9C3] text-amber-950 font-black px-2.5 py-0.5 rounded-lg shadow-sm border border-amber-300 whitespace-nowrap inline-block transform hover:scale-105 transition-transform">
+                                        ৳540/box
+                                    </span>{" "}
+                                    offer.
+                                    <span className="block sm:inline-block mt-2 sm:mt-0 sm:ml-2.5 bg-accent text-husk font-black px-3.5 py-1 rounded-xl shadow-md transform hover:scale-105 transition-transform">
+                                        ✨ Saving ৳60 per box!
+                                    </span>
                                 </p>
                             </div>
                         </div>
                         <a 
                             href="#order" 
-                            className="w-full md:w-auto bg-accent hover:bg-accent/90 text-husk px-8 sm:px-10 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl font-black text-base sm:text-lg transition-all transform hover:scale-105 shadow-xl shadow-accent/20 whitespace-nowrap text-center"
+                            className="w-full lg:w-auto bg-accent hover:bg-accent/95 text-husk px-10 py-4.5 rounded-2xl font-black text-lg transition-all transform hover:scale-[1.03] active:scale-[0.98] shadow-2xl shadow-accent/35 whitespace-nowrap text-center border-2 border-white/25 flex items-center justify-center gap-2 group relative overflow-hidden"
                         >
-                            Order Now
+                            <span className="absolute inset-0 bg-white/20 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+                            <span>Order Now</span>
+                            <span className="group-hover:translate-x-1 transition-transform">➔</span>
                         </a>
                     </div>
                 </motion.div>
