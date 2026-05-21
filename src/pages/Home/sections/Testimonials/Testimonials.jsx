@@ -56,6 +56,7 @@ const Testimonials = () => {
                             src={img}
                             alt={`Review ${idx}`}
                             className="w-full h-auto object-cover pointer-events-none"
+                            loading="lazy"
                         />
                     </div>
                 ))}

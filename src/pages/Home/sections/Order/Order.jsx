@@ -275,7 +275,7 @@ const Order = ({ quantity, setQuantity }) => {
               {/* Product Info Row */}
               <div className="flex gap-4 items-center pb-6 border-b border-dashed">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 bg-slate-50 rounded-xl overflow-hidden border">
-                  <img src={productImg} alt="Product" className="w-full h-full object-cover" />
+                  <img src={productImg} alt="Product" className="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <div className="flex-grow">
                   <h4 className="font-bold text-husk text-xs sm:text-sm leading-tight">

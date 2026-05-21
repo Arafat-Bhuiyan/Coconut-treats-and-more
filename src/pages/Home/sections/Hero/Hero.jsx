@@ -19,6 +19,7 @@ const Hero = ({ onOpenPromo }) => {
               src={logo}
               alt="Logo"
               className="w-[8rem] h-[8rem] sm:w-[9.5rem] sm:h-[9.5rem] object-contain flex-shrink-0"
+              fetchpriority="high"
             />
             
             {/* Coupon Promo Card Next to Logo */}
@@ -103,6 +104,7 @@ const Hero = ({ onOpenPromo }) => {
                       src={`https://i.pravatar.cc/100?u=${i}`}
                       alt="user"
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   </div>
                 ))}
@@ -125,6 +127,7 @@ const Hero = ({ onOpenPromo }) => {
             src={puddingImg}
             alt="Delicious Coconut Pudding"
             className="w-full h-auto shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] rounded-[2.5rem] sm:rounded-[4rem]"
+            fetchpriority="high"
           />
 
           {/* Floating Badge */}
