@@ -23,28 +23,38 @@ const Hero = ({ onOpenPromo }) => {
             />
             
             {/* Coupon Promo Card Next to Logo */}
-            <div className="bg-gradient-to-br from-white/95 via-white/80 to-accent/20 backdrop-blur-md border-2 border-dashed border-accent/80 rounded-[1.8rem] p-5 max-w-[300px] sm:max-w-[350px] text-left shadow-[0_20px_50px_rgba(235,191,82,0.15)] hover:shadow-[0_20px_50px_rgba(235,191,82,0.3)] transform hover:scale-[1.03] transition-all duration-300 relative">
-              {/* Ticket cutouts styled with glass compatibility */}
-              <div className="absolute top-1/2 -left-3 -translate-y-1/2 w-6 h-6 rounded-full bg-milk-white border-r-2 border-dashed border-accent/80" />
-              <div className="absolute top-1/2 -right-3 -translate-y-1/2 w-6 h-6 rounded-full bg-milk-white border-l-2 border-dashed border-accent/80" />
+            <div className="bg-gradient-to-br from-white/80 via-white/55 to-accent/20 backdrop-blur-xl border-2 border-white/90 rounded-[2.2rem] p-5 sm:p-6 max-w-[310px] sm:max-w-[360px] text-left shadow-[0_20px_50px_rgba(74,103,65,0.18)] hover:shadow-[0_25px_60px_rgba(151,188,98,0.35)] transform hover:scale-[1.03] transition-all duration-300 relative">
+              {/* Ticket cutouts aligned with the dashed tear line */}
+              <div className="absolute top-[43%] -left-3.5 -translate-y-1/2 w-7 h-7 rounded-full bg-milk-white border-r-2 border-white/90 z-10" />
+              <div className="absolute top-[43%] -right-3.5 -translate-y-1/2 w-7 h-7 rounded-full bg-milk-white border-l-2 border-white/90 z-10" />
 
-              <div className="flex items-center gap-2 mb-3">
-                <span className="bg-primary text-white text-[10px] sm:text-xs font-black px-3 py-1.5 rounded-lg uppercase tracking-wider shadow-md shadow-primary/20">
-                  🔥 BULK DEAL
-                </span>
-                <span className="text-xs sm:text-sm font-black text-primary animate-pulse bg-white/80 px-2 py-1 rounded-md border border-primary/10 shadow-sm flex items-center gap-1">
-                  Save ৳60 / box
+              {/* Upper Section of Coupon */}
+              <div className="pb-3.5">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="bg-primary text-white text-[10px] sm:text-xs font-black px-3 py-1.5 rounded-lg uppercase tracking-wider shadow-md shadow-primary/20">
+                    🔥 BULK DEAL
+                  </span>
+                  <span className="text-[11px] sm:text-xs font-black text-amber-800 bg-[#FEF9C3] px-2.5 py-1.5 rounded-lg border border-amber-300/60 shadow-sm animate-pulse flex items-center gap-1">
+                    Save ৳60 / box
+                  </span>
+                </div>
+                <h4 className="font-black text-husk text-lg sm:text-xl leading-tight tracking-tight drop-shadow-sm">
+                  Buy More, Save More!
+                </h4>
+              </div>
+
+              {/* Horizontal Tear Line */}
+              <div className="border-t-2 border-dashed border-accent/40 -mx-5 sm:-mx-6 mb-3.5" />
+
+              {/* Lower Section of Coupon */}
+              <div className="space-y-3">
+                <p className="text-xs sm:text-sm text-husk leading-relaxed font-extrabold">
+                  Order <span className="bg-primary text-white font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap">2 or more boxes</span> to unlock the <span className="bg-accent text-husk font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap border border-accent/30">৳540/box</span> offer.
+                </p>
+                <span className="block text-husk bg-gradient-to-r from-accent to-accent/80 border border-white/60 font-black px-3 py-2 rounded-xl text-xs sm:text-sm shadow-md inline-flex items-center gap-1.5 w-full justify-center transform hover:scale-[1.02] transition-transform">
+                  ✨ You're saving ৳60 per box!
                 </span>
               </div>
-              <h4 className="font-extrabold text-primary text-lg sm:text-xl leading-tight tracking-tight mb-2">
-                Buy More, Save More!
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-800 leading-relaxed font-bold">
-                Order <span className="text-primary font-black bg-primary/5 px-1.5 py-0.5 rounded border border-primary/10 whitespace-nowrap">2 or more boxes</span> to unlock the <span className="text-primary font-black bg-primary/5 px-1.5 py-0.5 rounded border border-primary/10 whitespace-nowrap">৳540/box</span> offer.
-                <span className="block mt-2 font-black text-slate-900 bg-accent/40 border border-accent/30 px-2.5 py-1 rounded-xl text-xs sm:text-sm shadow-sm inline-flex items-center gap-1.5">
-                  ✨ Saving ৳60 per box!
-                </span>
-              </p>
             </div>
           </div>
 
