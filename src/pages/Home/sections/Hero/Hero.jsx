@@ -23,26 +23,27 @@ const Hero = ({ onOpenPromo }) => {
             />
             
             {/* Coupon Promo Card Next to Logo */}
-            <div className="bg-[#FAF9F5] border-2 border-dashed border-accent rounded-[1.8rem] p-5 max-w-[300px] sm:max-w-[350px] text-left shadow-xl shadow-primary/5 transform hover:scale-[1.03] transition-all duration-300 relative">
-              {/* Little ticket semi-circle cutouts on left/right edges */}
-              <div className="absolute top-1/2 -left-3 -translate-y-1/2 w-5 h-5 rounded-full bg-milk-white border-r-2 border-dashed border-accent" />
-              <div className="absolute top-1/2 -right-3 -translate-y-1/2 w-5 h-5 rounded-full bg-milk-white border-l-2 border-dashed border-accent" />
+            <div className="bg-gradient-to-br from-white/95 via-white/80 to-accent/20 backdrop-blur-md border-2 border-dashed border-accent/80 rounded-[1.8rem] p-5 max-w-[300px] sm:max-w-[350px] text-left shadow-[0_20px_50px_rgba(235,191,82,0.15)] hover:shadow-[0_20px_50px_rgba(235,191,82,0.3)] transform hover:scale-[1.03] transition-all duration-300 relative">
+              {/* Ticket cutouts styled with glass compatibility */}
+              <div className="absolute top-1/2 -left-3 -translate-y-1/2 w-6 h-6 rounded-full bg-milk-white border-r-2 border-dashed border-accent/80" />
+              <div className="absolute top-1/2 -right-3 -translate-y-1/2 w-6 h-6 rounded-full bg-milk-white border-l-2 border-dashed border-accent/80" />
 
-              <div className="flex items-center gap-2 mb-2.5">
-                <span className="bg-accent text-husk text-[10px] sm:text-xs font-black px-3 py-1 rounded-md uppercase tracking-wider shadow-sm">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="bg-primary text-white text-[10px] sm:text-xs font-black px-3 py-1.5 rounded-lg uppercase tracking-wider shadow-md shadow-primary/20">
                   🔥 BULK DEAL
                 </span>
-                <span className="text-xs sm:text-sm font-black text-primary animate-pulse flex items-center gap-1">
+                <span className="text-xs sm:text-sm font-black text-primary animate-pulse bg-white/80 px-2 py-1 rounded-md border border-primary/10 shadow-sm flex items-center gap-1">
                   Save ৳60 / box
                 </span>
               </div>
-              <h4 className="font-black text-husk text-base sm:text-lg leading-tight">
+              <h4 className="font-extrabold text-primary text-lg sm:text-xl leading-tight tracking-tight mb-2">
                 Buy More, Save More!
               </h4>
-              <p className="text-xs sm:text-sm text-husk mt-2 leading-relaxed font-bold">
-                Order <span className="text-primary font-black underline underline-offset-4 decoration-accent/60">2 or more boxes</span> to unlock the <span className="text-primary font-black underline underline-offset-4 decoration-accent/60">৳540/box</span> offer.
-                <br />
-                You're saving <span className="text-accent-dark font-black bg-accent/20 px-2 py-0.5 rounded inline-block mt-1 shadow-sm">৳60 per box</span>!
+              <p className="text-xs sm:text-sm text-slate-800 leading-relaxed font-bold">
+                Order <span className="text-primary font-black bg-primary/5 px-1.5 py-0.5 rounded border border-primary/10 whitespace-nowrap">2 or more boxes</span> to unlock the <span className="text-primary font-black bg-primary/5 px-1.5 py-0.5 rounded border border-primary/10 whitespace-nowrap">৳540/box</span> offer.
+                <span className="block mt-2 font-black text-slate-900 bg-accent/40 border border-accent/30 px-2.5 py-1 rounded-xl text-xs sm:text-sm shadow-sm inline-flex items-center gap-1.5">
+                  ✨ Saving ৳60 per box!
+                </span>
               </p>
             </div>
           </div>
