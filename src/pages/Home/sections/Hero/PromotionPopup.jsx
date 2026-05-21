@@ -22,7 +22,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 30 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-[#FAF9F5] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-15px_rgba(0,0,0,0.5)] border-2 border-primary/20 z-10"
+            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto no-scrollbar bg-[#FAF9F5] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_-15px_rgba(0,0,0,0.5)] border-2 border-primary/20 z-10"
           >
             {/* Top Close Button - Highly Prominent & Fixed on Modal */}
             <button
