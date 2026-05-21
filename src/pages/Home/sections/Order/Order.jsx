@@ -360,7 +360,7 @@ const Order = ({ quantity, setQuantity }) => {
                 </div>
                 
                 <p className="text-xs sm:text-sm text-husk/80 leading-relaxed font-bold">
-                  Order <span className="bg-primary text-white font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap">2 or more boxes</span> to unlock the <span className="bg-accent text-husk font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap border border-accent/30">৳540/box</span> offer.
+                  Order{" "}<span className="bg-primary text-white font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap">2 or more boxes</span>{" "}to unlock the{" "}<span className="bg-accent text-husk font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap border border-accent/30">৳540/box</span>{" "}offer.
                 </p>
                 
                 <div className="pt-1">
