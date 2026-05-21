@@ -20,6 +20,8 @@ const Hero = ({ onOpenPromo }) => {
               alt="Logo"
               className="w-[8rem] h-[8rem] sm:w-[9.5rem] sm:h-[9.5rem] object-contain flex-shrink-0"
               fetchpriority="high"
+              width={152}
+              height={152}
             />
             
             {/* Coupon Promo Card Next to Logo */}
@@ -139,6 +141,8 @@ const Hero = ({ onOpenPromo }) => {
             alt="Delicious Coconut Pudding"
             className="w-full h-auto shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] rounded-[2.5rem] sm:rounded-[4rem]"
             fetchpriority="high"
+            width={640}
+            height={640}
           />
 
           {/* Floating Badge */}

@@ -275,7 +275,7 @@ const Order = ({ quantity, setQuantity }) => {
               {/* Product Info Row */}
               <div className="flex gap-4 items-center pb-6 border-b border-dashed">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 bg-slate-50 rounded-xl overflow-hidden border">
-                  <img src={productImg} alt="Product" className="w-full h-full object-cover" loading="lazy" />
+                  <img src={productImg} alt="Product" className="w-full h-full object-cover" loading="lazy" width={80} height={80} />
                 </div>
                 <div className="flex-grow">
                   <h4 className="font-bold text-husk text-xs sm:text-sm leading-tight">
@@ -338,19 +338,36 @@ const Order = ({ quantity, setQuantity }) => {
               </div>
             </div>
 
-            {/* Offer Badge - Hidden on mobile */}
-            <div className="hidden md:flex bg-primary p-6 rounded-[2rem] text-white shadow-xl shadow-primary/20 items-center gap-4">
-              <div className="bg-white/10 p-3 rounded-2xl border border-white/20">
-                <CheckCircle className="text-accent" size={24} />
+            {/* Offer Badge */}
+            <div className="flex bg-gradient-to-br from-white/95 via-white/80 to-accent/20 backdrop-blur-xl border-2 border-white/90 p-5 sm:p-6 rounded-[2rem] text-husk shadow-[0_20px_50px_rgba(74,103,65,0.12)] hover:shadow-[0_25px_60px_rgba(151,188,98,0.28)] transition-all duration-300 items-center gap-4 border border-secondary/10 w-full relative overflow-hidden group">
+              {/* Decorative Glass Glow */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-3xl -z-10 group-hover:bg-accent/30 transition-colors duration-500" />
+              
+              {/* Glowing Icon Badge */}
+              <div className="bg-primary/10 p-3 sm:p-4 rounded-2xl border border-primary/15 flex-shrink-0 flex items-center justify-center shadow-inner relative overflow-hidden">
+                <span className="absolute inset-0 bg-white/20 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+                <CheckCircle className="text-primary animate-pulse" size={26} />
               </div>
-              <div>
-                <h4 className="font-black text-base sm:text-lg leading-tight">
-                  Buy More, Save More!
-                </h4>
-                <p className="text-sm text-white/80 mt-1">
-                  Order 2 or more boxes to unlock the ৳540/box offer.
-                  <br /> You're saving ৳60 per box!
+              
+              <div className="space-y-1.5 flex-grow">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h4 className="font-black text-husk text-base sm:text-lg leading-tight tracking-tight">
+                    Buy More, Save More!
+                  </h4>
+                  <span className="bg-[#FEF9C3] text-amber-800 border border-amber-300/50 text-[10px] sm:text-xs font-black px-2 py-0.5 rounded-lg uppercase tracking-wider animate-pulse flex items-center gap-1 shadow-sm">
+                    🔥 ACTIVE DEAL
+                  </span>
+                </div>
+                
+                <p className="text-xs sm:text-sm text-husk/80 leading-relaxed font-bold">
+                  Order <span className="bg-primary text-white font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap">2 or more boxes</span> to unlock the <span className="bg-accent text-husk font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap border border-accent/30">৳540/box</span> offer.
                 </p>
+                
+                <div className="pt-1">
+                  <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-black text-slate-900 bg-accent/30 border border-accent/20 px-2.5 py-1 rounded-xl shadow-sm">
+                    ✨ You're saving ৳60 per box!
+                  </span>
+                </div>
               </div>
             </div>
           </motion.div>
