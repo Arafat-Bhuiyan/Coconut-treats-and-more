@@ -7,11 +7,16 @@ import Footer from "./sections/Footer/Footer";
 import PromotionPopup from "./sections/Hero/PromotionPopup";
 import WhatsAppButton from "../../components/WhatsAppButton";
 
+import { trackFacebookEvent } from "../../utils/facebookTracking";
+
 export const Home = () => {
   const [quantity, setQuantity] = useState(1);
   const [showPromo, setShowPromo] = useState(false);
 
   useEffect(() => {
+    // Dynamic high-deduplication PageView tracking
+    trackFacebookEvent("PageView");
+
     const hasShownPromo = sessionStorage.getItem("hasShownPromo");
     if (!hasShownPromo) {
       const timer = setTimeout(() => {

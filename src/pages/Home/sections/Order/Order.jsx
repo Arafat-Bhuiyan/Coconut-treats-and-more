@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Send, Minus, Plus, Trash2, CheckCircle, Loader2, MapPin } from "lucide-react";
 import productImg from "../../../../assets/images/coconuts-treats-more-hero.jpeg";
 import OrderSuccessPopup from "./OrderSuccessPopup";
+import { trackFacebookEvent } from "../../../../utils/facebookTracking";
 
 const Order = ({ quantity, setQuantity }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -69,16 +70,17 @@ const Order = ({ quantity, setQuantity }) => {
       });
 
       if (response.ok) {
-        // Facebook Pixel Purchase Tracking (Only fire when order is successful)
-        if (window.fbq) {
-          window.fbq('track', 'Purchase', {
-            value: totalOrderAmount,
-            currency: 'BDT',
-            content_name: 'Premium Coconut Pudding (6pc Box)',
-            content_type: 'product',
-            num_items: quantity,
-          });
-        }
+        // High-deduplication Hybrid Purchase Tracking (Browser + Server-side)
+        trackFacebookEvent("Purchase", {
+          value: totalOrderAmount,
+          currency: "BDT",
+          content_name: "Premium Coconut Pudding (6pc Box)",
+          content_type: "product",
+          num_items: quantity,
+        }, {
+          phone: formData.phone,
+          name: formData.name
+        });
 
         setSubmittedName(formData.name);
         setShowSuccess(true);
@@ -360,7 +362,7 @@ const Order = ({ quantity, setQuantity }) => {
                 </div>
                 
                 <p className="text-xs sm:text-sm text-husk/80 leading-relaxed font-bold">
-                  Order{" "}<span className="bg-primary text-white font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap">2 or more boxes</span>{" "}to unlock the{" "}<span className="bg-accent text-husk font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap border border-accent/30">৳540/box</span>{" "}offer.
+                  Order{" "}<span className="bg-primary text-white font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap mx-1.5">2 or more boxes</span>{" "}to unlock the{" "}<span className="bg-accent text-husk font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap border border-accent/30 mx-1.5">৳540/box</span>{" "}offer.
                 </p>
                 
                 <div className="pt-1">

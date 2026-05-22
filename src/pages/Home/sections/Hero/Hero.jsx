@@ -51,7 +51,7 @@ const Hero = ({ onOpenPromo }) => {
               {/* Lower Section of Coupon */}
               <div className="space-y-3">
                 <p className="text-xs sm:text-sm text-husk leading-relaxed font-extrabold">
-                  Order{" "}<span className="bg-primary text-white font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap">2 or more boxes</span>{" "}to unlock the{" "}<span className="bg-accent text-husk font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap border border-accent/30">৳540/box</span>{" "}offer.
+                  Order{" "}<span className="bg-primary text-white font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap mx-1.5">2 or more boxes</span>{" "}to unlock the{" "}<span className="bg-accent text-husk font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap border border-accent/30 mx-1.5">৳540/box</span>{" "}offer.
                 </p>
                 <span className="block text-husk bg-gradient-to-r from-accent to-accent/80 border border-white/60 font-black px-3 py-2 rounded-xl text-xs sm:text-sm shadow-md inline-flex items-center gap-1.5 w-full justify-center transform hover:scale-[1.02] transition-transform">
                   ✨ You're saving ৳60 per box!
