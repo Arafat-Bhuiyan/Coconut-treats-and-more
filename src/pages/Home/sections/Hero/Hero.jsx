@@ -25,48 +25,63 @@ const Hero = ({ onOpenPromo }) => {
             />
             
             {/* Coupon Promo Card Next to Logo */}
-            <div className="bg-gradient-to-br from-white/80 via-white/55 to-accent/20 backdrop-blur-xl border-2 border-white/90 rounded-[2.2rem] p-5 sm:p-6 max-w-[310px] sm:max-w-[360px] text-left shadow-[0_20px_50px_rgba(74,103,65,0.18)] hover:shadow-[0_25px_60px_rgba(151,188,98,0.35)] transform hover:scale-[1.03] transition-all duration-300 relative">
-              {/* Ticket cutouts aligned with the dashed tear line */}
-              <div className="absolute top-[43%] -left-3.5 -translate-y-1/2 w-7 h-7 rounded-full bg-milk-white border-r-2 border-white/90 z-10" />
-              <div className="absolute top-[43%] -right-3.5 -translate-y-1/2 w-7 h-7 rounded-full bg-milk-white border-l-2 border-white/90 z-10" />
+            <div className="relative bg-white rounded-[2rem] max-w-[310px] sm:max-w-[350px] text-left shadow-[0_20px_60px_rgba(74,103,65,0.22)] hover:shadow-[0_30px_70px_rgba(74,103,65,0.32)] transform hover:scale-[1.02] transition-all duration-300 overflow-hidden border border-secondary/10">
+              
+              {/* Top Accent Bar */}
+              <div className="bg-gradient-to-r from-primary via-primary-dark to-primary h-2 w-full" />
 
-              {/* Upper Section of Coupon */}
-              <div className="pb-3.5">
+              {/* Ticket cutouts aligned with the dashed tear line */}
+              <div className="absolute top-[52%] -left-3.5 -translate-y-1/2 w-7 h-7 rounded-full bg-milk-white z-10 shadow-inner" />
+              <div className="absolute top-[52%] -right-3.5 -translate-y-1/2 w-7 h-7 rounded-full bg-milk-white z-10 shadow-inner" />
+
+              {/* Upper Section */}
+              <div className="px-5 sm:px-6 pt-4 pb-4">
+                {/* Badges Row */}
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="bg-primary text-white text-[10px] sm:text-xs font-black px-3 py-1.5 rounded-lg uppercase tracking-wider shadow-md shadow-primary/20">
+                  <span className="bg-primary text-white text-[10px] font-black px-3 py-1.5 rounded-lg uppercase tracking-wider shadow-md shadow-primary/30 flex items-center gap-1">
                     🔥 BULK DEAL
                   </span>
-                  <span className="text-[11px] sm:text-xs font-black text-amber-800 bg-[#FEF9C3] px-2.5 py-1.5 rounded-lg border border-amber-300/60 shadow-sm animate-pulse flex items-center gap-1">
+                  <span className="text-[11px] font-black text-amber-700 bg-amber-50 px-2.5 py-1.5 rounded-lg border border-amber-200 shadow-sm animate-pulse">
                     Save ৳60 / box
                   </span>
                 </div>
-                <h4 className="font-black text-husk text-lg sm:text-xl leading-tight tracking-tight drop-shadow-sm">
+
+                {/* Headline */}
+                <h4 className="font-black text-husk text-xl sm:text-2xl leading-tight tracking-tight mb-1">
                   Buy More, Save More!
                 </h4>
+                <p className="text-xs text-husk/50 font-bold">Special bulk discount offer</p>
               </div>
 
               {/* Horizontal Tear Line */}
-              <div className="border-t-2 border-dashed border-accent/40 -mx-5 sm:-mx-6 mb-3.5" />
+              <div className="border-t-2 border-dashed border-gray-200 mx-5 sm:mx-6 my-1" />
 
-              {/* Lower Section of Coupon */}
-              <div className="space-y-3">
-                <div className="text-xs sm:text-sm text-husk font-extrabold space-y-2 leading-relaxed">
-                  <p>
-                    Order{" "}
-                    <span className="inline-block bg-primary text-white font-black px-2.5 py-1 rounded-lg shadow-sm whitespace-nowrap mx-2">2 or more boxes</span>
-                    {" "}to unlock the offer.
-                  </p>
-                  <p>
-                    Price drops to{" "}
-                    <span className="inline-block bg-accent text-husk font-black px-2.5 py-1 rounded-lg shadow-sm whitespace-nowrap border border-accent/30 mx-2">৳540/box</span>
-                    {" "}automatically!
-                  </p>
+              {/* Lower Section */}
+              <div className="px-5 sm:px-6 pt-4 pb-5 space-y-3">
+                {/* Info Rows */}
+                <div className="space-y-2.5">
+                  <div className="flex items-center gap-3">
+                    <span className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black text-sm flex-shrink-0">📦</span>
+                    <p className="text-xs sm:text-sm text-husk font-bold">
+                      Order <span className="font-black text-primary">2 or more boxes</span> to unlock
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center font-black text-sm flex-shrink-0">💰</span>
+                    <p className="text-xs sm:text-sm text-husk font-bold">
+                      Price drops to <span className="font-black text-primary">৳540/box</span> automatically!
+                    </p>
+                  </div>
                 </div>
-                <span className="block text-husk bg-gradient-to-r from-accent to-accent/80 border border-white/60 font-black px-3 py-2 rounded-xl text-xs sm:text-sm shadow-md inline-flex items-center gap-1.5 w-full justify-center transform hover:scale-[1.02] transition-transform">
-                  ✨ You're saving ৳60 per box!
-                </span>
+
+                {/* Bottom Savings Banner */}
+                <div className="bg-gradient-to-r from-accent/30 to-accent/10 border border-accent/30 rounded-xl px-4 py-2.5 flex items-center justify-center gap-2 mt-1">
+                  <span className="text-lg">✨</span>
+                  <span className="text-sm font-black text-husk">You're saving ৳60 per box!</span>
+                </div>
               </div>
             </div>
+
           </div>
 
           <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/20 text-primary font-black text-xs sm:text-sm mb-6 uppercase tracking-wider">
