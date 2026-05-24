@@ -340,35 +340,49 @@ const Order = ({ quantity, setQuantity }) => {
               </div>
             </div>
 
-            {/* Offer Badge */}
-            <div className="flex bg-gradient-to-br from-white/95 via-white/80 to-accent/20 backdrop-blur-xl border-2 border-white/90 p-5 sm:p-6 rounded-[2rem] text-husk shadow-[0_20px_50px_rgba(74,103,65,0.12)] hover:shadow-[0_25px_60px_rgba(151,188,98,0.28)] transition-all duration-300 items-center gap-4 border border-secondary/10 w-full relative overflow-hidden group">
-              {/* Decorative Glass Glow */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-3xl -z-10 group-hover:bg-accent/30 transition-colors duration-500" />
+            {/* Offer Badge - Premium Redesign */}
+            <div className="relative bg-white rounded-[2rem] w-full overflow-hidden border border-secondary/10 shadow-[0_20px_60px_rgba(74,103,65,0.18)] hover:shadow-[0_30px_70px_rgba(74,103,65,0.28)] transition-all duration-300 group">
               
-              {/* Glowing Icon Badge */}
-              <div className="bg-primary/10 p-3 sm:p-4 rounded-2xl border border-primary/15 flex-shrink-0 flex items-center justify-center shadow-inner relative overflow-hidden">
-                <span className="absolute inset-0 bg-white/20 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
-                <CheckCircle className="text-primary animate-pulse" size={26} />
-              </div>
-              
-              <div className="space-y-1.5 flex-grow">
-                <div className="flex flex-wrap items-center gap-2">
-                  <h4 className="font-black text-husk text-base sm:text-lg leading-tight tracking-tight">
-                    Buy More, Save More!
-                  </h4>
-                  <span className="bg-[#FEF9C3] text-amber-800 border border-amber-300/50 text-[10px] sm:text-xs font-black px-2 py-0.5 rounded-lg uppercase tracking-wider animate-pulse flex items-center gap-1 shadow-sm">
+              {/* Top Green Gradient Bar */}
+              <div className="bg-gradient-to-r from-primary via-primary-dark to-primary h-2 w-full" />
+
+              <div className="p-5 sm:p-6">
+                {/* Header Row */}
+                <div className="flex items-start justify-between gap-3 mb-4">
+                  <div>
+                    <h4 className="font-black text-husk text-xl sm:text-2xl leading-tight tracking-tight">
+                      Buy More, Save More!
+                    </h4>
+                    <p className="text-xs text-husk/50 font-bold mt-0.5">Special bulk discount offer</p>
+                  </div>
+                  <span className="flex-shrink-0 bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-black px-2.5 py-1.5 rounded-xl uppercase tracking-wider animate-pulse flex items-center gap-1 shadow-sm">
                     🔥 ACTIVE DEAL
                   </span>
                 </div>
-                
-                <p className="text-xs sm:text-sm text-husk/80 leading-relaxed font-bold">
-                  Order{" "}<span className="bg-primary text-white font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap mx-1.5">2 or more boxes</span>{" "}to unlock the{" "}<span className="bg-accent text-husk font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap border border-accent/30 mx-1.5">৳540/box</span>{" "}offer.
-                </p>
-                
-                <div className="pt-1">
-                  <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-black text-slate-900 bg-accent/30 border border-accent/20 px-2.5 py-1 rounded-xl shadow-sm">
-                    ✨ You're saving ৳60 per box!
-                  </span>
+
+                {/* Divider */}
+                <div className="border-t-2 border-dashed border-gray-100 mb-4" />
+
+                {/* Info Rows */}
+                <div className="space-y-3 mb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-base flex-shrink-0">📦</span>
+                    <p className="text-xs sm:text-sm text-husk font-bold">
+                      Order <span className="font-black text-primary">2 or more boxes</span> to unlock the deal
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-base flex-shrink-0">💰</span>
+                    <p className="text-xs sm:text-sm text-husk font-bold">
+                      Price drops to <span className="font-black text-primary">৳540/box</span> automatically!
+                    </p>
+                  </div>
+                </div>
+
+                {/* Bottom Savings Banner */}
+                <div className="bg-gradient-to-r from-accent/30 to-accent/10 border border-accent/30 rounded-xl px-4 py-3 flex items-center justify-center gap-2">
+                  <span className="text-xl">✨</span>
+                  <span className="text-sm sm:text-base font-black text-husk">You're saving ৳60 per box!</span>
                 </div>
               </div>
             </div>
