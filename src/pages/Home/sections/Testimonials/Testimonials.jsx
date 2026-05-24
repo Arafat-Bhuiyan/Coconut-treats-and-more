@@ -67,43 +67,47 @@ const Testimonials = () => {
     return (
         <section id="reviews" className="py-24 bg-secondary/5 overflow-hidden">
             {/* Promo Banner */}
+            {/* Promo Banner - Premium Ticket Style */}
             <div className="container mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="bg-gradient-to-br from-primary via-primary to-accent p-6 sm:p-8 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] text-white overflow-hidden relative shadow-2xl border-2 border-white/10"
+                    className="relative bg-white p-6 sm:p-8 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] text-husk overflow-hidden shadow-[0_20px_50px_rgba(74,103,65,0.15)] hover:shadow-[0_30px_60px_rgba(74,103,65,0.25)] transition-all duration-300 border border-secondary/15 group"
                 >
-                    <div className="absolute top-0 right-0 p-8 opacity-10 rotate-12 hidden sm:block">
-                        <Gift size={120} />
-                    </div>
-                    
+                    {/* Top Accent Bar */}
+                    <div className="absolute top-0 left-0 bg-gradient-to-r from-primary via-primary-dark to-primary h-2 w-full" />
+
+                    {/* Ticket cutouts aligned with the layout */}
+                    <div className="absolute top-1/2 -left-3.5 -translate-y-1/2 w-7 h-7 rounded-full bg-[#F6F8F5] z-10 shadow-[inset_-3px_0_5px_rgba(0,0,0,0.06)]" />
+                    <div className="absolute top-1/2 -right-3.5 -translate-y-1/2 w-7 h-7 rounded-full bg-[#F6F8F5] z-10 shadow-[inset_3px_0_5px_rgba(0,0,0,0.06)]" />
+
                     <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8">
                         <div className="flex items-center gap-4 sm:gap-6 text-center md:text-left flex-col md:flex-row">
-                            <div className="bg-white/15 p-4 rounded-2xl sm:rounded-3xl backdrop-blur-md border border-white/20 shadow-lg flex-shrink-0 animate-pulse">
-                                <Sparkles className="text-[#FEF9C3]" size={30} sm:size={34} />
+                            <div className="bg-primary/5 p-4 rounded-2xl sm:rounded-3xl border border-primary/10 shadow-sm flex-shrink-0 animate-pulse text-primary">
+                                <Sparkles size={30} sm:size={34} fill="currentColor" className="text-accent" />
                             </div>
-                            <div className="space-y-3">
+                            <div className="space-y-3.5">
                                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-2.5">
-                                    <h4 className="text-2xl sm:text-3xl font-black tracking-tight text-white drop-shadow-md">
+                                    <h4 className="text-2xl sm:text-3xl font-black tracking-tight text-husk">
                                         Buy More, Save More!
                                     </h4>
-                                    <span className="bg-[#FEF9C3] text-amber-900 text-[10px] sm:text-xs font-black px-3 py-1.5 rounded-lg uppercase tracking-wider shadow-md animate-pulse">
+                                    <span className="bg-amber-50 text-amber-700 border border-amber-200 text-[10px] sm:text-xs font-black px-3.5 py-1.5 rounded-xl uppercase tracking-wider shadow-sm animate-pulse">
                                         🎁 SUPER SAVER
                                     </span>
                                 </div>
                                 
-                                <p className="text-sm sm:text-base md:text-lg text-white/95 max-w-2xl font-extrabold leading-relaxed text-center md:text-left">
+                                <p className="text-sm sm:text-base md:text-lg text-husk/80 max-w-2xl font-bold leading-relaxed text-center md:text-left">
                                     Order{" "}
-                                    <span className="bg-white text-primary font-black px-2.5 py-0.5 rounded-lg shadow-sm whitespace-nowrap inline-block transform hover:scale-105 transition-transform">
+                                    <span className="bg-primary text-white font-black px-2.5 py-1 rounded-xl shadow-md shadow-primary/20 whitespace-nowrap inline-block transform hover:scale-105 transition-all">
                                         2 or more boxes
                                     </span>{" "}
                                     to unlock the{" "}
-                                    <span className="bg-[#FEF9C3] text-amber-950 font-black px-2.5 py-0.5 rounded-lg shadow-sm border border-amber-300 whitespace-nowrap inline-block transform hover:scale-105 transition-transform">
+                                    <span className="bg-accent/20 text-primary font-black px-2.5 py-1 rounded-xl border border-accent/30 shadow-sm whitespace-nowrap inline-block transform hover:scale-105 transition-all">
                                         ৳540/box
                                     </span>{" "}
                                     offer.
-                                    <span className="block sm:inline-block mt-2 sm:mt-0 sm:ml-2.5 bg-accent text-husk font-black px-3.5 py-1 rounded-xl shadow-md transform hover:scale-105 transition-transform">
+                                    <span className="block sm:inline-block mt-3 sm:mt-0 sm:ml-3 bg-gradient-to-r from-accent/30 to-accent/10 border border-accent/30 text-husk font-black px-4 py-2 rounded-xl text-sm shadow-sm transform hover:scale-105 transition-all">
                                         ✨ Saving ৳60 per box!
                                     </span>
                                 </p>
@@ -111,7 +115,7 @@ const Testimonials = () => {
                         </div>
                         <a 
                             href="#order" 
-                            className="w-full lg:w-auto bg-accent hover:bg-accent/95 text-husk px-10 py-4.5 rounded-2xl font-black text-lg transition-all transform hover:scale-[1.03] active:scale-[0.98] shadow-2xl shadow-accent/35 whitespace-nowrap text-center border-2 border-white/25 flex items-center justify-center gap-2 group relative overflow-hidden"
+                            className="w-full lg:w-auto bg-primary hover:bg-primary-dark text-white px-10 py-5 rounded-2xl font-black text-lg transition-all transform hover:-translate-y-0.5 active:scale-[0.98] shadow-2xl shadow-primary/30 whitespace-nowrap text-center flex items-center justify-center gap-2 group relative overflow-hidden cursor-pointer"
                         >
                             <span className="absolute inset-0 bg-white/20 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
                             <span>Order Now</span>
