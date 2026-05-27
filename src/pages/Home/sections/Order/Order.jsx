@@ -33,6 +33,19 @@ const Order = ({ quantity, setQuantity }) => {
     }));
   };
 
+  const deliveryLocations = [
+    "Baily Road, Dhaka", "Banani DOHS", "Banani, Dhaka", "Baridhara DOHS", 
+    "Baridhara, Dhaka", "Mohakhali DOHS", "Mirpur DOHS", "Gulshan 1", "Gulshan 2", 
+    "Gulshan Avenue", "Gulshan, Dhaka, Bangladesh", "Niketan R/A, Gulshan, Dhaka", 
+    "Bashundhara R/A", "Bashundhara Shopping Mall", "Dhanmondi, Dhaka", 
+    "Lalmatia / লালমাটিয়া", "Mohammadpur, Dhaka 1207", "Elephant Road, Dhaka", 
+    "Eskaton, Dhaka", "Uttara, Dhaka", "Diabari Uttara - দিয়াবাড়ি উত্তরা", 
+    "Wari, Dhaka", "Khilgaon, Dhaka", "Banasree, Dhaka, Bangladesh", 
+    "Aftabnagar, Dhaka", "Rampura, Dhaka", "Motijheel, Dhaka-1000", 
+    "Dhaka Cantonment", "Mirpur-1, Dhaka", "Mirpur-11.5, Pallabi", 
+    "Mirpur-12, Pallabi", "Mirpur Pallabi"
+  ];
+
   const handleOrder = async (e) => {
     e.preventDefault();
 
@@ -105,7 +118,45 @@ const Order = ({ quantity, setQuantity }) => {
   };
 
   return (
-    <section id="order" className="py-16 sm:py-24 px-4 bg-[#f8fafc] overflow-hidden">
+    <section id="order" className="py-16 sm:py-24 px-4 bg-[#f8fafc] overflow-hidden relative">
+      <style>
+        {`
+          @keyframes scrollText {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+          }
+          .scrolling-wrapper {
+            display: flex;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+          }
+          .scrolling-text {
+            display: flex;
+            animation: scrollText 50s linear infinite;
+          }
+          .scrolling-wrapper:hover .scrolling-text {
+            animation-play-state: paused;
+          }
+        `}
+      </style>
+
+      {/* Scrolling Delivery Locations Marquee */}
+      <div className="w-full bg-primary/5 border-y border-primary/10 py-3 mb-8 sm:mb-10 overflow-hidden">
+        <div className="scrolling-wrapper">
+          <div className="scrolling-text">
+            {[...deliveryLocations, ...deliveryLocations].map((loc, index) => (
+              <div key={index} className="flex items-center">
+                <span className="text-xs sm:text-sm font-bold text-primary px-3 sm:px-4 uppercase tracking-wider">
+                  {loc}
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-dark/40 flex-shrink-0"></span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div className="container mx-auto max-w-6xl">
         {/* Dhaka City Delivery Notification Pop up (Green Flashing Pill/Circle) */}
         <div className="flex justify-center mb-8">
