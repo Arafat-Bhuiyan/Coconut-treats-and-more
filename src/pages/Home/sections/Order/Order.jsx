@@ -118,7 +118,7 @@ const Order = ({ quantity, setQuantity }) => {
   };
 
   return (
-    <section id="order" className="py-16 sm:py-24 px-4 bg-[#f8fafc] overflow-hidden relative">
+    <section id="order" className="py-16 sm:py-24 px-4 overflow-hidden relative">
       <style>
         {`
           @keyframes scrollText {
@@ -180,7 +180,7 @@ const Order = ({ quantity, setQuantity }) => {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-3 bg-white p-6 sm:p-8 md:p-10 rounded-[2rem] shadow-xl shadow-secondary/5 border border-secondary/5"
+            className="lg:col-span-3 glass-panel p-6 sm:p-8 md:p-10 rounded-[2rem] will-change-transform"
           >
             <h3 className="text-2xl sm:text-3xl font-black text-husk mb-6 sm:mb-8 text-center lg:text-left">
               Place Your Order
@@ -199,7 +199,7 @@ const Order = ({ quantity, setQuantity }) => {
                     onChange={handleInputChange}
                     type="text"
                     placeholder="Full Name"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all font-medium text-sm sm:text-base"
+                    className="w-full bg-white/40 backdrop-blur-sm border border-white/40 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:bg-white/60 focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all font-medium text-sm sm:text-base"
                   />
                 </div>
 
@@ -214,7 +214,7 @@ const Order = ({ quantity, setQuantity }) => {
                     onChange={handleInputChange}
                     type="tel"
                     placeholder="01XXX-XXXXXX"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all font-medium text-sm sm:text-base"
+                    className="w-full bg-white/40 backdrop-blur-sm border border-white/40 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:bg-white/60 focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all font-medium text-sm sm:text-base"
                   />
                 </div>
               </div>
@@ -230,7 +230,7 @@ const Order = ({ quantity, setQuantity }) => {
                   onChange={handleInputChange}
                   rows="2"
                   placeholder="House, Road, Area, Dhaka"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all font-medium resize-none shadow-inner text-sm sm:text-base"
+                  className="w-full bg-white/40 backdrop-blur-sm border border-white/40 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:bg-white/60 focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all font-medium resize-none shadow-sm text-sm sm:text-base"
                 ></textarea>
               </div>
 
@@ -272,7 +272,7 @@ const Order = ({ quantity, setQuantity }) => {
                     onChange={handleInputChange}
                     rows="2"
                     placeholder="TrxID, Number, or Special Instructions..."
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all font-medium resize-none shadow-inner text-sm sm:text-base"
+                    className="w-full bg-white/40 backdrop-blur-sm border border-white/40 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:bg-white/60 focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all font-medium resize-none shadow-sm text-sm sm:text-base"
                   ></textarea>
                 </div>
               </div>
@@ -317,10 +317,10 @@ const Order = ({ quantity, setQuantity }) => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-2 space-y-6 will-change-transform"
           >
-            <div className="bg-white p-6 sm:p-8 rounded-[2rem] shadow-xl border border-secondary/5">
-              <h3 className="text-xl font-black text-husk mb-6 border-b pb-4 text-center lg:text-left">
+            <div className="glass-panel p-6 sm:p-8 rounded-[2rem]">
+              <h3 className="text-xl font-black text-husk mb-6 border-b border-primary/10 pb-4 text-center lg:text-left">
                 Order Summary
               </h3>
 
@@ -391,7 +391,7 @@ const Order = ({ quantity, setQuantity }) => {
             </div>
 
             {/* Offer Badge - Premium Redesign */}
-            <div className="relative bg-white rounded-[2rem] w-full overflow-hidden border border-secondary/10 shadow-[0_20px_60px_rgba(74,103,65,0.18)] hover:shadow-[0_30px_70px_rgba(74,103,65,0.28)] transition-all duration-300 group">
+            <div className="relative glass-card rounded-[2rem] w-full overflow-hidden transition-all duration-300 group transform hover:-translate-y-1">
               
               {/* Top Green Gradient Bar */}
               <div className="bg-gradient-to-r from-primary via-primary-dark to-primary h-2 w-full" />

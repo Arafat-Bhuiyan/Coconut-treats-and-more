@@ -5,13 +5,13 @@ import logo from "../../../../assets/images/coconuts-treats-more-logo.png";
 
 const Hero = ({ onOpenPromo }) => {
   return (
-    <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 min-h-[90vh] md:min-h-screen flex items-center bg-milk-white overflow-hidden">
+    <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 min-h-[90vh] md:min-h-screen flex items-center overflow-hidden">
       <div className="container mx-auto grid md:grid-cols-2 gap-10 md:gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center md:text-left order-2 md:order-1"
+          className="text-center md:text-left order-2 md:order-1 will-change-transform"
         >
           <div className="flex flex-col sm:flex-row items-center gap-8 sm:gap-14 md:gap-16 mb-8 justify-center md:justify-start w-full">
             {/* Logo */}
@@ -25,7 +25,7 @@ const Hero = ({ onOpenPromo }) => {
             />
             
             {/* Coupon Promo Card Next to Logo */}
-            <div className="relative bg-white rounded-[2rem] max-w-[310px] sm:max-w-[350px] text-left shadow-[0_20px_60px_rgba(74,103,65,0.22)] hover:shadow-[0_30px_70px_rgba(74,103,65,0.32)] transform hover:scale-[1.02] transition-all duration-300 overflow-hidden border border-secondary/10">
+            <div className="relative glass-card rounded-[2rem] max-w-[310px] sm:max-w-[350px] text-left transform hover:scale-[1.02] transition-all duration-300 overflow-hidden">
               
               {/* Top Accent Bar */}
               <div className="bg-gradient-to-r from-primary via-primary-dark to-primary h-2 w-full" />
@@ -162,7 +162,7 @@ const Hero = ({ onOpenPromo }) => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative order-1 md:order-2 px-4 sm:px-0"
+          className="relative order-1 md:order-2 px-4 sm:px-0 will-change-transform"
         >
           <div className="absolute -inset-4 bg-secondary/10 rounded-full -z-10 animate-pulse"></div>
           <img
@@ -178,7 +178,7 @@ const Hero = ({ onOpenPromo }) => {
           <motion.div
             animate={{ y: [0, -12, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -top-4 -right-2 sm:top-10 sm:right-0 bg-white p-3 sm:p-5 rounded-2xl sm:rounded-3xl shadow-2xl flex items-center gap-3 border border-secondary/10"
+            className="absolute -top-4 -right-2 sm:top-10 sm:right-0 glass-panel p-3 sm:p-5 rounded-2xl sm:rounded-3xl flex items-center gap-3 will-change-transform"
           >
             <div className="bg-accent/20 p-2 sm:p-3 rounded-xl sm:rounded-2xl">
               <span className="text-xl sm:text-2xl">🥥</span>

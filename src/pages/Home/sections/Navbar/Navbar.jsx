@@ -11,7 +11,7 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 border-b border-secondary/10 shadow-sm backdrop-blur-md">
+        <nav className="fixed top-0 left-0 right-0 z-50 glass-panel border-b-0 border-x-0 rounded-b-2xl">
             <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
                 <div className="flex items-center gap-2 relative z-50">
                     <span className="text-xl sm:text-2xl font-black text-primary tracking-tight">

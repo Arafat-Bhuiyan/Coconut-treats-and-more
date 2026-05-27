@@ -41,7 +41,7 @@ const Testimonials = () => {
                     repeat: Infinity,
                     ease: "linear",
                 }}
-                className="flex flex-none gap-6 min-w-full"
+                className="flex flex-none gap-6 min-w-full will-change-transform"
                 style={{
                     animationPlayState: isPaused ? "paused" : "running"
                 }}
@@ -50,7 +50,7 @@ const Testimonials = () => {
                 {[...images, ...images].map((img, idx) => (
                     <div
                         key={idx}
-                        className="flex-none w-[220px] md:w-[320px] bg-white rounded-2xl overflow-hidden shadow-lg border border-secondary/10 hover:scale-105 transition-transform duration-300"
+                        className="flex-none w-[220px] md:w-[320px] glass-card rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300"
                     >
                         <img
                             src={img}
@@ -65,7 +65,7 @@ const Testimonials = () => {
     );
 
     return (
-        <section id="reviews" className="py-24 bg-secondary/5 overflow-hidden">
+        <section id="reviews" className="py-24 overflow-hidden relative">
             {/* Promo Banner */}
             {/* Promo Banner - Premium Ticket Style */}
             <div className="container mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
@@ -73,7 +73,7 @@ const Testimonials = () => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="relative bg-white p-6 sm:p-8 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] text-husk overflow-hidden shadow-[0_20px_50px_rgba(74,103,65,0.15)] hover:shadow-[0_30px_60px_rgba(74,103,65,0.25)] transition-all duration-300 border border-secondary/15 group"
+                    className="relative glass-panel p-6 sm:p-8 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] text-husk overflow-hidden transition-all duration-300 group will-change-transform"
                 >
                     {/* Top Accent Bar */}
                     <div className="absolute top-0 left-0 bg-gradient-to-r from-primary via-primary-dark to-primary h-2 w-full" />
@@ -150,7 +150,7 @@ const Testimonials = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="inline-flex flex-wrap justify-center items-center gap-3 bg-primary/10 text-primary px-6 py-4 rounded-2xl font-black text-sm sm:text-base border border-primary/5"
+                    className="inline-flex flex-wrap justify-center items-center gap-3 glass-panel text-primary px-6 py-4 rounded-2xl font-black text-sm sm:text-base will-change-transform"
                 >
                     <span className="flex gap-1 text-accent">
                         {[...Array(5)].map((_, i) => <Star key={i} size={16} sm:size={18} fill="currentColor" />)}
