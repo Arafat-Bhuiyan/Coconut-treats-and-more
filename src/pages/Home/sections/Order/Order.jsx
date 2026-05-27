@@ -118,7 +118,7 @@ const Order = ({ quantity, setQuantity }) => {
   };
 
   return (
-    <section id="order" className="py-16 sm:py-24 px-4 bg-[#f8fafc] overflow-hidden relative">
+    <section id="order" className="pt-8 pb-16 sm:pt-12 sm:pb-24 px-4 bg-[#f8fafc] overflow-hidden relative">
       <style>
         {`
           @keyframes scrollText {
