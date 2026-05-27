@@ -18,7 +18,7 @@ const Order = ({ quantity, setQuantity }) => {
   });
 
   const basePrice = 600;
-  const offerPrice = 540;
+  const offerPrice = 570;
   const deliveryCharge = 100;
 
   const unitPrice = quantity >= 2 ? offerPrice : basePrice;
@@ -328,7 +328,7 @@ const Order = ({ quantity, setQuantity }) => {
                       <CheckCircle size={12} /> BULK OFFER
                     </span>
                     <span className="text-xs font-black text-accent-dark">
-                      - ৳{quantity * 60} Saved
+                      - ৳{quantity * 30} Saved
                     </span>
                   </motion.div>
                 )}
@@ -374,7 +374,7 @@ const Order = ({ quantity, setQuantity }) => {
                   <div className="flex items-center gap-3">
                     <span className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-base flex-shrink-0">💰</span>
                     <p className="text-xs sm:text-sm text-husk font-bold">
-                      Price drops to <span className="font-black text-primary">৳540/box</span> automatically!
+                      Price drops to <span className="font-black text-primary">৳570/box</span> automatically!
                     </p>
                   </div>
                 </div>
@@ -382,7 +382,7 @@ const Order = ({ quantity, setQuantity }) => {
                 {/* Bottom Savings Banner */}
                 <div className="bg-gradient-to-r from-accent/30 to-accent/10 border border-accent/30 rounded-xl px-4 py-3 flex items-center justify-center gap-2">
                   <span className="text-xl">✨</span>
-                  <span className="text-sm sm:text-base font-black text-husk">You're saving ৳60 per box!</span>
+                  <span className="text-sm sm:text-base font-black text-husk">You're saving ৳30 per box!</span>
                 </div>
               </div>
             </div>

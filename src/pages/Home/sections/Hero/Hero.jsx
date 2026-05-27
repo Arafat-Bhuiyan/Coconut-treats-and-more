@@ -42,7 +42,7 @@ const Hero = ({ onOpenPromo }) => {
                     🔥 BULK DEAL
                   </span>
                   <span className="text-[11px] font-black text-amber-700 bg-amber-50 px-2.5 py-1.5 rounded-lg border border-amber-200 shadow-sm animate-pulse">
-                    Save ৳60 / box
+                    Save ৳30 / box
                   </span>
                 </div>
 
@@ -69,7 +69,7 @@ const Hero = ({ onOpenPromo }) => {
                   <div className="flex items-center gap-3">
                     <span className="w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center font-black text-sm flex-shrink-0">💰</span>
                     <p className="text-xs sm:text-sm text-husk font-bold">
-                      Price drops to <span className="font-black text-primary">৳540/box</span> automatically!
+                      Price drops to <span className="font-black text-primary">৳570/box</span> automatically!
                     </p>
                   </div>
                 </div>
@@ -77,7 +77,7 @@ const Hero = ({ onOpenPromo }) => {
                 {/* Bottom Savings Banner */}
                 <div className="bg-gradient-to-r from-accent/30 to-accent/10 border border-accent/30 rounded-xl px-4 py-2.5 flex items-center justify-center gap-2 mt-1">
                   <span className="text-lg">✨</span>
-                  <span className="text-sm font-black text-husk">You're saving ৳60 per box!</span>
+                  <span className="text-sm font-black text-husk">You're saving ৳30 per box!</span>
                 </div>
               </div>
             </div>
