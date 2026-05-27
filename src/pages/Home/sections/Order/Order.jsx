@@ -133,7 +133,7 @@ const Order = ({ quantity, setQuantity }) => {
           }
           .scrolling-text {
             display: flex;
-            animation: scrollText 50s linear infinite;
+            animation: scrollText 90s linear infinite;
           }
           .scrolling-wrapper:hover .scrolling-text {
             animation-play-state: paused;
@@ -147,10 +147,10 @@ const Order = ({ quantity, setQuantity }) => {
           <div className="scrolling-text">
             {[...deliveryLocations, ...deliveryLocations].map((loc, index) => (
               <div key={index} className="flex items-center">
-                <span className="text-xs sm:text-sm font-bold text-primary px-3 sm:px-4 uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-dark flex-shrink-0 mx-3 sm:mx-4"></span>
+                <span className="text-xs sm:text-sm font-bold text-primary uppercase tracking-wider">
                   {loc}
                 </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-accent-dark/40 flex-shrink-0"></span>
               </div>
             ))}
           </div>
