@@ -147,8 +147,8 @@ const Order = ({ quantity, setQuantity }) => {
           <div className="scrolling-text">
             {[...deliveryLocations, ...deliveryLocations].map((loc, index) => (
               <div key={index} className="flex items-center mx-3 sm:mx-5 hover:scale-105 transition-transform duration-300">
-                <span className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest whitespace-nowrap">
-                  <span className="mr-1.5 inline-block animate-pulse">🟢</span> {loc}
+                <span className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest whitespace-nowrap flex items-center">
+                  <span className="inline-block w-2.5 h-2.5 rounded-full bg-primary mr-2 animate-pulse shadow-sm"></span> {loc}
                 </span>
               </div>
             ))}
