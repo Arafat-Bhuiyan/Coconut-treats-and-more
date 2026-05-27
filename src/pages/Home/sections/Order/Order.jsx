@@ -107,19 +107,19 @@ const Order = ({ quantity, setQuantity }) => {
   return (
     <section id="order" className="py-16 sm:py-24 px-4 bg-[#f8fafc] overflow-hidden">
       <div className="container mx-auto max-w-6xl">
-        {/* Dhaka City Delivery Notification Pop up (Red Pill/Circle) */}
+        {/* Dhaka City Delivery Notification Pop up (Green Flashing Pill/Circle) */}
         <div className="flex justify-center mb-8">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2.5 px-6 py-3 bg-red-50/90 backdrop-blur-sm border-2 border-red-500 rounded-full text-red-600 font-extrabold text-sm sm:text-base shadow-lg shadow-red-500/10 hover:shadow-red-500/20 transition-all duration-300"
+            className="inline-flex items-center gap-2.5 px-6 py-3 bg-emerald-50/90 backdrop-blur-sm border-2 border-primary rounded-full text-primary font-extrabold text-sm sm:text-base shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all duration-300"
           >
             <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
             </span>
-            <MapPin size={18} className="text-red-500 animate-bounce" />
+            <MapPin size={18} className="text-primary animate-bounce" />
             <span>শুধুমাত্র ঢাকা সিটির ভিতরে ডেলিভারি করা হয়</span>
           </motion.div>
         </div>
