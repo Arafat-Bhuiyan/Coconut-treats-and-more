@@ -101,13 +101,18 @@ const Hero = ({ onOpenPromo }) => {
               added preservatives</span>
             </p>
 
-            <div className="text-sm sm:text-base text-husk/80 border-l-4 border-accent pl-4 space-y-1 inline-block text-left">
+            <div className="text-sm sm:text-base text-husk/80 border-l-4 border-accent pl-4 space-y-1.5 inline-block text-left">
               <p>
                 <span className="font-black text-husk">Top layer:</span> Refreshing coconut water &
                 coconut chunks
               </p>
               <p>
                 <span className="font-black text-husk">Bottom layer:</span> Rich, creamy cow milk.
+              </p>
+              <p>
+                <span className="font-black text-husk">❄️ Shelf life:</span>{" "}
+                <span className="font-black text-primary">5 days</span>{" "}
+                <span className="font-black text-red-600">(Keep refrigerated, not in deep freezer)</span>
               </p>
             </div>
           </div>
