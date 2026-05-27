@@ -180,7 +180,7 @@ const Order = ({ quantity, setQuantity }) => {
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-3 glass-panel p-6 sm:p-8 md:p-10 rounded-[2rem] will-change-transform"
+            className="lg:col-span-3 glass-panel p-6 sm:p-8 md:p-10 rounded-[2rem]"
           >
             <h3 className="text-2xl sm:text-3xl font-black text-husk mb-6 sm:mb-8 text-center lg:text-left">
               Place Your Order
@@ -317,7 +317,7 @@ const Order = ({ quantity, setQuantity }) => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-2 space-y-6 will-change-transform"
+            className="lg:col-span-2 space-y-6"
           >
             <div className="glass-panel p-6 sm:p-8 rounded-[2rem]">
               <h3 className="text-xl font-black text-husk mb-6 border-b border-primary/10 pb-4 text-center lg:text-left">
@@ -338,17 +338,19 @@ const Order = ({ quantity, setQuantity }) => {
                 <div className="flex flex-col items-end gap-2">
                   <div className="flex items-center bg-slate-50 rounded-lg p-1 border">
                     <button
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="p-1 hover:bg-white rounded-md transition-colors text-husk/50 hover:text-primary"
+                      type="button"
+                      onClick={(e) => { e.preventDefault(); setQuantity(Math.max(1, quantity - 1)); }}
+                      className="p-1 hover:bg-white rounded-md transition-colors text-husk/50 hover:text-primary active:scale-95"
                     >
                       <Minus size={14} />
                     </button>
-                    <span className="w-6 sm:w-8 text-center font-black text-sm text-husk">
+                    <span className="w-6 sm:w-8 text-center font-black text-sm text-husk select-none">
                       {quantity}
                     </span>
                     <button
-                      onClick={() => setQuantity(quantity + 1)}
-                      className="p-1 hover:bg-white rounded-md transition-colors text-husk/50 hover:text-primary"
+                      type="button"
+                      onClick={(e) => { e.preventDefault(); setQuantity(quantity + 1); }}
+                      className="p-1 hover:bg-white rounded-md transition-colors text-husk/50 hover:text-primary active:scale-95"
                     >
                       <Plus size={14} />
                     </button>
