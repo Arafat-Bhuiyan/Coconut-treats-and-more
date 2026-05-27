@@ -16,7 +16,7 @@ const InstagramIcon = ({ size = 24 }) => (
 
 const Footer = () => {
     return (
-        <footer className="bg-husk/95 backdrop-blur-xl border-t border-white/10 shadow-[0_-8px_40px_rgba(0,0,0,0.1)] pt-16 sm:pt-20 pb-10 px-4 text-milk-white overflow-hidden">
+        <footer className="bg-primary/95 backdrop-blur-xl border-t border-white/10 pt-16 sm:pt-20 pb-10 px-4 text-milk-white overflow-hidden">
             <div className="container mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 border-b border-milk-white/10 pb-12 sm:pb-16 mb-8 text-center md:text-left">
                 <div className="md:col-span-5 flex flex-col items-center md:items-start">
                     <h2 className="text-2xl sm:text-3xl font-black mb-6 text-accent uppercase tracking-tighter">
