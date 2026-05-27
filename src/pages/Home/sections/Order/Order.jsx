@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Send, Minus, Plus, Trash2, CheckCircle, Loader2, MapPin } from "lucide-react";
 import productImg from "../../../../assets/images/coconuts-treats-more-hero.jpeg";
 import OrderSuccessPopup from "./OrderSuccessPopup";
@@ -368,20 +368,27 @@ const Order = ({ quantity, setQuantity }) => {
                   <span>৳{deliveryCharge}</span>
                 </div>
 
+                <AnimatePresence>
                 {quantity >= 2 && (
                   <motion.div
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    className="bg-accent/10 p-3 rounded-xl border border-accent/20 flex items-center justify-between"
+                    key="bulk-offer"
+                    initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                    animate={{ opacity: 1, height: "auto", marginTop: 0 }}
+                    exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                    transition={{ duration: 0.25, ease: "easeInOut" }}
+                    style={{ overflow: "hidden" }}
                   >
-                    <span className="text-[10px] font-black text-accent-dark uppercase flex items-center gap-2 tracking-widest">
-                      <CheckCircle size={12} /> BULK OFFER
-                    </span>
-                    <span className="text-xs font-black text-accent-dark">
-                      - ৳{quantity * 30} Saved
-                    </span>
+                    <div className="bg-accent/10 p-3 rounded-xl border border-accent/20 flex items-center justify-between">
+                      <span className="text-[10px] font-black text-accent-dark uppercase flex items-center gap-2 tracking-widest">
+                        <CheckCircle size={12} /> BULK OFFER
+                      </span>
+                      <span className="text-xs font-black text-accent-dark">
+                        - ৳{quantity * 30} Saved
+                      </span>
+                    </div>
                   </motion.div>
                 )}
+                </AnimatePresence>
 
                 <div className="flex justify-between text-xl font-black text-husk pt-4 border-t border-dashed">
                   <span className="uppercase text-sm">Total</span>
