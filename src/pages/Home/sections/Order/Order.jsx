@@ -133,7 +133,7 @@ const Order = ({ quantity, setQuantity }) => {
           }
           .scrolling-text {
             display: flex;
-            animation: scrollText 90s linear infinite;
+            animation: scrollText 150s linear infinite;
           }
           .scrolling-wrapper:hover .scrolling-text {
             animation-play-state: paused;
@@ -142,13 +142,13 @@ const Order = ({ quantity, setQuantity }) => {
       </style>
 
       {/* Scrolling Delivery Locations Marquee */}
-      <div className="w-full bg-primary/5 border-y border-primary/10 py-3 mb-8 sm:mb-10 overflow-hidden">
-        <div className="scrolling-wrapper">
+      <div className="relative w-full bg-gradient-to-r from-emerald-50/50 via-primary/10 to-emerald-50/50 border-y border-primary/20 py-3.5 mb-8 sm:mb-10 overflow-hidden shadow-inner">
+        <div className="scrolling-wrapper [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
           <div className="scrolling-text">
             {[...deliveryLocations, ...deliveryLocations].map((loc, index) => (
-              <div key={index} className="flex items-center mx-3 sm:mx-4">
-                <span className="text-xs sm:text-sm font-bold text-primary uppercase tracking-wider whitespace-nowrap">
-                  🟢 {loc}
+              <div key={index} className="flex items-center mx-4 sm:mx-6 hover:scale-105 transition-transform duration-300">
+                <span className="text-xs sm:text-sm font-black text-primary/90 uppercase tracking-widest whitespace-nowrap drop-shadow-sm">
+                  <span className="mr-2 inline-block animate-pulse">🟢</span> {loc}
                 </span>
               </div>
             ))}
