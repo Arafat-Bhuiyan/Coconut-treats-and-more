@@ -146,10 +146,9 @@ const Order = ({ quantity, setQuantity }) => {
         <div className="scrolling-wrapper">
           <div className="scrolling-text">
             {[...deliveryLocations, ...deliveryLocations].map((loc, index) => (
-              <div key={index} className="flex items-center">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent-dark flex-shrink-0 mx-3 sm:mx-4"></span>
-                <span className="text-xs sm:text-sm font-bold text-primary uppercase tracking-wider">
-                  {loc}
+              <div key={index} className="flex items-center mx-3 sm:mx-4">
+                <span className="text-xs sm:text-sm font-bold text-primary uppercase tracking-wider whitespace-nowrap">
+                  🟢 {loc}
                 </span>
               </div>
             ))}
