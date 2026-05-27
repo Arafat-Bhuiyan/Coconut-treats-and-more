@@ -199,7 +199,7 @@ const Order = ({ quantity, setQuantity }) => {
                     onChange={handleInputChange}
                     type="text"
                     placeholder="Full Name"
-                    className="w-full bg-white/40 backdrop-blur-sm border border-white/40 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:bg-white/60 focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all font-medium text-sm sm:text-base"
+                    className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
                   />
                 </div>
 
@@ -214,7 +214,7 @@ const Order = ({ quantity, setQuantity }) => {
                     onChange={handleInputChange}
                     type="tel"
                     placeholder="01XXX-XXXXXX"
-                    className="w-full bg-white/40 backdrop-blur-sm border border-white/40 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:bg-white/60 focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all font-medium text-sm sm:text-base"
+                    className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
                   />
                 </div>
               </div>
@@ -230,7 +230,7 @@ const Order = ({ quantity, setQuantity }) => {
                   onChange={handleInputChange}
                   rows="2"
                   placeholder="House, Road, Area, Dhaka"
-                  className="w-full bg-white/40 backdrop-blur-sm border border-white/40 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:bg-white/60 focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all font-medium resize-none shadow-sm text-sm sm:text-base"
+                  className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium resize-none text-sm sm:text-base placeholder:text-husk/30"
                 ></textarea>
               </div>
 
@@ -272,7 +272,7 @@ const Order = ({ quantity, setQuantity }) => {
                     onChange={handleInputChange}
                     rows="2"
                     placeholder="TrxID, Number, or Special Instructions..."
-                    className="w-full bg-white/40 backdrop-blur-sm border border-white/40 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:bg-white/60 focus:border-primary focus:ring-4 focus:ring-primary/5 transition-all font-medium resize-none shadow-sm text-sm sm:text-base"
+                    className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium resize-none text-sm sm:text-base placeholder:text-husk/30"
                   ></textarea>
                 </div>
               </div>
