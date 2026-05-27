@@ -112,7 +112,7 @@ const Hero = ({ onOpenPromo }) => {
               <p>
                 <span className="font-black text-husk">❄️ Shelf life:</span>{" "}
                 <span className="font-black text-primary">5 days</span>{" "}
-                <span className="font-black text-red-600">(Keep refrigerated, not in deep freezer)</span>
+                <span className="font-bold text-husk/80">(Keep refrigerated, not in deep freezer)</span>
               </p>
             </div>
           </div>
