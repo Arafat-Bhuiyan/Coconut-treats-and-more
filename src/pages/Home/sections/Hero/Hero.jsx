@@ -114,6 +114,10 @@ const Hero = ({ onOpenPromo }) => {
                 <span className="font-black text-primary">5 days</span>{" "}
                 <span className="font-bold text-husk/80">(Keep refrigerated, not in deep freezer)</span>
               </p>
+              <p>
+                <span className="font-black text-husk">Note:</span>{" "}
+                <span className="font-bold text-husk/80">Mild Sugar Added — Perfectly balanced, not overly sweet.</span>
+              </p>
             </div>
           </div>
 
