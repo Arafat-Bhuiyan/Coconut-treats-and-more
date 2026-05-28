@@ -61,7 +61,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
               <div className="flex items-center justify-center gap-2.5 bg-primary/5 border border-primary/10 py-2 px-4 rounded-xl max-w-[280px] mx-auto shadow-inner">
                 <span className="text-xl animate-bounce">🥥</span>
                 <div className="text-left">
-                  <p className="text-[9px] text-husk/50 uppercase font-black tracking-wider">Premium Pudding</p>
+                  <p className="text-[9px] text-husk/50 uppercase font-black tracking-wider">Premium Coconut Pudding</p>
                   <p className="font-extrabold text-husk text-xs">Homemade & 100% Fresh Daily</p>
                 </div>
               </div>
