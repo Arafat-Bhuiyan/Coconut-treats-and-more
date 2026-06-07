@@ -53,6 +53,10 @@ export default async function handler(req, res) {
             ...(userData?.em ? { em: userData.em } : {}),
             ...(userData?.fn ? { fn: userData.fn } : {}),
             ...(userData?.ln ? { ln: userData.ln } : {}),
+            ...(userData?.ct ? { ct: userData.ct } : {}),
+            ...(userData?.country ? { country: userData.country } : {}),
+            ...(userData?.fbp ? { fbp: userData.fbp } : {}),
+            ...(userData?.fbc ? { fbc: userData.fbc } : {}),
           },
           custom_data: {
             value: eventParams?.value ? parseFloat(eventParams.value) : undefined,

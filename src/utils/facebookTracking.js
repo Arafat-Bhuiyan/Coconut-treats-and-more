@@ -24,6 +24,15 @@ function formatPhoneForMeta(phone) {
   return clean;
 }
 
+// Helper to read a cookie value by name
+function getCookie(name) {
+  if (typeof document === "undefined") return null;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
+}
+
 /**
  * Universal Meta Pixel and Conversions API Event Tracker
  * Sends the event to the browser-side Pixel and concurrently proxies to Conversions API
@@ -32,22 +41,51 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
   // 1. Generate unique event ID for deduplication
   const eventId = `evt_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-  // 2. Prepare user data and hash details securely in browser
+  // 2. Load and cache user data for Advanced Matching
+  let finalUserData = { ...rawUserData };
+
+  // If name/phone are missing, try loading from localStorage (highly boosts returning visitor PageView match quality)
+  if (typeof window !== "undefined") {
+    try {
+      const cached = localStorage.getItem("cc_user_data");
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed.phone && !finalUserData.phone) finalUserData.phone = parsed.phone;
+        if (parsed.name && !finalUserData.name) finalUserData.name = parsed.name;
+      }
+    } catch (e) {
+      console.debug("Failed to read user data cache:", e);
+    }
+
+    // Persist new user data if provided
+    if (rawUserData.phone || rawUserData.name) {
+      try {
+        localStorage.setItem("cc_user_data", JSON.stringify({
+          phone: rawUserData.phone || "",
+          name: rawUserData.name || "",
+        }));
+      } catch (e) {
+        console.debug("Failed to write user data cache:", e);
+      }
+    }
+  }
+
+  // 3. Prepare hashed user details for Advanced Matching
   const userData = {};
   
-  if (rawUserData.phone) {
-    const formattedPhone = formatPhoneForMeta(rawUserData.phone);
+  if (finalUserData.phone) {
+    const formattedPhone = formatPhoneForMeta(finalUserData.phone);
     if (formattedPhone) {
       userData.ph = await sha256(formattedPhone);
     }
   }
 
-  if (rawUserData.email) {
-    userData.em = await sha256(rawUserData.email);
+  if (finalUserData.email) {
+    userData.em = await sha256(finalUserData.email);
   }
 
-  if (rawUserData.name) {
-    const trimmedName = rawUserData.name.trim().toLowerCase();
+  if (finalUserData.name) {
+    const trimmedName = finalUserData.name.trim().toLowerCase();
     const nameParts = trimmedName.split(/\s+/);
     if (nameParts.length > 0) {
       userData.fn = await sha256(nameParts[0]); // First name
@@ -57,15 +95,28 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
     }
   }
 
-  // 3. Fire Client-side Meta Pixel Event (Browser)
-  if (window.fbq) {
+  // Automatically attach City and Country parameters (delivery is strictly in Dhaka, BD)
+  userData.ct = await sha256("dhaka");
+  userData.country = await sha256("bd");
+
+  // Retrieve Browser ID (_fbp) and Click ID (_fbc) cookies for perfect event matching
+  const fbp = getCookie('_fbp');
+  const fbc = getCookie('_fbc');
+  if (fbp) userData.fbp = fbp;
+  if (fbc) userData.fbc = fbc;
+
+  // 4. Fire Client-side Meta Pixel Event (Browser)
+  if (typeof window !== "undefined" && window.fbq) {
     try {
+      // Re-initialize with Hashed Advanced Matching parameters to update user profile before tracking the event
+      window.fbq('init', '939507308912648', userData);
+      
       window.fbq('track', eventName, {
         ...eventParams,
       }, {
         eventID: eventId
       });
-      console.log(`[Meta Pixel] Successfully sent '${eventName}' event. ID: ${eventId}`);
+      console.log(`[Meta Pixel] Sent '${eventName}' with Advanced Matching. ID: ${eventId}`);
     } catch (err) {
       console.error("[Meta Pixel] Failed to track browser-side event:", err);
     }
@@ -73,7 +124,7 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
     console.warn("[Meta Pixel] window.fbq is not loaded. Skipping browser track.");
   }
 
-  // 4. Fire Server-side Conversions API Event (Via our secure serverless proxy)
+  // 5. Fire Server-side Conversions API Event (Via our secure serverless proxy)
   try {
     const payload = {
       eventName,
@@ -82,7 +133,7 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
       eventParams,
       userData: {
         ...userData,
-        userAgent: navigator.userAgent,
+        userAgent: typeof navigator !== "undefined" ? navigator.userAgent : '',
       }
     };
 
