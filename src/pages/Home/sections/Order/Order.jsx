@@ -148,12 +148,12 @@ const Order = ({ quantity, setQuantity }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="glass-panel px-6 py-4 rounded-[2rem] text-center flex flex-col items-center justify-center max-w-[340px] sm:max-w-md shadow-sm border border-white/30"
+          className="bg-white/70 backdrop-blur-xl border border-primary/20 px-6 py-4 rounded-[2rem] text-center flex flex-col items-center justify-center max-w-[340px] sm:max-w-md shadow-[0_8px_32px_rgba(74,103,65,0.06)]"
         >
-          <p className="text-sm sm:text-base font-black text-husk leading-normal">
+          <p className="text-sm sm:text-base font-black text-[#5C3D2E] leading-normal">
             "জিনিস যেটা ভালো, দাম তার একটু বেশি"
           </p>
-          <p className="text-[11px] sm:text-xs font-black text-primary/70 tracking-wide uppercase mt-1 leading-normal">
+          <p className="text-[11px] sm:text-xs font-black text-primary tracking-wide uppercase mt-1 leading-normal">
             "Good quality always costs a bit more."
           </p>
         </motion.div>
