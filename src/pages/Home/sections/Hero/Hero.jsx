@@ -63,21 +63,21 @@ const Hero = ({ onOpenPromo }) => {
                   <div className="flex items-center gap-3">
                     <span className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black text-sm flex-shrink-0">📦</span>
                     <p className="text-xs sm:text-sm text-husk font-bold">
-                      Order <span className="font-black text-primary">2 or more boxes</span> to unlock
+                      Order <span className="font-black text-primary">2 or more boxes</span> to unlock 💰
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center font-black text-sm flex-shrink-0">💰</span>
                     <p className="text-xs sm:text-sm text-husk font-bold">
-                      Price drops to <span className="font-black text-primary">৳570/box</span> automatically!
+                      Price drops to <span className="font-black text-primary">৳570 per box</span> automatically! ✨
                     </p>
                   </div>
                 </div>
 
                 {/* Bottom Savings Banner */}
                 <div className="bg-gradient-to-r from-accent/30 to-accent/10 border border-accent/30 rounded-xl px-4 py-2.5 flex items-center justify-center gap-2 mt-1">
-                  <span className="text-lg">✨</span>
-                  <span className="text-sm font-black text-husk">You're saving ৳30 per box!</span>
+                  <span className="text-lg">🎁</span>
+                  <span className="text-sm font-black text-husk">Total ৳60 Discount on 2 boxes!</span>
                 </div>
               </div>
             </div>

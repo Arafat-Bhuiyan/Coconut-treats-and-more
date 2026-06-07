@@ -102,13 +102,14 @@ const Testimonials = () => {
                                     <span className="bg-primary text-white font-black px-2.5 py-1 rounded-xl shadow-md shadow-primary/20 whitespace-nowrap inline-block transform hover:scale-105 transition-all">
                                         2 or more boxes
                                     </span>{" "}
-                                    to unlock the{" "}
+                                    to unlock 💰{" "}
+                                    Price drops to{" "}
                                     <span className="bg-accent/20 text-primary font-black px-2.5 py-1 rounded-xl border border-accent/30 shadow-sm whitespace-nowrap inline-block transform hover:scale-105 transition-all">
-                                        ৳570/box
+                                        ৳570 per box
                                     </span>{" "}
-                                    offer.
+                                    automatically! ✨
                                     <span className="block sm:inline-block mt-3 sm:mt-0 sm:ml-3 bg-gradient-to-r from-accent/30 to-accent/10 border border-accent/30 text-husk font-black px-4 py-2 rounded-xl text-sm shadow-sm transform hover:scale-105 transition-all">
-                                        ✨ Saving ৳30 per box!
+                                        🎁 Total ৳60 Discount on 2 boxes!
                                     </span>
                                 </p>
                             </div>
