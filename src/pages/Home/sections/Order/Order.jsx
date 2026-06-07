@@ -9,6 +9,15 @@ const Order = ({ quantity, setQuantity }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [submittedName, setSubmittedName] = useState("");
+  const [quoteIndex, setQuoteIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setQuoteIndex((prev) => (prev === 0 ? 1 : 0));
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -118,7 +127,7 @@ const Order = ({ quantity, setQuantity }) => {
   };
 
   return (
-    <section id="order" className="py-16 sm:py-24 px-4 overflow-hidden relative">
+    <section id="order" className="pt-4 sm:pt-6 pb-16 sm:pb-24 px-4 overflow-hidden relative">
       <style>
         {`
           @keyframes scrollText {
@@ -142,20 +151,39 @@ const Order = ({ quantity, setQuantity }) => {
       </style>
 
       {/* Premium Quality Quote Badge */}
-      <div className="flex justify-center mb-6 sm:mb-8 px-4">
+      <div className="flex justify-center mb-5 sm:mb-6 px-4">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="bg-white/70 backdrop-blur-xl border border-primary/20 px-6 py-4 rounded-[2rem] text-center flex flex-col items-center justify-center max-w-[340px] sm:max-w-md shadow-[0_8px_32px_rgba(74,103,65,0.06)]"
+          className="bg-white/70 backdrop-blur-xl border border-primary/20 w-[300px] sm:w-[380px] h-[58px] sm:h-[66px] rounded-[2rem] text-center flex flex-col items-center justify-center shadow-[0_8px_32px_rgba(74,103,65,0.06)] overflow-hidden"
         >
-          <p className="text-sm sm:text-base font-black text-[#5C3D2E] leading-normal">
-            "জিনিস যেটা ভালো, দাম তার একটু বেশি"
-          </p>
-          <p className="text-[11px] sm:text-xs font-black text-primary tracking-wide uppercase mt-1 leading-normal">
-            "Good quality always costs a bit more."
-          </p>
+          <AnimatePresence mode="wait">
+            {quoteIndex === 0 ? (
+              <motion.p
+                key="bangla"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                className="text-sm sm:text-base font-black text-[#5C3D2E] leading-normal"
+              >
+                "জিনিস যেটা ভালো, দাম তার একটু বেশি"
+              </motion.p>
+            ) : (
+              <motion.p
+                key="english"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                className="text-[11px] sm:text-xs font-black text-primary tracking-wide uppercase leading-normal"
+              >
+                "Good quality always costs a bit more."
+              </motion.p>
+            )}
+          </AnimatePresence>
         </motion.div>
       </div>
 
