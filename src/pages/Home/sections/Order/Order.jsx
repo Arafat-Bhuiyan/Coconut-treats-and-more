@@ -141,6 +141,24 @@ const Order = ({ quantity, setQuantity }) => {
         `}
       </style>
 
+      {/* Premium Quality Quote Badge */}
+      <div className="flex justify-center mb-6 sm:mb-8 px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="glass-panel px-6 py-4 rounded-[2rem] text-center flex flex-col items-center justify-center max-w-[340px] sm:max-w-md shadow-sm border border-white/30"
+        >
+          <p className="text-sm sm:text-base font-black text-husk leading-normal">
+            "জিনিস যেটা ভালো, দাম তার একটু বেশি"
+          </p>
+          <p className="text-[11px] sm:text-xs font-black text-primary/70 tracking-wide uppercase mt-1 leading-normal">
+            "Good quality always costs a bit more."
+          </p>
+        </motion.div>
+      </div>
+
       {/* Scrolling Delivery Locations Marquee */}
       <div className="relative w-full bg-primary/5 backdrop-blur-md border-y border-white/60 shadow-[0_4px_30px_rgba(74,103,65,0.05)] py-2 mb-8 sm:mb-10 overflow-hidden">
         <div className="scrolling-wrapper [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
