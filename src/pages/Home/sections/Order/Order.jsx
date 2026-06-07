@@ -366,7 +366,7 @@ const Order = ({ quantity, setQuantity }) => {
                   <span>৳{totalProductPrice}</span>
                 </div>
                 <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/60 uppercase">
-                  <span>Delivery</span>
+                  <span>Delivery Charge</span>
                   <span>৳{deliveryCharge}</span>
                 </div>
 
