@@ -15,7 +15,7 @@ html {
     scrollbar-width: none;  /* Firefox */
 }
 
-/* Premium Animated Mesh Background for Glassmorphism */
+/* Premium Static Mesh Background for Glassmorphism (High Performance) */
 body {
     background-color: #fdfcf8;
     background-image: 
@@ -25,16 +25,6 @@ body {
         radial-gradient(at 0% 100%, rgba(74, 103, 65, 0.05) 0px, transparent 50%);
     background-attachment: fixed;
     background-size: cover;
-    animation: gradientShift 20s ease-in-out infinite alternate;
-}
-
-@keyframes gradientShift {
-    0% {
-        background-position: 0% 0%;
-    }
-    100% {
-        background-position: 100% 100%;
-    }
 }
 
 /* Glassmorphism utility classes */
