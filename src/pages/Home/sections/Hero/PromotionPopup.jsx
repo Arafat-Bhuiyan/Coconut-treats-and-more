@@ -91,7 +91,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
                 <span className="text-2xl">🎉</span>
                 <div className="text-left">
                   <p className="text-[9px] font-black text-husk/50 uppercase tracking-widest leading-none">Instant Discount</p>
-                  <p className="font-black text-sm sm:text-base text-husk mt-0.5">Saving ৳30 on every single box!</p>
+                  <p className="font-black text-sm sm:text-base text-husk mt-0.5">Total ৳60 Discount on 2 boxes! 🎁</p>
                 </div>
               </div>
 
