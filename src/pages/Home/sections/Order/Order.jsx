@@ -167,7 +167,7 @@ const Order = ({ quantity, setQuantity }) => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.35, ease: "easeInOut" }}
-                className="text-sm sm:text-base font-black text-[#5C3D2E] leading-normal"
+                className="text-sm sm:text-base font-black text-primary leading-normal"
               >
                 "জিনিস যেটা ভালো, দাম তার একটু বেশি"
               </motion.p>
@@ -178,7 +178,7 @@ const Order = ({ quantity, setQuantity }) => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.35, ease: "easeInOut" }}
-                className="text-[11px] sm:text-xs font-black text-primary tracking-wide uppercase leading-normal"
+                className="text-sm sm:text-base font-black text-primary leading-normal"
               >
                 "Good quality always costs a bit more."
               </motion.p>
