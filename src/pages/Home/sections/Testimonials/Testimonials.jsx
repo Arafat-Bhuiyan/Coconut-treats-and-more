@@ -97,7 +97,7 @@ const Testimonials = () => {
                                     </span>
                                 </div>
                                 
-                                <p className="text-sm sm:text-base md:text-lg text-husk/80 max-w-2xl font-bold leading-relaxed text-center md:text-left">
+                                <p className="text-sm sm:text-base md:text-lg text-husk max-w-2xl font-black leading-relaxed text-center md:text-left">
                                     Order{" "}
                                     <span className="bg-primary text-white font-black px-2.5 py-1 rounded-xl shadow-md shadow-primary/20 whitespace-nowrap inline-block transform hover:scale-105 transition-all">
                                         2 or more boxes

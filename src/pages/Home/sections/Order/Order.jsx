@@ -426,14 +426,14 @@ const Order = ({ quantity, setQuantity }) => {
                 <div className="space-y-3 mb-4">
                   <div className="flex items-center gap-3">
                     <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-base flex-shrink-0">📦</span>
-                    <p className="text-xs sm:text-sm text-husk font-bold">
-                      Order <span className="font-black text-primary">2 or more boxes</span> to unlock 💰
+                    <p className="text-xs sm:text-sm text-husk font-black">
+                      Order 2 or more boxes to unlock 💰
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-base flex-shrink-0">💰</span>
-                    <p className="text-xs sm:text-sm text-husk font-bold">
-                      Price drops to <span className="font-black text-primary">৳570 per box</span> automatically! ✨
+                    <p className="text-xs sm:text-sm text-husk font-black">
+                      Price drops to ৳570 per box automatically! ✨
                     </p>
                   </div>
                 </div>
