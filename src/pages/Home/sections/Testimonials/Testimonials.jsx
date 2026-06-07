@@ -25,32 +25,14 @@ const reviewImages = [
 ];
 
 const Testimonials = () => {
-    const [isPaused, setIsPaused] = React.useState(false);
-
-    const MarqueeRow = ({ images, duration = 80 }) => (
-        <div
-            className="flex overflow-hidden select-none gap-6 py-4"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-        >
-            <motion.div
-                initial={{ x: 0 }}
-                animate={{ x: "-50%" }}
-                transition={{
-                    duration: duration,
-                    repeat: Infinity,
-                    ease: "linear",
-                }}
-                className="flex flex-none gap-6 min-w-full will-change-transform"
-                style={{
-                    animationPlayState: isPaused ? "paused" : "running"
-                }}
-            >
-                {/* Duplicate images for seamless loop */}
-                {[...images, ...images].map((img, idx) => (
+    const MarqueeRow = ({ images }) => (
+        <div className="flex overflow-hidden select-none gap-6 py-4">
+            <div className="reviews-marquee gap-6 min-w-full">
+                {/* Original set */}
+                {images.map((img, idx) => (
                     <div
-                        key={idx}
-                        className="flex-none w-[220px] md:w-[320px] glass-card rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300"
+                        key={`orig-${idx}`}
+                        className="flex-none w-[180px] sm:w-[240px] md:w-[300px] glass-card rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300"
                     >
                         <img
                             src={img}
@@ -60,12 +42,42 @@ const Testimonials = () => {
                         />
                     </div>
                 ))}
-            </motion.div>
+                {/* Duplicate set for infinite loop */}
+                {images.map((img, idx) => (
+                    <div
+                        key={`dup-${idx}`}
+                        className="flex-none w-[180px] sm:w-[240px] md:w-[300px] glass-card rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300"
+                    >
+                        <img
+                            src={img}
+                            alt={`Review Duplicate ${idx}`}
+                            className="w-full h-auto object-cover pointer-events-none"
+                            loading="lazy"
+                        />
+                    </div>
+                ))}
+            </div>
         </div>
     );
 
     return (
         <section id="reviews" className="py-24 overflow-hidden relative">
+            <style>
+                {`
+                  @keyframes scrollReviews {
+                    from { transform: translateX(0); }
+                    to { transform: translateX(-50%); }
+                  }
+                  .reviews-marquee {
+                    display: flex;
+                    animation: scrollReviews 90s linear infinite;
+                    will-change: transform;
+                  }
+                  .reviews-marquee:hover {
+                    animation-play-state: paused;
+                  }
+                `}
+            </style>
             {/* Promo Banner */}
             {/* Promo Banner - Premium Ticket Style */}
             <div className="container mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
