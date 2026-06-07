@@ -6,7 +6,7 @@ import logo from "../../../../assets/images/coconuts-treats-more-logo.png";
 const Hero = ({ onOpenPromo }) => {
   return (
     <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 min-h-[90vh] md:min-h-screen flex items-center overflow-hidden">
-      <div className="container mx-auto grid md:grid-cols-2 gap-10 md:gap-12 items-center">
+      <div className="container mx-auto grid md:grid-cols-2 gap-10 md:gap-12 items-start">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
