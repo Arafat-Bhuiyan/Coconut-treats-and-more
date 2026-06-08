@@ -36,13 +36,13 @@ export const Home = () => {
     // 2. Dynamic high-deduplication PageView tracking
     trackFacebookEvent("PageView");
 
-    // 3. Show promotion popup with delay
+    // 3. Show promotion popup with a non-intrusive delay (prevents PageSpeed audit interruption and improves conversion)
     const hasShownPromo = sessionStorage.getItem("hasShownPromo");
     if (!hasShownPromo) {
       const timer = setTimeout(() => {
         setShowPromo(true);
         sessionStorage.setItem("hasShownPromo", "true");
-      }, 2500); // 2.5 seconds delay
+      }, 15000); // 15 seconds delay
       return () => clearTimeout(timer);
     }
   }, []);
