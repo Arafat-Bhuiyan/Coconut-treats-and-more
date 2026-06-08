@@ -97,11 +97,14 @@ const Order = ({ quantity, setQuantity }) => {
           value: totalOrderAmount,
           currency: "BDT",
           content_name: "Premium Coconut Pudding (6pc Box)",
+          content_ids: ["coconut-pudding-6pc"],
+          contents: [{ id: "coconut-pudding-6pc", quantity: quantity, item_price: basePrice }],
           content_type: "product",
           num_items: quantity,
         }, {
           phone: formData.phone,
-          name: formData.name
+          name: formData.name,
+          address: formData.address,
         });
 
         setSubmittedName(formData.name);

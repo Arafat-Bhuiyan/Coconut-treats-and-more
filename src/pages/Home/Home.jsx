@@ -34,7 +34,13 @@ export const Home = () => {
     }
 
     // 2. Dynamic high-deduplication PageView tracking
-    trackFacebookEvent("PageView");
+    // Also pass cached user data for returning visitors to improve Advanced Matching on PageView
+    let cachedUserData = {};
+    try {
+      const cached = localStorage.getItem("cc_user_data");
+      if (cached) cachedUserData = JSON.parse(cached);
+    } catch (e) {}
+    trackFacebookEvent("PageView", {}, cachedUserData);
 
     // 3. Show promotion popup with a non-intrusive delay (prevents PageSpeed audit interruption and improves conversion)
     const hasShownPromo = sessionStorage.getItem("hasShownPromo");

@@ -18,10 +18,15 @@ async function sha256(message) {
 function formatPhoneForMeta(phone) {
   if (!phone) return null;
   let clean = phone.replace(/[^0-9]/g, '');
+  // Handle various formats: 01XXXXXXXXX, 8801XXXXXXXXX, +8801XXXXXXXXX
   if (clean.length === 11 && clean.startsWith('0')) {
-    clean = '88' + clean; // Add Bangladesh country code
+    clean = '880' + clean.slice(1); // Replace leading 0 with 880
+  } else if (clean.length === 10 && !clean.startsWith('880')) {
+    clean = '880' + clean; // Add full BD country code
+  } else if (clean.startsWith('88') && clean.length === 13) {
+    // Already correct format: 8801XXXXXXXXX
   }
-  return clean;
+  return clean.length >= 12 ? clean : null; // Only return valid numbers
 }
 
 // Helper to read a cookie value by name
@@ -95,9 +100,12 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
     }
   }
 
-  // Automatically attach City and Country parameters (delivery is strictly in Dhaka, BD)
-  userData.ct = await sha256("dhaka");
-  userData.country = await sha256("bd");
+  // Automatically attach City, State, Zip and Country parameters (delivery is in Dhaka, BD)
+  // These geo-parameters significantly boost Event Match Quality score
+  userData.ct = await sha256("dhaka");         // city: dhaka
+  userData.st = await sha256("dhaka");          // state: dhaka division
+  userData.zp = await sha256("1000");           // zip: Dhaka central postal code
+  userData.country = await sha256("bd");        // country: bangladesh
 
   // Retrieve Browser ID (_fbp) and Click ID (_fbc) cookies for perfect event matching
   const fbp = getCookie('_fbp');
