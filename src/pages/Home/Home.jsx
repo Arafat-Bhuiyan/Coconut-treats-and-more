@@ -42,7 +42,7 @@ export const Home = () => {
       const timer = setTimeout(() => {
         setShowPromo(true);
         sessionStorage.setItem("hasShownPromo", "true");
-      }, 15000); // 15 seconds delay
+      }, 10000); // 10 seconds delay
       return () => clearTimeout(timer);
     }
   }, []);
