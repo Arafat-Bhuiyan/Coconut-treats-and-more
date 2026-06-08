@@ -54,6 +54,8 @@ export default async function handler(req, res) {
             ...(userData?.fn ? { fn: userData.fn } : {}),
             ...(userData?.ln ? { ln: userData.ln } : {}),
             ...(userData?.ct ? { ct: userData.ct } : {}),
+            ...(userData?.st ? { st: userData.st } : {}),
+            ...(userData?.zp ? { zp: userData.zp } : {}),
             ...(userData?.country ? { country: userData.country } : {}),
             ...(userData?.fbp ? { fbp: userData.fbp } : {}),
             ...(userData?.fbc ? { fbc: userData.fbc } : {}),
@@ -62,6 +64,8 @@ export default async function handler(req, res) {
             value: eventParams?.value ? parseFloat(eventParams.value) : undefined,
             currency: eventParams?.currency || 'BDT',
             content_name: eventParams?.content_name,
+            content_ids: eventParams?.content_ids,
+            contents: eventParams?.contents,
             content_type: eventParams?.content_type,
             num_items: eventParams?.num_items ? parseInt(eventParams.num_items, 10) : undefined,
           }
