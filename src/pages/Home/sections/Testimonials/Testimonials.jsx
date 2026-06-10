@@ -70,7 +70,7 @@ const Testimonials = () => {
                   }
                   .reviews-marquee {
                     display: flex;
-                    animation: scrollReviews 90s linear infinite;
+                    animation: scrollReviews 70s linear infinite;
                     will-change: transform;
                   }
                   .reviews-marquee:hover {
