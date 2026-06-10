@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import puddingImg from "../../../../assets/images/coconuts-treats-more-hero.jpeg";
+import puddingImg from "../../../../assets/images/coconuts-treats-more-hero.webp";
 import logo from "../../../../assets/images/coconuts-treats-more-logo.png";
 
 const Hero = ({ onOpenPromo }) => {
