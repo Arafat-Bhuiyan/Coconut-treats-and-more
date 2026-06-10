@@ -118,7 +118,7 @@ const Hero = ({ onOpenPromo }) => {
                 <span className="font-bold text-husk/90">Note:</span>{" "}
                 <span className="font-medium text-husk/70">Mild Sugar Added — Perfectly balanced, not overly sweet.</span>
               </p>
-              <p className="text-xs mt-0.5 text-husk/60 italic">
+              <p className="text-xs mt-0.5 font-semibold text-primary">
                 Every box comes with 6 delicious pieces.
               </p>
             </div>
