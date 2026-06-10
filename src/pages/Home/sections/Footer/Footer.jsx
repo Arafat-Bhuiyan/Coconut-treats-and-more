@@ -1,6 +1,5 @@
 import React from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
-import logo from "../../../../assets/images/coconuts-treats-more-logo.png";
 
 const FacebookIcon = ({ size = 24 }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">

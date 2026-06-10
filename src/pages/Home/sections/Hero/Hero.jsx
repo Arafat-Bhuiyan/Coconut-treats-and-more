@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import puddingImg from "../../../../assets/images/coconuts-treats-more-hero.webp";
-import logo from "../../../../assets/images/coconuts-treats-more-logo.png";
+import logo from "../../../../assets/images/coconuts-treats-more-logo.webp";
 
 const Hero = ({ onOpenPromo }) => {
   return (
@@ -165,11 +165,8 @@ const Hero = ({ onOpenPromo }) => {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative order-1 md:order-2 px-4 sm:px-0 will-change-transform"
+        <div
+          className="relative order-1 md:order-2 px-4 sm:px-0"
         >
           <div className="absolute -inset-4 bg-secondary/10 rounded-full -z-10 animate-pulse"></div>
           <img
@@ -197,7 +194,7 @@ const Hero = ({ onOpenPromo }) => {
               <p className="font-black text-husk text-sm sm:text-base">Every Morning</p>
             </div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
