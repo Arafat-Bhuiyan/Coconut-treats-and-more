@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, Minus, Plus, Trash2, CheckCircle, Loader2, MapPin } from "lucide-react";
-import productImg from "../../../../assets/images/coconuts-treats-more-hero.webp";
+import productImg from "../../../../assets/images/coconuts-treats-more-hero-v2.webp";
 import OrderSuccessPopup from "./OrderSuccessPopup";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
 
