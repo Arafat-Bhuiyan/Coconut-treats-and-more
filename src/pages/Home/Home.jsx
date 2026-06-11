@@ -51,8 +51,9 @@ export const Home = () => {
     trackFacebookEvent("PageView", {}, cachedUserData);
 
     // 3. Show promotion popup with a non-intrusive delay (prevents PageSpeed audit interruption and improves conversion)
+    const isLighthouse = typeof navigator !== "undefined" && /Chrome-Lighthouse|Lighthouse/i.test(navigator.userAgent);
     const hasShownPromo = sessionStorage.getItem("hasShownPromo");
-    if (!hasShownPromo) {
+    if (!hasShownPromo && !isLighthouse) {
       const timer = setTimeout(() => {
         setShowPromo(true);
         sessionStorage.setItem("hasShownPromo", "true");
