@@ -1,28 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Gift, Sparkles, Star } from "lucide-react";
-import review1 from "../../../../assets/images/reviews/1.jpeg"
-import review2 from "../../../../assets/images/reviews/2.jpeg"
-import review3 from "../../../../assets/images/reviews/3.jpeg"
-import review4 from "../../../../assets/images/reviews/4.jpeg"
-import review5 from "../../../../assets/images/reviews/5.jpeg"
-import review6 from "../../../../assets/images/reviews/6.jpeg"
-import review7 from "../../../../assets/images/reviews/7.jpeg"
-import review8 from "../../../../assets/images/reviews/8.jpeg"
-import review9 from "../../../../assets/images/reviews/9.jpeg"
-import review10 from "../../../../assets/images/reviews/10.jpeg"
-import review11 from "../../../../assets/images/reviews/11.jpeg"
-import review12 from "../../../../assets/images/reviews/12.jpeg"
-import review13 from "../../../../assets/images/reviews/13.jpeg"
-import review14 from "../../../../assets/images/reviews/14.jpeg"
-import review15 from "../../../../assets/images/reviews/15.jpeg"
-import review16 from "../../../../assets/images/reviews/16.jpeg"
-import review17 from "../../../../assets/images/reviews/17.jpeg"
 
-const reviewImages = [
-    review1, review2, review3, review4, review5, review6, review7, review8,
-    review9, review10, review11, review12, review13, review14, review15, review16, review17
-];
+// Use dynamic paths instead of static imports to reduce bundle size
+const reviewImages = Array.from({ length: 17 }, (_, i) => `/reviews/${i + 1}.jpeg`);
+
 
 const Testimonials = () => {
     const MarqueeRow = ({ images }) => (
