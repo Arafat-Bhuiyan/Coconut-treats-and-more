@@ -488,9 +488,9 @@ const Order = ({ quantity, setQuantity }) => {
                 </div>
 
                 {/* Bottom Savings Banner */}
-                <div className="bg-gradient-to-r from-accent/30 to-accent/10 border border-accent/30 rounded-xl px-4 py-3 flex items-center justify-center gap-2">
+                <div className="bg-gradient-to-r from-red-600 to-rose-600 border border-red-500 rounded-xl px-4 py-3 flex items-center justify-center gap-2 shadow-md shadow-red-600/10">
                   <span className="text-xl">🎁</span>
-                  <span className="text-sm sm:text-base font-black text-husk">Total ৳60 Discount on 2 boxes!</span>
+                  <span className="text-sm sm:text-base font-black text-white">Total ৳60 Discount on 2 boxes!</span>
                 </div>
               </div>
             </div>

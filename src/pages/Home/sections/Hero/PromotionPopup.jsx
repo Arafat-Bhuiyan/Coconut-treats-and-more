@@ -86,12 +86,12 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
                 </div>
               </div>
 
-              {/* Gold Savings Highlight Banner */}
-              <div className="bg-gradient-to-r from-accent/30 to-accent/10 border border-accent/30 rounded-2xl p-4 flex items-center justify-center gap-3 shadow-sm">
-                <span className="text-2xl">🎉</span>
+              {/* Crimson Savings Highlight Banner */}
+              <div className="bg-gradient-to-r from-red-600 to-rose-600 border border-red-500 rounded-2xl p-4 flex items-center justify-center gap-3 shadow-md transform hover:scale-[1.02] transition-transform duration-300">
+                <span className="text-2xl animate-bounce">🎁</span>
                 <div className="text-left">
-                  <p className="text-[9px] font-black text-husk/50 uppercase tracking-widest leading-none">Instant Discount</p>
-                  <p className="font-black text-sm sm:text-base text-husk mt-0.5">Total ৳60 Discount on 2 boxes! 🎁</p>
+                  <p className="text-[9px] font-black text-white/80 uppercase tracking-widest leading-none">Instant Discount</p>
+                  <p className="font-black text-sm sm:text-base text-white mt-0.5">Total ৳60 Discount on 2 boxes! 🎉</p>
                 </div>
               </div>
 
