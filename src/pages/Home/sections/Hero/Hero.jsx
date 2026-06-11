@@ -1,17 +1,27 @@
 import React from "react";
-import { motion } from "framer-motion";
-import puddingImg from "../../../../assets/images/coconuts-treats-more-hero-v2.webp";
-import logo from "../../../../assets/images/coconuts-treats-more-logo-v2.webp";
+
+// Use stable public/ paths — not hashed by Vite, works in both dev & production
+const puddingImg = "/hero.webp";
+const logo = "/logo.webp";
 
 const Hero = ({ onOpenPromo }) => {
   return (
     <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 min-h-[90vh] md:min-h-screen flex items-center overflow-hidden">
+      <style>{`
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(24px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes floatBadge {
+          0%, 100% { transform: translateY(0px); }
+          50%       { transform: translateY(-12px); }
+        }
+        .hero-text-col { animation: fadeInUp 0.5s ease both; }
+        .hero-float-badge { animation: floatBadge 4s ease-in-out infinite; will-change: transform; }
+      `}</style>
       <div className="container mx-auto grid md:grid-cols-2 gap-10 md:gap-12 items-start">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center md:text-left order-2 md:order-1 will-change-transform"
+        <div
+          className="text-center md:text-left order-2 md:order-1 hero-text-col"
         >
           <div className="flex flex-col sm:flex-row items-center gap-8 sm:gap-14 md:gap-16 mb-8 justify-center md:justify-start w-full">
             {/* Logo */}
@@ -144,17 +154,13 @@ const Hero = ({ onOpenPromo }) => {
 
             <div className="flex items-center gap-3 mt-2 sm:mt-0">
               <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
+                {["#4A6741","#97BC62","#8DA47E","#C8D5B9"].map((color, i) => (
                   <div
                     key={i}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white bg-slate-200 shadow-sm overflow-hidden"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 border-white shadow-sm flex items-center justify-center text-white font-black text-xs"
+                    style={{ backgroundColor: color }}
                   >
-                    <img
-                      src={`https://i.pravatar.cc/100?u=${i}`}
-                      alt="user"
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
+                    {["A","R","F","T"][i]}
                   </div>
                 ))}
               </div>
@@ -163,7 +169,7 @@ const Hero = ({ onOpenPromo }) => {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         <div
           className="relative order-1 md:order-2 px-4 sm:px-0"
@@ -179,10 +185,8 @@ const Hero = ({ onOpenPromo }) => {
           />
 
           {/* Floating Badge */}
-          <motion.div
-            animate={{ y: [0, -12, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -top-4 -right-2 sm:top-10 sm:right-0 glass-panel p-3 sm:p-5 rounded-2xl sm:rounded-3xl flex items-center gap-3 will-change-transform"
+          <div
+            className="hero-float-badge absolute -top-4 -right-2 sm:top-10 sm:right-0 glass-panel p-3 sm:p-5 rounded-2xl sm:rounded-3xl flex items-center gap-3"
           >
             <div className="bg-accent/20 p-2 sm:p-3 rounded-xl sm:rounded-2xl">
               <span className="text-xl sm:text-2xl">🥥</span>
@@ -193,7 +197,7 @@ const Hero = ({ onOpenPromo }) => {
               </p>
               <p className="font-black text-husk text-sm sm:text-base">Every Morning</p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

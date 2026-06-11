@@ -11,21 +11,23 @@
   <!-- High-Performance Preconnect and Resource Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://connect.facebook.net" />
+  <link rel="dns-prefetch" href="https://i.pravatar.cc" />
   
-   <!-- Optimized Font Loading (Non-Render-Blocking) -->
+  <!-- Optimized Font Loading (Non-Render-Blocking) -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
   <noscript>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   </noscript>
 
-  <!-- Preload Largest Contentful Paint (LCP) Assets -->
-  <link rel="preload" href="/assets/coconuts-treats-more-logo-v2-DQtjSobD.webp" as="image" fetchpriority="high" />
-  <link rel="preload" href="/assets/coconuts-treats-more-hero-v2-CfPKf-5I.webp" as="image" fetchpriority="high" />
-  <script type="module" crossorigin src="/assets/index-CTLmNzpA.js"></script>
+  <!-- Preload LCP Assets — Stable public/ paths (not hashed by Vite) -->
+  <link rel="preload" href="/logo.webp" as="image" fetchpriority="high" type="image/webp" />
+  <link rel="preload" href="/hero.webp" as="image" fetchpriority="high" type="image/webp" />
+  <script type="module" crossorigin src="/assets/index-CcEkx4Om.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/vendor-react-CiW5Bwbg.js">
   <link rel="modulepreload" crossorigin href="/assets/vendor-motion-rJ6WsvyL.js">
   <link rel="modulepreload" crossorigin href="/assets/vendor-icons-CCfoYFxD.js">
-  <link rel="stylesheet" crossorigin href="/assets/index-Uta_8vAU.css">
+  <link rel="stylesheet" crossorigin href="/assets/index-CzGTscBl.css">
 </head>
 
 <body>
@@ -113,13 +115,13 @@
     <div class="loading-container">
       <div class="loading-grid">
         <div class="loading-text-col">
-          <img class="loading-logo" src="/assets/coconuts-treats-more-logo-v2-DQtjSobD.webp" alt="Logo" width="128" height="128" />
+          <img class="loading-logo" src="/logo.webp" alt="Logo" width="128" height="128" />
           <h1 class="loading-title">Fresh Homemade <br />Premium Coconut Pudding</h1>
           <p class="loading-desc">Made with fresh coconut water, authentic cow milk, and imported agar-agar. 100% Halal | No added preservatives</p>
           <div class="loading-button"></div>
         </div>
         <div class="loading-hero-img-wrapper">
-          <img src="/assets/coconuts-treats-more-hero-v2-CfPKf-5I.webp" alt="Delicious Coconut Pudding" style="width: 100%; height: 100%; object-fit: cover;" width="500" height="500" />
+          <img src="/hero.webp" alt="Delicious Coconut Pudding" style="width: 100%; height: 100%; object-fit: cover;" width="500" height="500" decoding="async" />
         </div>
       </div>
     </div>
