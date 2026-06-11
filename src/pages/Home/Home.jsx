@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import Navbar from "./sections/Navbar/Navbar";
 import Hero from "./sections/Hero/Hero";
-import Testimonials from "./sections/Testimonials/Testimonials";
-import Order from "./sections/Order/Order";
-import Footer from "./sections/Footer/Footer";
-import PromotionPopup from "./sections/Hero/PromotionPopup";
 import WhatsAppButton from "../../components/WhatsAppButton";
-
 import { trackFacebookEvent } from "../../utils/facebookTracking";
+
+// Lazy load below-the-fold components to reduce initial page load payload
+const Testimonials = lazy(() => import("./sections/Testimonials/Testimonials"));
+const Order = lazy(() => import("./sections/Order/Order"));
+const Footer = lazy(() => import("./sections/Footer/Footer"));
+const PromotionPopup = lazy(() => import("./sections/Hero/PromotionPopup"));
+
+// Simple elegant loading fallbacks
+const SectionLoader = () => (
+  <div className="min-h-[400px] flex items-center justify-center bg-milk-white">
+    <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
 export const Home = () => {
   const [quantity, setQuantity] = useState(1);
@@ -69,15 +77,21 @@ export const Home = () => {
       <Navbar />
       <main>
         <Hero onOpenPromo={() => setShowPromo(true)} />
-        <Testimonials />
-        <Order quantity={quantity} setQuantity={setQuantity} />
+        <Suspense fallback={<SectionLoader />}>
+          <Testimonials />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Order quantity={quantity} setQuantity={setQuantity} />
+        </Suspense>
       </main>
-      <Footer />
-      <PromotionPopup
-        isOpen={showPromo}
-        onClose={() => setShowPromo(false)}
-        onClaim={claimOffer}
-      />
+      <Suspense fallback={null}>
+        <Footer />
+        <PromotionPopup
+          isOpen={showPromo}
+          onClose={() => setShowPromo(false)}
+          onClaim={claimOffer}
+        />
+      </Suspense>
       <WhatsAppButton />
     </div>
   );

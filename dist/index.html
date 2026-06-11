@@ -21,16 +21,108 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   </noscript>
 
-  <!-- Preload Largest Contentful Paint (LCP) Hero Image -->
+  <!-- Preload Largest Contentful Paint (LCP) Assets -->
+  <link rel="preload" href="/assets/coconuts-treats-more-logo-BWWieEkj.webp" as="image" fetchpriority="high" />
   <link rel="preload" href="/assets/coconuts-treats-more-hero-C7qfqTqN.webp" as="image" fetchpriority="high" />
-  <script type="module" crossorigin src="/assets/index-DqaZivRo.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-Dunckft6.css">
+  <script type="module" crossorigin src="/assets/index-BqHWKUIM.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CQNrVZEg.css">
 </head>
 
 <body>
   <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=939507308912648&ev=PageView&noscript=1"
   /></noscript>
-  <div id="root"></div>
+  <div id="root">
+    <!-- Responsive visual skeleton to reduce FCP and LCP to near-zero before React loads -->
+    <style>
+      .loading-container {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: #F6F8F5;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        box-sizing: border-box;
+      }
+      .loading-grid {
+        max-width: 1200px;
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 2.5rem;
+        align-items: center;
+      }
+      .loading-hero-img-wrapper {
+        width: 100%;
+        max-width: 500px;
+        aspect-ratio: 1/1;
+        background-color: #e5ebd9;
+        border-radius: 2.5rem;
+        overflow: hidden;
+        box-shadow: 0 32px 64px -16px rgba(0,0,0,0.15);
+        margin: 0 auto;
+      }
+      .loading-logo {
+        width: 128px;
+        height: 128px;
+        -o-object-fit: contain;
+           object-fit: contain;
+      }
+      .loading-text-col {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .loading-title {
+        font-size: 2.25rem;
+        font-weight: 900;
+        color: #2C332A;
+        margin: 1.5rem 0 1rem 0;
+        line-height: 1.15;
+      }
+      .loading-desc {
+        font-size: 1rem;
+        color: rgba(44, 51, 42, 0.8);
+        max-width: 500px;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+      .loading-button {
+        width: 180px;
+        height: 54px;
+        background-color: #4A6741;
+        border-radius: 1rem;
+      }
+      @media (min-width: 768px) {
+        .loading-grid {
+          display: grid;
+          grid-template-columns: 1.2fr 0.8fr;
+          gap: 3.5rem;
+        }
+        .loading-text-col {
+          text-align: left;
+          align-items: flex-start;
+        }
+        .loading-hero-img-wrapper {
+          border-radius: 4rem;
+        }
+      }
+    </style>
+    <div class="loading-container">
+      <div class="loading-grid">
+        <div class="loading-text-col">
+          <img class="loading-logo" src="/assets/coconuts-treats-more-logo-BWWieEkj.webp" alt="Logo" width="128" height="128" />
+          <h1 class="loading-title">Fresh Homemade <br />Premium Coconut Pudding</h1>
+          <p class="loading-desc">Made with fresh coconut water, authentic cow milk, and imported agar-agar. 100% Halal | No added preservatives</p>
+          <div class="loading-button"></div>
+        </div>
+        <div class="loading-hero-img-wrapper">
+          <img src="/assets/coconuts-treats-more-hero-C7qfqTqN.webp" alt="Delicious Coconut Pudding" style="width: 100%; height: 100%; object-fit: cover;" width="500" height="500" />
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
