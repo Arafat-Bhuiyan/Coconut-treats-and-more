@@ -1,4 +1,5 @@
 import { Gift, Sparkles, Star } from "lucide-react";
+import CountdownTimer from "../../../../components/CountdownTimer";
 
 // Use dynamic paths instead of static imports to reduce bundle size
 const reviewImages = Array.from({ length: 17 }, (_, i) => `/reviews/${i + 1}.webp`);
@@ -102,6 +103,11 @@ const Testimonials = () => {
                                         <span className="relative z-10">🎁 Total ৳120 Save on 2 boxes!</span>
                                     </span>
                                 </p>
+
+                                {/* Countdown Timer */}
+                                <div className="flex justify-center md:justify-start pt-1">
+                                    <CountdownTimer layout="row" className="bg-white/40 backdrop-blur-sm px-4 py-2 rounded-2xl border border-white/60 shadow-sm" />
+                                </div>
                             </div>
                         </div>
                         <a 

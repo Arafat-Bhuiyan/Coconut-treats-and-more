@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const CountdownTimer = ({ className = "" }) => {
+const CountdownTimer = ({ className = "", layout = "col" }) => {
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const CountdownTimer = ({ className = "" }) => {
   const formatNumber = (num) => String(num).padStart(2, "0");
 
   return (
-    <div className={`flex flex-col items-center gap-1.5 ${className}`}>
+    <div className={`flex ${layout === "col" ? "flex-col" : "flex-row flex-wrap justify-center"} items-center gap-2 ${className}`}>
       <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-primary">
         <span className="inline-block animate-pulse">⏳</span>
         <span>Limited Offer Ends In:</span>
