@@ -87,11 +87,11 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
               </div>
 
               {/* Crimson Savings Highlight Banner */}
-              <div className="bg-gradient-to-r from-red-600 to-rose-600 border border-red-500 rounded-2xl p-4 flex items-center justify-center gap-3 shadow-md transform hover:scale-[1.02] transition-transform duration-300">
+              <div className="rounded-2xl p-4 flex items-center justify-center gap-3 shadow-md transform hover:scale-[1.02] transition-transform duration-300" style={{background: '#F39C12', border: '1px solid #e08e0b'}}>
                 <span className="text-2xl animate-bounce">🎁</span>
                 <div className="text-left">
-                  <p className="text-[9px] font-black text-white/80 uppercase tracking-widest leading-none">Instant Discount</p>
-                  <p className="font-black text-sm sm:text-base text-white mt-0.5">Total ৳60 Discount on 2 boxes! 🎉</p>
+                  <p className="text-[9px] font-black uppercase tracking-widest leading-none" style={{color: '#3F5E3D'}}>Instant Discount</p>
+                  <p className="font-black text-sm sm:text-base mt-0.5" style={{color: '#3F5E3D'}}>Total ৳60 Discount on 2 boxes! 🎉</p>
                 </div>
               </div>
 
