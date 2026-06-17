@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Gift, Sparkles, Star } from "lucide-react";
 
 // Use dynamic paths instead of static imports to reduce bundle size
-const reviewImages = Array.from({ length: 17 }, (_, i) => `/reviews/${i + 1}.jpeg`);
+const reviewImages = Array.from({ length: 17 }, (_, i) => `/reviews/${i + 1}.webp`);
 
 
 const Testimonials = () => {
