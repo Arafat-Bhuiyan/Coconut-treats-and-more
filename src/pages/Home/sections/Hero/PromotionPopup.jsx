@@ -39,13 +39,13 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
         {/* Top Glowing Accent Bar */}
         <div className="bg-gradient-to-r from-primary via-primary-dark to-primary h-2 w-full" />
 
-        {/* Top Close Button */}
+        {/* Top Close Button - Bold & Easy to Tap */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 p-1.5 rounded-full bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-all z-20 shadow-sm border border-slate-100 cursor-pointer flex items-center justify-center"
+          className="absolute top-3 right-3 p-2 rounded-full bg-slate-200 text-slate-700 hover:bg-red-100 hover:text-red-600 transition-all z-20 shadow-md border-2 border-slate-300 hover:border-red-300 cursor-pointer flex items-center justify-center"
           aria-label="Close promotion dialog"
         >
-          <X size={14} />
+          <X size={18} strokeWidth={3} />
         </button>
 
         {/* Top Branding Section (Upper Ticket Stub) */}
