@@ -178,6 +178,8 @@ const Hero = ({ onOpenPromo }) => {
           <div className="absolute -inset-4 bg-secondary/10 rounded-full -z-10"></div>
           <img
             src={puddingImg}
+            srcSet="/hero-mobile.webp 500w, /hero.webp 800w"
+            sizes="(min-width: 768px) 50vw, 100vw"
             alt="Delicious Coconut Pudding"
             className="w-full h-auto shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] rounded-[2.5rem] sm:rounded-[4rem]"
             fetchpriority="high"
