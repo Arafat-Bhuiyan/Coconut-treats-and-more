@@ -10,6 +10,7 @@ export default {
         "pure-coconut": "#FFFFFF",
         husk: "#2C332A",
         accent: "#97BC62",
+        "accent-dark": "#5A7336",
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],

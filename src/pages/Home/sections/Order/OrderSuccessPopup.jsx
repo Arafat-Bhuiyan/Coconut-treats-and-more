@@ -28,6 +28,7 @@ const OrderSuccessPopup = ({ isOpen, onClose, customerName }) => {
             <button
               onClick={onClose}
               className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-husk/50 hover:text-husk transition-colors z-20"
+              aria-label="Close success dialog"
             >
               <X size={18} />
             </button>

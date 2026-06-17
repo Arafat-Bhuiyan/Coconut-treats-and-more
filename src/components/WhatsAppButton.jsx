@@ -34,6 +34,7 @@ const WhatsAppButton = () => {
                 <button
                   onClick={() => setShowTooltip(false)}
                   className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label="Close chat invitation"
                 >
                   <X size={14} />
                 </button>

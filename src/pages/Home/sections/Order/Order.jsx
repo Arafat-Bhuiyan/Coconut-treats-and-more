@@ -337,7 +337,7 @@ const Order = ({ quantity, setQuantity }) => {
                 />
                 <label
                   htmlFor="terms"
-                  className="text-xs sm:text-sm font-bold text-husk/60 cursor-pointer select-none leading-snug"
+                  className="text-xs sm:text-sm font-bold text-husk/85 cursor-pointer select-none leading-snug"
                 >
                   I confirm that my information is correct and I agree to the{" "}
                   <span className="text-primary underline">Terms</span>.
@@ -379,9 +379,9 @@ const Order = ({ quantity, setQuantity }) => {
                   <img src={productImg} alt="Product" className="w-full h-full object-cover" loading="lazy" width={80} height={80} />
                 </div>
                 <div className="flex-grow">
-                  <h4 className="font-bold text-husk text-xs sm:text-sm leading-tight">
+                  <div className="font-bold text-husk text-xs sm:text-sm leading-tight">
                     Premium Coconut Pudding (6pc Box)
-                  </h4>
+                  </div>
                   <p className="text-xs font-black text-primary mt-1">৳{unitPrice} / box</p>
                 </div>
                 <div className="flex flex-col items-end gap-2">
@@ -390,6 +390,7 @@ const Order = ({ quantity, setQuantity }) => {
                       type="button"
                       onClick={(e) => { e.preventDefault(); setQuantity(Math.max(1, quantity - 1)); }}
                       className="p-1 hover:bg-white rounded-md transition-colors text-husk/50 hover:text-primary active:scale-95"
+                      aria-label="Decrease quantity"
                     >
                       <Minus size={14} />
                     </button>
@@ -400,6 +401,7 @@ const Order = ({ quantity, setQuantity }) => {
                       type="button"
                       onClick={(e) => { e.preventDefault(); setQuantity(quantity + 1); }}
                       className="p-1 hover:bg-white rounded-md transition-colors text-husk/50 hover:text-primary active:scale-95"
+                      aria-label="Increase quantity"
                     >
                       <Plus size={14} />
                     </button>
@@ -410,11 +412,11 @@ const Order = ({ quantity, setQuantity }) => {
 
               {/* Summary Totals */}
               <div className="space-y-4 pt-6">
-                <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/60 uppercase">
+                <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
                   <span>Subtotal</span>
                   <span>৳{totalProductPrice}</span>
                 </div>
-                <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/60 uppercase">
+                <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
                   <span>Delivery Charge</span>
                   <span>৳{deliveryCharge}</span>
                 </div>
@@ -458,9 +460,9 @@ const Order = ({ quantity, setQuantity }) => {
                 {/* Header Row */}
                 <div className="flex items-start justify-between gap-3 mb-4">
                   <div>
-                    <h4 className="font-black text-husk text-xl sm:text-2xl leading-tight tracking-tight">
+                    <div className="font-black text-husk text-xl sm:text-2xl leading-tight tracking-tight">
                       Buy More, Save More!
-                    </h4>
+                    </div>
                     <p className="text-xs text-husk/50 font-bold mt-0.5">Special bulk discount offer</p>
                   </div>
                   <span className="flex-shrink-0 bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-black px-2.5 py-1.5 rounded-xl uppercase tracking-wider animate-pulse flex items-center gap-1 shadow-sm">

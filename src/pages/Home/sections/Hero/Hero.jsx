@@ -57,9 +57,9 @@ const Hero = ({ onOpenPromo }) => {
                 </div>
 
                 {/* Headline */}
-                <h4 className="font-black text-husk text-xl sm:text-2xl leading-tight tracking-tight mb-1">
+                <div className="font-black text-husk text-xl sm:text-2xl leading-tight tracking-tight mb-1">
                   Buy More, Save More!
-                </h4>
+                </div>
                 <p className="text-xs text-husk/50 font-bold">Special bulk discount offer</p>
               </div>
 

@@ -32,6 +32,7 @@ const Footer = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             title="Follow us on Facebook"
+                            aria-label="Follow us on Facebook"
                             style={{ backgroundColor: '#1877F2', boxShadow: '0 4px 18px rgba(24,119,242,0.45)' }}
                             className="w-14 h-14 rounded-2xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_28px_rgba(24,119,242,0.7)] active:scale-95"
                         >
@@ -43,6 +44,7 @@ const Footer = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             title="Follow us on Instagram"
+                            aria-label="Follow us on Instagram"
                             style={{ background: 'radial-gradient(circle at 30% 110%, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)', boxShadow: '0 4px 18px rgba(220,39,67,0.45)' }}
                             className="w-14 h-14 rounded-2xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_28px_rgba(188,24,136,0.65)] active:scale-95"
                         >
@@ -52,7 +54,7 @@ const Footer = () => {
                 </div>
 
                 <div className="md:col-span-3 flex flex-col items-center md:items-start">
-                    <h4 className="text-accent font-black text-xs uppercase tracking-widest mb-6">Explore</h4>
+                    <h3 className="text-accent font-black text-xs uppercase tracking-widest mb-6">Explore</h3>
                     <ul className="space-y-4 font-bold text-sm sm:text-base">
                         <li><a href="#" className="text-milk-white/60 hover:text-accent transition-colors">Home</a></li>
                         <li><a href="#reviews" className="text-milk-white/60 hover:text-accent transition-colors">Customer Reviews</a></li>
@@ -61,7 +63,7 @@ const Footer = () => {
                 </div>
 
                 <div className="md:col-span-4 flex flex-col items-center md:items-start">
-                    <h4 className="text-accent font-black text-xs uppercase tracking-widest mb-6">Quick Contact</h4>
+                    <h3 className="text-accent font-black text-xs uppercase tracking-widest mb-6">Quick Contact</h3>
                     <ul className="space-y-6 w-full max-w-[280px] md:max-w-none">
                         <li className="flex flex-col md:flex-row items-center md:items-start gap-4">
                             <div className="bg-white/5 p-3 rounded-xl border border-white/10 shrink-0">

@@ -14,7 +14,7 @@ const Navbar = () => {
             <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
                 <div className="flex items-center gap-2 relative z-50">
                     <span className="text-xl sm:text-2xl font-black text-primary tracking-tight">
-                        Coconut<span className="text-accent underline decoration-accent/30 underline-offset-4">Treats&amp;More</span>
+                        Coconut<span className="text-accent-dark underline decoration-accent/30 underline-offset-4">Treats&amp;More</span>
                     </span>
                 </div>
 
@@ -33,7 +33,7 @@ const Navbar = () => {
 
                 {/* Mobile Menu Toggle */}
                 <div className="flex md:hidden items-center gap-4 relative z-50">
-                    <a href="#order" className="bg-accent p-2.5 rounded-full text-husk shadow-lg shadow-accent/20">
+                    <a href="#order" className="bg-accent p-2.5 rounded-full text-husk shadow-lg shadow-accent/20" aria-label="Order section">
                         <ShoppingCart size={18} />
                     </a>
                     <button

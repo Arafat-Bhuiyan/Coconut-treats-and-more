@@ -83,9 +83,9 @@ const Testimonials = () => {
                             </div>
                             <div className="space-y-3.5">
                                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-2.5">
-                                    <h4 className="text-2xl sm:text-3xl font-black tracking-tight text-husk">
+                                    <div className="text-2xl sm:text-3xl font-black tracking-tight text-husk">
                                         Buy More, Save More!
-                                    </h4>
+                                    </div>
                                     <span className="bg-amber-50 text-amber-700 border border-amber-200 text-[10px] sm:text-xs font-black px-3.5 py-1.5 rounded-xl uppercase tracking-wider shadow-sm animate-pulse">
                                         🎁 SUPER SAVER
                                     </span>
