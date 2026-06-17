@@ -490,9 +490,10 @@ const Order = ({ quantity, setQuantity }) => {
                 </div>
 
                 {/* Bottom Savings Banner */}
-                <div className="rounded-xl px-4 py-3 flex items-center justify-center gap-2 shadow-md" style={{background: '#F39C12', border: '1px solid #e08e0b'}}>
-                  <span className="text-xl">🎁</span>
-                  <span className="text-sm sm:text-base font-black" style={{color: '#fff'}}>Total ৳60 Discount on 2 boxes!</span>
+                <div className="rounded-xl px-4 py-3 flex items-center justify-center gap-2 relative overflow-hidden" style={{background: 'linear-gradient(135deg, rgba(243,156,18,0.92) 0%, rgba(230,126,34,0.88) 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 6px 20px rgba(243,156,18,0.45), inset 0 1px 0 rgba(255,255,255,0.45)'}}>
+                  <span className="absolute inset-0 rounded-xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)', pointerEvents: 'none'}} />
+                  <span className="text-xl relative z-10">🎁</span>
+                  <span className="text-sm sm:text-base font-black relative z-10" style={{color: '#fff', textShadow: '0 1px 3px rgba(0,0,0,0.2)'}}>Total ৳60 Discount on 2 boxes!</span>
                 </div>
               </div>
             </div>

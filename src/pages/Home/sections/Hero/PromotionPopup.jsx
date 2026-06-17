@@ -87,11 +87,12 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
               </div>
 
               {/* Crimson Savings Highlight Banner */}
-              <div className="rounded-2xl p-4 flex items-center justify-center gap-3 shadow-md transform hover:scale-[1.02] transition-transform duration-300" style={{background: '#F39C12', border: '1px solid #e08e0b'}}>
-                <span className="text-2xl animate-bounce">🎁</span>
-                <div className="text-left">
-                  <p className="text-[9px] font-black uppercase tracking-widest leading-none" style={{color: '#fff', opacity: 0.85}}>Instant Discount</p>
-                  <p className="font-black text-sm sm:text-base mt-0.5" style={{color: '#fff'}}>Total ৳60 Discount on 2 boxes! 🎉</p>
+              <div className="rounded-2xl p-4 flex items-center justify-center gap-3 transform hover:scale-[1.02] transition-transform duration-300 relative overflow-hidden" style={{background: 'linear-gradient(135deg, rgba(243,156,18,0.92) 0%, rgba(230,126,34,0.88) 100%)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(255,255,255,0.38)', boxShadow: '0 8px 28px rgba(243,156,18,0.45), inset 0 1px 0 rgba(255,255,255,0.5)'}}>
+                <span className="absolute inset-0 rounded-2xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 55%)', pointerEvents: 'none'}} />
+                <span className="text-2xl animate-bounce relative z-10">🎁</span>
+                <div className="text-left relative z-10">
+                  <p className="text-[9px] font-black uppercase tracking-widest leading-none" style={{color: 'rgba(255,255,255,0.85)'}}>Instant Discount</p>
+                  <p className="font-black text-sm sm:text-base mt-0.5" style={{color: '#fff', textShadow: '0 1px 3px rgba(0,0,0,0.15)'}}>Total ৳60 Discount on 2 boxes! 🎉</p>
                 </div>
               </div>
 
