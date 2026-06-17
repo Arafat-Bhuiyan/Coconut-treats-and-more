@@ -390,7 +390,7 @@ const Order = ({ quantity, setQuantity }) => {
               <div className="space-y-4 pt-6">
                 <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
                   <span>Subtotal</span>
-                  <span>৳{totalProductPrice}</span>
+                  <span>৳{quantity * basePrice}</span>
                 </div>
                 <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
                   <span>Delivery Charge</span>
@@ -409,7 +409,7 @@ const Order = ({ quantity, setQuantity }) => {
                       <CheckCircle size={12} /> BULK OFFER
                     </span>
                     <span className="text-xs font-black text-accent-dark">
-                      - ৳{quantity * 30} Saved
+                      - ৳{quantity * (basePrice - offerPrice)} Saved
                     </span>
                   </div>
                 </div>
