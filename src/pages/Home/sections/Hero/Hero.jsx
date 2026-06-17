@@ -1,4 +1,5 @@
 import React from "react";
+import CountdownTimer from "../../../../components/CountdownTimer";
 
 // Use stable public/ paths — not hashed by Vite, works in both dev & production
 const puddingImg = "/hero.webp";
@@ -52,7 +53,7 @@ const Hero = ({ onOpenPromo }) => {
                     🔥 BULK DEAL
                   </span>
                   <span className="text-[11px] font-black px-2.5 py-1.5 rounded-lg animate-pulse relative overflow-hidden" style={{background: 'linear-gradient(135deg, rgba(243,156,18,0.92) 0%, rgba(230,126,34,0.88) 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 4px 15px rgba(243,156,18,0.4), inset 0 1px 0 rgba(255,255,255,0.45)', color: '#fff'}}>
-                    Total ৳60 Discount on 2 boxes! 🎁
+                    Total ৳120 Save on 2 boxes! 🎁
                   </span>
                 </div>
 
@@ -79,7 +80,7 @@ const Hero = ({ onOpenPromo }) => {
                   <div className="flex items-center gap-3">
                     <span className="w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center font-black text-sm flex-shrink-0">💰</span>
                     <p className="text-xs sm:text-sm text-husk font-black">
-                      Price drops to ৳570 per box automatically! ✨
+                      Price drops to ৳540 per box automatically! ✨
                     </p>
                   </div>
                 </div>
@@ -88,7 +89,12 @@ const Hero = ({ onOpenPromo }) => {
                 <div className="rounded-xl px-4 py-2.5 flex items-center justify-center gap-2 mt-1 relative overflow-hidden" style={{background: 'linear-gradient(135deg, rgba(243,156,18,0.92) 0%, rgba(230,126,34,0.88) 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 6px 20px rgba(243,156,18,0.45), inset 0 1px 0 rgba(255,255,255,0.45)'}}>
                   <span className="absolute inset-0 rounded-xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)', pointerEvents: 'none'}} />
                   <span className="text-lg relative z-10">🎁</span>
-                  <span className="text-sm font-black relative z-10" style={{color: '#fff', textShadow: '0 1px 3px rgba(0,0,0,0.2)'}}>Total ৳60 Discount on 2 boxes!</span>
+                  <span className="text-sm font-black relative z-10" style={{color: '#fff', textShadow: '0 1px 3px rgba(0,0,0,0.2)'}}>Total ৳120 Save on 2 boxes!</span>
+                </div>
+
+                {/* Countdown Timer */}
+                <div className="mt-3.5 pt-3 border-t border-dashed border-gray-200/50 flex items-center justify-center w-full">
+                  <CountdownTimer />
                 </div>
               </div>
             </div>

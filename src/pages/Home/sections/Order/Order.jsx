@@ -3,6 +3,7 @@ import { Send, Minus, Plus, Trash2, CheckCircle, Loader2, MapPin } from "lucide-
 const productImg = "/hero.webp";
 import OrderSuccessPopup from "./OrderSuccessPopup";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
+import CountdownTimer from "../../../../components/CountdownTimer";
 
 const Order = ({ quantity, setQuantity }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,7 +27,7 @@ const Order = ({ quantity, setQuantity }) => {
   });
 
   const basePrice = 600;
-  const offerPrice = 570;
+  const offerPrice = 540;
   const deliveryCharge = 100;
 
   const unitPrice = quantity >= 2 ? offerPrice : basePrice;
@@ -454,7 +455,7 @@ const Order = ({ quantity, setQuantity }) => {
                   <div className="flex items-center gap-3">
                     <span className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-base flex-shrink-0">💰</span>
                     <p className="text-xs sm:text-sm text-husk font-black">
-                      Price drops to ৳570 per box automatically! ✨
+                      Price drops to ৳540 per box automatically! ✨
                     </p>
                   </div>
                 </div>
@@ -463,7 +464,12 @@ const Order = ({ quantity, setQuantity }) => {
                 <div className="rounded-xl px-4 py-3 flex items-center justify-center gap-2 relative overflow-hidden" style={{background: 'linear-gradient(135deg, rgba(243,156,18,0.92) 0%, rgba(230,126,34,0.88) 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 6px 20px rgba(243,156,18,0.45), inset 0 1px 0 rgba(255,255,255,0.45)'}}>
                   <span className="absolute inset-0 rounded-xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)', pointerEvents: 'none'}} />
                   <span className="text-xl relative z-10">🎁</span>
-                  <span className="text-sm sm:text-base font-black relative z-10" style={{color: '#fff', textShadow: '0 1px 3px rgba(0,0,0,0.2)'}}>Total ৳60 Discount on 2 boxes!</span>
+                  <span className="text-sm sm:text-base font-black relative z-10" style={{color: '#fff', textShadow: '0 1px 3px rgba(0,0,0,0.2)'}}>Total ৳120 Save on 2 boxes!</span>
+                </div>
+
+                {/* Countdown Timer */}
+                <div className="mt-3.5 pt-3 border-t border-dashed border-gray-150 flex items-center justify-center w-full">
+                  <CountdownTimer />
                 </div>
               </div>
             </div>

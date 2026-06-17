@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { X, Sparkles, ShoppingBag, CheckCircle } from "lucide-react";
+import CountdownTimer from "../../../../components/CountdownTimer";
 
 const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
   const [shouldRender, setShouldRender] = useState(isOpen);
@@ -92,7 +93,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
                 DEAL
               </div>
               <p className="text-[10px] text-primary font-black uppercase tracking-wider mb-1">Bulk Offer</p>
-              <p className="text-2xl font-black text-primary">৳570</p>
+              <p className="text-2xl font-black text-primary">৳540</p>
               <p className="text-[9px] text-primary/75 font-black mt-0.5">per box</p>
             </div>
           </div>
@@ -103,7 +104,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
             <span className="text-2xl animate-bounce relative z-10">🎁</span>
             <div className="text-left relative z-10">
               <p className="text-[9px] font-black uppercase tracking-widest leading-none" style={{color: 'rgba(255,255,255,0.85)'}}>Instant Discount</p>
-              <p className="font-black text-sm sm:text-base mt-0.5" style={{color: '#fff', textShadow: '0 1px 3px rgba(0,0,0,0.15)'}}>Total ৳60 Discount on 2 boxes! 🎉</p>
+              <p className="font-black text-sm sm:text-base mt-0.5" style={{color: '#fff', textShadow: '0 1px 3px rgba(0,0,0,0.15)'}}>Total ৳120 Save on 2 boxes! 🎉</p>
             </div>
           </div>
 
@@ -111,6 +112,11 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
           <div className="flex items-center justify-center gap-2 text-primary bg-primary/5 border border-primary/10 rounded-xl py-2.5 px-4 text-xs font-black tracking-wide max-w-[280px] mx-auto shadow-inner">
             <CheckCircle size={14} className="text-primary flex-shrink-0" />
             <span>Minimum 2 boxes order required</span>
+          </div>
+
+          {/* Countdown Timer */}
+          <div className="pt-2.5 border-t border-dashed border-gray-150 flex items-center justify-center w-full">
+            <CountdownTimer />
           </div>
 
           {/* CTAs */}

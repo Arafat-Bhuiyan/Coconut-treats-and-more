@@ -94,12 +94,12 @@ const Testimonials = () => {
                                     to unlock 💰{" "}
                                     Price drops to{" "}
                                     <span className="bg-accent/20 text-primary font-black px-2.5 py-1 rounded-xl border border-accent/30 shadow-sm whitespace-nowrap inline-block transform hover:scale-105 transition-all">
-                                        ৳570 per box
+                                        ৳540 per box
                                     </span>{" "}
                                     automatically! ✨
                                     <span className="block sm:inline-block mt-3 sm:mt-0 sm:ml-3 font-black px-4 py-2 rounded-xl text-sm transform hover:scale-105 transition-all relative overflow-hidden" style={{background: 'linear-gradient(135deg, rgba(243,156,18,0.92) 0%, rgba(230,126,34,0.88) 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 6px 20px rgba(243,156,18,0.4), inset 0 1px 0 rgba(255,255,255,0.45)', color: '#fff', textShadow: '0 1px 3px rgba(0,0,0,0.15)'}}>
                                         <span className="absolute inset-0 rounded-xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)', pointerEvents: 'none'}} />
-                                        <span className="relative z-10">🎁 Total ৳60 Discount on 2 boxes!</span>
+                                        <span className="relative z-10">🎁 Total ৳120 Save on 2 boxes!</span>
                                     </span>
                                 </p>
                             </div>
