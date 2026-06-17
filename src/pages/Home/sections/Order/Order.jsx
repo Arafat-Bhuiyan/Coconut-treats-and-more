@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { Send, Minus, Plus, Trash2, CheckCircle, Loader2, MapPin } from "lucide-react";
 const productImg = "/hero.webp";
 import OrderSuccessPopup from "./OrderSuccessPopup";
