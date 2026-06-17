@@ -102,7 +102,7 @@ const Testimonials = () => {
                                         ৳570 per box
                                     </span>{" "}
                                     automatically! ✨
-                                    <span className="block sm:inline-block mt-3 sm:mt-0 sm:ml-3 font-black px-4 py-2 rounded-xl text-sm shadow-md transform hover:scale-105 transition-all" style={{background: '#F39C12', border: '1px solid #e08e0b', color: '#3F5E3D'}}>
+                                    <span className="block sm:inline-block mt-3 sm:mt-0 sm:ml-3 font-black px-4 py-2 rounded-xl text-sm shadow-md transform hover:scale-105 transition-all" style={{background: '#F39C12', border: '1px solid #e08e0b', color: '#fff'}}>
                                         🎁 Total ৳60 Discount on 2 boxes!
                                     </span>
                                 </p>

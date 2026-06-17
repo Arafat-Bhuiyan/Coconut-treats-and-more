@@ -51,7 +51,7 @@ const Hero = ({ onOpenPromo }) => {
                   <span className="bg-primary text-white text-[10px] font-black px-3 py-1.5 rounded-lg uppercase tracking-wider shadow-md shadow-primary/30 flex items-center gap-1">
                     🔥 BULK DEAL
                   </span>
-                  <span className="text-[11px] font-black px-2.5 py-1.5 rounded-lg shadow-md animate-pulse" style={{background: '#F39C12', border: '1px solid #e08e0b', color: '#3F5E3D'}}>
+                  <span className="text-[11px] font-black px-2.5 py-1.5 rounded-lg shadow-md animate-pulse" style={{background: '#F39C12', border: '1px solid #e08e0b', color: '#fff'}}>
                     Total ৳60 Discount on 2 boxes! 🎁
                   </span>
                 </div>
@@ -87,7 +87,7 @@ const Hero = ({ onOpenPromo }) => {
                 {/* Bottom Savings Banner */}
                 <div className="rounded-xl px-4 py-2.5 flex items-center justify-center gap-2 mt-1 shadow-md" style={{background: '#F39C12', border: '1px solid #e08e0b'}}>
                   <span className="text-lg">🎁</span>
-                  <span className="text-sm font-black" style={{color: '#3F5E3D'}}>Total ৳60 Discount on 2 boxes!</span>
+                  <span className="text-sm font-black" style={{color: '#fff'}}>Total ৳60 Discount on 2 boxes!</span>
                 </div>
               </div>
             </div>
