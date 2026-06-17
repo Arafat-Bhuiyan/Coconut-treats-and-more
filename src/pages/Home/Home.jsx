@@ -50,15 +50,32 @@ export const Home = () => {
     } catch (e) {}
     trackFacebookEvent("PageView", {}, cachedUserData);
 
-    // 3. Show promotion popup with a non-intrusive delay (prevents PageSpeed audit interruption and improves conversion)
-    const isLighthouse = typeof navigator !== "undefined" && /Chrome-Lighthouse|Lighthouse/i.test(navigator.userAgent);
+    // 3. Show popup ONLY after real user interaction (guards against Lighthouse/bots)
+    //    Bots never scroll or touch → popup never shows → LCP unaffected
+    //    Real users interact within seconds → popup shows 3s after first interaction
     const hasShownPromo = sessionStorage.getItem("hasShownPromo");
-    if (!hasShownPromo && !isLighthouse) {
-      const timer = setTimeout(() => {
-        setShowPromo(true);
-        sessionStorage.setItem("hasShownPromo", "true");
-      }, 3000); // 3 seconds delay
-      return () => clearTimeout(timer);
+    if (!hasShownPromo) {
+      let promoScheduled = false;
+      let promoTimer = null;
+
+      const schedulePromo = () => {
+        if (promoScheduled) return;
+        promoScheduled = true;
+        const events = ['scroll', 'touchstart', 'mousemove', 'pointerdown'];
+        events.forEach(e => window.removeEventListener(e, schedulePromo));
+        promoTimer = setTimeout(() => {
+          setShowPromo(true);
+          sessionStorage.setItem("hasShownPromo", "true");
+        }, 3000);
+      };
+
+      const events = ['scroll', 'touchstart', 'mousemove', 'pointerdown'];
+      events.forEach(e => window.addEventListener(e, schedulePromo, { passive: true }));
+
+      return () => {
+        if (promoTimer) clearTimeout(promoTimer);
+        events.forEach(e => window.removeEventListener(e, schedulePromo));
+      };
     }
   }, []);
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { ShoppingCart, Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +14,7 @@ const Navbar = () => {
             <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
                 <div className="flex items-center gap-2 relative z-50">
                     <span className="text-xl sm:text-2xl font-black text-primary tracking-tight">
-                        Coconut<span className="text-accent underline decoration-accent/30 underline-offset-4">Treats&More</span>
+                        Coconut<span className="text-accent underline decoration-accent/30 underline-offset-4">Treats&amp;More</span>
                     </span>
                 </div>
 
@@ -37,47 +36,42 @@ const Navbar = () => {
                     <a href="#order" className="bg-accent p-2.5 rounded-full text-husk shadow-lg shadow-accent/20">
                         <ShoppingCart size={18} />
                     </a>
-                    <button 
+                    <button
                         onClick={() => setIsOpen(!isOpen)}
                         className="text-primary p-1"
+                        aria-label="Toggle menu"
                     >
                         {isOpen ? <X size={28} /> : <Menu size={28} />}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Drawer */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 1.1 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 1.1 }}
-                        className="fixed inset-0 bg-white/70 z-40 flex flex-col pt-28 px-6 md:hidden backdrop-blur-2xl"
-                    >
-                        {/* Background Decor */}
-                        <div className="absolute top-0 right-0 -z-10 opacity-5">
-                            <ShoppingCart size={300} className="rotate-12 translate-x-20 -translate-y-20" />
-                        </div>
-
-                        <div className="flex flex-col gap-4">
-                            {navLinks.map((link) => (
-                                <a 
-                                    key={link.name} 
-                                    href={link.href} 
-                                    onClick={() => setIsOpen(false)}
-                                    className="flex items-center justify-between bg-secondary/70 p-5 rounded-3xl group active:bg-primary/5 transition-colors"
-                                >
-                                    <span className="text-xl font-black text-husk group-active:text-primary">{link.name}</span>
-                                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                    </div>
-                                </a>
-                            ))}
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {/* Mobile Drawer — CSS animated, no Framer Motion */}
+            <div
+                style={{
+                    transition: "opacity 0.25s ease, transform 0.25s ease",
+                    opacity: isOpen ? 1 : 0,
+                    transform: isOpen ? "scale(1)" : "scale(1.06)",
+                    pointerEvents: isOpen ? "auto" : "none",
+                }}
+                className="fixed inset-0 bg-white/70 z-40 flex flex-col pt-28 px-6 md:hidden backdrop-blur-2xl"
+            >
+                <div className="flex flex-col gap-4">
+                    {navLinks.map((link) => (
+                        <a
+                            key={link.name}
+                            href={link.href}
+                            onClick={() => setIsOpen(false)}
+                            className="flex items-center justify-between bg-secondary/70 p-5 rounded-3xl group active:bg-primary/5 transition-colors"
+                        >
+                            <span className="text-xl font-black text-husk group-active:text-primary">{link.name}</span>
+                            <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
+                                <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                            </div>
+                        </a>
+                    ))}
+                </div>
+            </div>
         </nav>
     );
 };
