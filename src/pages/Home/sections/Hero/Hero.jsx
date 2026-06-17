@@ -181,6 +181,8 @@ const Hero = ({ onOpenPromo }) => {
             alt="Delicious Coconut Pudding"
             className="w-full h-auto shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] rounded-[2.5rem] sm:rounded-[4rem]"
             fetchpriority="high"
+            loading="eager"
+            decoding="sync"
             width={640}
             height={640}
           />
