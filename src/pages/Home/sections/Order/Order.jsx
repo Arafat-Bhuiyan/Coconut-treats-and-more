@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Send, Minus, Plus, Trash2, CheckCircle, Loader2, MapPin } from "lucide-react";
 const productImg = "/hero.webp";
 import OrderSuccessPopup from "./OrderSuccessPopup";
@@ -155,39 +153,24 @@ const Order = ({ quantity, setQuantity }) => {
 
       {/* Premium Quality Quote Badge */}
       <div className="flex justify-center mb-5 sm:mb-6 px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="bg-white/70 backdrop-blur-xl border border-primary/20 w-[300px] sm:w-[380px] h-[58px] sm:h-[66px] rounded-[2rem] text-center flex flex-col items-center justify-center shadow-[0_8px_32px_rgba(74,103,65,0.06)] overflow-hidden"
+        <div
+          className="bg-white/70 backdrop-blur-xl border border-primary/20 w-[300px] sm:w-[380px] h-[58px] sm:h-[66px] rounded-[2rem] text-center flex flex-col items-center justify-center shadow-[0_8px_32px_rgba(74,103,65,0.06)] overflow-hidden relative"
         >
-          <AnimatePresence mode="wait">
-            {quoteIndex === 0 ? (
-              <motion.p
-                key="bangla"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-                className="text-sm sm:text-base font-black text-primary leading-normal"
-              >
-                "জিনিস যেটা ভালো, দাম তার একটু বেশি"
-              </motion.p>
-            ) : (
-              <motion.p
-                key="english"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-                className="text-sm sm:text-base font-black text-primary leading-normal"
-              >
-                "Good quality always costs a bit more."
-              </motion.p>
-            )}
-          </AnimatePresence>
-        </motion.div>
+          <p
+            className={`text-sm sm:text-base font-black text-primary leading-normal transition-all duration-500 transform ${
+              quoteIndex === 0 ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none absolute"
+            }`}
+          >
+            "জিনিস যেটা ভালো, দাম তার একটু বেশি"
+          </p>
+          <p
+            className={`text-sm sm:text-base font-black text-primary leading-normal transition-all duration-500 transform ${
+              quoteIndex === 1 ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none absolute"
+            }`}
+          >
+            "Good quality always costs a bit more."
+          </p>
+        </div>
       </div>
 
       {/* Scrolling Delivery Locations Marquee */}
@@ -208,10 +191,7 @@ const Order = ({ quantity, setQuantity }) => {
       <div className="container mx-auto max-w-6xl">
         {/* Dhaka City Delivery Notification Pop up (Green Flashing Pill/Circle) */}
         <div className="flex justify-center mb-8">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
             className="inline-flex items-center gap-2.5 px-6 py-3 bg-emerald-50/90 backdrop-blur-sm border-2 border-primary rounded-full text-primary font-extrabold text-sm sm:text-base shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all duration-300"
           >
             <span className="relative flex h-3 w-3">
@@ -220,15 +200,12 @@ const Order = ({ quantity, setQuantity }) => {
             </span>
             <MapPin size={18} className="text-primary animate-bounce" />
             <span>শুধুমাত্র ঢাকা সিটির ভিতরে ডেলিভারি করা হয়</span>
-          </motion.div>
+          </div>
         </div>
 
         <div className="flex flex-col-reverse lg:grid lg:grid-cols-5 gap-8 sm:gap-12 items-start">
           {/* Left Side: Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+          <div
             className="lg:col-span-3 glass-panel p-6 sm:p-8 md:p-10 rounded-[2rem]"
           >
             <h3 className="text-2xl sm:text-3xl font-black text-husk mb-6 sm:mb-8 text-center lg:text-left">
@@ -359,13 +336,10 @@ const Order = ({ quantity, setQuantity }) => {
                 )}
               </button>
             </form>
-          </motion.div>
+          </div>
 
           {/* Right Side: Summary */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+          <div
             className="lg:col-span-2 space-y-6"
           >
             <div className="glass-panel p-6 sm:p-8 rounded-[2rem]">
@@ -421,27 +395,22 @@ const Order = ({ quantity, setQuantity }) => {
                   <span>৳{deliveryCharge}</span>
                 </div>
 
-                <AnimatePresence>
-                {quantity >= 2 && (
-                  <motion.div
-                    key="bulk-offer"
-                    initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                    animate={{ opacity: 1, height: "auto", marginTop: 0 }}
-                    exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                    transition={{ duration: 0.25, ease: "easeInOut" }}
-                    style={{ overflow: "hidden" }}
-                  >
-                    <div className="bg-accent/10 p-3 rounded-xl border border-accent/20 flex items-center justify-between">
-                      <span className="text-[10px] font-black text-accent-dark uppercase flex items-center gap-2 tracking-widest">
-                        <CheckCircle size={12} /> BULK OFFER
-                      </span>
-                      <span className="text-xs font-black text-accent-dark">
-                        - ৳{quantity * 30} Saved
-                      </span>
-                    </div>
-                  </motion.div>
-                )}
-                </AnimatePresence>
+                <div
+                  className={`transition-all duration-300 overflow-hidden ${
+                    quantity >= 2 
+                      ? "max-h-[100px] opacity-100 mt-2" 
+                      : "max-h-0 opacity-0 pointer-events-none"
+                  }`}
+                >
+                  <div className="bg-accent/10 p-3 rounded-xl border border-accent/20 flex items-center justify-between">
+                    <span className="text-[10px] font-black text-accent-dark uppercase flex items-center gap-2 tracking-widest">
+                      <CheckCircle size={12} /> BULK OFFER
+                    </span>
+                    <span className="text-xs font-black text-accent-dark">
+                      - ৳{quantity * 30} Saved
+                    </span>
+                  </div>
+                </div>
 
                 <div className="flex justify-between text-xl font-black text-husk pt-4 border-t border-dashed">
                   <span className="uppercase text-sm">Total</span>
@@ -497,7 +466,7 @@ const Order = ({ quantity, setQuantity }) => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
       

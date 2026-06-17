@@ -1,5 +1,3 @@
-import React from "react";
-import { motion } from "framer-motion";
 import { Gift, Sparkles, Star } from "lucide-react";
 
 // Use dynamic paths instead of static imports to reduce bundle size
@@ -63,10 +61,7 @@ const Testimonials = () => {
             {/* Promo Banner */}
             {/* Promo Banner - Premium Ticket Style */}
             <div className="container mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
+                <div
                     className="relative glass-panel p-6 sm:p-8 md:p-10 rounded-[2rem] sm:rounded-[2.5rem] text-husk overflow-hidden transition-all duration-300 group will-change-transform"
                 >
                     {/* Top Accent Bar */}
@@ -118,7 +113,7 @@ const Testimonials = () => {
                             <span className="group-hover:translate-x-1 transition-transform">➔</span>
                         </a>
                     </div>
-                </motion.div>
+                </div>
             </div>
 
             <div className="container mx-auto px-6 md:px-12 mb-10 sm:mb-16">
@@ -142,17 +137,14 @@ const Testimonials = () => {
             </div>
 
             <div className="mt-12 sm:mt-16 text-center px-4">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                <div
                     className="inline-flex flex-wrap justify-center items-center gap-3 glass-panel text-primary px-6 py-4 rounded-2xl font-black text-sm sm:text-base will-change-transform"
                 >
                     <span className="flex gap-1 text-accent">
                         {[...Array(5)].map((_, i) => <Star key={i} size={16} sm:size={18} fill="currentColor" />)}
                     </span>
                     Join our 500+ happy customers
-                </motion.div>
+                </div>
             </div>
         </section>
     );
