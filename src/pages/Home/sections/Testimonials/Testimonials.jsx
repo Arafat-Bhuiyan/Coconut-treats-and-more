@@ -5,9 +5,9 @@ const reviewImages = Array.from({ length: 17 }, (_, i) => `/reviews/${i + 1}.web
 
 
 const Testimonials = () => {
-    const MarqueeRow = ({ images }) => (
+    const MarqueeRow = ({ images, duration = 30 }) => (
         <div className="flex overflow-hidden select-none gap-6 py-4">
-            <div className="reviews-marquee gap-6 min-w-full">
+            <div className="reviews-marquee gap-6 min-w-full" style={{ animationDuration: `${duration}s` }}>
                 {/* Original set */}
                 {images.map((img, idx) => (
                     <div
@@ -132,7 +132,7 @@ const Testimonials = () => {
                 <div className="absolute inset-y-0 right-0 w-8 sm:w-16 md:w-32 bg-gradient-to-l from-secondary/5 to-transparent z-20 pointer-events-none" />
 
                 <div className="mx-auto max-w-[1400px]">
-                    <MarqueeRow images={reviewImages} duration={100} />
+                    <MarqueeRow images={reviewImages} duration={30} />
                 </div>
             </div>
 
