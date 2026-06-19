@@ -86,10 +86,17 @@ const Hero = ({ onOpenPromo }) => {
                 </div>
 
                 {/* Bottom Savings Banner */}
-                <div className="rounded-xl px-4 py-2.5 flex items-center justify-center gap-2 mt-1 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 6px 20px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.45)'}}>
+                <div className="rounded-xl px-4 py-4 flex flex-col items-center justify-center gap-1 mt-1 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 6px 20px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.45)'}}>
                   <span className="absolute inset-0 rounded-xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)', pointerEvents: 'none'}} />
-                  <span className="text-lg relative z-10">🎁</span>
-                  <span className="text-sm font-black relative z-10" style={{color: '#fff', textShadow: '0 1px 3px rgba(0,0,0,0.3)'}}>Total ৳120 Save on 2 boxes!</span>
+                  <div className="flex items-center gap-2 relative z-10">
+                    <span className="text-3xl">🎁</span>
+                    <span className="text-xl sm:text-2xl font-black leading-tight" style={{color: '#fff', textShadow: '0 2px 6px rgba(0,0,0,0.4)'}}>
+                      Instant Discount
+                    </span>
+                  </div>
+                  <span className="text-lg sm:text-xl font-black relative z-10 text-center" style={{color: '#FFE87C', textShadow: '0 2px 6px rgba(0,0,0,0.4)'}}>
+                    Total ৳120 Save on 2 boxes! 🎉
+                  </span>
                 </div>
 
                 {/* Countdown Timer */}

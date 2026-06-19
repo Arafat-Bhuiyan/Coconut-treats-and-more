@@ -103,8 +103,8 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
             <span className="absolute inset-0 rounded-2xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 55%)', pointerEvents: 'none'}} />
             <span className="text-xl animate-bounce relative z-10">🎁</span>
             <div className="text-left relative z-10">
-              <p className="text-[8px] font-black uppercase tracking-widest leading-none" style={{color: 'rgba(255,255,255,0.9)'}}>Instant Discount</p>
-              <p className="font-black text-xs sm:text-sm mt-0.5" style={{color: '#fff', textShadow: '0 1px 3px rgba(0,0,0,0.3)'}}>Total ৳120 Save on 2 boxes! 🎉</p>
+              <p className="text-sm font-black uppercase tracking-wider leading-none" style={{color: 'rgba(255,255,255,0.95)'}}>Instant Discount</p>
+              <p className="font-black text-base sm:text-lg mt-0.5" style={{color: '#FFE87C', textShadow: '0 1px 4px rgba(0,0,0,0.4)'}}>Total ৳120 Save on 2 boxes! 🎉</p>
             </div>
           </div>
 
