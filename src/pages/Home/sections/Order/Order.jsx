@@ -58,8 +58,44 @@ const Order = ({ quantity, setQuantity }) => {
   const handleOrder = async (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.phone || !formData.address) {
-      alert("Please fill in Name, Phone, and Address");
+    // Custom Validation with focus & smooth scroll-into-view
+    if (!formData.name.trim()) {
+      alert("দয়া করে আপনার নাম লিখুন। (Please fill in Your Name)");
+      const nameInput = document.getElementsByName("name")[0];
+      if (nameInput) {
+        nameInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        nameInput.focus();
+      }
+      return;
+    }
+
+    if (!formData.phone.trim()) {
+      alert("দয়া করে আপনার মোবাইল নাম্বার লিখুন। (Please fill in Your Mobile Number)");
+      const phoneInput = document.getElementsByName("phone")[0];
+      if (phoneInput) {
+        phoneInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        phoneInput.focus();
+      }
+      return;
+    }
+
+    if (!formData.address.trim()) {
+      alert("দয়া করে আপনার সম্পূর্ণ ঠিকানা লিখুন। (Please fill in Your Full Address)");
+      const addressInput = document.getElementsByName("address")[0];
+      if (addressInput) {
+        addressInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        addressInput.focus();
+      }
+      return;
+    }
+
+    if (!formData.agree) {
+      alert("অর্ডার করতে শর্তাবলীতে সম্মতি দেওয়া আবশ্যক। (You must agree to the Terms to place an order.)");
+      const termsCheckbox = document.getElementById("terms");
+      if (termsCheckbox) {
+        termsCheckbox.scrollIntoView({ behavior: "smooth", block: "center" });
+        termsCheckbox.focus();
+      }
       return;
     }
 
@@ -214,7 +250,7 @@ const Order = ({ quantity, setQuantity }) => {
               Place Your Order
             </h3>
 
-            <form onSubmit={handleOrder} className="space-y-4 sm:space-y-5">
+            <form onSubmit={handleOrder} noValidate className="space-y-4 sm:space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
