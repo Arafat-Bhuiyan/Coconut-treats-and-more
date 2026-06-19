@@ -54,7 +54,7 @@ const CountdownTimer = ({ className = "", layout = "col" }) => {
           {formatNumber(timeLeft.minutes)}
         </span>
         <span className="text-primary">:</span>
-        <span className="bg-red-500 text-white px-2.5 py-1 rounded-lg shadow-sm font-mono border border-red-600/20 min-w-[34px] text-center">
+        <span className="bg-primary text-white px-2.5 py-1 rounded-lg shadow-sm font-mono border border-primary/20 min-w-[34px] text-center">
           {formatNumber(timeLeft.seconds)}
         </span>
       </div>

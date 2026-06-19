@@ -99,12 +99,12 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
           </div>
 
           {/* Crimson Savings Highlight Banner */}
-          <div className="rounded-2xl p-3 flex items-center justify-center gap-2.5 transform hover:scale-[1.01] transition-transform duration-300 relative overflow-hidden" style={{background: 'linear-gradient(135deg, rgba(243,156,18,0.92) 0%, rgba(230,126,34,0.88) 100%)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(255,255,255,0.38)', boxShadow: '0 8px 28px rgba(243,156,18,0.45), inset 0 1px 0 rgba(255,255,255,0.5)'}}>
+          <div className="rounded-2xl p-3 flex items-center justify-center gap-2.5 transform hover:scale-[1.01] transition-transform duration-300 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(255,255,255,0.38)', boxShadow: '0 8px 28px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.5)'}}>
             <span className="absolute inset-0 rounded-2xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 55%)', pointerEvents: 'none'}} />
             <span className="text-xl animate-bounce relative z-10">🎁</span>
             <div className="text-left relative z-10">
-              <p className="text-[8px] font-black uppercase tracking-widest leading-none" style={{color: 'rgba(255,255,255,0.85)'}}>Instant Discount</p>
-              <p className="font-black text-xs sm:text-sm mt-0.5" style={{color: '#fff', textShadow: '0 1px 3px rgba(0,0,0,0.15)'}}>Total ৳120 Save on 2 boxes! 🎉</p>
+              <p className="text-[8px] font-black uppercase tracking-widest leading-none" style={{color: 'rgba(255,255,255,0.9)'}}>Instant Discount</p>
+              <p className="font-black text-xs sm:text-sm mt-0.5" style={{color: '#fff', textShadow: '0 1px 3px rgba(0,0,0,0.3)'}}>Total ৳120 Save on 2 boxes! 🎉</p>
             </div>
           </div>
 
