@@ -98,9 +98,12 @@ const Testimonials = () => {
                                         ৳540 per box
                                     </span>{" "}
                                     automatically! ✨
-                                    <span className="block sm:inline-block mt-3 sm:mt-0 sm:ml-3 font-black px-4 py-2 rounded-xl text-sm transform hover:scale-105 transition-all relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 6px 20px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.45)'}}>
+                                    <span className="block sm:inline-block mt-3 sm:mt-0 sm:ml-3 font-black px-4 py-3 rounded-xl transform hover:scale-105 transition-all relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 6px 20px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.45)'}}>
                                         <span className="absolute inset-0 rounded-xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)', pointerEvents: 'none'}} />
-                                        <span className="relative z-10 text-white" style={{textShadow: '0 1.5px 3px rgba(0,0,0,0.4)'}}>🎁 Total ৳120 Save on 2 boxes! 🎉</span>
+                                        <span className="relative z-10 flex flex-col items-center gap-0.5">
+                                          <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-white" style={{textShadow: '0 1px 3px rgba(0,0,0,0.3)'}}>🎁 Instant Discount</span>
+                                          <span className="text-sm sm:text-base font-black text-white" style={{textShadow: '0 1.5px 3px rgba(0,0,0,0.4)'}}>Total ৳120 Save on 2 boxes! 🎉</span>
+                                        </span>
                                     </span>
                                 </p>
 
