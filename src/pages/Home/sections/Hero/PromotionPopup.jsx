@@ -101,11 +101,8 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
           {/* Crimson Savings Highlight Banner */}
           <div className="rounded-2xl p-3 flex items-center justify-center gap-2.5 transform hover:scale-[1.01] transition-transform duration-300 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(255,255,255,0.38)', boxShadow: '0 8px 28px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.5)'}}>
             <span className="absolute inset-0 rounded-2xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 55%)', pointerEvents: 'none'}} />
-            <span className="text-xl animate-bounce relative z-10">🎁</span>
-            <div className="text-left relative z-10">
-              <p className="text-sm font-black uppercase tracking-wider leading-none" style={{color: 'rgba(255,255,255,0.95)'}}>Instant Discount</p>
-              <p className="font-black text-base sm:text-lg mt-0.5" style={{color: '#FFE87C', textShadow: '0 1px 4px rgba(0,0,0,0.4)'}}>Total ৳120 Save on 2 boxes! 🎉</p>
-            </div>
+            <span className="text-xl relative z-10">🎁</span>
+            <span className="font-black text-xs sm:text-sm relative z-10 text-center" style={{color: '#fff', textShadow: '0 1.5px 3px rgba(0,0,0,0.4)'}}>Total ৳120 Save on 2 boxes! 🎉</span>
           </div>
 
           {/* Conditions Box */}
