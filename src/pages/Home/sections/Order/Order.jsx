@@ -21,7 +21,10 @@ const Order = ({ quantity, setQuantity }) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    address: "",
+    house: "",
+    road: "",
+    area: "",
+    flat: "",
     note: "",
     agree: true
   });
@@ -79,12 +82,42 @@ const Order = ({ quantity, setQuantity }) => {
       return;
     }
 
-    if (!formData.address.trim()) {
-      alert("দয়া করে আপনার সম্পূর্ণ ঠিকানা লিখুন। (Please fill in Your Full Address)");
-      const addressInput = document.getElementsByName("address")[0];
-      if (addressInput) {
-        addressInput.scrollIntoView({ behavior: "smooth", block: "center" });
-        addressInput.focus();
+    if (!formData.area.trim()) {
+      alert("দয়া করে আপনার এলাকার নাম লিখুন। (Please fill in Your Area Name)");
+      const areaInput = document.getElementsByName("area")[0];
+      if (areaInput) {
+        areaInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        areaInput.focus();
+      }
+      return;
+    }
+
+    if (!formData.road.trim()) {
+      alert("দয়া করে আপনার রোড নম্বর বা নাম লিখুন। (Please fill in Your Road Number/Name)");
+      const roadInput = document.getElementsByName("road")[0];
+      if (roadInput) {
+        roadInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        roadInput.focus();
+      }
+      return;
+    }
+
+    if (!formData.house.trim()) {
+      alert("দয়া করে আপনার বাড়ি নম্বর বা নাম লিখুন। (Please fill in Your House Number/Name)");
+      const houseInput = document.getElementsByName("house")[0];
+      if (houseInput) {
+        houseInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        houseInput.focus();
+      }
+      return;
+    }
+
+    if (!formData.flat.trim()) {
+      alert("দয়া করে আপনার ফ্ল্যাট বা ফ্লোর নম্বর লিখুন। না থাকলে N/A লিখুন। (Please fill in Flat/Floor No. Write N/A if none)");
+      const flatInput = document.getElementsByName("flat")[0];
+      if (flatInput) {
+        flatInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        flatInput.focus();
       }
       return;
     }
@@ -101,13 +134,15 @@ const Order = ({ quantity, setQuantity }) => {
 
     setIsSubmitting(true);
 
+    const fullAddress = `House: ${formData.house.trim()}, Road: ${formData.road.trim()}, Flat: ${formData.flat.trim()}, Area: ${formData.area.trim()}, Dhaka`;
+
     const emailPayload = {
       access_key: "d8812e1d-78ce-4959-8fe1-4430144dd80d",
       subject: "New Order from Website",
       from_name: formData.name,
       Customer: formData.name,
       Phone: formData.phone,
-      Address: formData.address,
+      Address: fullAddress,
       Note: formData.note || "N/A",
       Product: "Premium Coconut Pudding (6pc Box)",
       Quantity: `${quantity} Box(es)`,
@@ -140,7 +175,7 @@ const Order = ({ quantity, setQuantity }) => {
         }, {
           phone: formData.phone,
           name: formData.name,
-          address: formData.address,
+          address: fullAddress,
         });
 
         setSubmittedName(formData.name);
@@ -149,7 +184,10 @@ const Order = ({ quantity, setQuantity }) => {
         setFormData({
           name: "",
           phone: "",
-          address: "",
+          house: "",
+          road: "",
+          area: "",
+          flat: "",
           note: "",
           agree: true
         });
@@ -283,19 +321,66 @@ const Order = ({ quantity, setQuantity }) => {
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
-                  Full Address
-                </label>
-                <textarea
-                  required
-                  name="address"
-                  value={formData.address}
-                  onChange={handleInputChange}
-                  rows="2"
-                  placeholder="House, Road, Area, Dhaka"
-                  className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium resize-none text-sm sm:text-base placeholder:text-husk/30"
-                ></textarea>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
+                    Area Name / এলাকা
+                  </label>
+                  <input
+                    required
+                    name="area"
+                    value={formData.area}
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="e.g. Dhanmondi, Gulshan, Mirpur"
+                    className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
+                    Road No / Name / রাস্তা
+                  </label>
+                  <input
+                    required
+                    name="road"
+                    value={formData.road}
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="e.g. Road 12A, Lane 2"
+                    className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
+                    House No / Name / বাড়ি
+                  </label>
+                  <input
+                    required
+                    name="house"
+                    value={formData.house}
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="e.g. House 45, Holding 12"
+                    className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
+                    Flat / Floor No / ফ্ল্যাট
+                  </label>
+                  <input
+                    required
+                    name="flat"
+                    value={formData.flat}
+                    onChange={handleInputChange}
+                    type="text"
+                    placeholder="e.g. Flat 3B, 4th Floor (Write N/A if none)"
+                    className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
+                  />
+                </div>
               </div>
 
               <div className="space-y-4 pt-2">
