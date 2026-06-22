@@ -321,65 +321,71 @@ const Order = ({ quantity, setQuantity }) => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
-                    Area Name / এলাকা
-                  </label>
-                  <input
-                    required
-                    name="area"
-                    value={formData.area}
-                    onChange={handleInputChange}
-                    type="text"
-                    placeholder="e.g. Dhanmondi, Gulshan, Mirpur"
-                    className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
-                  />
-                </div>
+              {/* Delivery Address Group Container */}
+              <div className="bg-slate-50/50 border border-secondary/20 rounded-[1.5rem] sm:rounded-[2rem] p-4 sm:p-6 space-y-3 sm:space-y-4">
+                <p className="text-xs sm:text-sm font-black text-primary uppercase tracking-widest border-b border-primary/10 pb-2">
+                  Delivery Address / ডেলিভারি ঠিকানা
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
+                      Area Name / এলাকা
+                    </label>
+                    <input
+                      required
+                      name="area"
+                      value={formData.area}
+                      onChange={handleInputChange}
+                      type="text"
+                      placeholder="e.g. Dhanmondi, Gulshan, Mirpur"
+                      className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
+                    />
+                  </div>
 
-                <div className="space-y-1">
-                  <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
-                    Road No / Name / রাস্তা
-                  </label>
-                  <input
-                    required
-                    name="road"
-                    value={formData.road}
-                    onChange={handleInputChange}
-                    type="text"
-                    placeholder="e.g. Road 12A, Lane 2"
-                    className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
-                  />
-                </div>
+                  <div className="space-y-1">
+                    <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
+                      Road No / Name / রাস্তা
+                    </label>
+                    <input
+                      required
+                      name="road"
+                      value={formData.road}
+                      onChange={handleInputChange}
+                      type="text"
+                      placeholder="e.g. Road 12A, Lane 2"
+                      className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
+                    />
+                  </div>
 
-                <div className="space-y-1">
-                  <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
-                    House No / Name / বাড়ি
-                  </label>
-                  <input
-                    required
-                    name="house"
-                    value={formData.house}
-                    onChange={handleInputChange}
-                    type="text"
-                    placeholder="e.g. House 45, Holding 12"
-                    className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
-                  />
-                </div>
+                  <div className="space-y-1">
+                    <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
+                      House No / Name / বাড়ি
+                    </label>
+                    <input
+                      required
+                      name="house"
+                      value={formData.house}
+                      onChange={handleInputChange}
+                      type="text"
+                      placeholder="e.g. House 45, Holding 12"
+                      className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
+                    />
+                  </div>
 
-                <div className="space-y-1">
-                  <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
-                    Flat / Floor No / ফ্ল্যাট
-                  </label>
-                  <input
-                    required
-                    name="flat"
-                    value={formData.flat}
-                    onChange={handleInputChange}
-                    type="text"
-                    placeholder="e.g. Flat 3B, 4th Floor (Write N/A if none)"
-                    className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
-                  />
+                  <div className="space-y-1">
+                    <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
+                      Flat / Floor No / ফ্ল্যাট
+                    </label>
+                    <input
+                      required
+                      name="flat"
+                      value={formData.flat}
+                      onChange={handleInputChange}
+                      type="text"
+                      placeholder="e.g. Flat 3B, 4th Floor (Write N/A if none)"
+                      className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
+                    />
+                  </div>
                 </div>
               </div>
 
