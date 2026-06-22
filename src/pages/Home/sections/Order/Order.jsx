@@ -326,7 +326,7 @@ const Order = ({ quantity, setQuantity }) => {
                 <p className="text-xs sm:text-sm font-black text-primary uppercase tracking-widest border-b border-primary/10 pb-2">
                   Delivery Address / ডেলিভারি ঠিকানা
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-4">
                   <div className="space-y-1">
                     <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
                       Area Name / এলাকা
