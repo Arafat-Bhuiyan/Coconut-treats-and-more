@@ -327,9 +327,9 @@ const Order = ({ quantity, setQuantity }) => {
                   <span>📍</span> Delivery Address / ডেলিভারি ঠিকানা
                 </p>
 
-                <div className="space-y-4 sm:space-y-5">
+                <div className="space-y-3 sm:space-y-4">
                   {/* Area Name / এলাকা */}
-                  <div className="flex flex-row items-center gap-2 sm:gap-4 pb-2 border-b-2 border-secondary/20 focus-within:border-primary transition-colors duration-200">
+                  <div className="flex flex-row items-center gap-2 sm:gap-4 py-1">
                     <label className="text-xs sm:text-base font-bold text-husk whitespace-nowrap min-w-[135px] sm:min-w-[190px]">
                       Area Name / এলাকা :
                     </label>
@@ -345,7 +345,7 @@ const Order = ({ quantity, setQuantity }) => {
                   </div>
 
                   {/* Road No / Name / রাস্তা */}
-                  <div className="flex flex-row items-center gap-2 sm:gap-4 pb-2 border-b-2 border-secondary/20 focus-within:border-primary transition-colors duration-200">
+                  <div className="flex flex-row items-center gap-2 sm:gap-4 py-1">
                     <label className="text-xs sm:text-base font-bold text-husk whitespace-nowrap min-w-[135px] sm:min-w-[190px]">
                       Road No / Name / রাস্তা :
                     </label>
@@ -361,7 +361,7 @@ const Order = ({ quantity, setQuantity }) => {
                   </div>
 
                   {/* House No / Name / বাড়ি */}
-                  <div className="flex flex-row items-center gap-2 sm:gap-4 pb-2 border-b-2 border-secondary/20 focus-within:border-primary transition-colors duration-200">
+                  <div className="flex flex-row items-center gap-2 sm:gap-4 py-1">
                     <label className="text-xs sm:text-base font-bold text-husk whitespace-nowrap min-w-[135px] sm:min-w-[190px]">
                       House No / Name / বাড়ি :
                     </label>
@@ -377,7 +377,7 @@ const Order = ({ quantity, setQuantity }) => {
                   </div>
 
                   {/* Flat / Floor No / ফ্ল্যাট */}
-                  <div className="flex flex-row items-center gap-2 sm:gap-4 pb-2 border-b-2 border-secondary/20 focus-within:border-primary transition-colors duration-200">
+                  <div className="flex flex-row items-center gap-2 sm:gap-4 py-1">
                     <label className="text-xs sm:text-base font-bold text-husk whitespace-nowrap min-w-[135px] sm:min-w-[190px]">
                       Flat / Floor No / ফ্ল্যাট :
                     </label>
