@@ -14,13 +14,13 @@ export default async function handler(req, res) {
 
   try {
     const orderData = req.body;
-    const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL;
+    const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfybyLwe_eoKRyc4LUjm9e_4Krw5-hp5h8D759h1lKty7LvjWbkF_v7tPU5p_PpdPaRwkxBg/exec";
 
     if (!googleScriptUrl) {
       console.warn("GOOGLE_SCRIPT_URL is missing in server environment variables.");
       return res.status(202).json({
         success: false,
-        message: "Google Apps Script URL is not configured on the server. Please add GOOGLE_SCRIPT_URL to your Vercel environment variables."
+        message: "Google Apps Script URL is not configured on the server."
       });
     }
 
