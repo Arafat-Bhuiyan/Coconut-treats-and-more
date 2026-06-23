@@ -469,6 +469,66 @@ const Order = ({ quantity, setQuantity }) => {
                   "CONFIRM ORDER"
                 )}
               </button>
+
+              {/* Offer Badge - Moved below Confirm Order */}
+              <div className="relative glass-card rounded-[2rem] w-full overflow-hidden transition-all duration-300 group transform hover:-translate-y-1 mt-6">
+                
+                {/* Top Green Gradient Bar */}
+                <div className="bg-gradient-to-r from-primary via-primary-dark to-primary h-2 w-full" />
+
+                <div className="p-5 sm:p-6">
+                  {/* Header Row */}
+                  <div className="flex items-start justify-between gap-3 mb-4">
+                    <div>
+                      <div className="font-black text-husk text-xl sm:text-2xl leading-tight tracking-tight">
+                        Buy More, Save More!
+                      </div>
+                      <p className="text-xs text-husk/50 font-bold mt-0.5">Special bulk discount offer</p>
+                    </div>
+                    <span className="flex-shrink-0 bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-black px-2.5 py-1.5 rounded-xl uppercase tracking-wider animate-pulse flex items-center gap-1 shadow-sm">
+                      🔥 ACTIVE DEAL
+                    </span>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="border-t-2 border-dashed border-gray-100 mb-4" />
+
+                  {/* Info Rows */}
+                  <div className="space-y-3 mb-4">
+                    <div className="flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-base flex-shrink-0">📦</span>
+                      <p className="text-xs sm:text-sm text-husk font-black">
+                        Order 2 or more boxes to unlock 💰
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-base flex-shrink-0">💰</span>
+                      <p className="text-xs sm:text-sm text-husk font-black">
+                        Price drops to ৳540 per box automatically! ✨
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Bottom Savings Banner */}
+                  <div className="rounded-xl px-4 py-3 flex flex-col items-center justify-center gap-0.5 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 6px 20px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.45)'}}>
+                    <span className="absolute inset-0 rounded-xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)', pointerEvents: 'none'}} />
+                    <div className="flex items-center gap-1.5 relative z-10">
+                      <span className="text-xl">🎁</span>
+                      <span className="text-base sm:text-lg font-black leading-tight text-white" style={{textShadow: '0 1.5px 3px rgba(0,0,0,0.4)'}}>
+                        Instant Discount
+                      </span>
+                    </div>
+                    <span className="text-sm sm:text-base font-black relative z-10 text-center text-white" style={{textShadow: '0 1.5px 3px rgba(0,0,0,0.4)'}}>
+                      Total ৳120 Save on 2 boxes! 🎉
+                    </span>
+                  </div>
+
+                  {/* Countdown Timer */}
+                  <div className="mt-3.5 pt-3 border-t border-dashed border-gray-150 flex items-center justify-center w-full">
+                    <CountdownTimer />
+                  </div>
+                </div>
+              </div>
             </form>
           </div>
 
@@ -553,65 +613,7 @@ const Order = ({ quantity, setQuantity }) => {
               </div>
             </div>
 
-            {/* Offer Badge - Premium Redesign */}
-            <div className="relative glass-card rounded-[2rem] w-full overflow-hidden transition-all duration-300 group transform hover:-translate-y-1">
-              
-              {/* Top Green Gradient Bar */}
-              <div className="bg-gradient-to-r from-primary via-primary-dark to-primary h-2 w-full" />
 
-              <div className="p-5 sm:p-6">
-                {/* Header Row */}
-                <div className="flex items-start justify-between gap-3 mb-4">
-                  <div>
-                    <div className="font-black text-husk text-xl sm:text-2xl leading-tight tracking-tight">
-                      Buy More, Save More!
-                    </div>
-                    <p className="text-xs text-husk/50 font-bold mt-0.5">Special bulk discount offer</p>
-                  </div>
-                  <span className="flex-shrink-0 bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-black px-2.5 py-1.5 rounded-xl uppercase tracking-wider animate-pulse flex items-center gap-1 shadow-sm">
-                    🔥 ACTIVE DEAL
-                  </span>
-                </div>
-
-                {/* Divider */}
-                <div className="border-t-2 border-dashed border-gray-100 mb-4" />
-
-                {/* Info Rows */}
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-base flex-shrink-0">📦</span>
-                    <p className="text-xs sm:text-sm text-husk font-black">
-                      Order 2 or more boxes to unlock 💰
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-base flex-shrink-0">💰</span>
-                    <p className="text-xs sm:text-sm text-husk font-black">
-                      Price drops to ৳540 per box automatically! ✨
-                    </p>
-                  </div>
-                </div>
-
-                {/* Bottom Savings Banner */}
-                <div className="rounded-xl px-4 py-3 flex flex-col items-center justify-center gap-0.5 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 6px 20px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.45)'}}>
-                  <span className="absolute inset-0 rounded-xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)', pointerEvents: 'none'}} />
-                  <div className="flex items-center gap-1.5 relative z-10">
-                    <span className="text-xl">🎁</span>
-                    <span className="text-base sm:text-lg font-black leading-tight text-white" style={{textShadow: '0 1.5px 3px rgba(0,0,0,0.4)'}}>
-                      Instant Discount
-                    </span>
-                  </div>
-                  <span className="text-sm sm:text-base font-black relative z-10 text-center text-white" style={{textShadow: '0 1.5px 3px rgba(0,0,0,0.4)'}}>
-                    Total ৳120 Save on 2 boxes! 🎉
-                  </span>
-                </div>
-
-                {/* Countdown Timer */}
-                <div className="mt-3.5 pt-3 border-t border-dashed border-gray-150 flex items-center justify-center w-full">
-                  <CountdownTimer />
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
