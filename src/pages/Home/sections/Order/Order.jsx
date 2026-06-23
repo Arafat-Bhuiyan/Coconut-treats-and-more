@@ -359,8 +359,9 @@ const Order = ({ quantity, setQuantity }) => {
 
               <button
                 type="submit"
+                onClick={handleOrder}
                 disabled={isSubmitting}
-                className="w-full bg-primary hover:bg-primary-dark text-white font-black text-lg py-5 rounded-xl sm:rounded-2xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-primary/30 transform active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full bg-primary hover:bg-primary-dark text-white font-black text-lg py-5 rounded-xl sm:rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-primary/30 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
               >
                 {isSubmitting ? (
                   <>
