@@ -274,6 +274,7 @@ const Order = ({ quantity, setQuantity }) => {
                   <input
                     required
                     name="name"
+                    autoComplete="name"
                     value={formData.name}
                     onChange={handleInputChange}
                     type="text"
@@ -289,6 +290,7 @@ const Order = ({ quantity, setQuantity }) => {
                   <input
                     required
                     name="phone"
+                    autoComplete="tel"
                     value={formData.phone}
                     onChange={handleInputChange}
                     type="tel"
@@ -313,6 +315,7 @@ const Order = ({ quantity, setQuantity }) => {
                     <input
                       required
                       name="area"
+                      autoComplete="address-level2"
                       value={formData.area}
                       onChange={handleInputChange}
                       type="text"
@@ -327,8 +330,8 @@ const Order = ({ quantity, setQuantity }) => {
                       Road No / Name / রাস্তা :
                     </label>
                     <input
-                      required
                       name="road"
+                      autoComplete="address-line2"
                       value={formData.road}
                       onChange={handleInputChange}
                       type="text"
@@ -343,8 +346,8 @@ const Order = ({ quantity, setQuantity }) => {
                       House No / Name / বাড়ি :
                     </label>
                     <input
-                      required
                       name="house"
+                      autoComplete="address-line1"
                       value={formData.house}
                       onChange={handleInputChange}
                       type="text"
@@ -359,8 +362,8 @@ const Order = ({ quantity, setQuantity }) => {
                       Flat / Floor No / ফ্ল্যাট :
                     </label>
                     <input
-                      required
                       name="flat"
+                      autoComplete="address-line3"
                       value={formData.flat}
                       onChange={handleInputChange}
                       type="text"
