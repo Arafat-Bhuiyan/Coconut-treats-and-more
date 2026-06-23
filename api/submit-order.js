@@ -29,22 +29,33 @@ export default async function handler(req, res) {
       body: JSON.stringify(orderData)
     });
 
-    // Try to parse JSON response
-    let result = { success: true };
+    // Try to parse response
+    let result = { success: false };
+    const text = await response.text();
+
+    if (!response.ok) {
+      console.error(`Google Apps Script returned status ${response.status}:`, text);
+      return res.status(response.status).json({
+        success: false,
+        message: `Google Sheets API returned status ${response.status}. Please make sure 'Who has access' is set to 'Anyone'.`
+      });
+    }
+
     try {
-      const text = await response.text();
       if (text) {
         result = JSON.parse(text);
+      } else {
+        result = { success: true };
       }
     } catch {
-      // Google Apps Script may return non-JSON on redirect - treat as success
-      result = { success: true, message: "Order submitted successfully" };
+      // If it's a 200 response but not valid JSON
+      result = { success: true, message: "Order logged" };
     }
 
     // Return the actual result from Apps Script
     if (result.success === false) {
-      console.error("Apps Script reported error:", result.error);
-      return res.status(200).json({ success: false, message: result.error || "Script error" });
+      console.error("Apps Script reported error:", result.error || result.message);
+      return res.status(200).json({ success: false, message: result.error || result.message || "Script error" });
     }
 
     return res.status(200).json({ success: true, result });
