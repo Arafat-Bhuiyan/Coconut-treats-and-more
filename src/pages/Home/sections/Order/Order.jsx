@@ -62,16 +62,6 @@ const Order = ({ quantity, setQuantity }) => {
     e.preventDefault();
 
     // Custom Validation with focus & smooth scroll-into-view
-    if (!formData.name.trim()) {
-      alert("দয়া করে আপনার নাম লিখুন। (Please fill in Your Name)");
-      const nameInput = document.getElementsByName("name")[0];
-      if (nameInput) {
-        nameInput.scrollIntoView({ behavior: "smooth", block: "center" });
-        nameInput.focus();
-      }
-      return;
-    }
-
     if (!formData.phone.trim()) {
       alert("দয়া করে আপনার মোবাইল নাম্বার লিখুন। (Please fill in Your Mobile Number)");
       const phoneInput = document.getElementsByName("phone")[0];
@@ -272,7 +262,6 @@ const Order = ({ quantity, setQuantity }) => {
                     Your Name
                   </label>
                   <input
-                    required
                     name="name"
                     autoComplete="name"
                     value={formData.name}
