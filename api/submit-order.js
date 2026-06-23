@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   try {
     const orderData = req.body;
     // New Apps Script deployed from coconuttreatsmore@gmail.com
-    const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbw_sgPsG1C7WG9KZH70aahRleOmieTJXNXHjzC_1Fow6J233xlxWKIRpB4rp5kd08dk/exec";
+    const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbygtsftenbteNaL_IUxy1a82Yy8Jy__jAHeK26NRG0HUrH_jVnCMkAeOyITvQ-lzW9f/exec";
 
     // Forward the request to Google Apps Script
     const response = await fetch(googleScriptUrl, {
