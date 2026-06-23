@@ -37,8 +37,6 @@ export const Home = () => {
       script.async = true;
       script.src = 'https://connect.facebook.net/en_US/fbevents.js';
       document.head.appendChild(script);
-
-      window.fbq('init', '939507308912648');
     }
 
     // 2. Dynamic high-deduplication PageView tracking
