@@ -21,10 +21,7 @@ const Order = ({ quantity, setQuantity }) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    house: "",
-    road: "",
-    area: "",
-    flat: "",
+    address: "",
     note: "",
     agree: true
   });
@@ -72,12 +69,12 @@ const Order = ({ quantity, setQuantity }) => {
       return;
     }
 
-    if (!formData.area.trim()) {
-      alert("দয়া করে আপনার এলাকার নাম লিখুন। (Please fill in Your Area Name)");
-      const areaInput = document.getElementsByName("area")[0];
-      if (areaInput) {
-        areaInput.scrollIntoView({ behavior: "smooth", block: "center" });
-        areaInput.focus();
+    if (!formData.address.trim()) {
+      alert("দয়া করে আপনার সম্পূর্ণ ঠিকানা লিখুন। (Please fill in Your Full Delivery Address)");
+      const addressInput = document.getElementsByName("address")[0];
+      if (addressInput) {
+        addressInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        addressInput.focus();
       }
       return;
     }
@@ -94,18 +91,12 @@ const Order = ({ quantity, setQuantity }) => {
 
     setIsSubmitting(true);
 
-    const addressParts = [];
-    if (formData.flat.trim()) addressParts.push(`Flat/Floor: ${formData.flat.trim()}`);
-    if (formData.house.trim()) addressParts.push(`House: ${formData.house.trim()}`);
-    if (formData.road.trim()) addressParts.push(`Road: ${formData.road.trim()}`);
-    if (formData.area.trim()) addressParts.push(`Area: ${formData.area.trim()}`);
-    addressParts.push("Dhaka");
-    const fullAddress = addressParts.join(", ");
+    const fullAddress = formData.address.trim();
 
     const emailPayload = {
       subject: "New Order from Website",
-      from_name: formData.name,
-      Customer: formData.name,
+      from_name: formData.name || "Grahok",
+      Customer: formData.name || "Customer",
       Phone: formData.phone,
       Address: fullAddress,
       Note: formData.note || "N/A",
@@ -144,16 +135,13 @@ const Order = ({ quantity, setQuantity }) => {
           address: fullAddress,
         });
 
-        setSubmittedName(formData.name);
+        setSubmittedName(formData.name || "Customer");
         setShowSuccess(true);
         // Reset form
         setFormData({
           name: "",
           phone: "",
-          house: "",
-          road: "",
-          area: "",
-          flat: "",
+          address: "",
           note: "",
           agree: true
         });
@@ -295,71 +283,17 @@ const Order = ({ quantity, setQuantity }) => {
                   <span>📍</span> Delivery Address / ডেলিভারি ঠিকানা
                 </p>
 
-                <div className="space-y-3 sm:space-y-4">
-                  {/* Area Name / এলাকা */}
-                  <div className="flex flex-row items-center gap-2 sm:gap-4 py-1">
-                    <label className="text-xs sm:text-base font-bold text-husk whitespace-nowrap min-w-[135px] sm:min-w-[190px]">
-                      Area Name / এলাকা :
-                    </label>
-                    <input
-                      required
-                      name="area"
-                      autoComplete="address-level2"
-                      value={formData.area}
-                      onChange={handleInputChange}
-                      type="text"
-                      placeholder="e.g. Dhanmondi, Gulshan, Mirpur"
-                      className="flex-1 bg-transparent border-0 p-0 outline-none text-xs sm:text-base text-husk font-medium placeholder:text-husk/30 focus:ring-0"
-                    />
-                  </div>
-
-                  {/* Road No / Name / রাস্তা */}
-                  <div className="flex flex-row items-center gap-2 sm:gap-4 py-1">
-                    <label className="text-xs sm:text-base font-bold text-husk whitespace-nowrap min-w-[135px] sm:min-w-[190px]">
-                      Road No / Name / রাস্তা :
-                    </label>
-                    <input
-                      name="road"
-                      autoComplete="address-line2"
-                      value={formData.road}
-                      onChange={handleInputChange}
-                      type="text"
-                      placeholder="e.g. Road 12A, Lane 2"
-                      className="flex-1 bg-transparent border-0 p-0 outline-none text-xs sm:text-base text-husk font-medium placeholder:text-husk/30 focus:ring-0"
-                    />
-                  </div>
-
-                  {/* House No / Name / বাড়ি */}
-                  <div className="flex flex-row items-center gap-2 sm:gap-4 py-1">
-                    <label className="text-xs sm:text-base font-bold text-husk whitespace-nowrap min-w-[135px] sm:min-w-[190px]">
-                      House No / Name / বাড়ি :
-                    </label>
-                    <input
-                      name="house"
-                      autoComplete="address-line1"
-                      value={formData.house}
-                      onChange={handleInputChange}
-                      type="text"
-                      placeholder="e.g. House 45, Holding 12"
-                      className="flex-1 bg-transparent border-0 p-0 outline-none text-xs sm:text-base text-husk font-medium placeholder:text-husk/30 focus:ring-0"
-                    />
-                  </div>
-
-                  {/* Flat / Floor No / ফ্ল্যাট */}
-                  <div className="flex flex-row items-center gap-2 sm:gap-4 py-1">
-                    <label className="text-xs sm:text-base font-bold text-husk whitespace-nowrap min-w-[135px] sm:min-w-[190px]">
-                      Flat / Floor No / ফ্ল্যাট :
-                    </label>
-                    <input
-                      name="flat"
-                      autoComplete="address-line3"
-                      value={formData.flat}
-                      onChange={handleInputChange}
-                      type="text"
-                      placeholder="e.g. Flat 3B, 4th Floor (Write N/A if none)"
-                      className="flex-1 bg-transparent border-0 p-0 outline-none text-xs sm:text-base text-husk font-medium placeholder:text-husk/30 focus:ring-0"
-                    />
-                  </div>
+                <div className="space-y-1">
+                  <textarea
+                    required
+                    name="address"
+                    autoComplete="street-address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    rows="3"
+                    placeholder="আপনার সম্পূর্ণ ঠিকানা লিখুন (যেমন: বাড়ি ৪২, রোড ৩, ধানমন্ডি, ঢাকা)"
+                    className="w-full bg-transparent border-0 p-0 outline-none text-xs sm:text-base text-husk font-medium placeholder:text-husk/30 focus:ring-0 resize-none"
+                  />
                 </div>
               </div>
 
