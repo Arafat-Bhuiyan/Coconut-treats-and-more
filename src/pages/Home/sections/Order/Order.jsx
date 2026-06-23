@@ -291,7 +291,7 @@ const Order = ({ quantity, setQuantity }) => {
                     value={formData.address}
                     onChange={handleInputChange}
                     rows="3"
-                    placeholder="আপনার সম্পূর্ণ ঠিকানা লিখুন (যেমন: বাড়ি ৪২, রোড ৩, ধানমন্ডি, ঢাকা)"
+                    placeholder="আপনার সম্পূর্ণ ঠিকানা (এলাকার নাম, রোড নম্বর, বাড়ি নম্বর, ফ্ল্যাট নম্বর) বিস্তারিত এখানে লিখুন।"
                     className="w-full bg-transparent border-0 p-0 outline-none text-xs sm:text-base text-husk font-medium placeholder:text-husk/30 focus:ring-0 resize-none"
                   />
                 </div>
