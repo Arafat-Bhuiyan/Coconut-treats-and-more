@@ -137,7 +137,6 @@ const Order = ({ quantity, setQuantity }) => {
     const fullAddress = `House: ${formData.house.trim()}, Road: ${formData.road.trim()}, Flat: ${formData.flat.trim()}, Area: ${formData.area.trim()}, Dhaka`;
 
     const emailPayload = {
-      access_key: "d8812e1d-78ce-4959-8fe1-4430144dd80d",
       subject: "New Order from Website",
       from_name: formData.name,
       Customer: formData.name,
@@ -153,16 +152,17 @@ const Order = ({ quantity, setQuantity }) => {
     };
     
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/submit-order", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(emailPayload)
       });
 
-      if (response.ok) {
+      const result = await response.json().catch(() => ({ success: false }));
+
+      if (response.ok && result.success) {
         // High-deduplication Hybrid Purchase Tracking (Browser + Server-side)
         trackFacebookEvent("Purchase", {
           value: totalOrderAmount,
@@ -193,7 +193,8 @@ const Order = ({ quantity, setQuantity }) => {
         });
         setQuantity(1);
       } else {
-        alert("Failed to submit order. Please try again or contact us directly.");
+        const errorMsg = result.message || "Failed to submit order. Please try again or contact us directly.";
+        alert(errorMsg);
       }
     } catch (error) {
       console.error("Order submission error:", error);
