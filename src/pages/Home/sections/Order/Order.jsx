@@ -92,36 +92,6 @@ const Order = ({ quantity, setQuantity }) => {
       return;
     }
 
-    if (!formData.road.trim()) {
-      alert("দয়া করে আপনার রোড নম্বর বা নাম লিখুন। (Please fill in Your Road Number/Name)");
-      const roadInput = document.getElementsByName("road")[0];
-      if (roadInput) {
-        roadInput.scrollIntoView({ behavior: "smooth", block: "center" });
-        roadInput.focus();
-      }
-      return;
-    }
-
-    if (!formData.house.trim()) {
-      alert("দয়া করে আপনার বাড়ি নম্বর বা নাম লিখুন। (Please fill in Your House Number/Name)");
-      const houseInput = document.getElementsByName("house")[0];
-      if (houseInput) {
-        houseInput.scrollIntoView({ behavior: "smooth", block: "center" });
-        houseInput.focus();
-      }
-      return;
-    }
-
-    if (!formData.flat.trim()) {
-      alert("দয়া করে আপনার ফ্ল্যাট বা ফ্লোর নম্বর লিখুন। না থাকলে N/A লিখুন। (Please fill in Flat/Floor No. Write N/A if none)");
-      const flatInput = document.getElementsByName("flat")[0];
-      if (flatInput) {
-        flatInput.scrollIntoView({ behavior: "smooth", block: "center" });
-        flatInput.focus();
-      }
-      return;
-    }
-
     if (!formData.agree) {
       alert("অর্ডার করতে শর্তাবলীতে সম্মতি দেওয়া আবশ্যক। (You must agree to the Terms to place an order.)");
       const termsCheckbox = document.getElementById("terms");
@@ -134,7 +104,13 @@ const Order = ({ quantity, setQuantity }) => {
 
     setIsSubmitting(true);
 
-    const fullAddress = `House: ${formData.house.trim()}, Road: ${formData.road.trim()}, Flat: ${formData.flat.trim()}, Area: ${formData.area.trim()}, Dhaka`;
+    const addressParts = [];
+    if (formData.flat.trim()) addressParts.push(`Flat/Floor: ${formData.flat.trim()}`);
+    if (formData.house.trim()) addressParts.push(`House: ${formData.house.trim()}`);
+    if (formData.road.trim()) addressParts.push(`Road: ${formData.road.trim()}`);
+    if (formData.area.trim()) addressParts.push(`Area: ${formData.area.trim()}`);
+    addressParts.push("Dhaka");
+    const fullAddress = addressParts.join(", ");
 
     const emailPayload = {
       subject: "New Order from Website",
