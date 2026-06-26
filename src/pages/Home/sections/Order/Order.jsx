@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Send, Minus, Plus, Trash2, CheckCircle, Loader2, MapPin } from "lucide-react";
 const productImg = "/hero.webp";
 import OrderSuccessPopup from "./OrderSuccessPopup";
@@ -10,6 +10,7 @@ const Order = ({ quantity, setQuantity }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [submittedName, setSubmittedName] = useState("");
   const [quoteIndex, setQuoteIndex] = useState(0);
+  const submittingRef = useRef(false); // Ref guard to prevent double-submission
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -57,6 +58,9 @@ const Order = ({ quantity, setQuantity }) => {
 
   const handleOrder = async (e) => {
     e.preventDefault();
+    // Guard: prevent double-firing from onClick + onSubmit conflict on mobile
+    if (submittingRef.current) return;
+    submittingRef.current = true;
 
     // Custom Validation with focus & smooth scroll-into-view
     if (!formData.phone.trim()) {
@@ -111,6 +115,7 @@ const Order = ({ quantity, setQuantity }) => {
 
     // Optimistic: show success immediately after a short animation delay
     setTimeout(() => {
+      submittingRef.current = false; // Release guard
       setIsSubmitting(false);
       setSubmittedName(customerName);
       setShowSuccess(true);
@@ -358,10 +363,11 @@ const Order = ({ quantity, setQuantity }) => {
               </div>
 
               <button
-                type="submit"
+                type="button"
                 onClick={handleOrder}
                 disabled={isSubmitting}
-                className="w-full bg-primary hover:bg-primary-dark text-white font-black text-lg py-5 rounded-xl sm:rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-primary/30 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
+                style={{ touchAction: 'manipulation' }}
+                className="w-full bg-primary hover:bg-primary-dark text-white font-black text-lg py-5 rounded-xl sm:rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-primary/30 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer select-none"
               >
                 {isSubmitting ? (
                   <>
