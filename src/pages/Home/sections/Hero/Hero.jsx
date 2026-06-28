@@ -158,8 +158,10 @@ const Hero = ({ onOpenPromo }) => {
             
             {/* Glowing Promo Badge Trigger */}
             <button
+              type="button"
               onClick={onOpenPromo}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-accent to-accent/90 hover:from-accent-dark hover:to-accent text-husk font-black py-4 px-6 rounded-2xl transition-all shadow-xl shadow-accent/20 text-center text-base border-2 border-accent/40 transform hover:-translate-y-1 active:scale-[0.98] group relative overflow-hidden cursor-pointer"
+              style={{ touchAction: 'manipulation' }}
+              className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-accent to-accent/90 hover:from-accent-dark hover:to-accent text-husk font-black py-4 px-6 rounded-2xl transition-all shadow-xl shadow-accent/20 text-center text-base border-2 border-accent/40 group relative overflow-hidden cursor-pointer select-none"
             >
               <span className="absolute inset-0 bg-white/10 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
               <span className="animate-pulse">🎁</span>

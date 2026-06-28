@@ -122,8 +122,10 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
           {/* CTAs */}
           <div className="space-y-1.5 pt-1.5">
             <button
+              type="button"
               onClick={onClaim}
-              className="w-full bg-primary hover:bg-primary-dark text-white font-black text-sm sm:text-base py-3 rounded-xl flex items-center justify-center gap-2 transition-all shadow-xl shadow-primary/30 transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] cursor-pointer group relative overflow-hidden"
+              style={{ touchAction: 'manipulation' }}
+              className="w-full bg-primary hover:bg-primary-dark text-white font-black text-sm sm:text-base py-3 rounded-xl flex items-center justify-center gap-2 transition-all shadow-xl shadow-primary/30 cursor-pointer select-none group relative overflow-hidden"
             >
               <span className="absolute inset-0 bg-white/20 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
               <ShoppingBag size={16} />

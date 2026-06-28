@@ -115,7 +115,8 @@ const Testimonials = () => {
                         </div>
                         <a 
                             href="#order" 
-                            className="w-full lg:w-auto bg-primary hover:bg-primary-dark text-white px-10 py-5 rounded-2xl font-black text-lg transition-all transform hover:-translate-y-0.5 active:scale-[0.98] shadow-2xl shadow-primary/30 whitespace-nowrap text-center flex items-center justify-center gap-2 group relative overflow-hidden cursor-pointer"
+                            style={{ touchAction: 'manipulation' }}
+                            className="w-full lg:w-auto bg-primary hover:bg-primary-dark text-white px-10 py-5 rounded-2xl font-black text-lg transition-all shadow-2xl shadow-primary/30 whitespace-nowrap text-center flex items-center justify-center gap-2 group relative overflow-hidden cursor-pointer select-none"
                         >
                             <span className="absolute inset-0 bg-white/20 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
                             <span>Order Now</span>
