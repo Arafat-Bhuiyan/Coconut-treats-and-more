@@ -69,8 +69,10 @@ const OrderSuccessPopup = ({ isOpen, onClose, customerName }) => {
           </p>
 
           <button
+            type="button"
             onClick={onClose}
-            className="w-full bg-primary hover:bg-primary-dark text-white font-black py-4 rounded-xl transition-all shadow-lg shadow-primary/20 transform hover:-translate-y-0.5 active:translate-y-0"
+            style={{ touchAction: 'manipulation' }}
+            className="w-full bg-primary hover:bg-primary-dark text-white font-black py-4 rounded-xl transition-all shadow-lg shadow-primary/20 cursor-pointer select-none"
           >
             Done
           </button>
