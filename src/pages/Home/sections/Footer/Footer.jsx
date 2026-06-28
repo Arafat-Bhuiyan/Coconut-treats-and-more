@@ -33,8 +33,8 @@ const Footer = () => {
                             rel="noopener noreferrer"
                             title="Follow us on Facebook"
                             aria-label="Follow us on Facebook"
-                            style={{ backgroundColor: '#1877F2', boxShadow: '0 4px 18px rgba(24,119,242,0.45)' }}
-                            className="w-14 h-14 rounded-2xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_28px_rgba(24,119,242,0.7)] active:scale-95"
+                            style={{ backgroundColor: '#1877F2', boxShadow: '0 4px 18px rgba(24,119,242,0.45)', touchAction: 'manipulation' }}
+                            className="w-14 h-14 rounded-2xl flex items-center justify-center text-white transition-all duration-300 select-none"
                         >
                             <FacebookIcon size={26} />
                         </a>
@@ -45,8 +45,8 @@ const Footer = () => {
                             rel="noopener noreferrer"
                             title="Follow us on Instagram"
                             aria-label="Follow us on Instagram"
-                            style={{ background: 'radial-gradient(circle at 30% 110%, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)', boxShadow: '0 4px 18px rgba(220,39,67,0.45)' }}
-                            className="w-14 h-14 rounded-2xl flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_28px_rgba(188,24,136,0.65)] active:scale-95"
+                            style={{ background: 'radial-gradient(circle at 30% 110%, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)', boxShadow: '0 4px 18px rgba(220,39,67,0.45)', touchAction: 'manipulation' }}
+                            className="w-14 h-14 rounded-2xl flex items-center justify-center text-white transition-all duration-300 select-none"
                         >
                             <InstagramIcon size={26} />
                         </a>

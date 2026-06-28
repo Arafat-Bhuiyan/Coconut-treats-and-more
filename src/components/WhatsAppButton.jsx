@@ -81,8 +81,10 @@ const WhatsAppButton = () => {
 
       {/* Main WhatsApp Button */}
       <button
+        type="button"
         onClick={() => setShowTooltip((prev) => !prev)}
-        className="relative w-16 h-16 bg-[#25D366] hover:bg-[#1ebe5d] rounded-full shadow-2xl shadow-[#25D366]/40 flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer"
+        style={{ touchAction: 'manipulation' }}
+        className="relative w-16 h-16 bg-[#25D366] hover:bg-[#1ebe5d] rounded-full shadow-2xl shadow-[#25D366]/40 flex items-center justify-center transition-all cursor-pointer select-none"
         aria-label="Chat on WhatsApp"
       >
         {/* Ping animation ring */}
