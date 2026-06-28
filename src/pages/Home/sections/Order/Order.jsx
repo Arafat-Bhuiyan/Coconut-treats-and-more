@@ -64,6 +64,7 @@ const Order = ({ quantity, setQuantity }) => {
 
     // Custom Validation with focus & smooth scroll-into-view
     if (!formData.phone.trim()) {
+      submittingRef.current = false; // Release guard so button works again
       alert("দয়া করে আপনার মোবাইল নাম্বার লিখুন। (Please fill in Your Mobile Number)");
       const phoneInput = document.getElementsByName("phone")[0];
       if (phoneInput) {
@@ -74,6 +75,7 @@ const Order = ({ quantity, setQuantity }) => {
     }
 
     if (!formData.address.trim()) {
+      submittingRef.current = false; // Release guard so button works again
       alert("দয়া করে আপনার সম্পূর্ণ ঠিকানা লিখুন। (Please fill in Your Full Delivery Address)");
       const addressInput = document.getElementsByName("address")[0];
       if (addressInput) {
@@ -84,6 +86,7 @@ const Order = ({ quantity, setQuantity }) => {
     }
 
     if (!formData.agree) {
+      submittingRef.current = false; // Release guard so button works again
       alert("অর্ডার করতে শর্তাবলীতে সম্মতি দেওয়া আবশ্যক। (You must agree to the Terms to place an order.)");
       const termsCheckbox = document.getElementById("terms");
       if (termsCheckbox) {
