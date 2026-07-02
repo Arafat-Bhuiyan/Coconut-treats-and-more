@@ -99,13 +99,13 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
           </div>
 
           {/* Crimson Savings Highlight Banner */}
-          <div className="rounded-2xl py-3.5 px-3 flex flex-col items-center justify-center gap-1.5 transform hover:scale-[1.01] transition-transform duration-300 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(255,255,255,0.38)', boxShadow: '0 8px 28px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.5)'}}>
+          <div className="rounded-2xl py-4 px-3 flex flex-col items-center justify-center gap-2 transform hover:scale-[1.01] transition-transform duration-300 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(255,255,255,0.38)', boxShadow: '0 8px 28px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.5)'}}>
             <span className="absolute inset-0 rounded-2xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 55%)', pointerEvents: 'none'}} />
             <div className="flex items-center gap-1.5 relative z-10">
-              <span className="text-xl">🎁</span>
-              <span className="text-xs sm:text-sm font-black uppercase tracking-wider leading-none text-white/90" style={{textShadow: '0 1px 2px rgba(0,0,0,0.4)'}}>Instant Discount</span>
+              <span className="text-xl animate-bounce">🎁</span>
+              <span className="text-sm sm:text-base font-black uppercase tracking-wider leading-none text-white/95" style={{textShadow: '0 1px 2.5px rgba(0,0,0,0.45)'}}>Instant Discount</span>
             </div>
-            <p className="font-black text-lg sm:text-xl text-center text-white relative z-10" style={{textShadow: '0 1.5px 4px rgba(0,0,0,0.5)'}}>🎉 ২টি বক্স কিনলেই ৳১২০ ছাড়!</p>
+            <p className="font-black text-xl sm:text-2xl text-center text-white relative z-10" style={{textShadow: '0 2px 5px rgba(0,0,0,0.55)'}}>🎉 ২টি বক্স কিনলেই ৳১২০ ছাড়!</p>
           </div>
 
           {/* Conditions Box */}
