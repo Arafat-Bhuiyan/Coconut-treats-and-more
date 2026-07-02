@@ -17,30 +17,8 @@ const Hero = ({ onOpenPromo }) => {
           0%, 100% { transform: translateY(0px); }
           50%       { transform: translateY(-12px); }
         }
-        @keyframes floating3d {
-          0% {
-            transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px);
-          }
-          25% {
-            transform: perspective(1000px) rotateX(4deg) rotateY(8deg) translateY(-8px);
-          }
-          50% {
-            transform: perspective(1000px) rotateX(0deg) rotateY(16deg) translateY(-15px);
-          }
-          75% {
-            transform: perspective(1000px) rotateX(-4deg) rotateY(8deg) translateY(-8px);
-          }
-          100% {
-            transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px);
-          }
-        }
         .hero-text-col { animation: fadeInUp 0.5s ease both; }
         .hero-float-badge { animation: floatBadge 4s ease-in-out infinite; will-change: transform; }
-        .hero-pudding-3d {
-          animation: floating3d 8s ease-in-out infinite;
-          transform-style: preserve-3d;
-          will-change: transform;
-        }
       `}</style>
       <div className="container mx-auto grid md:grid-cols-2 gap-10 md:gap-12 items-start">
         <div
@@ -217,7 +195,7 @@ const Hero = ({ onOpenPromo }) => {
             src={puddingImg}
             sizes="(min-width: 768px) 50vw, 100vw"
             alt="Delicious Coconut Pudding"
-            className="w-full h-auto shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] rounded-[2.5rem] sm:rounded-[4rem] hero-pudding-3d"
+            className="w-full h-auto shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] rounded-[2.5rem] sm:rounded-[4rem]"
             fetchpriority="high"
             loading="eager"
             decoding="sync"
