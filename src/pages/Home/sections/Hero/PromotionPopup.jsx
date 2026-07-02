@@ -105,7 +105,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
               <span className="text-lg">🎁</span>
               <span className="text-xs sm:text-sm font-black uppercase tracking-wider leading-none text-white" style={{textShadow: '0 1px 2px rgba(0,0,0,0.4)'}}>Instant Discount</span>
             </div>
-            <p className="font-black text-xs sm:text-sm text-center mt-0.5 text-white relative z-10" style={{textShadow: '0 1px 3.5px rgba(0,0,0,0.4)'}}>Total ৳120 Save on 2 boxes! 🎉</p>
+            <p className="font-black text-xs sm:text-sm text-center mt-0.5 text-white relative z-10" style={{textShadow: '0 1px 3.5px rgba(0,0,0,0.4)'}}>🎉 ২টি বাক্স কিনলেই ৳১২০ ছাড়!</p>
           </div>
 
           {/* Conditions Box */}
