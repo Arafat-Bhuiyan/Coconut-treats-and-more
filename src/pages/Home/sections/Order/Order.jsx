@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Send, Minus, Plus, Trash2, CheckCircle, Loader2, MapPin } from "lucide-react";
-const productImg = "/pudding-3d.png";
+const productImg = "/pudding-3d.jpg";
 import OrderSuccessPopup from "./OrderSuccessPopup";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
 import CountdownTimer from "../../../../components/CountdownTimer";
