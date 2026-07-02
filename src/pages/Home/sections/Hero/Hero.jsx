@@ -195,7 +195,7 @@ const Hero = ({ onOpenPromo }) => {
             src={puddingImg}
             sizes="(min-width: 768px) 50vw, 100vw"
             alt="Delicious Coconut Pudding"
-            className="w-full h-auto shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] rounded-[2.5rem] sm:rounded-[4rem]"
+            className="w-[85%] sm:w-[75%] lg:w-[70%] h-auto mx-auto block shadow-[0_24px_48px_rgba(0,0,0,0.12)] rounded-[2.5rem] sm:rounded-[3.5rem]"
             fetchpriority="high"
             loading="eager"
             decoding="sync"
