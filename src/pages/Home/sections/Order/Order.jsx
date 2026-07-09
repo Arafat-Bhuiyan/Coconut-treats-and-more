@@ -406,25 +406,27 @@ const Order = ({ quantity, setQuantity }) => {
                   <p className="text-xs font-black text-primary mt-1">৳{unitPrice} / box</p>
                 </div>
                 <div className="flex flex-col items-end gap-2">
-                  <div className="flex items-center bg-slate-50 rounded-lg p-1 border">
+                  <div className="flex items-center bg-slate-100/80 rounded-xl p-1.5 border shadow-inner">
                     <button
                       type="button"
                       onClick={(e) => { e.preventDefault(); setQuantity(Math.max(1, quantity - 1)); }}
-                      className="p-1 hover:bg-white rounded-md transition-colors text-husk/50 hover:text-primary active:scale-95"
+                      style={{ touchAction: 'manipulation' }}
+                      className="w-10 h-10 flex items-center justify-center bg-white hover:bg-slate-50 rounded-lg transition-all text-husk/70 hover:text-primary active:scale-90 border shadow-sm cursor-pointer select-none"
                       aria-label="Decrease quantity"
                     >
-                      <Minus size={14} />
+                      <Minus size={18} />
                     </button>
-                    <span className="w-6 sm:w-8 text-center font-black text-sm text-husk select-none">
+                    <span className="w-10 text-center font-black text-base text-husk select-none">
                       {quantity}
                     </span>
                     <button
                       type="button"
                       onClick={(e) => { e.preventDefault(); setQuantity(quantity + 1); }}
-                      className="p-1 hover:bg-white rounded-md transition-colors text-husk/50 hover:text-primary active:scale-95"
+                      style={{ touchAction: 'manipulation' }}
+                      className="w-10 h-10 flex items-center justify-center bg-white hover:bg-slate-50 rounded-lg transition-all text-husk/70 hover:text-primary active:scale-90 border shadow-sm cursor-pointer select-none"
                       aria-label="Increase quantity"
                     >
-                      <Plus size={14} />
+                      <Plus size={18} />
                     </button>
                   </div>
                   <p className="font-black text-husk text-sm">৳{totalProductPrice}</p>
