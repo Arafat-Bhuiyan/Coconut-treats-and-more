@@ -20,6 +20,16 @@ const Order = () => {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const handleSetQuantity = (e) => {
+      if (e.detail) {
+        setQuantity(e.detail);
+      }
+    };
+    window.addEventListener("set-order-quantity", handleSetQuantity);
+    return () => window.removeEventListener("set-order-quantity", handleSetQuantity);
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -58,7 +68,9 @@ const Order = () => {
   ];
 
   const handleOrder = async (e) => {
-    e.preventDefault();
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
     // Guard: prevent double-firing from onClick + onSubmit conflict on mobile
     if (submittingRef.current) return;
     submittingRef.current = true;

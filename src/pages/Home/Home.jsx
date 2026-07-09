@@ -78,6 +78,8 @@ export const Home = () => {
 
   const claimOffer = () => {
     setShowPromo(false);
+    // Dispatch custom event to update quantity in Order component safely
+    window.dispatchEvent(new CustomEvent("set-order-quantity", { detail: 2 }));
     setTimeout(() => {
       const element = document.getElementById("order");
       if (element) {
