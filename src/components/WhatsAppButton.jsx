@@ -17,19 +17,18 @@ const WhatsAppButton = () => {
 
   return (
     <div
-      className="fixed right-6 z-50 flex flex-col items-end gap-3 transition-all duration-500"
+      className="fixed right-6 z-50 flex flex-col items-end gap-3 transition-all duration-500 pointer-events-none"
       style={{
         top: "50%",
         transform: visible ? "translateY(-50%) scale(1)" : "translateY(-40%) scale(0.75)",
-        opacity: visible ? 1 : 0,
-        pointerEvents: visible ? "auto" : "none"
+        opacity: visible ? 1 : 0
       }}
     >
       {/* Tooltip / Chat Bubble */}
       <div
-        className={`relative bg-white rounded-2xl shadow-2xl p-4 max-w-[230px] border border-gray-100 transition-all duration-300 transform origin-bottom-right ${
+        className={`relative bg-white rounded-2xl shadow-2xl p-4 max-w-[230px] border border-gray-100 transition-all duration-300 transform origin-bottom-right pointer-events-auto ${
           showTooltip
-            ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
+            ? "opacity-100 translate-y-0 scale-100"
             : "opacity-0 translate-y-2 scale-95 pointer-events-none"
         }`}
       >
@@ -86,7 +85,7 @@ const WhatsAppButton = () => {
         type="button"
         onClick={() => setShowTooltip((prev) => !prev)}
         style={{ touchAction: 'manipulation' }}
-        className="relative w-16 h-16 bg-[#25D366] hover:bg-[#1ebe5d] rounded-full shadow-2xl shadow-[#25D366]/40 flex items-center justify-center transition-all cursor-pointer select-none"
+        className="relative w-16 h-16 bg-[#25D366] hover:bg-[#1ebe5d] rounded-full shadow-2xl shadow-[#25D366]/40 flex items-center justify-center transition-all cursor-pointer select-none pointer-events-auto"
         aria-label="Chat on WhatsApp"
       >
         {/* Ping animation ring */}
