@@ -17,10 +17,9 @@ const WhatsAppButton = () => {
 
   return (
     <div
-      className="fixed right-6 z-50 flex flex-col items-end gap-3 transition-all duration-500 pointer-events-none"
+      className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 transition-all duration-500 pointer-events-none"
       style={{
-        top: "50%",
-        transform: visible ? "translateY(-50%) scale(1)" : "translateY(-40%) scale(0.75)",
+        transform: visible ? "scale(1)" : "scale(0.75)",
         opacity: visible ? 1 : 0
       }}
     >

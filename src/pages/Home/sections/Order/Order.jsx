@@ -5,7 +5,8 @@ import OrderSuccessPopup from "./OrderSuccessPopup";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
 import CountdownTimer from "../../../../components/CountdownTimer";
 
-const Order = ({ quantity, setQuantity }) => {
+const Order = () => {
+  const [quantity, setQuantity] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [submittedName, setSubmittedName] = useState("");
@@ -406,22 +407,22 @@ const Order = ({ quantity, setQuantity }) => {
                   <p className="text-xs font-black text-primary mt-1">৳{unitPrice} / box</p>
                 </div>
                 <div className="flex flex-col items-end gap-2">
-                  <div className="flex items-center bg-gray-100 border border-gray-200 rounded-lg overflow-hidden">
+                  <div className="flex items-center rounded-xl overflow-hidden border-2 border-primary/40 shadow-md">
                     <button
                       type="button"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="w-10 h-10 flex items-center justify-center bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-600 border-r border-gray-200 transition-colors select-none text-lg font-bold cursor-pointer"
+                      className="w-11 h-11 flex items-center justify-center bg-primary/10 hover:bg-primary/20 active:bg-primary/30 text-primary border-r-2 border-primary/40 transition-colors select-none text-2xl font-black cursor-pointer"
                       aria-label="Decrease quantity"
                     >
-                      -
+                      −
                     </button>
-                    <span className="w-12 text-center font-black text-base text-gray-800 select-none">
+                    <span className="w-12 text-center font-black text-lg text-husk select-none bg-white h-11 flex items-center justify-center">
                       {quantity}
                     </span>
                     <button
                       type="button"
                       onClick={() => setQuantity(quantity + 1)}
-                      className="w-10 h-10 flex items-center justify-center bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-600 border-l border-gray-200 transition-colors select-none text-lg font-bold cursor-pointer"
+                      className="w-11 h-11 flex items-center justify-center bg-primary hover:bg-primary-dark active:bg-primary/80 text-white border-l-2 border-primary/40 transition-colors select-none text-2xl font-black cursor-pointer"
                       aria-label="Increase quantity"
                     >
                       +

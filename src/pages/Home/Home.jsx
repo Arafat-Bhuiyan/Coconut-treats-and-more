@@ -18,7 +18,6 @@ const SectionLoader = () => (
 );
 
 export const Home = () => {
-  const [quantity, setQuantity] = useState(1);
   const [showPromo, setShowPromo] = useState(false);
 
   useEffect(() => {
@@ -78,7 +77,6 @@ export const Home = () => {
   }, []);
 
   const claimOffer = () => {
-    setQuantity(2);
     setShowPromo(false);
     setTimeout(() => {
       const element = document.getElementById("order");
@@ -97,7 +95,7 @@ export const Home = () => {
           <Testimonials />
         </Suspense>
         <Suspense fallback={<SectionLoader />}>
-          <Order quantity={quantity} setQuantity={setQuantity} />
+          <Order />
         </Suspense>
       </main>
       <Suspense fallback={null}>
