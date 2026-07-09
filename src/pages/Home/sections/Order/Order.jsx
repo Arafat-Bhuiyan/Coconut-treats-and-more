@@ -406,25 +406,25 @@ const Order = ({ quantity, setQuantity }) => {
                   <p className="text-xs font-black text-primary mt-1">৳{unitPrice} / box</p>
                 </div>
                 <div className="flex flex-col items-end gap-2">
-                  <div className="flex items-center bg-slate-100/80 rounded-xl p-1.5 border shadow-inner">
+                  <div className="flex items-center bg-gray-100 border border-gray-200 rounded-lg overflow-hidden">
                     <button
                       type="button"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="w-10 h-10 flex items-center justify-center bg-white hover:bg-slate-50 rounded-lg transition-all text-husk/70 hover:text-primary active:scale-90 border shadow-sm cursor-pointer select-none"
+                      className="w-10 h-10 flex items-center justify-center bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-600 border-r border-gray-200 transition-colors select-none text-lg font-bold cursor-pointer"
                       aria-label="Decrease quantity"
                     >
-                      <Minus size={18} />
+                      -
                     </button>
-                    <span className="w-10 text-center font-black text-base text-husk select-none">
+                    <span className="w-12 text-center font-black text-base text-gray-800 select-none">
                       {quantity}
                     </span>
                     <button
                       type="button"
                       onClick={() => setQuantity(quantity + 1)}
-                      className="w-10 h-10 flex items-center justify-center bg-white hover:bg-slate-50 rounded-lg transition-all text-husk/70 hover:text-primary active:scale-90 border shadow-sm cursor-pointer select-none"
+                      className="w-10 h-10 flex items-center justify-center bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-600 border-l border-gray-200 transition-colors select-none text-lg font-bold cursor-pointer"
                       aria-label="Increase quantity"
                     >
-                      <Plus size={18} />
+                      +
                     </button>
                   </div>
                   <p className="font-black text-husk text-sm">৳{totalProductPrice}</p>
