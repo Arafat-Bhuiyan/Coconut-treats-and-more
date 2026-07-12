@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Send, Minus, Plus, Trash2, CheckCircle, Loader2, MapPin } from "lucide-react";
-const productImg = "/pudding-3d.jpg";
+import { CheckCircle, Loader2, MapPin } from "lucide-react";
 import OrderSuccessPopup from "./OrderSuccessPopup";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
 import CountdownTimer from "../../../../components/CountdownTimer";
+
+const productImg = "/pudding-3d.jpg";
 
 const Order = () => {
   const [quantity, setQuantity] = useState(1);
@@ -448,7 +449,7 @@ const Order = () => {
               <div className="space-y-4 pt-6">
                 <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
                   <span>Subtotal</span>
-                  <span>৳{quantity * basePrice}</span>
+                  <span>৳{totalProductPrice}</span>
                 </div>
                 <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
                   <span>Delivery Charge</span>
