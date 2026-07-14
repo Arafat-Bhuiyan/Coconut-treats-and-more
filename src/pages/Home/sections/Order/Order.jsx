@@ -77,9 +77,25 @@ const Order = () => {
     submittingRef.current = true;
 
     // Custom Validation with focus & smooth scroll-into-view
-    if (!formData.phone.trim()) {
+    const trimmedPhone = formData.phone.trim();
+    if (!trimmedPhone) {
       submittingRef.current = false; // Release guard so button works again
       alert("দয়া করে আপনার মোবাইল নাম্বার লিখুন। (Please fill in Your Mobile Number)");
+      const phoneInput = document.getElementsByName("phone")[0];
+      if (phoneInput) {
+        phoneInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        phoneInput.focus();
+      }
+      return;
+    }
+
+    const phoneClean = trimmedPhone.replace(/[^0-9]/g, '');
+    const isValidBDPhone = (phoneClean.length === 11 && phoneClean.startsWith('01')) || 
+                           (phoneClean.length === 13 && phoneClean.startsWith('8801'));
+
+    if (!isValidBDPhone) {
+      submittingRef.current = false; // Release guard so button works again
+      alert("দয়া করে একটি সঠিক ১১ ডিজিটের মোবাইল নাম্বার লিখুন (যেমন: 01XXXXXXXXX)। (Please enter a valid 11-digit mobile number)");
       const phoneInput = document.getElementsByName("phone")[0];
       if (phoneInput) {
         phoneInput.scrollIntoView({ behavior: "smooth", block: "center" });
