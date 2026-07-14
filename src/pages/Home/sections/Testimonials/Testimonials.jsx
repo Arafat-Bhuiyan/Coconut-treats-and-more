@@ -1,46 +1,46 @@
-import { Gift, Sparkles, Star } from "lucide-react";
+import { Sparkles, Star } from "lucide-react";
 import CountdownTimer from "../../../../components/CountdownTimer";
 
 // Use dynamic paths instead of static imports to reduce bundle size
 const reviewImages = Array.from({ length: 17 }, (_, i) => `/reviews/${i + 1}.webp`);
 
+// Moved outside Testimonials to prevent recreation on every render (performance fix)
+const MarqueeRow = ({ images, duration = 30 }) => (
+    <div className="flex overflow-hidden select-none gap-6 py-4">
+        <div className="reviews-marquee gap-6 min-w-full" style={{ animationDuration: `${duration}s` }}>
+            {/* Original set */}
+            {images.map((img, idx) => (
+                <div
+                    key={`orig-${idx}`}
+                    className="flex-none w-[180px] sm:w-[240px] md:w-[300px] glass-card rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300"
+                >
+                    <img
+                        src={img}
+                        alt={`Review ${idx}`}
+                        className="w-full h-auto object-cover pointer-events-none"
+                        loading="lazy"
+                    />
+                </div>
+            ))}
+            {/* Duplicate set for infinite loop */}
+            {images.map((img, idx) => (
+                <div
+                    key={`dup-${idx}`}
+                    className="flex-none w-[180px] sm:w-[240px] md:w-[300px] glass-card rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300"
+                >
+                    <img
+                        src={img}
+                        alt={`Review Duplicate ${idx}`}
+                        className="w-full h-auto object-cover pointer-events-none"
+                        loading="lazy"
+                    />
+                </div>
+            ))}
+        </div>
+    </div>
+);
 
 const Testimonials = () => {
-    const MarqueeRow = ({ images, duration = 30 }) => (
-        <div className="flex overflow-hidden select-none gap-6 py-4">
-            <div className="reviews-marquee gap-6 min-w-full" style={{ animationDuration: `${duration}s` }}>
-                {/* Original set */}
-                {images.map((img, idx) => (
-                    <div
-                        key={`orig-${idx}`}
-                        className="flex-none w-[180px] sm:w-[240px] md:w-[300px] glass-card rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300"
-                    >
-                        <img
-                            src={img}
-                            alt={`Review ${idx}`}
-                            className="w-full h-auto object-cover pointer-events-none"
-                            loading="lazy"
-                        />
-                    </div>
-                ))}
-                {/* Duplicate set for infinite loop */}
-                {images.map((img, idx) => (
-                    <div
-                        key={`dup-${idx}`}
-                        className="flex-none w-[180px] sm:w-[240px] md:w-[300px] glass-card rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300"
-                    >
-                        <img
-                            src={img}
-                            alt={`Review Duplicate ${idx}`}
-                            className="w-full h-auto object-cover pointer-events-none"
-                            loading="lazy"
-                        />
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-
     return (
         <section id="reviews" className="py-24 overflow-hidden relative">
             <style>
@@ -59,7 +59,6 @@ const Testimonials = () => {
                   }
                 `}
             </style>
-            {/* Promo Banner */}
             {/* Promo Banner - Premium Ticket Style */}
             <div className="container mx-auto px-4 sm:px-6 mb-12 sm:mb-16">
                 <div
@@ -75,7 +74,7 @@ const Testimonials = () => {
                     <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8">
                         <div className="flex items-center gap-4 sm:gap-6 text-center md:text-left flex-col md:flex-row">
                             <div className="bg-primary/5 p-4 rounded-2xl sm:rounded-3xl border border-primary/10 shadow-sm flex-shrink-0 animate-pulse text-primary">
-                                <Sparkles size={30} sm:size={34} fill="currentColor" className="text-accent" />
+                                <Sparkles size={30} fill="currentColor" className="text-accent" />
                             </div>
                             <div className="space-y-3.5">
                                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-2.5">
@@ -129,7 +128,8 @@ const Testimonials = () => {
             <div className="container mx-auto px-6 md:px-12 mb-10 sm:mb-16">
                 <div className="text-center max-w-2xl mx-auto">
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-husk mb-4 leading-tight">
-                        Happy Customers Review                    </h2>
+                        Happy Customers Review
+                    </h2>
                     <p className="text-husk/60 text-sm sm:text-base md:text-lg font-medium">
                         We're grateful for all the love we receive on social media!
                     </p>
@@ -151,7 +151,7 @@ const Testimonials = () => {
                     className="inline-flex flex-wrap justify-center items-center gap-3 glass-panel text-primary px-6 py-4 rounded-2xl font-black text-sm sm:text-base will-change-transform"
                 >
                     <span className="flex gap-1 text-accent">
-                        {[...Array(5)].map((_, i) => <Star key={i} size={16} sm:size={18} fill="currentColor" />)}
+                        {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
                     </span>
                     Join our 500+ happy customers
                 </div>
