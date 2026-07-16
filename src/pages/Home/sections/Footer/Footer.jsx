@@ -96,7 +96,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className="container mx-auto flex flex-col md:row items-center justify-between text-milk-white/40 text-xs font-medium tracking-wider uppercase">
+            <div className="container mx-auto flex flex-col md:flex-row items-center justify-between text-milk-white/40 text-xs font-medium tracking-wider uppercase">
                 <p>&copy; 2026 Coconut Treats & More. All rights reserved.</p>
             </div>
         </footer>

@@ -81,7 +81,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
           {/* Pricing Comparison Grid */}
           <div className="grid grid-cols-2 gap-3">
             {/* Regular Price Card */}
-            <div className="bg-slate-50/50 p-2.5 rounded-2xl border border-slate-150 text-center shadow-sm flex flex-col justify-center">
+            <div className="bg-slate-50/50 p-2.5 rounded-2xl border border-slate-200 text-center shadow-sm flex flex-col justify-center">
               <p className="text-[9px] text-husk/50 font-black uppercase tracking-wider mb-0.5">Regular Price</p>
               <p className="text-lg font-extrabold text-husk/60 line-through">৳600</p>
               <p className="text-[8px] text-husk/40 font-bold">per box</p>
@@ -115,7 +115,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
           </div>
 
           {/* Countdown Timer */}
-          <div className="pt-2 border-t border-dashed border-gray-150 flex items-center justify-center w-full">
+          <div className="pt-2 border-t border-dashed border-gray-200 flex items-center justify-center w-full">
             <CountdownTimer />
           </div>
 
