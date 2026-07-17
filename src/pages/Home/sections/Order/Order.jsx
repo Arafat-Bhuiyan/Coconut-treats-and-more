@@ -178,7 +178,7 @@ const Order = () => {
             currency: "BDT",
             content_name: "Premium Coconut Pudding (6pc Box)",
             content_ids: ["coconut-pudding-6pc"],
-            contents: [{ id: "coconut-pudding-6pc", quantity: quantity, item_price: basePrice }],
+            contents: [{ id: "coconut-pudding-6pc", quantity: quantity, item_price: unitPrice }],
             content_type: "product",
             num_items: quantity,
           }, {

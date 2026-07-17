@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { X } from "lucide-react";
+import { trackFacebookEvent } from "../utils/facebookTracking";
 
 const WhatsAppButton = () => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -14,6 +15,12 @@ const WhatsAppButton = () => {
   const whatsappNumber = "8801618562844"; // +8801618562844
   const message = encodeURIComponent("হ্যালো! আমি Coconut Treats & More সম্পর্কে জানতে চাই।");
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+  const handleContactClick = () => {
+    trackFacebookEvent("Contact", {
+      content_name: "WhatsApp Start Chat Clicked",
+    });
+  };
 
   return (
     <div
@@ -70,6 +77,7 @@ const WhatsAppButton = () => {
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={handleContactClick}
           className="block w-full bg-[#25D366] hover:bg-[#1ebe5d] text-white text-center font-bold text-sm py-2.5 rounded-xl transition-all"
         >
           Start Chat →
