@@ -16,6 +16,15 @@ export default async function handler(req, res) {
 
   try {
     const orderData = req.body;
+    
+    // Server-side payload validation to prevent spam/corrupted orders
+    if (!orderData || !orderData.Phone || !orderData.Address) {
+      return res.status(400).json({
+        success: false,
+        message: "Required order details are missing (Phone and Address are required)."
+      });
+    }
+
     // New Apps Script deployed from coconuttreatsmore@gmail.com
     const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbygtsftenbteNaL_IUxy1a82Yy8Jy__jAHeK26NRG0HUrH_jVnCMkAeOyITvQ-lzW9f/exec";
 
