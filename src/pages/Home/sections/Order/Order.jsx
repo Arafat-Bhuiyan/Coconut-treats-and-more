@@ -130,12 +130,15 @@ const Order = () => {
 
     const fullAddress = formData.address.trim();
     const customerName = formData.name || "Customer";
+    // Capture user data NOW before form resets, so Facebook tracking gets correct values
+    const capturedPhone = formData.phone;
+    const capturedName = formData.name;
 
     const emailPayload = {
       subject: "New Order from Website",
       from_name: formData.name || "Grahok",
       Customer: customerName,
-      Phone: formData.phone,
+      Phone: capturedPhone,
       Address: fullAddress,
       Note: formData.note || "N/A",
       Product: "Premium Coconut Pudding (6pc Box)",
@@ -182,8 +185,8 @@ const Order = () => {
             content_type: "product",
             num_items: quantity,
           }, {
-            phone: formData.phone,
-            name: formData.name,
+            phone: capturedPhone,
+            name: capturedName,
             address: fullAddress,
           });
         } else {
@@ -396,8 +399,7 @@ const Order = () => {
               </div>
 
               <button
-                type="button"
-                onClick={handleOrder}
+                type="submit"
                 disabled={isSubmitting}
                 style={{ touchAction: 'manipulation' }}
                 className="w-full bg-primary hover:bg-primary-dark text-white font-black text-lg py-5 rounded-xl sm:rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-primary/30 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer select-none"
