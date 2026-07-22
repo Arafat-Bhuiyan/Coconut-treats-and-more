@@ -44,7 +44,7 @@ export default async function handler(req, res) {
           event_time: eventTime || Math.floor(Date.now() / 1000),
           action_source: "website",
           event_id: eventId,
-          event_source_url: req.headers.referer || "https://coconut-treats-and-more.vercel.app/",
+          event_source_url: req.headers.referer || "https://coconuttreatsmore.com/",
           user_data: {
             client_ip_address: cleanIp,
             client_user_agent: userData?.userAgent || req.headers['user-agent'] || '',
