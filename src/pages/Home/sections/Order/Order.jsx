@@ -41,7 +41,7 @@ const Order = () => {
 
   const basePrice = 600;
   const offerPrice = 540;
-  const deliveryCharge = 100;
+  const deliveryCharge = 150;
 
   const unitPrice = quantity >= 2 ? offerPrice : basePrice;
   const totalProductPrice = quantity * unitPrice;
