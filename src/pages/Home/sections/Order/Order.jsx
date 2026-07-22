@@ -39,9 +39,9 @@ const Order = () => {
     agree: true
   });
 
-  const basePrice = 600;
+  const basePrice = 650;
   const offerPrice = 540;
-  const deliveryCharge = 150;
+  const deliveryCharge = 100;
 
   const unitPrice = quantity >= 2 ? offerPrice : basePrice;
   const totalProductPrice = quantity * unitPrice;
