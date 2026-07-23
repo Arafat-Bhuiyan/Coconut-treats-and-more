@@ -44,7 +44,7 @@ function getCookie(name) {
  */
 export async function trackFacebookEvent(eventName, eventParams = {}, rawUserData = {}) {
   // 1. Generate unique event ID for deduplication
-  const eventId = `evt_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  const eventId = `evt_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
 
   // 2. Load and cache user data for Advanced Matching
   let finalUserData = { ...rawUserData };
