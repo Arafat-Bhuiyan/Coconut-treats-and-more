@@ -74,7 +74,7 @@ export default async function handler(req, res) {
     };
 
     // Forward the event to Meta Graph API
-    const response = await fetch(`https://graph.facebook.com/v19.0/${pixelId}/events?access_token=${accessToken}`, {
+    const response = await fetch(`https://graph.facebook.com/v21.0/${pixelId}/events?access_token=${accessToken}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
