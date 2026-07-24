@@ -83,7 +83,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
             {/* Regular Price Card */}
             <div className="bg-slate-50/50 p-2.5 rounded-2xl border border-slate-200 text-center shadow-sm flex flex-col justify-center">
               <p className="text-[9px] text-husk/50 font-black uppercase tracking-wider mb-0.5">Regular Price</p>
-              <p className="text-lg font-extrabold text-husk/60 line-through">৳620</p>
+              <p className="text-lg font-extrabold text-husk/60 line-through">৳650</p>
               <p className="text-[8px] text-husk/40 font-bold">per box</p>
             </div>
 
@@ -105,7 +105,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
               <span className="text-xl animate-bounce">🎁</span>
               <span className="text-sm sm:text-base font-black uppercase tracking-wider leading-none text-white/95" style={{textShadow: '0 1px 2.5px rgba(0,0,0,0.45)'}}>Instant Discount</span>
             </div>
-            <p className="font-black text-xl sm:text-2xl text-center text-white relative z-10" style={{textShadow: '0 2px 5px rgba(0,0,0,0.55)'}}>🎉 ২টি বক্স কিনলেই ৳১৪০ ছাড়!</p>
+            <p className="font-black text-xl sm:text-2xl text-center text-white relative z-10" style={{textShadow: '0 2px 5px rgba(0,0,0,0.55)'}}>🎉 ২টি বক্স কিনলেই ৳২০০ ছাড়!</p>
           </div>
 
           {/* Conditions Box */}

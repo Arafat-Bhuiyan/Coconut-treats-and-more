@@ -39,7 +39,7 @@ const Order = () => {
     agree: true
   });
 
-  const basePrice = 620;
+  const basePrice = 650;
   const offerPrice = 550;
   const deliveryCharge = 100;
 

@@ -53,15 +53,15 @@ const Hero = ({ onOpenPromo }) => {
                     🔥 BULK DEAL
                   </span>
                   <span className="text-[11px] font-black px-2.5 py-1.5 rounded-lg animate-pulse relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 4px 15px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.45)', color: '#fff', textShadow: '0 1px 2px rgba(0,0,0,0.3)'}}>
-                    🎉 ২টি বক্স কিনলেই ৳১৪০ ছাড়!
+                    🎉 ২টি বক্স কিনলেই ৳২০০ ছাড়!
                   </span>
                 </div>
 
                 {/* Headline */}
                 <div className="font-black text-husk text-xl sm:text-2xl leading-tight tracking-tight mb-1">
-                  🎉 ২টি বক্স কিনলেই ৳১৪০ ছাড়!
+                  🎉 ২টি বক্স কিনলেই ৳২০০ ছাড়!
                 </div>
-                <p className="text-xs text-husk/50 font-bold">আজই ২টি বক্স অর্ডার করুন এবং সঙ্গে সঙ্গে ৳১৪০ ছাড় উপভোগ করুন।</p>
+                <p className="text-xs text-husk/50 font-bold">আজই ২টি বক্স অর্ডার করুন এবং সঙ্গে সঙ্গে ৳২০০ ছাড় উপভোগ করুন।</p>
               </div>
 
               {/* Horizontal Tear Line */}
@@ -95,7 +95,7 @@ const Hero = ({ onOpenPromo }) => {
                     </span>
                   </div>
                   <span className="text-sm sm:text-base font-black relative z-10 text-center text-white" style={{textShadow: '0 1.5px 3px rgba(0,0,0,0.4)'}}>
-                    🎉 ২টি বক্স কিনলেই ৳১৪০ ছাড়!
+                    🎉 ২টি বক্স কিনলেই ৳২০০ ছাড়!
                   </span>
                 </div>
 

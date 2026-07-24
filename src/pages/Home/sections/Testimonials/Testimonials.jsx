@@ -101,7 +101,7 @@ const Testimonials = () => {
                                         <span className="absolute inset-0 rounded-xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 60%)', pointerEvents: 'none'}} />
                                         <span className="relative z-10 flex flex-col items-center gap-0.5">
                                           <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-white" style={{textShadow: '0 1px 3px rgba(0,0,0,0.3)'}}>🎁 Instant Discount</span>
-                                          <span className="text-sm sm:text-base font-black text-white" style={{textShadow: '0 1.5px 3px rgba(0,0,0,0.4)'}}>🎉 ২টি বক্স কিনলেই ৳১৪০ ছাড়!</span>
+                                          <span className="text-sm sm:text-base font-black text-white" style={{textShadow: '0 1.5px 3px rgba(0,0,0,0.4)'}}>🎉 ২টি বক্স কিনলেই ৳২০০ ছাড়!</span>
                                         </span>
                                     </span>
                                 </p>
