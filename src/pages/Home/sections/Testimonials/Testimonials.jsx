@@ -94,7 +94,7 @@ const Testimonials = () => {
                                     to unlock 💰{" "}
                                     Price drops to{" "}
                                     <span className="bg-accent/20 text-primary font-black px-2.5 py-1 rounded-xl border border-accent/30 shadow-sm whitespace-nowrap inline-block transform hover:scale-105 transition-all">
-                                        ৳550 per box
+                                        ৳560 per box
                                     </span>{" "}
                                     automatically! ✨
                                     <span className="block sm:inline-block mt-3 sm:mt-0 sm:ml-3 font-black px-4 py-3 rounded-xl transform hover:scale-105 transition-all relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 6px 20px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.45)'}}>
