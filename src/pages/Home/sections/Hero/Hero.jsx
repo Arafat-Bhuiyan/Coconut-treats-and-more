@@ -59,9 +59,9 @@ const Hero = ({ onOpenPromo }) => {
 
                 {/* Headline */}
                 <div className="font-black text-husk text-xl sm:text-2xl leading-tight tracking-tight mb-1">
-                  🎉 ২ টি বাক্স একসাথে কিনলেই ২০০ টাকা ছাড়!
+                  🎉 ২ টি বাক্স একসাথে কিনলেই ১০০ টাকা ছাড়!
                 </div>
-                <p className="text-xs text-husk/50 font-bold">আজই ২ টি বাক্স অর্ডার করুন এবং সঙ্গে সঙ্গে ২০০ টাকা ছাড় উপভোগ করুন।</p>
+                <p className="text-xs text-husk/50 font-bold">আজই ২ টি বাক্স অর্ডার করুন এবং সঙ্গে সঙ্গে ১০০ টাকা ছাড় উপভোগ করুন।</p>
               </div>
 
               {/* Horizontal Tear Line */}
