@@ -80,7 +80,7 @@ const Hero = ({ onOpenPromo }) => {
                   <div className="flex items-center gap-3">
                     <span className="w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center font-black text-sm flex-shrink-0">💰</span>
                     <p className="text-xs sm:text-sm text-husk font-black">
-                      Price drops to ৳575 per box automatically! ✨
+                      Price drops to ৳625 per box automatically! ✨
                     </p>
                   </div>
                 </div>

@@ -93,7 +93,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
                 DEAL
               </div>
               <p className="text-[9px] text-primary font-black uppercase tracking-wider mb-0.5">Bulk Offer</p>
-              <p className="text-xl font-black text-primary">৳575</p>
+              <p className="text-xl font-black text-primary">৳625</p>
               <p className="text-[8px] text-primary/75 font-black">per box</p>
             </div>
           </div>
