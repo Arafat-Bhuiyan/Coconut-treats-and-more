@@ -83,7 +83,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
             {/* Regular Price Card */}
             <div className="bg-slate-50/50 p-2.5 rounded-2xl border border-slate-200 text-center shadow-sm flex flex-col justify-center">
               <p className="text-[9px] text-husk/50 font-black uppercase tracking-wider mb-0.5">Regular Price</p>
-              <p className="text-lg font-extrabold text-husk/60 line-through">৳650</p>
+              <p className="text-lg font-extrabold text-husk/60 line-through">৳700</p>
               <p className="text-[8px] text-husk/40 font-bold">per box</p>
             </div>
 
