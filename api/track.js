@@ -14,9 +14,9 @@ export default async function handler(req, res) {
   try {
     const { eventName, eventTime, eventId, eventParams, userData } = req.body;
 
-    // Retrieve Meta credentials securely from Environment Variables
+    // Retrieve Meta credentials securely from Environment Variables or configured token
     const pixelId = process.env.META_PIXEL_ID || '939507308912648';
-    const accessToken = process.env.META_ACCESS_TOKEN;
+    const accessToken = process.env.META_ACCESS_TOKEN || 'EAAc2aaZCnjKwBSfhUGBpyHwNYdCcBIZAfsCFqz7qZB5cGWt6P0di2SIT2upTOSs3ZCMivpfd7gmcKY2b2l1ZB00sZB9oLFewKhUG1KsO5SfYYslVkpqaPnaBiQYLML1MsgGfm9pDEdZApQaSGq7kPWWHjwMe0RxwvDTc4RmLo3ZB0xPnSuQWSlVhmdheCnz24AZDZD';
 
     if (!accessToken) {
       // If access token is not set, log warning server-side and exit gracefully.
