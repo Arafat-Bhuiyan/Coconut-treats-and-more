@@ -270,7 +270,7 @@ const Order = () => {
               <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
             </span>
             <MapPin size={18} className="text-primary animate-bounce" />
-            <span>শুধুমাত্র ঢাকা সিটির ভিতরে ডেলিভারি করা হয়</span>
+            <span>শুধুমাত্র উত্তরা থেকে মতিঝিল পর্যন্ত ডেলিভারি করা হয়</span>
           </div>
         </div>
 
