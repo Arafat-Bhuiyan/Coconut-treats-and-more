@@ -4,11 +4,10 @@ import Hero from "./sections/Hero/Hero";
 import WhatsAppButton from "../../components/WhatsAppButton";
 import { trackFacebookEvent } from "../../utils/facebookTracking";
 
-// Lazy load below-the-fold components to reduce initial page load payload
-const Testimonials = lazy(() => import("./sections/Testimonials/Testimonials"));
-const Order = lazy(() => import("./sections/Order/Order"));
-const Footer = lazy(() => import("./sections/Footer/Footer"));
-const PromotionPopup = lazy(() => import("./sections/Hero/PromotionPopup"));
+import Testimonials from "./sections/Testimonials/Testimonials";
+import Order from "./sections/Order/Order";
+import Footer from "./sections/Footer/Footer";
+import PromotionPopup from "./sections/Hero/PromotionPopup";
 
 // Simple elegant loading fallbacks
 const SectionLoader = () => (
