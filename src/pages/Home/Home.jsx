@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Navbar from "./sections/Navbar/Navbar";
 import Hero from "./sections/Hero/Hero";
 import WhatsAppButton from "../../components/WhatsAppButton";
@@ -43,7 +43,7 @@ export const Home = () => {
     try {
       const cached = localStorage.getItem("cc_user_data");
       if (cached) cachedUserData = JSON.parse(cached);
-    } catch (e) {}
+    } catch { /* localStorage unavailable or invalid JSON — ignore */ }
     trackFacebookEvent("PageView", {}, cachedUserData);
 
     // 3. Show popup ONLY after real user interaction (guards against Lighthouse/bots)
