@@ -24,7 +24,7 @@ const WhatsAppButton = () => {
 
   return (
     <div
-      className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 transition-all duration-500 pointer-events-none"
+      className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-3 transition-all duration-500 pointer-events-none"
       style={{
         transform: visible ? "scale(1)" : "scale(0.75)",
         opacity: visible ? 1 : 0
@@ -32,7 +32,7 @@ const WhatsAppButton = () => {
     >
       {/* Tooltip / Chat Bubble */}
       <div
-        className={`relative bg-white rounded-2xl shadow-2xl p-4 max-w-[230px] border border-gray-100 transition-all duration-300 transform origin-bottom-right pointer-events-auto ${
+        className={`relative bg-white rounded-2xl shadow-2xl p-4 max-w-[230px] border border-gray-100 transition-all duration-300 transform origin-bottom-left pointer-events-auto ${
           showTooltip
             ? "opacity-100 translate-y-0 scale-100"
             : "opacity-0 translate-y-2 scale-95 pointer-events-none"
@@ -84,7 +84,7 @@ const WhatsAppButton = () => {
         </a>
 
         {/* Arrow pointing to button */}
-        <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white border-r border-b border-gray-100 rotate-45"></div>
+        <div className="absolute -bottom-2 left-6 w-4 h-4 bg-white border-r border-b border-gray-100 rotate-45"></div>
       </div>
 
       {/* Main WhatsApp Button */}
