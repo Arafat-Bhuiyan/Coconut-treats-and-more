@@ -40,7 +40,7 @@ const Order = () => {
   });
 
   const basePrice = 750;
-  const offerPrice = 670;
+  const offerPrice = 700;
   const deliveryCharge = 100;
 
   const unitPrice = quantity >= 2 ? offerPrice : basePrice;
