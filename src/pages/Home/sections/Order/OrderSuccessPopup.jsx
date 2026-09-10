@@ -63,7 +63,10 @@ const OrderSuccessPopup = ({ isOpen, onClose, customerName }) => {
             Thank you <span className="font-bold text-primary">{customerName || "Customer"}</span>! 
             Your order has been received successfully. We will process it shortly.
             <br />
-            <span className="block mt-2 text-primary font-bold text-xs sm:text-sm">
+            <span className="block mt-2 font-black text-husk text-sm sm:text-base">
+              📦 ১ থেকে ২ দিনের মধ্যে ডেলিভারি পাবেন।
+            </span>
+            <span className="block mt-1 text-primary font-bold text-xs sm:text-sm">
               আপনার ডেলিভারি ডেট আপনাকে আপনার মোবাইলে SMS বা WhatsApp-এ জানিয়ে দেওয়া হবে।
             </span>
           </p>
