@@ -351,6 +351,9 @@ const Order = () => {
                       </span>{" "}
                       in note.
                     </p>
+                    <p className="mt-1.5 text-xs sm:text-sm font-black text-primary">
+                      * বিকাশ ক্যাশ আউট চার্জ অবশ্যই দিতে হবে
+                    </p>
                   </div>
 
                   <div className="bg-accent/10 p-4 rounded-xl sm:rounded-2xl border border-accent/20 flex flex-col justify-center">
