@@ -334,6 +334,9 @@ const Order = () => {
                     placeholder="আপনার সম্পূর্ণ ঠিকানা (এলাকার নাম, রোড নম্বর, বাড়ি নম্বর, ফ্ল্যাট নম্বর) বিস্তারিত এখানে লিখুন।"
                     className="w-full bg-transparent border-0 p-0 outline-none text-xs sm:text-base text-husk font-medium placeholder:text-husk/60 placeholder:font-bold focus:ring-0 resize-none"
                   />
+                  <p className="pt-2 text-xs sm:text-sm font-black text-primary border-t border-primary/10">
+                    ⚠️ অবশ্যই ফ্ল্যাট নম্বর দিবেন, যাতে ডেলিভারি দিতে সুবিধা হয়।
+                  </p>
                 </div>
               </div>
 
