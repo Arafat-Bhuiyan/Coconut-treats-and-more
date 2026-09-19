@@ -191,17 +191,24 @@ const Hero = ({ onOpenPromo }) => {
           className="relative order-1 md:order-2 px-4 sm:px-0"
         >
           <div className="absolute -inset-4 bg-secondary/10 rounded-full -z-10"></div>
-          <img
-            src={puddingImg}
-            sizes="(min-width: 768px) 50vw, 100vw"
-            alt="Delicious Coconut Pudding"
-            className="w-[85%] sm:w-[75%] lg:w-[70%] h-auto mx-auto block shadow-[0_24px_48px_rgba(0,0,0,0.12)] rounded-[2.5rem] sm:rounded-[3.5rem]"
-            fetchpriority="high"
-            loading="eager"
-            decoding="sync"
-            width={640}
-            height={640}
-          />
+          <picture>
+            <source
+              srcSet="/hero-mobile.webp 500w, /hero.webp 800w"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              type="image/webp"
+            />
+            <img
+              src={puddingImg}
+              sizes="(min-width: 768px) 50vw, 100vw"
+              alt="Delicious Coconut Pudding"
+              className="w-[85%] sm:w-[75%] lg:w-[70%] h-auto mx-auto block shadow-[0_24px_48px_rgba(0,0,0,0.12)] rounded-[2.5rem] sm:rounded-[3.5rem]"
+              fetchpriority="high"
+              loading="eager"
+              decoding="async"
+              width={640}
+              height={640}
+            />
+          </picture>
 
           {/* Floating Badge */}
           <div

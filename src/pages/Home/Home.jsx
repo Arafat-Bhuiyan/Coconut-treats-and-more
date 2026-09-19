@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./sections/Navbar/Navbar";
 import Hero from "./sections/Hero/Hero";
 import WhatsAppButton from "../../components/WhatsAppButton";
@@ -9,12 +9,6 @@ import Order from "./sections/Order/Order";
 import Footer from "./sections/Footer/Footer";
 import PromotionPopup from "./sections/Hero/PromotionPopup";
 
-// Simple elegant loading fallbacks
-const SectionLoader = () => (
-  <div className="min-h-[400px] flex items-center justify-center bg-milk-white">
-    <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-  </div>
-);
 
 export const Home = () => {
   const [showPromo, setShowPromo] = useState(false);
@@ -38,7 +32,6 @@ export const Home = () => {
     }
 
     // 2. Dynamic high-deduplication PageView tracking
-    // Also pass cached user data for returning visitors to improve Advanced Matching on PageView
     let cachedUserData = {};
     try {
       const cached = localStorage.getItem("cc_user_data");
@@ -47,8 +40,6 @@ export const Home = () => {
     trackFacebookEvent("PageView", {}, cachedUserData);
 
     // 3. Show popup ONLY after real user interaction (guards against Lighthouse/bots)
-    //    Bots never scroll or touch → popup never shows → LCP unaffected
-    //    Real users interact within seconds → popup shows 3s after first interaction
     const hasShownPromo = sessionStorage.getItem("hasShownPromo");
     if (!hasShownPromo) {
       let promoScheduled = false;
@@ -77,7 +68,6 @@ export const Home = () => {
 
   const claimOffer = () => {
     setShowPromo(false);
-    // Dispatch custom event to update quantity in Order component safely
     window.dispatchEvent(new CustomEvent("set-order-quantity", { detail: 2 }));
     setTimeout(() => {
       const element = document.getElementById("order");
@@ -92,21 +82,15 @@ export const Home = () => {
       <Navbar />
       <main>
         <Hero onOpenPromo={() => setShowPromo(true)} />
-        <Suspense fallback={<SectionLoader />}>
-          <Testimonials />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
-          <Order />
-        </Suspense>
+        <Testimonials />
+        <Order />
       </main>
-      <Suspense fallback={null}>
-        <Footer />
-        <PromotionPopup
-          isOpen={showPromo}
-          onClose={() => setShowPromo(false)}
-          onClaim={claimOffer}
-        />
-      </Suspense>
+      <Footer />
+      <PromotionPopup
+        isOpen={showPromo}
+        onClose={() => setShowPromo(false)}
+        onClaim={claimOffer}
+      />
       <WhatsAppButton />
     </div>
   );
