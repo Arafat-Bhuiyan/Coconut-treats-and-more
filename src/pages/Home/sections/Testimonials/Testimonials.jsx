@@ -19,6 +19,9 @@ const MarqueeRow = ({ images, duration = 30 }) => (
                         alt={`Review ${idx}`}
                         className="w-full h-auto object-cover pointer-events-none"
                         loading="lazy"
+                        decoding="async"
+                        width={300}
+                        height={200}
                     />
                 </div>
             ))}
@@ -33,6 +36,9 @@ const MarqueeRow = ({ images, duration = 30 }) => (
                         alt={`Review Duplicate ${idx}`}
                         className="w-full h-auto object-cover pointer-events-none"
                         loading="lazy"
+                        decoding="async"
+                        width={300}
+                        height={200}
                     />
                 </div>
             ))}

@@ -2,7 +2,7 @@ import React from "react";
 import CountdownTimer from "../../../../components/CountdownTimer";
 
 // Use stable public/ paths — not hashed by Vite, works in both dev & production
-const puddingImg = "/pudding-3d.jpg";
+const puddingImg = "/hero.webp";
 const logo = "/logo.webp";
 
 const Hero = ({ onOpenPromo }) => {

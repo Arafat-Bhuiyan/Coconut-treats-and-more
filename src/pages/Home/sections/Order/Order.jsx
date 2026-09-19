@@ -152,7 +152,7 @@ const Order = () => {
       Total_Amount: `৳${totalOrderAmount}`
     };
 
-    // Optimistic: show success immediately after a short animation delay
+    // Optimistic: show success immediately after a brief snappy animation delay
     setTimeout(() => {
       submittingRef.current = false; // Release guard
       setIsSubmitting(false);
@@ -168,7 +168,7 @@ const Order = () => {
         agree: true
       });
       setQuantity(1);
-    }, 1200);
+    }, 350);
 
     // Fire-and-forget: send order to backend in background
     fetch("/api/submit-order", {
