@@ -34,6 +34,7 @@ const Order = () => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
+    email: "",
     address: "",
     note: "",
     agree: true
@@ -133,12 +134,14 @@ const Order = () => {
     // Capture user data NOW before form resets, so Facebook tracking gets correct values
     const capturedPhone = formData.phone;
     const capturedName = formData.name;
+    const capturedEmail = formData.email ? formData.email.trim() : "";
 
     const emailPayload = {
       subject: "New Order from Website",
       from_name: formData.name || "Grahok",
       Customer: customerName,
       Phone: capturedPhone,
+      Email: capturedEmail || "N/A",
       Address: fullAddress,
       Note: formData.note || "N/A",
       Product: "Premium Coconut Pudding (6pc Box)",
@@ -159,6 +162,7 @@ const Order = () => {
       setFormData({
         name: "",
         phone: "",
+        email: "",
         address: "",
         note: "",
         agree: true
@@ -187,6 +191,7 @@ const Order = () => {
           }, {
             phone: capturedPhone,
             name: capturedName,
+            email: capturedEmail,
             address: fullAddress,
           });
         } else {
@@ -338,6 +343,23 @@ const Order = () => {
                     ⚠️ অবশ্যই ফ্ল্যাট নম্বর দিবেন, যাতে ডেলিভারি দিতে সুবিধা হয়।
                   </p>
                 </div>
+              </div>
+
+              {/* Email Address Field */}
+              <div className="space-y-1">
+                <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider flex items-center justify-between">
+                  <span>Email Address / ইমেইল ঠিকানা</span>
+                  <span className="text-[11px] text-husk/40 font-normal normal-case">(ঐচ্ছিক / Optional)</span>
+                </label>
+                <input
+                  name="email"
+                  autoComplete="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  type="email"
+                  placeholder="example@gmail.com"
+                  className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
+                />
               </div>
 
               <div className="space-y-4 pt-2">
