@@ -49,7 +49,7 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
   // 2. Load and cache user data for Advanced Matching
   let finalUserData = { ...rawUserData };
 
-  // If name/phone are missing, try loading from localStorage (highly boosts returning visitor PageView match quality)
+  // If name/phone/email are missing, try loading from localStorage (highly boosts returning visitor PageView match quality)
   if (typeof window !== "undefined") {
     try {
       const cached = localStorage.getItem("cc_user_data");
@@ -57,17 +57,21 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
         const parsed = JSON.parse(cached);
         if (parsed.phone && !finalUserData.phone) finalUserData.phone = parsed.phone;
         if (parsed.name && !finalUserData.name) finalUserData.name = parsed.name;
+        if (parsed.email && !finalUserData.email) finalUserData.email = parsed.email;
       }
     } catch (e) {
       console.debug("Failed to read user data cache:", e);
     }
 
     // Persist new user data if provided
-    if (rawUserData.phone || rawUserData.name) {
+    if (rawUserData.phone || rawUserData.name || rawUserData.email) {
       try {
+        const cached = localStorage.getItem("cc_user_data");
+        const existing = cached ? JSON.parse(cached) : {};
         localStorage.setItem("cc_user_data", JSON.stringify({
-          phone: rawUserData.phone || "",
-          name: rawUserData.name || "",
+          phone: rawUserData.phone || existing.phone || "",
+          name: rawUserData.name || existing.name || "",
+          email: rawUserData.email || existing.email || "",
         }));
       } catch (e) {
         console.debug("Failed to write user data cache:", e);

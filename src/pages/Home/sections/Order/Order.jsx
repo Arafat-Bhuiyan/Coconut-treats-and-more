@@ -105,6 +105,22 @@ const Order = () => {
       return;
     }
 
+    // Optional Email Validation (if provided, must be valid format)
+    const trimmedEmail = formData.email ? formData.email.trim() : "";
+    if (trimmedEmail) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(trimmedEmail)) {
+        submittingRef.current = false; // Release guard so button works again
+        alert("দয়া করে একটি সঠিক ইমেইল এড্রেস লিখুন (যেমন: example@gmail.com) অথবা বক্সটি খালি রাখুন। (Please enter a valid email or leave it empty)");
+        const emailInput = document.getElementsByName("email")[0];
+        if (emailInput) {
+          emailInput.scrollIntoView({ behavior: "smooth", block: "center" });
+          emailInput.focus();
+        }
+        return;
+      }
+    }
+
     if (!formData.address.trim()) {
       submittingRef.current = false; // Release guard so button works again
       alert("দয়া করে আপনার সম্পূর্ণ ঠিকানা লিখুন। (Please fill in Your Full Delivery Address)");

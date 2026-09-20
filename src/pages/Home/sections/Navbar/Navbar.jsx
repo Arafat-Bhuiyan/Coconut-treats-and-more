@@ -70,6 +70,14 @@ const Navbar = () => {
                             </div>
                         </a>
                     ))}
+                    <a
+                        href="#order"
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center justify-center gap-2 bg-primary text-white p-5 rounded-3xl font-black text-lg shadow-xl shadow-primary/25 mt-2"
+                    >
+                        <ShoppingCart size={20} />
+                        <span>অর্ডার করুন (Order Now)</span>
+                    </a>
                 </div>
             </div>
         </nav>

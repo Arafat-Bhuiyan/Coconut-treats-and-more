@@ -71,7 +71,14 @@ const Footer = () => {
                             </div>
                             <div className="flex flex-col items-center md:items-start">
                                 <p className="text-[10px] text-milk-white/40 uppercase font-black mb-1 tracking-widest">WhatsApp</p>
-                                <span className="text-milk-white text-base sm:text-lg font-black tracking-tight">+880 1618 562 844</span>
+                                <a
+                                    href="https://wa.me/8801618562844"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-milk-white hover:text-accent transition-colors text-base sm:text-lg font-black tracking-tight"
+                                >
+                                    +880 1618 562 844
+                                </a>
                             </div>
                         </li>
                         <li className="flex flex-col md:flex-row items-center md:items-start gap-4">
@@ -80,7 +87,12 @@ const Footer = () => {
                             </div>
                             <div className="flex flex-col items-center md:items-start">
                                 <p className="text-[10px] text-milk-white/40 uppercase font-black mb-1 tracking-widest">Email Us</p>
-                                <span className="text-milk-white text-sm sm:text-base font-bold break-all">coconuttreatsmore@gmail.com</span>
+                                <a
+                                    href="mailto:coconuttreatsmore@gmail.com"
+                                    className="text-milk-white hover:text-accent transition-colors text-sm sm:text-base font-bold break-all"
+                                >
+                                    coconuttreatsmore@gmail.com
+                                </a>
                             </div>
                         </li>
                         <li className="flex flex-col md:flex-row items-center md:items-start gap-4">
