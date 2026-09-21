@@ -154,7 +154,8 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      keepalive: true
     })
     .then(async (res) => {
       if (res.ok) {

@@ -168,7 +168,23 @@ const Order = () => {
       Total_Amount: `৳${totalOrderAmount}`
     };
 
-    // Optimistic: show success immediately after a brief snappy animation delay
+    // 1. Fire Facebook Purchase tracking immediately so tab closure never drops conversion
+    trackFacebookEvent("Purchase", {
+      value: totalOrderAmount,
+      currency: "BDT",
+      content_name: "Premium Coconut Pudding (6pc Box)",
+      content_ids: ["coconut-pudding-6pc"],
+      contents: [{ id: "coconut-pudding-6pc", quantity: quantity, item_price: unitPrice }],
+      content_type: "product",
+      num_items: quantity,
+    }, {
+      phone: capturedPhone,
+      name: capturedName,
+      email: capturedEmail,
+      address: fullAddress,
+    });
+
+    // 2. Optimistic: show success immediately after a brief snappy animation delay
     setTimeout(() => {
       submittingRef.current = false; // Release guard
       setIsSubmitting(false);
@@ -186,31 +202,16 @@ const Order = () => {
       setQuantity(1);
     }, 350);
 
-    // Fire-and-forget: send order to backend in background
+    // 3. Send order to backend with keepalive: true so browser never aborts if user navigates away
     fetch("/api/submit-order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(emailPayload)
+      body: JSON.stringify(emailPayload),
+      keepalive: true,
     })
       .then(async (response) => {
         const result = await response.json().catch(() => ({}));
-        if (response.ok && result.success) {
-          // Facebook Purchase tracking
-          trackFacebookEvent("Purchase", {
-            value: totalOrderAmount,
-            currency: "BDT",
-            content_name: "Premium Coconut Pudding (6pc Box)",
-            content_ids: ["coconut-pudding-6pc"],
-            contents: [{ id: "coconut-pudding-6pc", quantity: quantity, item_price: unitPrice }],
-            content_type: "product",
-            num_items: quantity,
-          }, {
-            phone: capturedPhone,
-            name: capturedName,
-            email: capturedEmail,
-            address: fullAddress,
-          });
-        } else {
+        if (!response.ok || !result.success) {
           console.error("Order API error:", result);
         }
       })
