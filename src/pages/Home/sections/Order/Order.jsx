@@ -298,14 +298,14 @@ const Order = () => {
         {/* Dhaka City Delivery Notification Pop up (Green Flashing Pill/Circle) */}
         <div className="flex justify-center mb-8">
           <div
-            className="inline-flex items-center gap-2.5 px-6 py-3 bg-emerald-50/90 backdrop-blur-sm border-2 border-primary rounded-full text-primary font-extrabold text-sm sm:text-base shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all duration-300"
+            className="inline-flex items-center gap-2.5 px-6 py-3 bg-emerald-50/90 backdrop-blur-sm border-2 border-primary rounded-full text-primary font-extrabold text-sm sm:text-base shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all duration-300 text-center"
           >
-            <span className="relative flex h-3 w-3">
+            <span className="relative flex h-3 w-3 flex-shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
             </span>
-            <MapPin size={18} className="text-primary animate-bounce" />
-            <span>শুধুমাত্র উত্তরা থেকে মতিঝিল পর্যন্ত ডেলিভারি করা হয়</span>
+            <MapPin size={18} className="text-primary animate-bounce flex-shrink-0" />
+            <span>ঢাকার সবজায়গায় ডেলিভারি করা হয় (শুধুমাত্র সাভার, আশুলিয়া, যাত্রাবাড়ী, কেরানীগঞ্জ ও ঢাকার বাহিরে ডেলিভারি হয় না)</span>
           </div>
         </div>
 
@@ -318,12 +318,12 @@ const Order = () => {
               <h3 className="text-2xl sm:text-3xl font-black text-husk">
                 Place Your Order
               </h3>
-              <span className="delivery-blink-badge font-black text-xs sm:text-sm text-primary bg-emerald-50/95 border-2 border-primary px-4 py-1.5 rounded-full inline-flex items-center justify-center gap-2 shadow-sm self-center sm:self-auto">
+              <span className="delivery-blink-badge font-black text-xs sm:text-sm text-primary bg-emerald-50/95 border-2 border-primary px-4 py-2 rounded-2xl sm:rounded-full inline-flex items-center justify-center gap-2 shadow-sm self-center sm:self-auto text-center">
                 <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
                 </span>
-                <span className="font-black tracking-tight">শুধুমাত্র উত্তরা থেকে মতিঝিল পর্যন্ত ডেলিভারি করা হয়</span>
+                <span className="font-black tracking-tight">ঢাকার সবজায়গায় ডেলিভারি করা হয় (শুধুমাত্র সাভার, আশুলিয়া, যাত্রাবাড়ী, কেরানীগঞ্জ ও ঢাকার বাহিরে ডেলিভারি হয় না)</span>
               </span>
             </div>
 
