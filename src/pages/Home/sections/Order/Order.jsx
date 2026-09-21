@@ -223,6 +223,19 @@ const Order = () => {
     <section id="order" className="pt-4 sm:pt-6 pb-16 sm:pb-24 px-4 overflow-hidden relative">
       <style>
         {`
+          @keyframes badgeBlink {
+            0%, 100% {
+              opacity: 1;
+              box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.35);
+            }
+            50% {
+              opacity: 0.45;
+              box-shadow: 0 0 10px 2px rgba(220, 38, 38, 0.2);
+            }
+          }
+          .delivery-blink-badge {
+            animation: badgeBlink 1.4s ease-in-out infinite;
+          }
           @keyframes scrollText {
             from { transform: translateX(0); }
             to { transform: translateX(-50%); }
@@ -304,9 +317,12 @@ const Order = () => {
               <h3 className="text-2xl sm:text-3xl font-black text-husk">
                 Place Your Order
               </h3>
-              <span className="font-extrabold text-xs sm:text-sm text-primary bg-primary/10 border border-primary/20 px-3.5 py-1.5 rounded-full inline-flex items-center justify-center gap-1.5 shadow-sm self-center sm:self-auto">
-                <span>📍</span>
-                <span>শুধুমাত্র উত্তরা থেকে মতিঝিল পর্যন্ত ডেলিভারি করা হয়</span>
+              <span className="delivery-blink-badge font-black text-xs sm:text-sm text-red-700 bg-red-50/95 border-2 border-red-500/80 px-4 py-1.5 rounded-full inline-flex items-center justify-center gap-2 shadow-sm self-center sm:self-auto">
+                <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-600"></span>
+                </span>
+                <span className="font-black tracking-tight">শুধুমাত্র উত্তরা থেকে মতিঝিল পর্যন্ত ডেলিভারি করা হয়</span>
               </span>
             </div>
 
