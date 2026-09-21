@@ -300,9 +300,15 @@ const Order = () => {
           <div
             className="lg:col-span-3 glass-panel p-6 sm:p-8 md:p-10 rounded-[2rem]"
           >
-            <h3 className="text-2xl sm:text-3xl font-black text-husk mb-6 sm:mb-8 text-center lg:text-left">
-              Place Your Order
-            </h3>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-6 sm:mb-8 text-center sm:text-left">
+              <h3 className="text-2xl sm:text-3xl font-black text-husk">
+                Place Your Order
+              </h3>
+              <span className="font-extrabold text-xs sm:text-sm text-primary bg-primary/10 border border-primary/20 px-3.5 py-1.5 rounded-full inline-flex items-center justify-center gap-1.5 shadow-sm self-center sm:self-auto">
+                <span>📍</span>
+                <span>শুধুমাত্র উত্তরা থেকে মতিঝিল পর্যন্ত ডেলিভারি করা হয়</span>
+              </span>
+            </div>
 
             <form onSubmit={handleOrder} noValidate className="space-y-4 sm:space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
