@@ -4,7 +4,8 @@ import OrderSuccessPopup from "./OrderSuccessPopup";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
 import CountdownTimer from "../../../../components/CountdownTimer";
 
-const productImg = "/pudding-3d.jpg";
+const productImg = "/pudding-3d.webp";
+const productImgFallback = "/pudding-3d.jpg";
 
 const Order = () => {
   const [quantity, setQuantity] = useState(1);
@@ -496,7 +497,10 @@ const Order = () => {
               {/* Product Info Row */}
               <div className="flex gap-4 items-center pb-6 border-b border-dashed">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 bg-slate-50 rounded-xl overflow-hidden border">
-                  <img src={productImg} alt="Product" className="w-full h-full object-cover" loading="lazy" width={80} height={80} />
+                  <picture>
+                    <source srcSet={productImg} type="image/webp" />
+                    <img src={productImgFallback} alt="Product" className="w-full h-full object-cover" loading="lazy" width={80} height={80} />
+                  </picture>
                 </div>
                 <div className="flex-grow">
                   <div className="font-bold text-husk text-xs sm:text-sm leading-tight">
