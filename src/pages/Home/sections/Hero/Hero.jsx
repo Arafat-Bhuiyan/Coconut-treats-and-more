@@ -1,4 +1,5 @@
 import React from "react";
+import { ShoppingCart } from "lucide-react";
 import CountdownTimer from "../../../../components/CountdownTimer";
 
 // Use stable public/ paths — not hashed by Vite, works in both dev & production
@@ -222,6 +223,19 @@ const Hero = ({ onOpenPromo }) => {
               </p>
               <p className="font-black text-husk text-sm sm:text-base">Every Morning</p>
             </div>
+          </div>
+
+          {/* Quick Order Button Directly Under Video */}
+          <div className="mt-5 sm:mt-6 w-[85%] sm:w-[75%] lg:w-[70%] text-center">
+            <a
+              href="#order"
+              style={{ touchAction: 'manipulation' }}
+              className="w-full inline-flex items-center justify-center gap-2.5 bg-accent hover:bg-accent/90 text-husk font-black text-base sm:text-lg py-3.5 sm:py-4 px-8 rounded-full shadow-xl shadow-accent/25 hover:shadow-accent/40 transition-all transform hover:scale-[1.03] active:scale-[0.98] select-none cursor-pointer group"
+            >
+              <ShoppingCart size={20} className="text-husk group-hover:scale-110 transition-transform" />
+              <span>Quick Order</span>
+              <span className="text-husk/60 group-hover:translate-x-1 transition-transform font-bold">➔</span>
+            </a>
           </div>
         </div>
       </div>
