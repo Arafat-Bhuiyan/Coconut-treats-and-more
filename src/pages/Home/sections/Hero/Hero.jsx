@@ -3,7 +3,6 @@ import { ShoppingCart } from "lucide-react";
 import CountdownTimer from "../../../../components/CountdownTimer";
 
 // Use stable public/ paths — not hashed by Vite, works in both dev & production
-const puddingImg = "/pudding-3d.webp";
 const logo = "/logo.webp";
 
 const Hero = ({ onOpenPromo }) => {
