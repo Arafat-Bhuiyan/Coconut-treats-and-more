@@ -17,7 +17,9 @@ async function sha256(message) {
 // Clean and format Bangladeshi phone numbers to international standard
 function formatPhoneForMeta(phone) {
   if (!phone) return null;
-  let clean = phone.replace(/[^0-9]/g, '');
+  const bnToEnMap = { '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4', '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9' };
+  const normalized = String(phone).replace(/[০-৯]/g, (d) => bnToEnMap[d] || d);
+  let clean = normalized.replace(/[^0-9]/g, '');
   // Handle various formats: 01XXXXXXXXX, 8801XXXXXXXXX, +8801XXXXXXXXX
   if (clean.length === 11 && clean.startsWith('0')) {
     clean = '880' + clean.slice(1); // Replace leading 0 with 880

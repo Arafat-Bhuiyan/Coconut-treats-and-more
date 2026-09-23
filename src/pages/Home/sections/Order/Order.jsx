@@ -91,9 +91,12 @@ const Order = () => {
       return;
     }
 
-    const phoneClean = trimmedPhone.replace(/[^0-9]/g, '');
-    const isValidBDPhone = (phoneClean.length === 11 && phoneClean.startsWith('01')) || 
-                           (phoneClean.length === 13 && phoneClean.startsWith('8801'));
+    // Convert Bengali digits (০-৯) to standard English digits (0-9)
+    const bnToEnMap = { '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4', '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9' };
+    const normalizedPhone = trimmedPhone.replace(/[০-৯]/g, (d) => bnToEnMap[d] || d);
+    const phoneClean = normalizedPhone.replace(/[^0-9]/g, '');
+    const standardPhone = phoneClean.startsWith('880') ? '0' + phoneClean.slice(3) : phoneClean;
+    const isValidBDPhone = standardPhone.length === 11 && standardPhone.startsWith('01');
 
     if (!isValidBDPhone) {
       submittingRef.current = false; // Release guard so button works again
@@ -149,7 +152,7 @@ const Order = () => {
     const fullAddress = formData.address.trim();
     const customerName = formData.name || "Customer";
     // Capture user data NOW before form resets, so Facebook tracking gets correct values
-    const capturedPhone = formData.phone;
+    const capturedPhone = standardPhone;
     const capturedName = formData.name;
     const capturedEmail = formData.email ? formData.email.trim() : "";
 
@@ -353,6 +356,7 @@ const Order = () => {
                     required
                     name="phone"
                     autoComplete="tel"
+                    inputMode="tel"
                     value={formData.phone}
                     onChange={handleInputChange}
                     type="tel"
