@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { ShoppingCart } from "lucide-react";
 import CountdownTimer from "../../../../components/CountdownTimer";
 
@@ -7,6 +7,15 @@ const puddingImg = "/pudding-3d.webp";
 const logo = "/logo.webp";
 
 const Hero = ({ onOpenPromo }) => {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(() => {});
+    }
+  }, []);
   return (
     <section className="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 min-h-[90vh] md:min-h-screen flex items-center overflow-hidden">
       <style>{`
@@ -194,19 +203,15 @@ const Hero = ({ onOpenPromo }) => {
           <div className="absolute -inset-4 bg-secondary/10 rounded-full -z-10"></div>
           <div className="w-[85%] sm:w-[75%] lg:w-[70%] mx-auto relative rounded-[2.5rem] sm:rounded-[3.5rem] overflow-hidden shadow-[0_24px_48px_rgba(0,0,0,0.12)] aspect-square bg-[#e5ebd9]">
             <video
+              ref={videoRef}
               autoPlay
               loop
               muted
               playsInline
-              poster={puddingImg}
+              preload="auto"
               className="w-full h-full object-cover block"
             >
               <source src="/hero-video.mp4" type="video/mp4" />
-              <img
-                src={puddingImg}
-                alt="Delicious Coconut Pudding"
-                className="w-full h-full object-cover"
-              />
             </video>
           </div>
 
