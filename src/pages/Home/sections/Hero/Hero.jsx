@@ -225,16 +225,16 @@ const Hero = ({ onOpenPromo }) => {
             </div>
           </div>
 
-          {/* Quick Order Button Directly Under Video */}
-          <div className="mt-5 sm:mt-6 w-[85%] sm:w-[75%] lg:w-[70%] text-center">
+          {/* Quick Order Button Directly Under Video - Centered & Smart Medium Size */}
+          <div className="mt-4 sm:mt-5 flex justify-center w-full">
             <a
               href="#order"
               style={{ touchAction: 'manipulation' }}
-              className="w-full inline-flex items-center justify-center gap-2.5 bg-accent hover:bg-accent/90 text-husk font-black text-base sm:text-lg py-3.5 sm:py-4 px-8 rounded-full shadow-xl shadow-accent/25 hover:shadow-accent/40 transition-all transform hover:scale-[1.03] active:scale-[0.98] select-none cursor-pointer group"
+              className="inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-husk font-black text-sm sm:text-base py-2.5 sm:py-3 px-7 rounded-full shadow-lg shadow-accent/25 hover:shadow-accent/40 transition-all transform hover:scale-105 active:scale-95 select-none cursor-pointer group"
             >
-              <ShoppingCart size={20} className="text-husk group-hover:scale-110 transition-transform" />
+              <ShoppingCart size={18} className="text-husk group-hover:scale-110 transition-transform" />
               <span>Quick Order</span>
-              <span className="text-husk/60 group-hover:translate-x-1 transition-transform font-bold">➔</span>
+              <span className="text-husk/70 group-hover:translate-x-1 transition-transform">➔</span>
             </a>
           </div>
         </div>
