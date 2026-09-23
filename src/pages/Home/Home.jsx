@@ -69,12 +69,26 @@ export const Home = () => {
   const claimOffer = () => {
     setShowPromo(false);
     window.dispatchEvent(new CustomEvent("set-order-quantity", { detail: 2 }));
-    setTimeout(() => {
+
+    const scrollToOrder = () => {
       const element = document.getElementById("order");
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        window.location.hash = "#order";
       }
-    }, 100);
+    };
+
+    // Trigger immediately and after backdrop finishes unmounting
+    scrollToOrder();
+    setTimeout(scrollToOrder, 50);
+    setTimeout(scrollToOrder, 320);
+
+    // Auto-focus input for effortless typing
+    setTimeout(() => {
+      const input = document.querySelector('input[name="name"]') || document.querySelector('input[name="phone"]');
+      if (input) input.focus();
+    }, 400);
   };
 
   return (

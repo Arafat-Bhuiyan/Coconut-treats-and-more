@@ -21,12 +21,12 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
   if (!shouldRender) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8">
+    <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8 ${!isAnimated ? 'pointer-events-none' : ''}`}>
       {/* Backdrop blur with fade-in */}
       <div
         onClick={onClose}
         className={`absolute inset-0 bg-[#161a14]/80 backdrop-blur-md transition-opacity duration-300 ${
-          isAnimated ? "opacity-100" : "opacity-0"
+          isAnimated ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       />
 
@@ -126,20 +126,22 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
 
           {/* Green Blinking Order Now Button in circled spot */}
           <div className="pt-1 space-y-2">
-            <button
-              type="button"
-              onClick={onClaim}
+            <a
+              href="#order"
+              onClick={(e) => {
+                if (onClaim) onClaim(e);
+              }}
               style={{ touchAction: 'manipulation' }}
-              className="popup-green-blink-btn w-full bg-primary hover:bg-primary-dark text-white font-black text-base sm:text-lg py-4 px-6 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-xl cursor-pointer select-none group relative overflow-hidden"
+              className="popup-green-blink-btn w-full bg-primary hover:bg-primary-dark text-white font-black text-base sm:text-lg py-4 px-6 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-xl cursor-pointer select-none group relative overflow-hidden no-underline text-center"
             >
-              <span className="absolute inset-0 bg-white/20 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
-              <span className="relative flex h-3 w-3 flex-shrink-0">
+              <span className="pointer-events-none absolute inset-0 bg-white/20 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
+              <span className="pointer-events-none relative flex h-3 w-3 flex-shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
               </span>
-              <ShoppingBag size={20} className="animate-bounce" />
-              <span>অর্ডার করুন (Order Now)</span>
-            </button>
+              <ShoppingBag size={20} className="pointer-events-none animate-bounce" />
+              <span className="pointer-events-none">অর্ডার করুন (Order Now)</span>
+            </a>
 
             <div className="flex items-center justify-center gap-1.5 text-primary text-[11px] font-bold">
               <CheckCircle size={12} className="text-primary flex-shrink-0" />
