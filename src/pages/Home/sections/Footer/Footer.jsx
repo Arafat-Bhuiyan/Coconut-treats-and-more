@@ -57,8 +57,18 @@ const Footer = () => {
                     <h3 className="text-accent font-black text-xs uppercase tracking-widest mb-6">Explore</h3>
                     <ul className="space-y-4 font-bold text-sm sm:text-base">
                         <li><a href="#" className="text-milk-white/60 hover:text-accent transition-colors">Home</a></li>
-                        <li><a href="#reviews" className="text-milk-white/60 hover:text-accent transition-colors">Customer Reviews</a></li>
-                        <li><a href="#order" className="text-milk-white/60 hover:text-accent transition-colors font-black">Order Now</a></li>
+                        <li>
+                            <a 
+                                href="#order" 
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }}
+                                className="text-milk-white/60 hover:text-accent transition-colors font-black"
+                            >
+                                Order Now
+                            </a>
+                        </li>
                     </ul>
                 </div>
 

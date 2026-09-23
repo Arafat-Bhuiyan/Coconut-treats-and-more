@@ -160,6 +160,10 @@ const Hero = ({ onOpenPromo }) => {
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 justify-center md:justify-start">
             <a
               href="#order"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
               className="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white font-black py-4 px-10 rounded-2xl transition-all shadow-2xl shadow-primary/30 text-center text-lg transform hover:-translate-y-1"
             >
               Order Now
@@ -233,6 +237,10 @@ const Hero = ({ onOpenPromo }) => {
           <div className="mt-4 sm:mt-5 flex justify-center w-full">
             <a
               href="#order"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
               style={{ touchAction: 'manipulation' }}
               className="inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-husk font-black text-sm sm:text-base py-2.5 sm:py-3 px-7 rounded-full shadow-lg shadow-accent/25 hover:shadow-accent/40 transition-all transform hover:scale-105 active:scale-95 select-none cursor-pointer group"
             >

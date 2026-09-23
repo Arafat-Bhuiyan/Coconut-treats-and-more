@@ -25,7 +25,14 @@ const Navbar = () => {
                             {link.name}
                         </a>
                     ))}
-                    <a href="#order" className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-husk font-black py-2.5 px-6 rounded-full transition-all transform hover:scale-105 shadow-xl shadow-accent/20">
+                    <a
+                        href="#order"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }}
+                        className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-husk font-black py-2.5 px-6 rounded-full transition-all transform hover:scale-105 shadow-xl shadow-accent/20"
+                    >
                         <ShoppingCart size={18} />
                         <span>Quick Order</span>
                     </a>
@@ -33,7 +40,15 @@ const Navbar = () => {
 
                 {/* Mobile Menu Toggle */}
                 <div className="flex md:hidden items-center gap-4 relative z-50">
-                    <a href="#order" className="bg-accent p-2.5 rounded-full text-husk shadow-lg shadow-accent/20" aria-label="Order section">
+                    <a
+                        href="#order"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }}
+                        className="bg-accent p-2.5 rounded-full text-husk shadow-lg shadow-accent/20"
+                        aria-label="Order section"
+                    >
                         <ShoppingCart size={18} />
                     </a>
                     <button
@@ -72,7 +87,11 @@ const Navbar = () => {
                     ))}
                     <a
                         href="#order"
-                        onClick={() => setIsOpen(false)}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setIsOpen(false);
+                            document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }}
                         className="flex items-center justify-center gap-2 bg-primary text-white p-5 rounded-3xl font-black text-lg shadow-xl shadow-primary/25 mt-2"
                     >
                         <ShoppingCart size={20} />
