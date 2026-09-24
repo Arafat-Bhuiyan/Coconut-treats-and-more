@@ -15,7 +15,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    const orderData = req.body;
+    let orderData = req.body;
+    if (typeof orderData === 'string') {
+      try {
+        orderData = JSON.parse(orderData);
+      } catch {
+        // failed parse
+      }
+    }
     
     // Server-side payload validation to prevent spam/corrupted orders
     if (!orderData || !orderData.Phone || !orderData.Address) {

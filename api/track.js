@@ -12,7 +12,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { eventName, eventTime, eventId, eventParams, userData } = req.body;
+    let body = req.body;
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch {
+        // failed parse
+      }
+    }
+    const { eventName, eventTime, eventId, eventParams, userData } = body || {};
 
     // Retrieve Meta credentials securely from Environment Variables or configured token
     const pixelId = process.env.META_PIXEL_ID || '939507308912648';
