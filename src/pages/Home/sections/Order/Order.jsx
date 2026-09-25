@@ -334,10 +334,11 @@ const Order = () => {
             <form onSubmit={handleOrder} noValidate className="space-y-4 sm:space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
+                  <label htmlFor="customer-name" className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
                     Your Name
                   </label>
                   <input
+                    id="customer-name"
                     name="name"
                     autoComplete="name"
                     value={formData.name}
@@ -349,10 +350,11 @@ const Order = () => {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
+                  <label htmlFor="customer-phone" className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
                     Mobile Number
                   </label>
                   <input
+                    id="customer-phone"
                     required
                     name="phone"
                     autoComplete="tel"
@@ -373,9 +375,14 @@ const Order = () => {
                 </p>
 
                 <div className="space-y-1">
+                  <label htmlFor="customer-address" className="sr-only">
+                    Delivery Address
+                  </label>
                   <textarea
+                    id="customer-address"
                     required
                     name="address"
+                    aria-label="Delivery Address"
                     autoComplete="street-address"
                     value={formData.address}
                     onChange={handleInputChange}
@@ -391,11 +398,12 @@ const Order = () => {
 
               {/* Email Address Field */}
               <div className="space-y-1">
-                <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider flex items-center justify-between">
+                <label htmlFor="customer-email" className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider flex items-center justify-between">
                   <span>Email Address / ইমেইল ঠিকানা</span>
                   <span className="text-[11px] text-husk/40 font-normal normal-case">(ঐচ্ছিক / Optional)</span>
                 </label>
                 <input
+                  id="customer-email"
                   name="email"
                   autoComplete="email"
                   value={formData.email}
@@ -438,10 +446,11 @@ const Order = () => {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
+                  <label htmlFor="customer-note" className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
                     Order Note
                   </label>
                   <textarea
+                    id="customer-note"
                     name="note"
                     value={formData.note}
                     onChange={handleInputChange}
