@@ -94,8 +94,10 @@ const Order = () => {
     // Convert Bengali digits (০-৯) to standard English digits (0-9)
     const bnToEnMap = { '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4', '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9' };
     const normalizedPhone = trimmedPhone.replace(/[০-৯]/g, (d) => bnToEnMap[d] || d);
-    const phoneClean = normalizedPhone.replace(/[^0-9]/g, '');
-    const standardPhone = phoneClean.startsWith('880') ? '0' + phoneClean.slice(3) : phoneClean;
+    let standardPhone = phoneClean.startsWith('880') ? '0' + phoneClean.slice(3) : phoneClean;
+    if (standardPhone.length === 10 && standardPhone.startsWith('1')) {
+      standardPhone = '0' + standardPhone; // Handle omitted leading zero (e.g. 17XXXXXXXX -> 017XXXXXXXX)
+    }
     const isValidBDPhone = standardPhone.length === 11 && standardPhone.startsWith('01');
 
     if (!isValidBDPhone) {
@@ -536,7 +538,7 @@ const Order = () => {
                     </span>
                     <button
                       type="button"
-                      onClick={() => setQuantity(quantity + 1)}
+                      onClick={() => setQuantity(Math.min(20, quantity + 1))}
                       className="w-11 h-11 flex items-center justify-center bg-primary hover:bg-primary-dark active:bg-primary/80 text-white border-l-2 border-primary/40 transition-colors select-none text-2xl font-black cursor-pointer"
                       aria-label="Increase quantity"
                     >
