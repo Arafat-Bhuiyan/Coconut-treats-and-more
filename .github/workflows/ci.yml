@@ -25,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Run ESLint (catch JS/JSX errors)
-        run: npx eslint src --ext .jsx,.js --max-warnings=0
+        run: npx eslint src/ --max-warnings=0
 
       - name: Run Production Build (catch build errors)
         run: npm run build
