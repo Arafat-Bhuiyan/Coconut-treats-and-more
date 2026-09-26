@@ -94,6 +94,7 @@ const Order = () => {
     // Convert Bengali digits (০-৯) to standard English digits (0-9)
     const bnToEnMap = { '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4', '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9' };
     const normalizedPhone = trimmedPhone.replace(/[০-৯]/g, (d) => bnToEnMap[d] || d);
+    const phoneClean = normalizedPhone.replace(/[^0-9]/g, '');
     let standardPhone = phoneClean.startsWith('880') ? '0' + phoneClean.slice(3) : phoneClean;
     if (standardPhone.length === 10 && standardPhone.startsWith('1')) {
       standardPhone = '0' + standardPhone; // Handle omitted leading zero (e.g. 17XXXXXXXX -> 017XXXXXXXX)
