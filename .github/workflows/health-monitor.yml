@@ -1,0 +1,79 @@
+name: 24/7 Automated Website Health Monitor
+
+on:
+  schedule:
+    # Runs every 6 hours automatically (00:00, 06:00, 12:00, 18:00 UTC)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allows one-click manual test from GitHub Actions tab
+
+jobs:
+  health-check:
+    name: Automated Health & Order Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run Synthetic Live Tests
+        run: |
+          node -e "
+          const https = require('https');
+
+          function checkUrl(url, options = {}) {
+            return new Promise((resolve, reject) => {
+              const req = https.request(url, options, (res) => {
+                let data = '';
+                res.on('data', chunk => data += chunk);
+                res.on('end', () => resolve({ status: res.statusCode, body: data }));
+              });
+              req.on('error', reject);
+              req.setTimeout(15000, () => req.destroy(new Error('Timeout')));
+              if (options.body) req.write(options.body);
+              req.end();
+            });
+          }
+
+          async function runAllChecks() {
+            console.log('--- 1. Testing Homepage ---');
+            const home = await checkUrl('https://coconuttreatsmore.com/');
+            if (home.status !== 200) throw new Error('Homepage returned status ' + home.status);
+            console.log('Homepage: 200 OK');
+
+            console.log('--- 2. Testing Critical Assets ---');
+            const logo = await checkUrl('https://coconuttreatsmore.com/logo.webp', { method: 'HEAD' });
+            if (logo.status !== 200) throw new Error('Logo returned status ' + logo.status);
+            const vid = await checkUrl('https://coconuttreatsmore.com/hero-video.mp4', { method: 'HEAD' });
+            if (vid.status !== 200) throw new Error('Video returned status ' + vid.status);
+            console.log('Logo & Video: 200 OK');
+
+            console.log('--- 3. Testing Order API Guard ---');
+            const badOrder = await checkUrl('https://coconuttreatsmore.com/api/submit-order', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ Phone: '', Address: '' })
+            });
+            if (badOrder.status !== 400) throw new Error('Order guard failed, expected 400 got ' + badOrder.status);
+            console.log('Order Guard: Correctly protected (400)');
+
+            console.log('--- 4. Testing Meta CAPI Tracking ---');
+            const now = Math.floor(Date.now() / 1000);
+            const capi = await checkUrl('https://coconuttreatsmore.com/api/track', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                eventName: 'PageView',
+                eventTime: now,
+                eventId: 'cron-' + now,
+                eventParams: {},
+                userData: {}
+              })
+            });
+            if (capi.status !== 200) throw new Error('Meta CAPI returned status ' + capi.status);
+            console.log('Meta CAPI: 200 OK');
+
+            console.log('=== ALL 4 CHECKS PASSED 100% ===');
+          }
+
+          runAllChecks().catch(err => {
+            console.error('HEALTH CHECK FAILED:', err.message);
+            process.exit(1);
+          });
+          "
