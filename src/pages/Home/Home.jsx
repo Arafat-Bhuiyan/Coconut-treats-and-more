@@ -66,7 +66,10 @@ export const Home = () => {
     }
   }, []);
 
-  const claimOffer = () => {
+  const claimOffer = (e) => {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
     setShowPromo(false);
     window.dispatchEvent(new CustomEvent("set-order-quantity", { detail: 2 }));
 

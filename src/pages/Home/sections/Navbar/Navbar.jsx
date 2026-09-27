@@ -13,15 +13,35 @@ const Navbar = () => {
         <nav className="fixed top-0 left-0 right-0 z-50 glass-panel border-b-0 border-x-0 rounded-b-2xl">
             <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
                 <div className="flex items-center gap-2 relative z-50">
-                    <span className="text-xl sm:text-2xl font-black text-primary tracking-tight">
+                    <a
+                        href="#"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                        className="text-xl sm:text-2xl font-black text-primary tracking-tight cursor-pointer no-underline select-none"
+                    >
                         Coconut<span className="text-accent-dark underline decoration-accent/30 underline-offset-4">Treats&amp;More</span>
-                    </span>
+                    </a>
                 </div>
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex items-center gap-8 text-husk font-bold">
                     {navLinks.map((link) => (
-                        <a key={link.name} href={link.href} className="hover:text-primary transition-colors">
+                        <a
+                            key={link.name}
+                            href={link.href}
+                            onClick={(e) => {
+                                if (link.href === "#") {
+                                    e.preventDefault();
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                } else if (link.href.startsWith("#")) {
+                                    e.preventDefault();
+                                    document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }
+                            }}
+                            className="hover:text-primary transition-colors cursor-pointer"
+                        >
                             {link.name}
                         </a>
                     ))}
@@ -31,7 +51,8 @@ const Navbar = () => {
                             e.preventDefault();
                             document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }}
-                        className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-husk font-black py-2.5 px-6 rounded-full transition-all transform hover:scale-105 shadow-xl shadow-accent/20"
+                        style={{ touchAction: 'manipulation' }}
+                        className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-husk font-black py-2.5 px-6 rounded-full transition-all transform hover:scale-105 shadow-xl shadow-accent/20 cursor-pointer select-none"
                     >
                         <ShoppingCart size={18} />
                         <span>Quick Order</span>
@@ -46,14 +67,16 @@ const Navbar = () => {
                             e.preventDefault();
                             document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }}
-                        className="bg-accent p-2.5 rounded-full text-husk shadow-lg shadow-accent/20"
+                        style={{ touchAction: 'manipulation' }}
+                        className="bg-accent p-2.5 rounded-full text-husk shadow-lg shadow-accent/20 cursor-pointer select-none active:scale-95 transition-transform"
                         aria-label="Order section"
                     >
                         <ShoppingCart size={18} />
                     </a>
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="text-primary p-1"
+                        style={{ touchAction: 'manipulation' }}
+                        className="text-primary p-1 cursor-pointer select-none"
                         aria-label="Toggle menu"
                     >
                         {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -76,8 +99,17 @@ const Navbar = () => {
                         <a
                             key={link.name}
                             href={link.href}
-                            onClick={() => setIsOpen(false)}
-                            className="flex items-center justify-between bg-secondary/70 p-5 rounded-3xl group active:bg-primary/5 transition-colors"
+                            onClick={(e) => {
+                                setIsOpen(false);
+                                if (link.href === "#") {
+                                    e.preventDefault();
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                } else if (link.href.startsWith("#")) {
+                                    e.preventDefault();
+                                    document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }
+                            }}
+                            className="flex items-center justify-between bg-secondary/70 p-5 rounded-3xl group active:bg-primary/5 transition-colors cursor-pointer select-none"
                         >
                             <span className="text-xl font-black text-husk group-active:text-primary">{link.name}</span>
                             <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
@@ -92,7 +124,8 @@ const Navbar = () => {
                             setIsOpen(false);
                             document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }}
-                        className="flex items-center justify-center gap-2 bg-primary text-white p-5 rounded-3xl font-black text-lg shadow-xl shadow-primary/25 mt-2"
+                        style={{ touchAction: 'manipulation' }}
+                        className="flex items-center justify-center gap-2 bg-primary active:bg-primary-dark text-white p-5 rounded-3xl font-black text-lg shadow-xl shadow-primary/25 mt-2 cursor-pointer select-none transition-all active:scale-[0.98]"
                     >
                         <ShoppingCart size={20} />
                         <span>অর্ডার করুন (Order Now)</span>

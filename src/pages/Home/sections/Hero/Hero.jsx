@@ -45,7 +45,14 @@ const Hero = ({ onOpenPromo }) => {
             />
             
             {/* Coupon Promo Card Next to Logo */}
-            <div className="relative glass-card rounded-[2rem] max-w-[310px] sm:max-w-[350px] text-left transform hover:scale-[1.02] transition-all duration-300 overflow-hidden">
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={onOpenPromo}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onOpenPromo(); }}
+              style={{ touchAction: 'manipulation' }}
+              className="relative glass-card rounded-[2rem] max-w-[310px] sm:max-w-[350px] text-left transform hover:scale-[1.02] active:scale-[0.99] transition-all duration-300 overflow-hidden cursor-pointer select-none group"
+            >
               
               {/* Top Accent Bar */}
               <div className="bg-gradient-to-r from-primary via-primary-dark to-primary h-2 w-full" />
@@ -62,12 +69,12 @@ const Hero = ({ onOpenPromo }) => {
                     🔥 BULK DEAL
                   </span>
                   <span className="text-[11px] font-black px-2.5 py-1.5 rounded-lg animate-pulse relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.35)', boxShadow: '0 4px 15px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.45)', color: '#fff', textShadow: '0 1px 2px rgba(0,0,0,0.3)'}}>
-                    🎉 ২ টি বাক্স একসাথে কিনলেই ১০০ টাকা ছাড়!
+                    💰 ১০০ টাকা ছাড়
                   </span>
                 </div>
 
                 {/* Headline */}
-                <div className="font-black text-husk text-xl sm:text-2xl leading-tight tracking-tight mb-1">
+                <div className="font-black text-husk text-xl sm:text-2xl leading-tight tracking-tight mb-1 group-hover:text-primary transition-colors">
                   🎉 ২ টি বাক্স একসাথে কিনলেই ১০০ টাকা ছাড়!
                 </div>
                 <p className="text-xs text-husk/50 font-bold">আজই ২ টি বাক্স অর্ডার করুন এবং সঙ্গে সঙ্গে ১০০ টাকা ছাড় উপভোগ করুন।</p>

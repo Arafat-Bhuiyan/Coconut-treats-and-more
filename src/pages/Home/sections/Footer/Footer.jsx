@@ -56,7 +56,18 @@ const Footer = () => {
                 <div className="md:col-span-3 flex flex-col items-center md:items-start">
                     <h3 className="text-accent font-black text-xs uppercase tracking-widest mb-6">Explore</h3>
                     <ul className="space-y-4 font-bold text-sm sm:text-base">
-                        <li><a href="#" className="text-milk-white/60 hover:text-accent transition-colors">Home</a></li>
+                        <li>
+                            <a
+                                href="#"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }}
+                                className="text-milk-white/60 hover:text-accent transition-colors"
+                            >
+                                Home
+                            </a>
+                        </li>
                         <li>
                             <a 
                                 href="#order" 

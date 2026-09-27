@@ -529,6 +529,7 @@ const Order = () => {
                     <button
                       type="button"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                      style={{ touchAction: 'manipulation' }}
                       className="w-11 h-11 flex items-center justify-center bg-primary/10 hover:bg-primary/20 active:bg-primary/30 text-primary border-r-2 border-primary/40 transition-colors select-none text-2xl font-black cursor-pointer"
                       aria-label="Decrease quantity"
                     >
@@ -540,6 +541,7 @@ const Order = () => {
                     <button
                       type="button"
                       onClick={() => setQuantity(Math.min(20, quantity + 1))}
+                      style={{ touchAction: 'manipulation' }}
                       className="w-11 h-11 flex items-center justify-center bg-primary hover:bg-primary-dark active:bg-primary/80 text-white border-l-2 border-primary/40 transition-colors select-none text-2xl font-black cursor-pointer"
                       aria-label="Increase quantity"
                     >
