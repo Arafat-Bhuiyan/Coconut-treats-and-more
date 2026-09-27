@@ -13,10 +13,22 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
       return () => clearTimeout(timer);
     } else {
       setIsAnimated(false);
-      const timer = setTimeout(() => setShouldRender(false), 300);
+      const timer = setTimeout(() => setShouldRender(false), 250);
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
+
+  const handleClaim = (e) => {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
+    // Instantly close popup with 0ms delay so scroll is instantaneous
+    setIsAnimated(false);
+    setShouldRender(false);
+    if (onClaim) {
+      onClaim(e);
+    }
+  };
 
   if (!shouldRender) return null;
 
@@ -128,9 +140,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
           <div className="pt-1 space-y-2">
             <a
               href="#order"
-              onClick={(e) => {
-                if (onClaim) onClaim(e);
-              }}
+              onClick={handleClaim}
               style={{ touchAction: 'manipulation' }}
               className="popup-green-blink-btn w-full bg-primary hover:bg-primary-dark text-white font-black text-base sm:text-lg py-4 px-6 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-xl cursor-pointer select-none group relative overflow-hidden no-underline text-center"
             >

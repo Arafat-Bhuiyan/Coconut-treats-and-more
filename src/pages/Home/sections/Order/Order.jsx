@@ -13,6 +13,7 @@ const Order = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [submittedName, setSubmittedName] = useState("");
   const [quoteIndex, setQuoteIndex] = useState(0);
+  const [formError, setFormError] = useState("");
   const submittingRef = useRef(false); // Ref guard to prevent double-submission
 
   useEffect(() => {
@@ -51,6 +52,7 @@ const Order = () => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
+    setFormError("");
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value
@@ -78,11 +80,11 @@ const Order = () => {
     if (submittingRef.current) return;
     submittingRef.current = true;
 
-    // Custom Validation with focus & smooth scroll-into-view
+    // Custom Validation with smooth scroll-into-view
     const trimmedPhone = formData.phone.trim();
     if (!trimmedPhone) {
       submittingRef.current = false; // Release guard so button works again
-      alert("দয়া করে আপনার মোবাইল নাম্বার লিখুন। (Please fill in Your Mobile Number)");
+      setFormError("দয়া করে আপনার মোবাইল নাম্বার লিখুন।");
       const phoneInput = document.getElementsByName("phone")[0];
       if (phoneInput) {
         phoneInput.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -103,7 +105,7 @@ const Order = () => {
 
     if (!isValidBDPhone) {
       submittingRef.current = false; // Release guard so button works again
-      alert("দয়া করে একটি সঠিক ১১ ডিজিটের মোবাইল নাম্বার লিখুন (যেমন: 01XXXXXXXXX)। (Please enter a valid 11-digit mobile number)");
+      setFormError("দয়া করে একটি সঠিক ১১ ডিজিটের মোবাইল নাম্বার লিখুন (যেমন: 01XXXXXXXXX)।");
       const phoneInput = document.getElementsByName("phone")[0];
       if (phoneInput) {
         phoneInput.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -118,7 +120,7 @@ const Order = () => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(trimmedEmail)) {
         submittingRef.current = false; // Release guard so button works again
-        alert("দয়া করে একটি সঠিক ইমেইল এড্রেস লিখুন (যেমন: example@gmail.com) অথবা বক্সটি খালি রাখুন। (Please enter a valid email or leave it empty)");
+        setFormError("দয়া করে একটি সঠিক ইমেইল এড্রেস লিখুন অথবা বক্সটি খালি রাখুন।");
         const emailInput = document.getElementsByName("email")[0];
         if (emailInput) {
           emailInput.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -130,7 +132,7 @@ const Order = () => {
 
     if (!formData.address.trim()) {
       submittingRef.current = false; // Release guard so button works again
-      alert("দয়া করে আপনার সম্পূর্ণ ঠিকানা লিখুন। (Please fill in Your Full Delivery Address)");
+      setFormError("দয়া করে আপনার সম্পূর্ণ ঠিকানা লিখুন।");
       const addressInput = document.getElementsByName("address")[0];
       if (addressInput) {
         addressInput.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -141,7 +143,7 @@ const Order = () => {
 
     if (!formData.agree) {
       submittingRef.current = false; // Release guard so button works again
-      alert("অর্ডার করতে শর্তাবলীতে সম্মতি দেওয়া আবশ্যক। (You must agree to the Terms to place an order.)");
+      setFormError("অর্ডার করতে শর্তাবলীতে সম্মতি দেওয়া আবশ্যক।");
       const termsCheckbox = document.getElementById("terms");
       if (termsCheckbox) {
         termsCheckbox.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -481,6 +483,13 @@ const Order = () => {
                   <span className="text-primary underline">Terms</span>.
                 </label>
               </div>
+
+              {formError && (
+                <div className="bg-red-50 border-2 border-red-400 text-red-700 px-4 py-3 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 shadow-sm animate-pulse">
+                  <span className="text-base flex-shrink-0">⚠️</span>
+                  <span>{formError}</span>
+                </div>
+              )}
 
               <button
                 type="submit"

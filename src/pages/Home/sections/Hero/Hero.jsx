@@ -171,7 +171,8 @@ const Hero = ({ onOpenPromo }) => {
                 e.preventDefault();
                 document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
-              className="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white font-black py-4 px-10 rounded-2xl transition-all shadow-2xl shadow-primary/30 text-center text-lg transform hover:-translate-y-1"
+              style={{ touchAction: 'manipulation' }}
+              className="w-full sm:w-auto bg-primary hover:bg-primary-dark active:scale-95 text-white font-black py-4 px-10 rounded-2xl transition-all shadow-2xl shadow-primary/30 text-center text-lg transform hover:-translate-y-1 cursor-pointer select-none"
             >
               Order Now
             </a>

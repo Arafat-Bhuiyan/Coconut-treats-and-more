@@ -82,16 +82,18 @@ export const Home = () => {
       }
     };
 
-    // Trigger immediately and after backdrop finishes unmounting
+    // Instant smooth scroll
     scrollToOrder();
-    setTimeout(scrollToOrder, 50);
-    setTimeout(scrollToOrder, 320);
+    setTimeout(scrollToOrder, 80);
 
-    // Auto-focus input for effortless typing
+    // Auto-focus input ONLY on desktop computers (mobile keyboards break smooth scroll)
     setTimeout(() => {
-      const input = document.querySelector('input[name="name"]') || document.querySelector('input[name="phone"]');
-      if (input) input.focus();
-    }, 400);
+      const isMobile = window.innerWidth < 768 || ('ontouchstart' in window);
+      if (!isMobile) {
+        const input = document.querySelector('input[name="name"]') || document.querySelector('input[name="phone"]');
+        if (input) input.focus();
+      }
+    }, 350);
   };
 
   return (
