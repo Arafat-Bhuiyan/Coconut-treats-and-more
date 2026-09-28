@@ -24,7 +24,7 @@ const WhatsAppButton = () => {
 
   return (
     <div
-      className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-3 transition-all duration-500 pointer-events-none"
+      className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 flex flex-col items-start gap-3 transition-all duration-500 pointer-events-none"
       style={{
         transform: visible ? "scale(1)" : "scale(0.75)",
         opacity: visible ? 1 : 0
@@ -92,7 +92,7 @@ const WhatsAppButton = () => {
         type="button"
         onClick={() => setShowTooltip((prev) => !prev)}
         style={{ touchAction: 'manipulation' }}
-        className="relative w-16 h-16 bg-[#25D366] hover:bg-[#1ebe5d] rounded-full shadow-2xl shadow-[#25D366]/40 flex items-center justify-center transition-all cursor-pointer select-none pointer-events-auto"
+        className="relative w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] hover:bg-[#1ebe5d] active:scale-95 rounded-full shadow-2xl shadow-[#25D366]/40 flex items-center justify-center transition-all cursor-pointer select-none pointer-events-auto"
         aria-label="Chat on WhatsApp"
       >
         {/* Ping animation ring */}

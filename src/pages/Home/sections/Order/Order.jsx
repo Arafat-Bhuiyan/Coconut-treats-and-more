@@ -7,6 +7,19 @@ import CountdownTimer from "../../../../components/CountdownTimer";
 const productImg = "/pudding-3d.webp";
 const productImgFallback = "/pudding-3d.jpg";
 
+const deliveryLocations = [
+  "Baily Road, Dhaka", "Banani DOHS", "Banani, Dhaka", "Baridhara DOHS", 
+  "Baridhara, Dhaka", "Mohakhali DOHS", "Mirpur DOHS", "Gulshan 1", "Gulshan 2", 
+  "Gulshan Avenue", "Gulshan, Dhaka, Bangladesh", "Niketan R/A, Gulshan, Dhaka", 
+  "Bashundhara R/A", "Bashundhara Shopping Mall", "Dhanmondi, Dhaka", 
+  "Lalmatia / লালমাটিয়া", "Mohammadpur, Dhaka 1207", "Elephant Road, Dhaka", 
+  "Eskaton, Dhaka", "Uttara, Dhaka", "Diabari Uttara - দিয়াবাড়ি উত্তরা", 
+  "Wari, Dhaka", "Khilgaon, Dhaka", "Banasree, Dhaka, Bangladesh", 
+  "Aftabnagar, Dhaka", "Rampura, Dhaka", "Motijheel, Dhaka-1000", 
+  "Dhaka Cantonment", "Mirpur-1, Dhaka", "Mirpur-11.5, Pallabi", 
+  "Mirpur-12, Pallabi", "Mirpur Pallabi"
+];
+
 const Order = () => {
   const [quantity, setQuantity] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -59,18 +72,8 @@ const Order = () => {
     }));
   };
 
-  const deliveryLocations = [
-    "Baily Road, Dhaka", "Banani DOHS", "Banani, Dhaka", "Baridhara DOHS", 
-    "Baridhara, Dhaka", "Mohakhali DOHS", "Mirpur DOHS", "Gulshan 1", "Gulshan 2", 
-    "Gulshan Avenue", "Gulshan, Dhaka, Bangladesh", "Niketan R/A, Gulshan, Dhaka", 
-    "Bashundhara R/A", "Bashundhara Shopping Mall", "Dhanmondi, Dhaka", 
-    "Lalmatia / লালমাটিয়া", "Mohammadpur, Dhaka 1207", "Elephant Road, Dhaka", 
-    "Eskaton, Dhaka", "Uttara, Dhaka", "Diabari Uttara - দিয়াবাড়ি উত্তরা", 
-    "Wari, Dhaka", "Khilgaon, Dhaka", "Banasree, Dhaka, Bangladesh", 
-    "Aftabnagar, Dhaka", "Rampura, Dhaka", "Motijheel, Dhaka-1000", 
-    "Dhaka Cantonment", "Mirpur-1, Dhaka", "Mirpur-11.5, Pallabi", 
-    "Mirpur-12, Pallabi", "Mirpur Pallabi"
-  ];
+  const [paymentMethod, setPaymentMethod] = useState("cod"); // "cod" | "bkash"
+  const [bkashTrx, setBkashTrx] = useState("");
 
   const handleOrder = async (e) => {
     if (e && typeof e.preventDefault === 'function') {
@@ -161,6 +164,10 @@ const Order = () => {
     const capturedName = formData.name;
     const capturedEmail = formData.email ? formData.email.trim() : "";
 
+    const formattedPaymentNote = paymentMethod === "cod"
+      ? (formData.note.trim() ? `[Cash on Delivery] ${formData.note.trim()}` : "Cash on Delivery")
+      : `[bKash] TrxID/No: ${bkashTrx.trim() || "Not provided"}${formData.note.trim() ? ` | ${formData.note.trim()}` : ""}`;
+
     const emailPayload = {
       subject: "New Order from Website",
       from_name: formData.name || "Grahok",
@@ -168,7 +175,8 @@ const Order = () => {
       Phone: capturedPhone,
       Email: capturedEmail || "N/A",
       Address: fullAddress,
-      Note: formData.note || "N/A",
+      Payment_Method: paymentMethod === "cod" ? "Cash on Delivery" : "bKash",
+      Note: formattedPaymentNote,
       Product: "Premium Coconut Pudding (6pc Box)",
       Quantity: `${quantity} Box(es)`,
       Unit_Price: `৳${unitPrice}`,
@@ -208,6 +216,8 @@ const Order = () => {
         note: "",
         agree: true
       });
+      setPaymentMethod("cod");
+      setBkashTrx("");
       setQuantity(1);
     }, 350);
 
@@ -420,39 +430,97 @@ const Order = () => {
               </div>
 
               <div className="space-y-4 pt-2">
+                <p className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
+                  Payment Method / মূল্য পরিশোধের মাধ্যম
+                </p>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  <div className="bg-primary/5 p-4 rounded-xl sm:rounded-2xl border border-primary/10 flex flex-col justify-center">
-                    <p className="text-sm font-black text-primary uppercase tracking-widest mb-1.5">
-                      Option 1: bKash
+                  {/* Option 1: Cash on Delivery (Default & Recommended) */}
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setPaymentMethod("cod")}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setPaymentMethod("cod"); }}
+                    style={{ touchAction: 'manipulation' }}
+                    className={`p-4 sm:p-5 rounded-xl sm:rounded-2xl border-2 transition-all cursor-pointer select-none text-left flex flex-col justify-between ${
+                      paymentMethod === "cod"
+                        ? "bg-emerald-50/80 border-primary ring-2 ring-primary/20 shadow-md"
+                        : "bg-white border-secondary/20 hover:border-secondary/40 opacity-75"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-black uppercase tracking-wider text-primary">
+                        💵 Cash on Delivery
+                      </span>
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                        paymentMethod === "cod" ? "border-primary bg-primary" : "border-gray-300"
+                      }`}>
+                        {paymentMethod === "cod" && <div className="w-2 h-2 rounded-full bg-white" />}
+                      </div>
+                    </div>
+                    <p className="text-sm sm:text-base font-black text-husk">
+                      ক্যাশ অন ডেলিভারি (COD)
                     </p>
-                    <p className="text-base sm:text-base text-husk font-bold leading-relaxed">
-                      Send money to <span className="text-primary font-black">+8801618562844</span>.
-                      Write{" "}
-                      <span className="underline decoration-primary/30 underline-offset-2">
-                        TrxID
-                      </span>{" "}
-                      in note.
-                    </p>
-                    <p className="mt-1.5 text-xs sm:text-sm font-black text-primary">
-                      * বিকাশ ক্যাশ আউট চার্জ অবশ্যই দিতে হবে
+                    <p className="text-xs text-husk/70 font-bold mt-1">
+                      পণ্য হাতে পেয়ে ডেলিভারিম্যানকে টাকা দিন।
                     </p>
                   </div>
 
-                  <div className="bg-accent/10 p-4 rounded-xl sm:rounded-2xl border border-accent/20 flex flex-col justify-center">
-                    <p className="text-sm font-black text-accent-dark uppercase tracking-widest mb-1.5">
-                      Option 2: COD
+                  {/* Option 2: bKash */}
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setPaymentMethod("bkash")}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setPaymentMethod("bkash"); }}
+                    style={{ touchAction: 'manipulation' }}
+                    className={`p-4 sm:p-5 rounded-xl sm:rounded-2xl border-2 transition-all cursor-pointer select-none text-left flex flex-col justify-between ${
+                      paymentMethod === "bkash"
+                        ? "bg-pink-50/80 border-[#E2136E] ring-2 ring-[#E2136E]/20 shadow-md"
+                        : "bg-white border-secondary/20 hover:border-secondary/40 opacity-75"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-black uppercase tracking-wider text-[#E2136E]">
+                        📱 bKash Payment
+                      </span>
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                        paymentMethod === "bkash" ? "border-[#E2136E] bg-[#E2136E]" : "border-gray-300"
+                      }`}>
+                        {paymentMethod === "bkash" && <div className="w-2 h-2 rounded-full bg-white" />}
+                      </div>
+                    </div>
+                    <p className="text-sm sm:text-base font-black text-husk">
+                      বিকাশ সেন্ড মানি
                     </p>
-                    <p className="text-base sm:text-base text-husk font-bold leading-relaxed">
-                      Prefer COD? Write{" "}
-                      <span className="text-accent-dark font-black">"Cash on Delivery"</span> in the
-                      note.
+                    <p className="text-xs text-husk/70 font-bold mt-1">
+                      পার্সোনাল নম্বর: <span className="font-black text-[#E2136E]">+8801618562844</span>
+                    </p>
+                    <p className="text-[11px] text-[#E2136E] font-extrabold mt-0.5">
+                      * ক্যাশ আউট চার্জ সহ পাঠাতে হবে
                     </p>
                   </div>
                 </div>
 
+                {/* If bKash selected: Show bKash TrxID input */}
+                {paymentMethod === "bkash" && (
+                  <div className="bg-pink-50/50 p-4 rounded-xl sm:rounded-2xl border border-[#E2136E]/20 space-y-1.5 animate-fade-in-up">
+                    <label htmlFor="bkash-trx" className="text-xs font-black text-[#E2136E] uppercase tracking-wider block">
+                      বিকাশ TrxID বা যে নম্বর থেকে টাকা পাঠিয়েছেন:
+                    </label>
+                    <input
+                      id="bkash-trx"
+                      type="text"
+                      value={bkashTrx}
+                      onChange={(e) => setBkashTrx(e.target.value)}
+                      placeholder="e.g. 9J4K8L2M বা 01XXXXXXXXX"
+                      className="w-full bg-white border-2 border-[#E2136E]/30 rounded-xl px-4 py-3 outline-none focus:border-[#E2136E] focus:ring-2 focus:ring-[#E2136E]/20 text-sm font-bold text-husk"
+                    />
+                  </div>
+                )}
+
                 <div className="space-y-1">
                   <label htmlFor="customer-note" className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
-                    Order Note
+                    Special Note / বিশেষ কোনো নির্দেশনা (ঐচ্ছিক)
                   </label>
                   <textarea
                     id="customer-note"
@@ -460,7 +528,7 @@ const Order = () => {
                     value={formData.note}
                     onChange={handleInputChange}
                     rows="2"
-                    placeholder="TrxID, Number, or Special Instructions..."
+                    placeholder="ডেলিভারি বা প্রোডাক্ট সংক্রান্ত বিশেষ কিছু জানানোর থাকলে লিখুন..."
                     className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium resize-none text-sm sm:text-base placeholder:text-husk/30"
                   ></textarea>
                 </div>

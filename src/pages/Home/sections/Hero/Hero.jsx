@@ -220,7 +220,13 @@ const Hero = ({ onOpenPromo }) => {
               muted
               playsInline
               preload="auto"
-              className="w-full h-full object-cover block"
+              onClick={() => {
+                if (videoRef.current && videoRef.current.paused) {
+                  videoRef.current.play().catch(() => {});
+                }
+              }}
+              style={{ touchAction: 'manipulation' }}
+              className="w-full h-full object-cover block cursor-pointer"
             >
               <source src="/hero-video.mp4" type="video/mp4" />
             </video>
