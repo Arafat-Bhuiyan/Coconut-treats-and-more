@@ -219,7 +219,7 @@ const Hero = ({ onOpenPromo }) => {
               loop
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
               onClick={() => {
                 if (videoRef.current && videoRef.current.paused) {
                   videoRef.current.play().catch(() => {});

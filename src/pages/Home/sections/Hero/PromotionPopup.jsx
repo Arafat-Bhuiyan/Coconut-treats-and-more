@@ -1,52 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { X, Sparkles, ShoppingBag, CheckCircle } from "lucide-react";
 import CountdownTimer from "../../../../components/CountdownTimer";
 
 const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
-  const [shouldRender, setShouldRender] = useState(isOpen);
-  const [isAnimated, setIsAnimated] = useState(false);
-
-  useEffect(() => {
-    if (isOpen) {
-      setShouldRender(true);
-      const timer = setTimeout(() => setIsAnimated(true), 10);
-      return () => clearTimeout(timer);
-    } else {
-      setIsAnimated(false);
-      const timer = setTimeout(() => setShouldRender(false), 250);
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen]);
+  if (!isOpen) return null;
 
   const handleClaim = (e) => {
-    if (e && typeof e.preventDefault === 'function') {
-      e.preventDefault();
+    if (e) {
+      if (typeof e.preventDefault === 'function') e.preventDefault();
+      if (typeof e.stopPropagation === 'function') e.stopPropagation();
     }
-    // Instantly close popup with 0ms delay so scroll is instantaneous
-    setIsAnimated(false);
-    setShouldRender(false);
-    if (onClaim) {
-      onClaim(e);
-    }
+    if (onClose) onClose();
+    if (onClaim) onClaim();
   };
 
-  if (!shouldRender) return null;
-
   return (
-    <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8 ${!isAnimated ? 'pointer-events-none' : ''}`}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8 animate-fade-in">
       {/* Backdrop blur with fade-in */}
       <div
         onClick={onClose}
-        className={`absolute inset-0 bg-[#161a14]/80 backdrop-blur-md transition-opacity duration-300 ${
-          isAnimated ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className="absolute inset-0 bg-[#161a14]/80 backdrop-blur-md transition-opacity duration-200"
       />
 
       {/* Modal Container */}
       <div
-        className={`relative w-full max-w-md bg-white rounded-[2.2rem] sm:rounded-[2.5rem] max-h-[95vh] sm:max-h-[90vh] overflow-y-auto no-scrollbar shadow-[0_30px_70px_rgba(74,103,65,0.3)] border border-secondary/10 z-10 transition-all duration-300 transform ${
-          isAnimated ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-8"
-        }`}
+        className="relative w-full max-w-md bg-white rounded-[2.2rem] sm:rounded-[2.5rem] max-h-[92vh] overflow-y-auto no-scrollbar shadow-[0_30px_70px_rgba(74,103,65,0.3)] border border-secondary/10 z-10"
       >
         {/* Top Glowing Accent Bar */}
         <div className="bg-gradient-to-r from-primary via-primary-dark to-primary h-2 w-full" />
@@ -124,11 +102,9 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
             @keyframes greenOrderBlink {
               0%, 100% {
                 box-shadow: 0 0 0 0 rgba(74, 103, 65, 0.6), 0 8px 20px -4px rgba(74, 103, 65, 0.4);
-                transform: scale(1);
               }
               50% {
-                box-shadow: 0 0 24px 8px rgba(52, 211, 153, 0.75), 0 12px 28px -3px rgba(74, 103, 65, 0.5);
-                transform: scale(1.02);
+                box-shadow: 0 0 24px 8px rgba(52, 211, 153, 0.8), 0 12px 28px -3px rgba(74, 103, 65, 0.5);
               }
             }
             .popup-green-blink-btn {
@@ -138,11 +114,11 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
 
           {/* Green Blinking Order Now Button in circled spot */}
           <div className="pt-1 space-y-2">
-            <a
-              href="#order"
+            <button
+              type="button"
               onClick={handleClaim}
               style={{ touchAction: 'manipulation' }}
-              className="popup-green-blink-btn w-full bg-primary hover:bg-primary-dark text-white font-black text-base sm:text-lg py-4 px-6 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-xl cursor-pointer select-none group relative overflow-hidden no-underline text-center"
+              className="popup-green-blink-btn w-full bg-primary hover:bg-primary-dark active:bg-primary-dark text-white font-black text-base sm:text-lg py-4 px-6 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-xl cursor-pointer select-none group relative overflow-hidden text-center border-0 outline-none"
             >
               <span className="pointer-events-none absolute inset-0 bg-white/20 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
               <span className="pointer-events-none relative flex h-3 w-3 flex-shrink-0">
@@ -151,7 +127,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
               </span>
               <ShoppingBag size={20} className="pointer-events-none animate-bounce" />
               <span className="pointer-events-none">অর্ডার করুন (Order Now)</span>
-            </a>
+            </button>
 
             <div className="flex items-center justify-center gap-1.5 text-primary text-[11px] font-bold">
               <CheckCircle size={12} className="text-primary flex-shrink-0" />

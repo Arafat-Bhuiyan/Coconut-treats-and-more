@@ -76,24 +76,21 @@ export const Home = () => {
     const scrollToOrder = () => {
       const element = document.getElementById("order");
       if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        const navOffset = 70;
+        const targetY = element.getBoundingClientRect().top + window.pageYOffset - navOffset;
+        window.scrollTo({
+          top: Math.max(0, targetY),
+          behavior: "smooth"
+        });
       } else {
         window.location.hash = "#order";
       }
     };
 
-    // Instant smooth scroll
+    // Trigger smooth scroll with guaranteed position
     scrollToOrder();
-    setTimeout(scrollToOrder, 80);
-
-    // Auto-focus input ONLY on desktop computers (mobile keyboards break smooth scroll)
-    setTimeout(() => {
-      const isMobile = window.innerWidth < 768 || ('ontouchstart' in window);
-      if (!isMobile) {
-        const input = document.querySelector('input[name="name"]') || document.querySelector('input[name="phone"]');
-        if (input) input.focus();
-      }
-    }, 350);
+    setTimeout(scrollToOrder, 60);
+    setTimeout(scrollToOrder, 180);
   };
 
   return (
