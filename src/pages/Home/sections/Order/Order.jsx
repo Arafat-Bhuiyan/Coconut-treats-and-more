@@ -630,35 +630,37 @@ const Order = () => {
               </div>
 
               {/* Summary Totals */}
-              <div className="space-y-4 pt-6">
-                <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
-                  <span>Subtotal</span>
-                  <span>৳{totalProductPrice}</span>
-                </div>
-                <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
-                  <span>Delivery Charge</span>
-                  <span>৳{deliveryCharge}</span>
-                </div>
-
-                <div
-                  className={`transition-all duration-300 overflow-hidden ${
-                    quantity >= 2 
-                      ? "max-h-[100px] opacity-100 mt-2" 
-                      : "max-h-0 opacity-0 pointer-events-none"
-                  }`}
-                >
-                  <div className="bg-accent/10 p-3 rounded-xl border border-accent/20 flex items-center justify-between">
-                    <span className="text-[10px] font-black text-accent-dark uppercase flex items-center gap-2 tracking-widest">
-                      <CheckCircle size={12} /> BULK OFFER
-                    </span>
-                    <span className="text-xs font-black text-accent-dark">
-                      - ৳{quantity * (basePrice - offerPrice)} Saved
-                    </span>
-                  </div>
-                </div>
+              <div className="space-y-3 pt-6">
+                {quantity >= 2 ? (
+                  <>
+                    <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
+                      <span>মূল দাম (Regular Price)</span>
+                      <span className="line-through text-husk/50">৳{quantity * basePrice}</span>
+                    </div>
+                    <div className="flex justify-between text-xs sm:text-sm font-bold text-emerald-600 uppercase">
+                      <span className="flex items-center gap-1.5"><CheckCircle size={14} /> বাল্ক অফার ছাড় (Discount)</span>
+                      <span>- ৳{quantity * (basePrice - offerPrice)}</span>
+                    </div>
+                    <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
+                      <span>ডেলিভারি চার্জ</span>
+                      <span>৳{deliveryCharge}</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
+                      <span>সাবটোটাল</span>
+                      <span>৳{totalProductPrice}</span>
+                    </div>
+                    <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
+                      <span>ডেলিভারি চার্জ</span>
+                      <span>৳{deliveryCharge}</span>
+                    </div>
+                  </>
+                )}
 
                 <div className="flex justify-between text-xl font-black text-husk pt-4 border-t border-dashed">
-                  <span className="uppercase text-sm">Total</span>
+                  <span className="uppercase text-sm">সর্বমোট (Total)</span>
                   <span className="text-primary text-2xl">৳{totalOrderAmount}</span>
                 </div>
               </div>
