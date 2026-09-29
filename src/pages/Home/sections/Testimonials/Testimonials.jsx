@@ -48,7 +48,7 @@ const MarqueeRow = ({ images, duration = 30 }) => (
 
 const Testimonials = () => {
     return (
-        <section id="reviews" className="py-24 overflow-hidden relative">
+        <section id="reviews" className="scroll-mt-24 py-24 overflow-hidden relative">
             <style>
                 {`
                   @keyframes scrollReviews {

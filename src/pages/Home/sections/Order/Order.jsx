@@ -240,7 +240,7 @@ const Order = () => {
   };
 
   return (
-    <section id="order" className="pt-4 sm:pt-6 pb-16 sm:pb-24 px-4 overflow-hidden relative">
+    <section id="order" className="scroll-mt-24 pt-4 sm:pt-6 pb-16 sm:pb-24 px-4 overflow-hidden relative">
       <style>
         {`
           @keyframes badgeBlink {
@@ -333,16 +333,16 @@ const Order = () => {
           <div
             className="lg:col-span-3 glass-panel p-6 sm:p-8 md:p-10 rounded-[2rem]"
           >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-6 sm:mb-8 text-center sm:text-left">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 sm:mb-8 text-center sm:text-left">
               <h3 className="text-2xl sm:text-3xl font-black text-husk">
                 Place Your Order
               </h3>
-              <span className="delivery-blink-badge font-black text-xs sm:text-sm text-primary bg-emerald-50/95 border-2 border-primary px-4 py-2 rounded-2xl sm:rounded-full inline-flex items-center justify-center gap-2 shadow-sm self-center sm:self-auto text-center">
-                <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
+              <span className="delivery-blink-badge font-black text-xs sm:text-sm text-primary bg-emerald-50/95 border border-primary/30 px-3.5 py-1.5 rounded-full inline-flex items-center justify-center gap-2 shadow-sm self-center sm:self-auto text-center">
+                <span className="relative flex h-2 w-2 flex-shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                 </span>
-                <span className="font-black tracking-tight">ঢাকার সবজায়গায় ডেলিভারি করা হয় (শুধুমাত্র সাভার, আশুলিয়া, যাত্রাবাড়ী, কেরানীগঞ্জ ও ঢাকার বাহিরে ডেলিভারি হয় না)</span>
+                <span className="font-black tracking-tight">🚚 ঢাকার ভেতরে হোম ডেলিভারি</span>
               </span>
             </div>
 
@@ -384,7 +384,10 @@ const Order = () => {
               </div>
 
               {/* Delivery Address Group Container */}
-              <div className="bg-white border-2 border-primary/20 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-7 space-y-5">
+              <div
+                onClick={() => document.getElementById('customer-address')?.focus()}
+                className="bg-white border-2 border-primary/20 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-7 space-y-5 cursor-text"
+              >
                 <p className="text-xs sm:text-sm font-black text-primary uppercase tracking-widest border-b-2 border-primary/10 pb-3 mb-2 flex items-center gap-2">
                   <span>📍</span> Delivery Address / ডেলিভারি ঠিকানা
                 </p>

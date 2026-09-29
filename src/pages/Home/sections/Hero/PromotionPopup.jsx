@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { X, Sparkles, ShoppingBag, CheckCircle } from "lucide-react";
 import CountdownTimer from "../../../../components/CountdownTimer";
 
 const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && isOpen && onClose) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handleClaim = (e) => {

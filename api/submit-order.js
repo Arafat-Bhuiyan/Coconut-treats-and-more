@@ -24,13 +24,20 @@ export default async function handler(req, res) {
       }
     }
     
+    // Support both uppercase and lowercase keys defensively
+    const phone = orderData?.Phone || orderData?.phone;
+    const address = orderData?.Address || orderData?.address;
+
     // Server-side payload validation to prevent spam/corrupted orders
-    if (!orderData || !orderData.Phone || !orderData.Address) {
+    if (!orderData || !phone || !address) {
       return res.status(400).json({
         success: false,
         message: "Required order details are missing (Phone and Address are required)."
       });
     }
+
+    orderData.Phone = phone;
+    orderData.Address = address;
 
     // New Apps Script deployed from coconuttreatsmore@gmail.com
     const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbygtsftenbteNaL_IUxy1a82Yy8Jy__jAHeK26NRG0HUrH_jVnCMkAeOyITvQ-lzW9f/exec";
