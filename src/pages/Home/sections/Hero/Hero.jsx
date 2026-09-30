@@ -127,30 +127,7 @@ const Hero = () => {
     }, 100);
   };
 
-  // 1-Click Quick Area selection for full auto address completion
-  const handleQuickAreaSelect = (area) => {
-    setFormError("");
-    setFormData((prev) => {
-      let newAddress = prev.address.trim();
-      if (!newAddress) {
-        newAddress = `${area}, ঢাকা`;
-      } else if (!newAddress.includes(area)) {
-        newAddress = `${newAddress}, ${area}`;
-      }
-      const next = { ...prev, address: newAddress };
-      try {
-        localStorage.setItem("coconut_customer_info", JSON.stringify({
-          name: next.name,
-          phone: next.phone,
-          address: next.address,
-          email: next.email
-        }));
-      } catch {
-        // Ignore localStorage write errors
-      }
-      return next;
-    });
-  };
+
 
   const handleRestoreSavedInfo = () => {
     try {
@@ -766,27 +743,7 @@ const Hero = () => {
                     placeholder="বাসা নম্বর, রোড নম্বর, ফ্ল্যাট নম্বর ও এলাকার নাম বিস্তারিত লিখুন"
                     className="w-full bg-white border-2 border-gray-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20 transition-all placeholder:text-gray-400 resize-none"
                   />
-                  
-                  {/* Quick 1-Click Area Chips (Click to auto-fill area without typing) */}
-                  <div className="pt-1">
-                    <span className="text-[10px] font-black text-[#4A6741] block mb-1">
-                      ⚡ দ্রুত এলাকা নির্বাচন করুন (১-ক্লিক অটো ফিল):
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {["মিরপুর", "উত্তরা", "ধানমন্ডি", "গুলশান", "বনানী", "মোহাম্মদপুর", "বসুন্ধরা", "বাড্ডা", "মগবাজার", "খিলগাঁও"].map((area) => (
-                        <button
-                          key={area}
-                          type="button"
-                          onClick={() => handleQuickAreaSelect(area)}
-                          className="text-[10px] font-bold bg-white hover:bg-emerald-50 text-[#2B4025] border border-gray-300 hover:border-[#4A6741] px-2 py-0.5 rounded-lg shadow-2xs transition-all active:scale-95 cursor-pointer"
-                        >
-                          📍 {area}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <p className="text-[10px] sm:text-[11px] font-black text-[#4A6741] pt-1">
+                  <p className="text-[10px] sm:text-[11px] font-black text-[#4A6741] pt-0.5">
                     ⚠️ অবশ্যই ফ্ল্যাট নম্বর উল্লেখ করবেন, যাতে ডেলিভারি পেতে সুবিধা হয়।
                   </p>
                 </div>
