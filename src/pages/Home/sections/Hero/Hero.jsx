@@ -323,17 +323,7 @@ const Hero = () => {
     <section id="order" className="scroll-mt-20 pt-24 sm:pt-32 pb-12 sm:pb-16 px-3 sm:px-4 bg-[#F6F8F5]">
       <div className="container mx-auto max-w-5xl">
         
-        {/* Dhaka City Delivery Notification Pop up (Green Flashing Pill) */}
-        <div className="flex justify-center mb-5 sm:mb-6">
-          <div className="inline-flex items-center gap-2 sm:gap-2.5 px-5 sm:px-6 py-2.5 sm:py-3 bg-emerald-50/95 border-2 border-[#4A6741] rounded-full text-[#1F291E] font-black text-xs sm:text-sm shadow-md text-center max-w-2xl">
-            <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#4A6741]"></span>
-            </span>
-            <MapPin size={16} className="text-[#4A6741] flex-shrink-0" />
-            <span>ঢাকার সবজায়গায় ডেলিভারি করা হয় (সাভার, আশুলিয়া, যাত্রাবাড়ী, কেরানীগঞ্জ ব্যতীত)</span>
-          </div>
-        </div>
+
 
         {/* Unified 2-Column Shopify-Style Main Order Card */}
         <form onSubmit={handleSubmitOrder} noValidate>
