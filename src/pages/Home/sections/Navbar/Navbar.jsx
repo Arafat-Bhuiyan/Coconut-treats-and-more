@@ -11,7 +11,12 @@ const Navbar = () => {
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 glass-panel border-b-0 border-x-0 rounded-b-2xl">
-            <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            {/* Top Announcement Bar */}
+            <div className="bg-[#4A6741] text-white text-center text-[10px] sm:text-xs font-black tracking-wider uppercase py-2 px-4 flex items-center justify-center gap-2 shadow-sm">
+                <span>🚚</span>
+                <span>FREE DELIVERY ON 5+ BOXES! (DHAKA CITY)</span>
+            </div>
+            <div className="container mx-auto px-4 sm:px-6 py-2.5 sm:py-3.5 flex items-center justify-between">
                 <div className="flex items-center gap-2 relative z-50">
                     <a
                         href="#"
@@ -19,9 +24,9 @@ const Navbar = () => {
                             e.preventDefault();
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                         }}
-                        className="text-xl sm:text-2xl font-black text-primary tracking-tight cursor-pointer no-underline select-none"
+                        className="text-lg sm:text-2xl font-black text-primary tracking-tight cursor-pointer no-underline select-none"
                     >
-                        Coconut<span className="text-accent-dark underline decoration-accent/30 underline-offset-4">Treats&amp;More</span>
+                        Coconut <span className="text-secondary font-black">Treats &amp; More</span>
                     </a>
                 </div>
 

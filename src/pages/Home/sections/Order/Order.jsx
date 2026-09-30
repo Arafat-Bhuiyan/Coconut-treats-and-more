@@ -57,9 +57,16 @@ const Order = () => {
 
   const basePrice = 750;
   const offerPrice = 700;
-  const deliveryCharge = 100;
+  const isFreeDelivery = quantity >= 5;
+  const deliveryCharge = isFreeDelivery ? 0 : 100;
 
-  const unitPrice = quantity >= 2 ? offerPrice : basePrice;
+  let unitPrice = basePrice;
+  if (quantity >= 5) {
+    unitPrice = 680; // 5 * 680 = 3,400 (Save ৳350 + Free Delivery)
+  } else if (quantity >= 2) {
+    unitPrice = offerPrice; // 2 * 700 = 1,400 (Save ৳100)
+  }
+
   const totalProductPrice = quantity * unitPrice;
   const totalOrderAmount = totalProductPrice + deliveryCharge;
 
@@ -641,12 +648,20 @@ const Order = () => {
                       <span className="line-through text-husk/50">৳{quantity * basePrice}</span>
                     </div>
                     <div className="flex justify-between text-xs sm:text-sm font-bold text-emerald-600 uppercase">
-                      <span className="flex items-center gap-1.5"><CheckCircle size={14} /> বাল্ক অফার ছাড় (Discount)</span>
-                      <span>- ৳{quantity * (basePrice - offerPrice)}</span>
+                      <span className="flex items-center gap-1.5">
+                        <CheckCircle size={14} /> {isFreeDelivery ? "মেগা অফার ছাড় (Discount)" : "বাল্ক অফার ছাড় (Discount)"}
+                      </span>
+                      <span>- ৳{(quantity * basePrice) - totalProductPrice}</span>
                     </div>
-                    <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
+                    <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase items-center">
                       <span>ডেলিভারি চার্জ</span>
-                      <span>৳{deliveryCharge}</span>
+                      {isFreeDelivery ? (
+                        <span className="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full font-black text-xs">
+                          FREE DELIVERY (৳0)
+                        </span>
+                      ) : (
+                        <span>৳{deliveryCharge}</span>
+                      )}
                     </div>
                   </>
                 ) : (
