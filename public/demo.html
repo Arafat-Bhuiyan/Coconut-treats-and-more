@@ -105,11 +105,11 @@
             <span class="text-[10px] font-extrabold leading-tight text-[#1F291E] mt-1">Fresh Coconut Pudding</span>
           </div>
 
-          <!-- Tile 2: 2nd Layer Cow Milk Pudding -->
+          <!-- Tile 2: 2nd Layer Fresh Cow Milk Pudding (Updated as requested) -->
           <div class="bg-[#F4F7F2] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/20 shadow-sm flex-1">
             <span class="text-2xl mb-1">🥛</span>
             <span class="text-[9px] font-black uppercase text-[#4A6741] tracking-wider leading-none">2nd Layer</span>
-            <span class="text-[10px] font-extrabold leading-tight text-[#1F291E] mt-1">Cow Milk Pudding</span>
+            <span class="text-[10px] font-extrabold leading-tight text-[#1F291E] mt-1">Fresh Cow Milk Pudding</span>
           </div>
 
           <!-- Tile 3: 100% Halal (Clean, without "100% Pure") -->
@@ -165,78 +165,84 @@
         </div>
       </div>
 
-      <!-- Interactive Package Bundle Selector (Shopify Custom Deal Style) -->
-      <div class="space-y-3 pt-1">
+      <!-- Interactive Package Bundle Selector (Ultra-Clear Premium Shopify DTC Style) -->
+      <div class="space-y-3 pt-2">
         <div class="flex items-center justify-between">
           <span class="text-xs font-black uppercase tracking-wider text-[#4A6741] flex items-center gap-1.5">
             <span>🏷️</span> SELECT BUNDLE &amp; SAVE:
           </span>
-          <span id="deliveryLabel" class="text-xs font-extrabold text-[#4A6741] bg-[#F4F7F2] px-2.5 py-1 rounded-full border border-[#4A6741]/20">
-            🚚 Delivery: ৳100
+          <span id="deliveryLabel" class="text-xs font-black text-[#4A6741] bg-[#F4F7F2] px-3 py-1 rounded-full border border-[#4A6741]/25 shadow-sm">
+            🚚 Standard Delivery: ৳100
           </span>
         </div>
 
-        <!-- 3 Segmented Package Cards -->
-        <div class="grid grid-cols-3 gap-2.5 pt-1">
+        <!-- 3 High-Contrast Segmented Package Cards -->
+        <div class="grid grid-cols-3 gap-2.5 pt-2">
           <!-- Package 1: 1 Box -->
           <div 
             id="pkg1" 
             onclick="selectPackage(1)"
-            class="package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-white border-gray-200 hover:border-[#4A6741]/50 relative"
+            class="package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-white border-gray-300 hover:border-[#4A6741]/60 relative shadow-sm"
           >
             <div class="flex items-center justify-center mb-1">
-              <span id="radio1" class="w-3.5 h-3.5 rounded-full border-2 border-gray-300 flex items-center justify-center"></span>
+              <span id="radio1" class="w-4 h-4 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
             </div>
-            <span class="text-xs font-black text-gray-500 uppercase block">1 Box</span>
-            <span class="text-[10px] text-gray-400 font-medium block">6 Cups</span>
-            <div class="my-1">
-              <span class="text-lg font-black text-[#1F291E]">৳750</span>
+            <div>
+              <span class="text-xs font-black text-[#1F291E] uppercase block tracking-wide">1 Box</span>
+              <span class="text-[11px] text-[#4A6741] font-bold block">6 Cups</span>
             </div>
-            <span class="text-[10px] font-bold text-gray-400 block">+৳100 Deliv.</span>
+            <div class="my-1.5">
+              <span class="text-xl font-black text-[#1F291E]">৳750</span>
+            </div>
+            <span class="text-[11px] font-bold text-gray-600 block leading-tight">+ ৳100 Delivery</span>
           </div>
 
           <!-- Package 2: 2 Boxes (Selected Default) -->
           <div 
             id="pkg2" 
             onclick="selectPackage(2)"
-            class="package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-emerald-50/70 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20"
+            class="package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-emerald-50/80 border-[#4A6741] shadow-lg ring-2 ring-[#4A6741]/25"
           >
-            <span class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-[#4A6741] text-white text-[9px] font-black px-2 py-0.5 rounded-full whitespace-nowrap shadow-sm">
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#4A6741] text-white text-[9px] font-black px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-md uppercase tracking-wider">
               SAVE ৳100
             </span>
             <div class="flex items-center justify-center mb-1 mt-0.5">
-              <span id="radio2" class="w-3.5 h-3.5 rounded-full border-2 border-[#4A6741] bg-[#4A6741] flex items-center justify-center">
+              <span id="radio2" class="w-4 h-4 rounded-full border-2 border-[#4A6741] bg-[#4A6741] flex items-center justify-center">
                 <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
               </span>
             </div>
-            <span class="text-xs font-black text-[#4A6741] uppercase block">2 Boxes</span>
-            <span class="text-[10px] text-[#4A6741] font-semibold block">12 Cups</span>
-            <div class="my-0.5">
-              <span class="text-xs font-bold text-gray-400 line-through block leading-none">৳1500</span>
-              <span class="text-xl font-black text-[#4A6741] leading-tight">৳1400</span>
+            <div>
+              <span class="text-xs font-black text-[#4A6741] uppercase block tracking-wide">2 Boxes</span>
+              <span class="text-[11px] text-[#4A6741] font-extrabold block">12 Cups</span>
             </div>
-            <span class="text-[10px] font-bold text-emerald-800 block">+৳100 Deliv.</span>
+            <div class="my-1">
+              <span class="text-xs font-bold text-gray-400 line-through block leading-none">৳1,500</span>
+              <span class="text-2xl font-black text-[#4A6741] leading-tight">৳1,400</span>
+            </div>
+            <span class="text-[11px] font-extrabold text-[#2E4A26] block leading-tight">+ ৳100 Delivery</span>
           </div>
 
           <!-- Package 3: 5 Boxes (FREE DELIVERY + Mega Discount) -->
           <div 
             id="pkg5" 
             onclick="selectPackage(5)"
-            class="package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-white border-gray-200 hover:border-[#4A6741]/50"
+            class="package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-white border-gray-300 hover:border-[#4A6741]/60 shadow-sm"
           >
-            <span class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-[#8DA47E] text-[#1F291E] text-[9px] font-black px-2 py-0.5 rounded-full whitespace-nowrap shadow-sm">
-              FREE DELIV.
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-700 text-white text-[9px] font-black px-2 py-0.5 rounded-full whitespace-nowrap shadow-md uppercase tracking-wider">
+              FREE DELIVERY
             </span>
             <div class="flex items-center justify-center mb-1 mt-0.5">
-              <span id="radio5" class="w-3.5 h-3.5 rounded-full border-2 border-gray-300 flex items-center justify-center"></span>
+              <span id="radio5" class="w-4 h-4 rounded-full border-2 border-gray-400 flex items-center justify-center"></span>
             </div>
-            <span class="text-xs font-black text-[#4A6741] uppercase block">5 Boxes</span>
-            <span class="text-[10px] text-gray-400 font-medium block">30 Cups</span>
-            <div class="my-0.5">
-              <span class="text-xs font-bold text-gray-400 line-through block leading-none">৳3750</span>
-              <span class="text-lg font-black text-[#4A6741] leading-tight">৳3400</span>
+            <div>
+              <span class="text-xs font-black text-[#1F291E] uppercase block tracking-wide">5 Boxes</span>
+              <span class="text-[11px] text-[#4A6741] font-bold block">30 Cups</span>
             </div>
-            <span class="text-[10px] font-black text-emerald-700 bg-emerald-100 rounded px-1 inline-block">FREE Deliv.</span>
+            <div class="my-1">
+              <span class="text-xs font-bold text-gray-400 line-through block leading-none">৳3,750</span>
+              <span class="text-2xl font-black text-[#4A6741] leading-tight">৳3,400</span>
+            </div>
+            <span class="text-[10px] font-black text-white bg-[#4A6741] rounded-full px-2 py-0.5 block shadow-sm uppercase tracking-wide">FREE DELIVERY</span>
           </div>
         </div>
       </div>
@@ -310,7 +316,7 @@
           <div class="text-right flex items-center gap-2 relative z-10">
             <div>
               <span id="btnPrice" class="text-lg sm:text-xl font-black block leading-tight">৳1,500</span>
-              <span id="btnSub" class="text-[10px] text-emerald-100 font-bold block">Total Incl. Deliv</span>
+              <span id="btnSub" class="text-[10px] text-emerald-100 font-bold block">Total Incl. Delivery</span>
             </div>
             <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
               <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
@@ -399,24 +405,24 @@
 
       // Reset cards styling
       [pkg1, pkg2, pkg5].forEach(el => {
-        el.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-white border-gray-200 hover:border-[#4A6741]/50 relative';
+        el.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-white border-gray-300 hover:border-[#4A6741]/60 shadow-sm relative';
       });
 
       // Reset radios
       [radio1, radio2, radio5].forEach(el => {
-        el.className = 'w-3.5 h-3.5 rounded-full border-2 border-gray-300 flex items-center justify-center';
+        el.className = 'w-4 h-4 rounded-full border-2 border-gray-400 flex items-center justify-center';
         el.innerHTML = '';
       });
 
       headerCartCount.innerText = qty;
 
       if (qty === 1) {
-        pkg1.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-emerald-50/70 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20 relative';
-        radio1.className = 'w-3.5 h-3.5 rounded-full border-2 border-[#4A6741] bg-[#4A6741] flex items-center justify-center';
+        pkg1.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-emerald-50/80 border-[#4A6741] shadow-lg ring-2 ring-[#4A6741]/25 relative';
+        radio1.className = 'w-4 h-4 rounded-full border-2 border-[#4A6741] bg-[#4A6741] flex items-center justify-center';
         radio1.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-white"></span>';
 
-        deliveryLabel.innerText = '🚚 Delivery: ৳100';
-        deliveryLabel.className = 'text-xs font-extrabold text-[#4A6741] bg-[#F4F7F2] px-2.5 py-1 rounded-full border border-[#4A6741]/20';
+        deliveryLabel.innerText = '🚚 Standard Delivery: ৳100';
+        deliveryLabel.className = 'text-xs font-black text-[#4A6741] bg-[#F4F7F2] px-3 py-1 rounded-full border border-[#4A6741]/25 shadow-sm';
 
         shippingProgressText.innerHTML = '<span>🚚</span> Add 4 more boxes for <strong>FREE Delivery</strong>';
         shippingProgressPercent.innerText = '20%';
@@ -431,15 +437,15 @@
         summaryTotal.innerText = '৳850';
 
         btnPrice.innerText = '৳850';
-        btnSub.innerText = 'Total Incl. Deliv';
+        btnSub.innerText = 'Total Incl. Delivery';
         ribbonText.innerHTML = 'ORDER 2 BOXES TO UNLOCK <span class="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">৳100 DISCOUNT</span>';
       } else if (qty === 2) {
-        pkg2.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-emerald-50/70 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20';
-        radio2.className = 'w-3.5 h-3.5 rounded-full border-2 border-[#4A6741] bg-[#4A6741] flex items-center justify-center';
+        pkg2.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-emerald-50/80 border-[#4A6741] shadow-lg ring-2 ring-[#4A6741]/25';
+        radio2.className = 'w-4 h-4 rounded-full border-2 border-[#4A6741] bg-[#4A6741] flex items-center justify-center';
         radio2.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-white"></span>';
 
-        deliveryLabel.innerText = '🚚 Delivery: ৳100';
-        deliveryLabel.className = 'text-xs font-extrabold text-[#4A6741] bg-[#F4F7F2] px-2.5 py-1 rounded-full border border-[#4A6741]/20';
+        deliveryLabel.innerText = '🚚 Standard Delivery: ৳100';
+        deliveryLabel.className = 'text-xs font-black text-[#4A6741] bg-[#F4F7F2] px-3 py-1 rounded-full border border-[#4A6741]/25 shadow-sm';
 
         shippingProgressText.innerHTML = '<span>🚚</span> Add 3 more boxes for <strong>FREE Delivery</strong>';
         shippingProgressPercent.innerText = '40%';
@@ -455,15 +461,15 @@
         summaryTotal.innerText = '৳1,500';
 
         btnPrice.innerText = '৳1,500';
-        btnSub.innerText = 'Total Incl. Deliv';
+        btnSub.innerText = 'Total Incl. Delivery';
         ribbonText.innerHTML = 'CONGRATULATIONS, YOU UNLOCKED <span class="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">৳100 DISCOUNT</span> WITH 2 BOXES';
       } else if (qty === 5) {
-        pkg5.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-emerald-50/70 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20';
-        radio5.className = 'w-3.5 h-3.5 rounded-full border-2 border-[#4A6741] bg-[#4A6741] flex items-center justify-center';
+        pkg5.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-emerald-50/80 border-[#4A6741] shadow-lg ring-2 ring-[#4A6741]/25';
+        radio5.className = 'w-4 h-4 rounded-full border-2 border-[#4A6741] bg-[#4A6741] flex items-center justify-center';
         radio5.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-white"></span>';
 
         deliveryLabel.innerText = '🎉 FREE DELIVERY!';
-        deliveryLabel.className = 'text-xs font-black text-white bg-[#4A6741] px-2.5 py-1 rounded-full shadow-sm';
+        deliveryLabel.className = 'text-xs font-black text-white bg-[#4A6741] px-3 py-1 rounded-full shadow-sm';
 
         shippingProgressText.innerHTML = '🎉 <strong>CONGRATULATIONS! FREE DELIVERY UNLOCKED!</strong>';
         shippingProgressPercent.innerText = '100%';
@@ -473,9 +479,9 @@
         summaryOldPrice.innerText = '৳3,750';
         summaryPrice.innerText = '৳3,400';
         summaryDelivery.innerText = 'FREE (৳0)';
-        summaryDelivery.className = 'font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full';
+        summaryDelivery.className = 'font-black text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full';
         savingsRow.classList.remove('hidden');
-        summarySavings.innerText = '-৳350 + FREE DELIV';
+        summarySavings.innerText = '-৳350 + FREE DELIVERY';
         summaryTotal.innerText = '৳3,400';
 
         btnPrice.innerText = '৳3,400';
