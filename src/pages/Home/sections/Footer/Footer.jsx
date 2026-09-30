@@ -129,8 +129,17 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className="container mx-auto flex flex-col md:flex-row items-center justify-between text-milk-white/40 text-xs font-medium tracking-wider uppercase">
-                <p>&copy; 2026 Coconut Treats & More. All rights reserved.</p>
+            <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-milk-white/70 text-xs font-bold">
+                <p>© 2026 Coconut Treats & More. All rights reserved.</p>
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                    <span className="text-[11px] uppercase tracking-wider text-milk-white/50 font-black">Accepted Payments:</span>
+                    <span className="bg-white/10 px-3 py-1 rounded-full text-[11px] font-black text-white border border-white/15 shadow-sm">
+                        💵 Cash on Delivery
+                    </span>
+                    <span className="bg-[#D12053] px-3 py-1 rounded-full text-[11px] font-black text-white border border-[#D12053]/50 shadow-sm">
+                        📱 bKash Payment
+                    </span>
+                </div>
             </div>
         </footer>
     );

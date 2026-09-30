@@ -47,7 +47,7 @@ const Hero = () => {
   const boxCountLabel = isOne ? "1 Box (6 Cups)" : isTwo ? "2 Boxes (12 Cups)" : "5 Boxes (30 Cups)";
 
   return (
-    <section className="pt-24 sm:pt-28 pb-10 sm:pb-16 px-4 bg-[#F6F8F5]">
+    <section className="pt-28 sm:pt-36 pb-10 sm:pb-16 px-4 bg-[#F6F8F5]">
       <div className="container mx-auto max-w-5xl">
         
         {/* Desktop 2-Column / Mobile Stacked Container */}
@@ -334,7 +334,7 @@ const Hero = () => {
                     <span className="text-sm font-black text-[#1F291E]">Total Payable:</span>
                     <div className="text-right">
                       <span className="text-2xl font-black text-[#4A6741]">{grandTotal}</span>
-                      <span className="text-[10px] text-gray-500 font-bold block">Cash on Delivery</span>
+                      <span className="text-[10px] text-gray-500 font-bold block">Cash on Delivery • bKash</span>
                     </div>
                   </div>
                 </div>
@@ -357,7 +357,7 @@ const Hero = () => {
                     </div>
                     <div className="text-left">
                       <span className="block text-base sm:text-lg font-black tracking-wide leading-tight uppercase">ORDER NOW</span>
-                      <span className="block text-[11px] font-semibold text-emerald-100/90">Cash on Delivery • Click to Order</span>
+                      <span className="block text-[11px] font-semibold text-emerald-100/90">Cash on Delivery or bKash • Click to Order</span>
                     </div>
                   </div>
 
@@ -375,9 +375,13 @@ const Hero = () => {
                 </a>
 
                 {/* Security & Guarantee Row */}
-                <div className="flex items-center justify-center gap-3 text-[11px] font-bold text-gray-500 pt-2.5">
+                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-[11px] font-bold text-gray-500 pt-2.5">
                   <span className="flex items-center gap-1">
-                    <span className="text-[#4A6741]">🔒</span> Cash on Delivery
+                    <span className="text-[#4A6741]">💵</span> Cash on Delivery
+                  </span>
+                  <span>•</span>
+                  <span className="flex items-center gap-1">
+                    <span className="text-[#E2136E]">📱</span> bKash Available
                   </span>
                   <span>•</span>
                   <span className="flex items-center gap-1">
