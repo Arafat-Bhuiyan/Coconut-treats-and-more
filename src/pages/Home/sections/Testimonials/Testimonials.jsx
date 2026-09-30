@@ -156,14 +156,28 @@ const Testimonials = () => {
                 </div>
             </div>
 
-            <div className="mt-12 sm:mt-16 text-center px-4">
+            <div className="mt-12 sm:mt-16 text-center px-4 space-y-5">
                 <div
-                    className="inline-flex flex-wrap justify-center items-center gap-3 glass-panel text-primary px-6 py-4 rounded-2xl font-black text-sm sm:text-base will-change-transform"
+                    className="inline-flex flex-wrap justify-center items-center gap-3 glass-panel text-primary px-6 py-4 rounded-2xl font-black text-sm sm:text-base will-change-transform shadow-md"
                 >
                     <span className="flex gap-1 text-accent">
                         {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
                     </span>
-                    Join our 500+ happy customers
+                    Join our 1,000+ happy customers in Dhaka!
+                </div>
+
+                <div>
+                    <a
+                        href="#order"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }}
+                        style={{ touchAction: 'manipulation' }}
+                        className="inline-flex items-center gap-2.5 bg-[#4A6741] hover:bg-[#3E5837] active:scale-95 text-white font-black px-8 sm:px-10 py-4 rounded-2xl shadow-xl shadow-[#4A6741]/30 hover:scale-105 transition-all text-base sm:text-lg uppercase tracking-wider select-none cursor-pointer"
+                    >
+                        <span>🛒 ORDER NOW • অর্ডার করুন</span>
+                    </a>
                 </div>
             </div>
         </section>

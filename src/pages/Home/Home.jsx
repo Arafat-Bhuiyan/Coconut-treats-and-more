@@ -5,7 +5,6 @@ import WhatsAppButton from "../../components/WhatsAppButton";
 import { trackFacebookEvent } from "../../utils/facebookTracking";
 
 import Testimonials from "./sections/Testimonials/Testimonials";
-import Order from "./sections/Order/Order";
 import Footer from "./sections/Footer/Footer";
 import PromotionPopup from "./sections/Hero/PromotionPopup";
 
@@ -99,7 +98,6 @@ export const Home = () => {
       <main>
         <Hero onOpenPromo={() => setShowPromo(true)} />
         <Testimonials />
-        <Order />
       </main>
       <Footer />
       <PromotionPopup
