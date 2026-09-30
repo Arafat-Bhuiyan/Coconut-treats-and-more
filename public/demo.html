@@ -11,8 +11,8 @@
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #f7f3ed;
-      color: #261a12;
+      background-color: #F6F8F5;
+      color: #1F291E;
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
@@ -22,37 +22,40 @@
 <body class="p-2 sm:p-6 flex flex-col items-center justify-start min-h-screen">
 
   <!-- Demo Notice Banner -->
-  <div class="w-full max-w-[430px] my-3 bg-amber-50 border border-amber-300 rounded-2xl p-3 shadow-sm text-center text-xs text-amber-900 font-bold flex items-center justify-center gap-2">
-    <span>💡</span>
-    <span><strong>DEMO PREVIEW:</strong> Interactive concept demo based on your feedback. The main live site remains 100% active and untouched.</span>
+  <div class="w-full max-w-[430px] my-3 bg-emerald-50 border border-emerald-300 rounded-2xl p-3 shadow-sm text-center text-xs text-emerald-900 font-bold flex items-center justify-center gap-2">
+    <span>🌿</span>
+    <span><strong>DEMO PREVIEW:</strong> Brand Green Theme • 1/2/5 Box Selector • Live Video</span>
   </div>
 
   <!-- Mobile Screen Container -->
-  <div class="w-full max-w-[430px] bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl border border-gray-200 overflow-hidden relative mb-10">
+  <div class="w-full max-w-[430px] bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl border border-secondary/20 overflow-hidden relative mb-10">
 
-    <!-- Top Announcement Bar (5+ Boxes Free Delivery, Clean English) -->
-    <div class="bg-[#301c10] text-[#f7eedd] text-center text-[11px] sm:text-xs font-black tracking-wider uppercase py-2.5 px-4 flex items-center justify-center gap-1.5">
+    <!-- Top Announcement Bar (Brand Green) -->
+    <div class="bg-[#4A6741] text-white text-center text-[11px] sm:text-xs font-black tracking-wider uppercase py-2.5 px-4 flex items-center justify-center gap-2 shadow-sm">
       <span>🚚</span>
-      <span>FREE DELIVERY ON 5+ BOXES!</span>
+      <span>FREE DELIVERY ON 5+ BOXES! (DHAKA CITY)</span>
     </div>
 
-    <!-- Header / Navbar -->
-    <header class="px-5 py-3.5 flex items-center justify-between border-b border-[#ebdcc9]/50 bg-white sticky top-0 z-30">
-      <button class="p-1 text-[#301c10] hover:opacity-75 transition-opacity" aria-label="Menu">
+    <!-- Header / Navbar (Full Brand Name) -->
+    <header class="px-5 py-3.5 flex items-center justify-between border-b border-[#4A6741]/10 bg-white sticky top-0 z-30">
+      <button class="p-1 text-[#4A6741] hover:opacity-75 transition-opacity" aria-label="Menu">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
 
+      <!-- Full Brand Name as requested -->
       <div class="text-center">
-        <span class="text-xl font-black tracking-tight text-[#301c10]">Coconut<span class="text-[#849a66]">Treats</span></span>
+        <span class="text-lg sm:text-xl font-black tracking-tight text-[#4A6741]">
+          Coconut <span class="text-[#8DA47E]">Treats &amp; More</span>
+        </span>
       </div>
 
-      <div class="flex items-center gap-3 text-[#301c10]">
+      <div class="flex items-center gap-3 text-[#4A6741]">
         <button class="p-1 hover:opacity-75 transition-opacity" aria-label="Search">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </button>
         <button class="p-1 relative hover:opacity-75 transition-opacity" aria-label="Cart">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-          <span class="absolute -top-1 -right-1 bg-[#ff5e7e] text-white text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center">১</span>
+          <span id="headerCartCount" class="absolute -top-1 -right-1 bg-[#4A6741] text-white text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center">2</span>
         </button>
       </div>
     </header>
@@ -64,10 +67,10 @@
       <div class="grid grid-cols-12 gap-3 items-stretch">
         
         <!-- Left Product Video Card (~72% width) -->
-        <div class="col-span-8 bg-[#f5ede0] rounded-3xl p-3 relative flex flex-col justify-between overflow-hidden border border-[#ebdcc9]">
+        <div class="col-span-8 bg-[#F4F7F2] rounded-3xl p-3 relative flex flex-col justify-between overflow-hidden border border-[#4A6741]/20 shadow-sm">
           <!-- Best Seller Badge -->
           <div class="absolute top-3 left-3 z-20">
-            <span class="bg-[#ff5e7e] text-white text-[11px] font-black px-3 py-1 rounded-full shadow-md tracking-wide uppercase">
+            <span class="bg-[#4A6741] text-white text-[11px] font-black px-3 py-1 rounded-full shadow-md tracking-wide uppercase">
               Best Seller
             </span>
           </div>
@@ -80,7 +83,7 @@
               muted 
               playsinline
               preload="metadata"
-              class="w-full h-full object-cover rounded-2xl"
+              class="w-full h-full object-cover rounded-2xl cursor-pointer"
               onclick="if(this.paused){this.play()}else{this.pause()}"
             >
               <source src="/hero-video.mp4" type="video/mp4">
@@ -89,29 +92,30 @@
 
           <!-- Bottom label under video -->
           <div class="text-center pt-1">
-            <span class="text-[10px] font-extrabold text-[#7c634c] uppercase tracking-wider">6 Pieces Per Box • Fresh Made Daily</span>
+            <span class="text-[10px] font-black text-[#4A6741] uppercase tracking-wider">6 Pieces Per Box • Fresh Made Daily</span>
           </div>
         </div>
 
         <!-- Right 3 Stacked Benefit Tiles (~28% width) -->
         <div class="col-span-4 flex flex-col justify-between gap-2.5">
           <!-- Tile 1: 1st Layer -->
-          <div class="bg-[#f5ede0] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#ebdcc9] flex-1">
+          <div class="bg-[#F4F7F2] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/20 shadow-sm flex-1">
             <span class="text-2xl mb-1">🥥</span>
-            <span class="text-[9px] font-black uppercase text-[#849a66] tracking-wider leading-none">1st Layer</span>
-            <span class="text-[10px] font-extrabold leading-tight text-[#301c10] mt-1">Fresh Coconut Pudding</span>
+            <span class="text-[9px] font-black uppercase text-[#4A6741] tracking-wider leading-none">1st Layer</span>
+            <span class="text-[10px] font-extrabold leading-tight text-[#1F291E] mt-1">Fresh Coconut Pudding</span>
           </div>
+
           <!-- Tile 2: 2nd Layer Cow Milk Pudding -->
-          <div class="bg-[#f5ede0] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#ebdcc9] flex-1">
+          <div class="bg-[#F4F7F2] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/20 shadow-sm flex-1">
             <span class="text-2xl mb-1">🥛</span>
-            <span class="text-[9px] font-black uppercase text-[#849a66] tracking-wider leading-none">2nd Layer</span>
-            <span class="text-[10px] font-extrabold leading-tight text-[#301c10] mt-1">Cow Milk Pudding</span>
+            <span class="text-[9px] font-black uppercase text-[#4A6741] tracking-wider leading-none">2nd Layer</span>
+            <span class="text-[10px] font-extrabold leading-tight text-[#1F291E] mt-1">Cow Milk Pudding</span>
           </div>
-          <!-- Tile 3: 100% Halal -->
-          <div class="bg-[#f5ede0] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#ebdcc9] flex-1">
+
+          <!-- Tile 3: 100% Halal (Clean, without "100% Pure") -->
+          <div class="bg-[#F4F7F2] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/20 shadow-sm flex-1">
             <span class="text-2xl mb-1">🌿</span>
-            <span class="text-[9px] font-black uppercase text-[#849a66] tracking-wider leading-none">100% Pure</span>
-            <span class="text-[10px] font-extrabold leading-tight text-[#301c10] mt-1">100% Halal</span>
+            <span class="text-[11px] font-black leading-tight text-[#4A6741] mt-1">100% Halal</span>
           </div>
         </div>
 
@@ -119,75 +123,150 @@
 
       <!-- Social Proof / Rating -->
       <div class="flex items-center gap-2 pt-1">
-        <div class="flex text-[#ff5e7e] text-base">
+        <div class="flex text-[#8DA47E] text-base">
           ★★★★★
         </div>
-        <span class="text-xs font-black text-[#301c10]">4.9/5 Loved by 1,000+ Customers</span>
+        <span class="text-xs font-black text-[#1F291E]">4.9/5 Loved by 1,000+ Customers</span>
       </div>
 
-      <!-- Product Title (Clean, No Bengali Text) -->
+      <!-- Product Title -->
       <div>
-        <h1 class="text-2xl sm:text-3xl font-black text-[#261a12] tracking-tight leading-tight">
+        <h1 class="text-2xl sm:text-3xl font-black text-[#1F291E] tracking-tight leading-tight">
           Premium Coconut Pudding
         </h1>
       </div>
 
-      <!-- Feature Pill Tags -->
+      <!-- Feature Pill Tags & Shelf Life -->
       <div class="flex flex-wrap gap-2">
-        <span class="inline-flex items-center gap-1.5 bg-[#f5ede0] text-[#301c10] border border-[#ff5e7e]/30 px-3 py-1.5 rounded-full text-xs font-black">
+        <span class="inline-flex items-center gap-1.5 bg-[#F4F7F2] text-[#4A6741] border border-[#4A6741]/25 px-3 py-1.5 rounded-full text-xs font-black">
           <span>⚡</span>
           <span>Mild Sugar Added</span>
         </span>
-        <span class="inline-flex items-center gap-1.5 bg-[#f5ede0] text-[#301c10] border border-[#ff5e7e]/30 px-3 py-1.5 rounded-full text-xs font-black">
+        <!-- Updated: 4-5 Days Shelf Life -->
+        <span class="inline-flex items-center gap-1.5 bg-[#F4F7F2] text-[#4A6741] border border-[#4A6741]/25 px-3 py-1.5 rounded-full text-xs font-black">
           <span>❄️</span>
-          <span>5 Days Shelf Life</span>
+          <span>4-5 Days Shelf Life</span>
         </span>
       </div>
 
-      <!-- Pricing Section with Discount Tag -->
-      <div class="flex items-center gap-3 pt-1">
-        <span class="text-3xl font-black text-[#261a12]">৳700</span>
-        <span class="text-lg font-bold text-[#9e8b7c] line-through">৳750</span>
-        <span class="bg-[#ff5e7e] text-white text-[11px] font-black px-2.5 py-1 rounded-md uppercase tracking-wider">
-          SAVE ৳100 ON 2
-        </span>
+      <!-- Storage Tip Note Box (As requested) -->
+      <div class="bg-emerald-50/80 border border-[#4A6741]/25 rounded-2xl p-3 flex items-start gap-2.5">
+        <span class="text-base flex-shrink-0 mt-0.5">💡</span>
+        <p class="text-xs text-[#2B4025] font-bold leading-relaxed">
+          <strong>Storage Tip:</strong> বক্স থেকে খুলে কাপগুলো নরমাল ফ্রিজে রাখুন, এতে পুডিং দীর্ঘক্ষণ তাজা ও সুস্বাদু থাকবে। (Keep cups unboxed in normal fridge to maintain peak freshness).
+        </p>
+      </div>
+
+      <!-- Interactive Package Bundle Selector (1 Box / 2 Boxes / 5 Boxes) -->
+      <div class="space-y-3 pt-1">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-black uppercase tracking-wider text-[#4A6741]">Select Package:</span>
+          <span id="deliveryLabel" class="text-xs font-extrabold text-[#4A6741] bg-[#F4F7F2] px-2.5 py-1 rounded-full border border-[#4A6741]/20">
+            🚚 Delivery: ৳100
+          </span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2.5">
+          <!-- Package 1: 1 Box -->
+          <div 
+            id="pkg1" 
+            onclick="selectPackage(1)"
+            class="package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-white border-gray-200 hover:border-[#4A6741]/50"
+          >
+            <span class="text-xs font-black text-gray-500 uppercase">1 Box</span>
+            <div class="my-1.5">
+              <span class="text-lg font-black text-[#1F291E]">৳750</span>
+            </div>
+            <span class="text-[10px] font-bold text-gray-400">+৳100 Deliv.</span>
+          </div>
+
+          <!-- Package 2: 2 Boxes (Selected / 1500 crossed out, 1400 bold) -->
+          <div 
+            id="pkg2" 
+            onclick="selectPackage(2)"
+            class="package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-emerald-50/70 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20"
+          >
+            <span class="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#4A6741] text-white text-[9px] font-black px-2 py-0.5 rounded-full whitespace-nowrap shadow-sm">
+              SAVE ৳100
+            </span>
+            <span class="text-xs font-black text-[#4A6741] uppercase">2 Boxes</span>
+            <div class="my-1">
+              <span class="text-xs font-bold text-gray-400 line-through block">৳1500</span>
+              <span class="text-xl font-black text-[#4A6741]">৳1400</span>
+            </div>
+            <span class="text-[10px] font-bold text-gray-500">+৳100 Deliv.</span>
+          </div>
+
+          <!-- Package 3: 5 Boxes (FREE DELIVERY + Mega Discount) -->
+          <div 
+            id="pkg5" 
+            onclick="selectPackage(5)"
+            class="package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-white border-gray-200 hover:border-[#4A6741]/50"
+          >
+            <span class="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#8DA47E] text-white text-[9px] font-black px-2 py-0.5 rounded-full whitespace-nowrap shadow-sm">
+              FREE DELIV.
+            </span>
+            <span class="text-xs font-black text-[#4A6741] uppercase">5 Boxes</span>
+            <div class="my-1">
+              <span class="text-xs font-bold text-gray-400 line-through block">৳3750</span>
+              <span class="text-lg font-black text-[#4A6741]">৳3400</span>
+            </div>
+            <span class="text-[10px] font-black text-emerald-700 bg-emerald-100 rounded px-1">FREE Deliv.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Big Pricing Display Area -->
+      <div class="bg-[#F4F7F2] p-4 rounded-2xl border border-[#4A6741]/20 flex items-center justify-between">
+        <div>
+          <span id="priceDisplay" class="text-3xl font-black text-[#4A6741]">৳1400</span>
+          <span id="oldPriceDisplay" class="text-lg font-bold text-gray-400 line-through ml-2">৳1500</span>
+          <div id="subtextDisplay" class="text-xs font-black text-emerald-700 mt-0.5">
+            🎉 Instant Discount: ৳100 Saved!
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-[10px] uppercase font-bold text-gray-500 block">Delivery Charge</span>
+          <span id="delivDisplay" class="text-sm font-black text-[#4A6741]">৳100</span>
+        </div>
       </div>
 
       <!-- 2x2 Value Checklist Badges -->
       <div class="grid grid-cols-2 gap-2.5">
-        <div class="bg-[#f5ede0] rounded-xl px-3 py-2 flex items-center gap-2 border border-[#ebdcc9]">
-          <span class="w-4 h-4 rounded-full bg-[#4a3525] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
-          <span class="text-xs font-bold text-[#301c10]">100% Natural</span>
+        <div class="bg-[#F4F7F2] rounded-xl px-3 py-2 flex items-center gap-2 border border-[#4A6741]/15">
+          <span class="w-4 h-4 rounded-full bg-[#4A6741] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
+          <span class="text-xs font-bold text-[#1F291E]">100% Natural</span>
         </div>
-        <div class="bg-[#f5ede0] rounded-xl px-3 py-2 flex items-center gap-2 border border-[#ebdcc9]">
-          <span class="w-4 h-4 rounded-full bg-[#4a3525] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
-          <span class="text-xs font-bold text-[#301c10]">No Preservatives</span>
+        <div class="bg-[#F4F7F2] rounded-xl px-3 py-2 flex items-center gap-2 border border-[#4A6741]/15">
+          <span class="w-4 h-4 rounded-full bg-[#4A6741] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
+          <span class="text-xs font-bold text-[#1F291E]">No Preservatives</span>
         </div>
-        <div class="bg-[#f5ede0] rounded-xl px-3 py-2 flex items-center gap-2 border border-[#ebdcc9]">
-          <span class="w-4 h-4 rounded-full bg-[#4a3525] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
-          <span class="text-xs font-bold text-[#301c10]">Fresh Cow Milk</span>
+        <div class="bg-[#F4F7F2] rounded-xl px-3 py-2 flex items-center gap-2 border border-[#4A6741]/15">
+          <span class="w-4 h-4 rounded-full bg-[#4A6741] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
+          <span class="text-xs font-bold text-[#1F291E]">Cow Milk Pudding</span>
         </div>
-        <div class="bg-[#f5ede0] rounded-xl px-3 py-2 flex items-center gap-2 border border-[#ebdcc9]">
-          <span class="w-4 h-4 rounded-full bg-[#4a3525] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
-          <span class="text-xs font-bold text-[#301c10]">6 Pieces Per Box</span>
+        <div class="bg-[#F4F7F2] rounded-xl px-3 py-2 flex items-center gap-2 border border-[#4A6741]/15">
+          <span class="w-4 h-4 rounded-full bg-[#4A6741] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
+          <span class="text-xs font-bold text-[#1F291E]">6 Pieces Per Box</span>
         </div>
       </div>
 
       <!-- Big Bold Call to Action Button -->
       <div class="pt-2">
         <a 
+          id="ctaBtn"
           href="/#order"
-          class="w-full bg-[#301c10] hover:bg-[#452b1b] active:scale-[0.98] text-white font-black text-base py-4 px-6 rounded-2xl shadow-xl flex items-center justify-center gap-2 transition-all cursor-pointer text-center no-underline"
+          class="w-full bg-[#4A6741] hover:bg-[#364E2F] active:scale-[0.98] text-white font-black text-base py-4 px-6 rounded-2xl shadow-xl shadow-[#4A6741]/25 flex items-center justify-center gap-2 transition-all cursor-pointer text-center no-underline"
         >
-          <span>ORDER NOW • ৳700</span>
+          <span id="ctaBtnText">ORDER NOW • ৳1400 (+৳100 Delivery)</span>
         </a>
       </div>
 
       <!-- Incentive / Unlocked Gift Ribbon -->
-      <div class="bg-[#fbf7f0] border-2 border-dashed border-[#bda68f] rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-center">
+      <div id="ribbonBanner" class="bg-emerald-50 border-2 border-dashed border-[#8DA47E] rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-center">
         <span class="text-base">🎁</span>
-        <span class="text-[11px] font-black text-[#523d2b] uppercase tracking-wide">
-          CONGRATULATIONS, YOU UNLOCKED <span class="bg-[#301c10] text-white px-1.5 py-0.5 rounded text-[10px]">৳100 DISCOUNT</span> WITH 2 BOXES
+        <span id="ribbonText" class="text-[11px] font-black text-[#2B4025] uppercase tracking-wide">
+          CONGRATULATIONS, YOU UNLOCKED <span class="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">৳100 DISCOUNT</span> WITH 2 BOXES
         </span>
       </div>
 
@@ -195,12 +274,74 @@
 
     <!-- Bottom Return Link -->
     <div class="bg-white border-t border-gray-100 p-4 text-center">
-      <a href="/" class="text-xs font-bold text-[#849a66] hover:underline">
+      <a href="/" class="text-xs font-bold text-[#4A6741] hover:underline">
         ← Return to Main Website
       </a>
     </div>
 
   </div>
+
+  <!-- Interactive Package Selection Script -->
+  <script>
+    let selectedPkg = 2; // Default: 2 Boxes
+
+    function selectPackage(qty) {
+      selectedPkg = qty;
+      const pkg1 = document.getElementById('pkg1');
+      const pkg2 = document.getElementById('pkg2');
+      const pkg5 = document.getElementById('pkg5');
+      const priceDisplay = document.getElementById('priceDisplay');
+      const oldPriceDisplay = document.getElementById('oldPriceDisplay');
+      const subtextDisplay = document.getElementById('subtextDisplay');
+      const delivDisplay = document.getElementById('delivDisplay');
+      const deliveryLabel = document.getElementById('deliveryLabel');
+      const ctaBtnText = document.getElementById('ctaBtnText');
+      const ribbonText = document.getElementById('ribbonText');
+      const headerCartCount = document.getElementById('headerCartCount');
+
+      // Reset all cards styling
+      [pkg1, pkg2, pkg5].forEach(el => {
+        el.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-white border-gray-200 hover:border-[#4A6741]/50';
+      });
+
+      headerCartCount.innerText = qty;
+
+      if (qty === 1) {
+        pkg1.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-emerald-50/70 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20';
+        priceDisplay.innerText = '৳750';
+        oldPriceDisplay.innerText = '';
+        subtextDisplay.innerText = 'Regular Single Box Price';
+        subtextDisplay.className = 'text-xs font-bold text-gray-500 mt-0.5';
+        delivDisplay.innerText = '৳100';
+        deliveryLabel.innerText = '🚚 Delivery: ৳100';
+        deliveryLabel.className = 'text-xs font-extrabold text-[#4A6741] bg-[#F4F7F2] px-2.5 py-1 rounded-full border border-[#4A6741]/20';
+        ctaBtnText.innerText = 'ORDER NOW • ৳750 (+৳100 Delivery)';
+        ribbonText.innerHTML = 'ORDER 2 BOXES TO UNLOCK <span class="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">৳100 DISCOUNT</span>';
+      } else if (qty === 2) {
+        pkg2.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-emerald-50/70 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20';
+        priceDisplay.innerText = '৳1400';
+        oldPriceDisplay.innerText = '৳1500';
+        subtextDisplay.innerText = '🎉 Instant Discount: ৳100 Saved!';
+        subtextDisplay.className = 'text-xs font-black text-emerald-700 mt-0.5';
+        delivDisplay.innerText = '৳100';
+        deliveryLabel.innerText = '🚚 Delivery: ৳100';
+        deliveryLabel.className = 'text-xs font-extrabold text-[#4A6741] bg-[#F4F7F2] px-2.5 py-1 rounded-full border border-[#4A6741]/20';
+        ctaBtnText.innerText = 'ORDER NOW • ৳1400 (+৳100 Delivery)';
+        ribbonText.innerHTML = 'CONGRATULATIONS, YOU UNLOCKED <span class="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">৳100 DISCOUNT</span> WITH 2 BOXES';
+      } else if (qty === 5) {
+        pkg5.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-emerald-50/70 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20';
+        priceDisplay.innerText = '৳3400';
+        oldPriceDisplay.innerText = '৳3750';
+        subtextDisplay.innerText = '🌟 MEGA SAVER: ৳350 Discount + FREE DELIVERY!';
+        subtextDisplay.className = 'text-xs font-black text-emerald-700 mt-0.5';
+        delivDisplay.innerText = 'FREE (৳0)';
+        deliveryLabel.innerText = '🎉 FREE DELIVERY!';
+        deliveryLabel.className = 'text-xs font-black text-white bg-[#4A6741] px-2.5 py-1 rounded-full shadow-sm';
+        ctaBtnText.innerText = 'ORDER NOW • ৳3400 (FREE DELIVERY 🚚)';
+        ribbonText.innerHTML = '🎉 MEGA COMBO: YOU UNLOCKED <span class="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">FREE DELIVERY</span> + ৳350 OFF!';
+      }
+    }
+  </script>
 
 </body>
 </html>
