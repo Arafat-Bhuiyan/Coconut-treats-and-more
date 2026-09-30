@@ -157,44 +157,57 @@
         </p>
       </div>
 
-      <!-- Interactive Package Bundle Selector (1 Box / 2 Boxes / 5 Boxes) -->
+      <!-- Interactive Package Bundle Selector (Shopify Custom Deal Style) -->
       <div class="space-y-3 pt-1">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-black uppercase tracking-wider text-[#4A6741]">Select Package:</span>
+          <span class="text-xs font-black uppercase tracking-wider text-[#4A6741] flex items-center gap-1.5">
+            <span>🏷️</span> SELECT BUNDLE &amp; SAVE:
+          </span>
           <span id="deliveryLabel" class="text-xs font-extrabold text-[#4A6741] bg-[#F4F7F2] px-2.5 py-1 rounded-full border border-[#4A6741]/20">
             🚚 Delivery: ৳100
           </span>
         </div>
 
-        <div class="grid grid-cols-3 gap-2.5">
+        <!-- 3 Segmented Package Cards -->
+        <div class="grid grid-cols-3 gap-2.5 pt-1">
           <!-- Package 1: 1 Box -->
           <div 
             id="pkg1" 
             onclick="selectPackage(1)"
-            class="package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-white border-gray-200 hover:border-[#4A6741]/50"
+            class="package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-white border-gray-200 hover:border-[#4A6741]/50 relative"
           >
-            <span class="text-xs font-black text-gray-500 uppercase">1 Box</span>
-            <div class="my-1.5">
+            <div class="flex items-center justify-center mb-1">
+              <span id="radio1" class="w-3.5 h-3.5 rounded-full border-2 border-gray-300 flex items-center justify-center"></span>
+            </div>
+            <span class="text-xs font-black text-gray-500 uppercase block">1 Box</span>
+            <span class="text-[10px] text-gray-400 font-medium block">6 Cups</span>
+            <div class="my-1">
               <span class="text-lg font-black text-[#1F291E]">৳750</span>
             </div>
-            <span class="text-[10px] font-bold text-gray-400">+৳100 Deliv.</span>
+            <span class="text-[10px] font-bold text-gray-400 block">+৳100 Deliv.</span>
           </div>
 
-          <!-- Package 2: 2 Boxes (Selected / 1500 crossed out, 1400 bold) -->
+          <!-- Package 2: 2 Boxes (Selected Default) -->
           <div 
             id="pkg2" 
             onclick="selectPackage(2)"
             class="package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-emerald-50/70 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20"
           >
-            <span class="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#4A6741] text-white text-[9px] font-black px-2 py-0.5 rounded-full whitespace-nowrap shadow-sm">
+            <span class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-[#4A6741] text-white text-[9px] font-black px-2 py-0.5 rounded-full whitespace-nowrap shadow-sm">
               SAVE ৳100
             </span>
-            <span class="text-xs font-black text-[#4A6741] uppercase">2 Boxes</span>
-            <div class="my-1">
-              <span class="text-xs font-bold text-gray-400 line-through block">৳1500</span>
-              <span class="text-xl font-black text-[#4A6741]">৳1400</span>
+            <div class="flex items-center justify-center mb-1 mt-0.5">
+              <span id="radio2" class="w-3.5 h-3.5 rounded-full border-2 border-[#4A6741] bg-[#4A6741] flex items-center justify-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+              </span>
             </div>
-            <span class="text-[10px] font-bold text-gray-500">+৳100 Deliv.</span>
+            <span class="text-xs font-black text-[#4A6741] uppercase block">2 Boxes</span>
+            <span class="text-[10px] text-[#4A6741] font-semibold block">12 Cups</span>
+            <div class="my-0.5">
+              <span class="text-xs font-bold text-gray-400 line-through block leading-none">৳1500</span>
+              <span class="text-xl font-black text-[#4A6741] leading-tight">৳1400</span>
+            </div>
+            <span class="text-[10px] font-bold text-emerald-800 block">+৳100 Deliv.</span>
           </div>
 
           <!-- Package 3: 5 Boxes (FREE DELIVERY + Mega Discount) -->
@@ -203,63 +216,139 @@
             onclick="selectPackage(5)"
             class="package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-white border-gray-200 hover:border-[#4A6741]/50"
           >
-            <span class="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#8DA47E] text-white text-[9px] font-black px-2 py-0.5 rounded-full whitespace-nowrap shadow-sm">
+            <span class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-[#8DA47E] text-[#1F291E] text-[9px] font-black px-2 py-0.5 rounded-full whitespace-nowrap shadow-sm">
               FREE DELIV.
             </span>
-            <span class="text-xs font-black text-[#4A6741] uppercase">5 Boxes</span>
-            <div class="my-1">
-              <span class="text-xs font-bold text-gray-400 line-through block">৳3750</span>
-              <span class="text-lg font-black text-[#4A6741]">৳3400</span>
+            <div class="flex items-center justify-center mb-1 mt-0.5">
+              <span id="radio5" class="w-3.5 h-3.5 rounded-full border-2 border-gray-300 flex items-center justify-center"></span>
             </div>
-            <span class="text-[10px] font-black text-emerald-700 bg-emerald-100 rounded px-1">FREE Deliv.</span>
+            <span class="text-xs font-black text-[#4A6741] uppercase block">5 Boxes</span>
+            <span class="text-[10px] text-gray-400 font-medium block">30 Cups</span>
+            <div class="my-0.5">
+              <span class="text-xs font-bold text-gray-400 line-through block leading-none">৳3750</span>
+              <span class="text-lg font-black text-[#4A6741] leading-tight">৳3400</span>
+            </div>
+            <span class="text-[10px] font-black text-emerald-700 bg-emerald-100 rounded px-1 inline-block">FREE Deliv.</span>
           </div>
         </div>
       </div>
 
-      <!-- Big Pricing Display Area -->
-      <div class="bg-[#F4F7F2] p-4 rounded-2xl border border-[#4A6741]/20 flex items-center justify-between">
+      <!-- Shopify Custom Deal: Unified Order Summary & Free Shipping Meter -->
+      <div class="bg-[#F4F7F2] p-4 rounded-2xl border border-[#4A6741]/20 shadow-sm space-y-3">
+        <!-- Free Shipping Meter -->
         <div>
-          <span id="priceDisplay" class="text-3xl font-black text-[#4A6741]">৳1400</span>
-          <span id="oldPriceDisplay" class="text-lg font-bold text-gray-400 line-through ml-2">৳1500</span>
-          <div id="subtextDisplay" class="text-xs font-black text-emerald-700 mt-0.5">
-            🎉 Instant Discount: ৳100 Saved!
+          <div class="flex items-center justify-between text-xs font-bold text-[#1F291E] mb-1.5">
+            <span id="shippingProgressText" class="flex items-center gap-1.5">
+              <span>🚚</span> Add 3 more boxes for <strong>FREE Delivery</strong>
+            </span>
+            <span id="shippingProgressPercent" class="text-[11px] font-black text-[#4A6741]">40%</span>
+          </div>
+          <div class="w-full h-2.5 bg-gray-200 rounded-full overflow-hidden">
+            <div id="shippingProgressBar" class="h-full bg-gradient-to-r from-[#8DA47E] to-[#4A6741] rounded-full transition-all duration-300" style="width: 40%"></div>
           </div>
         </div>
-        <div class="text-right">
-          <span class="text-[10px] uppercase font-bold text-gray-500 block">Delivery Charge</span>
-          <span id="delivDisplay" class="text-sm font-black text-[#4A6741]">৳100</span>
+
+        <!-- Breakdown Lines -->
+        <div class="space-y-1.5 pt-2 border-t border-dashed border-[#4A6741]/20 text-xs">
+          <div class="flex justify-between items-center text-gray-700">
+            <span>Selected Package (<span id="summaryBoxCount" class="font-bold text-[#1F291E]">2 Boxes</span>):</span>
+            <div class="font-extrabold text-[#1F291E]">
+              <span id="summaryOldPrice" class="line-through text-gray-400 text-[11px] mr-1">৳1,500</span>
+              <span id="summaryPrice" class="text-sm font-black text-[#4A6741]">৳1,400</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center text-gray-700">
+            <span class="flex items-center gap-1">
+              <span>Delivery Charge (Dhaka City):</span>
+            </span>
+            <span id="summaryDelivery" class="font-black text-[#4A6741]">৳100</span>
+          </div>
+          <div id="savingsRow" class="flex justify-between items-center text-emerald-800 bg-emerald-100/80 px-2.5 py-1 rounded-lg font-black text-[11px]">
+            <span>🎉 Bundle Discount Unlocked:</span>
+            <span id="summarySavings">-৳100 Saved</span>
+          </div>
+          <div class="flex justify-between items-baseline pt-2 border-t border-[#4A6741]/20">
+            <span class="text-sm font-black text-[#1F291E]">Total Payable:</span>
+            <div class="text-right">
+              <span id="summaryTotal" class="text-2xl font-black text-[#4A6741]">৳1,500</span>
+              <span class="text-[10px] text-gray-500 font-bold block">Cash on Delivery</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- 2x2 Value Checklist Badges -->
+      <!-- 2x2 Value Checklist Badges (Updated per red circle instructions) -->
       <div class="grid grid-cols-2 gap-2.5">
-        <div class="bg-[#F4F7F2] rounded-xl px-3 py-2 flex items-center gap-2 border border-[#4A6741]/15">
+        <div class="bg-[#F4F7F2] rounded-xl px-3 py-2.5 flex items-center gap-2 border border-[#4A6741]/15 shadow-sm">
           <span class="w-4 h-4 rounded-full bg-[#4A6741] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
           <span class="text-xs font-bold text-[#1F291E]">100% Natural</span>
         </div>
-        <div class="bg-[#F4F7F2] rounded-xl px-3 py-2 flex items-center gap-2 border border-[#4A6741]/15">
+        <div class="bg-[#F4F7F2] rounded-xl px-3 py-2.5 flex items-center gap-2 border border-[#4A6741]/15 shadow-sm">
           <span class="w-4 h-4 rounded-full bg-[#4A6741] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
           <span class="text-xs font-bold text-[#1F291E]">No Preservatives</span>
         </div>
-        <div class="bg-[#F4F7F2] rounded-xl px-3 py-2 flex items-center gap-2 border border-[#4A6741]/15">
+        <div class="bg-[#F4F7F2] rounded-xl px-3 py-2.5 flex items-center gap-2 border border-[#4A6741]/15 shadow-sm">
           <span class="w-4 h-4 rounded-full bg-[#4A6741] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
-          <span class="text-xs font-bold text-[#1F291E]">Cow Milk Pudding</span>
+          <span class="text-xs font-bold text-[#1F291E]">100% Halal</span>
         </div>
-        <div class="bg-[#F4F7F2] rounded-xl px-3 py-2 flex items-center gap-2 border border-[#4A6741]/15">
+        <div class="bg-[#F4F7F2] rounded-xl px-3 py-2.5 flex items-center gap-2 border border-[#4A6741]/15 shadow-sm">
           <span class="w-4 h-4 rounded-full bg-[#4A6741] text-white flex items-center justify-center text-[10px] font-bold">✓</span>
-          <span class="text-xs font-bold text-[#1F291E]">6 Pieces Per Box</span>
+          <span class="text-xs font-bold text-[#1F291E]">Fresh Made Daily</span>
         </div>
       </div>
 
-      <!-- Big Bold Call to Action Button -->
-      <div class="pt-2">
+      <!-- High-Converting Shopify-Style Call to Action Button -->
+      <div class="pt-1">
         <a 
           id="ctaBtn"
           href="/#order"
-          class="w-full bg-[#4A6741] hover:bg-[#364E2F] active:scale-[0.98] text-white font-black text-base py-4 px-6 rounded-2xl shadow-xl shadow-[#4A6741]/25 flex items-center justify-center gap-2 transition-all cursor-pointer text-center no-underline"
+          class="w-full relative group overflow-hidden bg-gradient-to-r from-[#4A6741] via-[#3E5837] to-[#31462A] hover:brightness-110 active:scale-[0.98] text-white p-4 rounded-2xl shadow-xl shadow-[#4A6741]/30 flex items-center justify-between transition-all cursor-pointer no-underline"
         >
-          <span id="ctaBtnText">ORDER NOW • ৳1400 (+৳100 Delivery)</span>
+          <!-- Shiny light reflection sweep -->
+          <span class="absolute inset-0 w-1/2 h-full bg-white/10 skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out"></span>
+
+          <div class="flex items-center gap-3 relative z-10">
+            <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+              </svg>
+            </div>
+            <div class="text-left">
+              <span class="block text-base sm:text-lg font-black tracking-wide leading-tight uppercase">ORDER NOW</span>
+              <span class="block text-[11px] font-semibold text-emerald-100/90">Cash on Delivery • Click to Order</span>
+            </div>
+          </div>
+
+          <div class="text-right flex items-center gap-2 relative z-10">
+            <div>
+              <span id="btnPrice" class="text-lg sm:text-xl font-black block leading-tight">৳1,500</span>
+              <span id="btnSub" class="text-[10px] text-emerald-100 font-bold block">Total Incl. Deliv</span>
+            </div>
+            <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+              </svg>
+            </div>
+          </div>
         </a>
+
+        <!-- Security & Guarantee Row -->
+        <div class="flex items-center justify-center gap-3 text-[11px] font-bold text-gray-500 pt-2.5">
+          <span class="flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-[#4A6741]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clip-rule="evenodd"/></svg>
+            Cash on Delivery
+          </span>
+          <span>•</span>
+          <span class="flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-[#4A6741]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            Fresh Daily Batch
+          </span>
+          <span>•</span>
+          <span class="flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-[#4A6741]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+            Dhaka 24h Delivery
+          </span>
+        </div>
       </div>
 
       <!-- Incentive / Unlocked Gift Ribbon -->
@@ -290,54 +379,111 @@
       const pkg1 = document.getElementById('pkg1');
       const pkg2 = document.getElementById('pkg2');
       const pkg5 = document.getElementById('pkg5');
-      const priceDisplay = document.getElementById('priceDisplay');
-      const oldPriceDisplay = document.getElementById('oldPriceDisplay');
-      const subtextDisplay = document.getElementById('subtextDisplay');
-      const delivDisplay = document.getElementById('delivDisplay');
+      const radio1 = document.getElementById('radio1');
+      const radio2 = document.getElementById('radio2');
+      const radio5 = document.getElementById('radio5');
+
       const deliveryLabel = document.getElementById('deliveryLabel');
-      const ctaBtnText = document.getElementById('ctaBtnText');
+      const shippingProgressText = document.getElementById('shippingProgressText');
+      const shippingProgressPercent = document.getElementById('shippingProgressPercent');
+      const shippingProgressBar = document.getElementById('shippingProgressBar');
+
+      const summaryBoxCount = document.getElementById('summaryBoxCount');
+      const summaryOldPrice = document.getElementById('summaryOldPrice');
+      const summaryPrice = document.getElementById('summaryPrice');
+      const summaryDelivery = document.getElementById('summaryDelivery');
+      const savingsRow = document.getElementById('savingsRow');
+      const summarySavings = document.getElementById('summarySavings');
+      const summaryTotal = document.getElementById('summaryTotal');
+
+      const btnPrice = document.getElementById('btnPrice');
+      const btnSub = document.getElementById('btnSub');
       const ribbonText = document.getElementById('ribbonText');
       const headerCartCount = document.getElementById('headerCartCount');
 
-      // Reset all cards styling
+      // Reset cards styling
       [pkg1, pkg2, pkg5].forEach(el => {
-        el.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-white border-gray-200 hover:border-[#4A6741]/50';
+        el.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-white border-gray-200 hover:border-[#4A6741]/50 relative';
+      });
+
+      // Reset radios
+      [radio1, radio2, radio5].forEach(el => {
+        el.className = 'w-3.5 h-3.5 rounded-full border-2 border-gray-300 flex items-center justify-center';
+        el.innerHTML = '';
       });
 
       headerCartCount.innerText = qty;
 
       if (qty === 1) {
-        pkg1.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-emerald-50/70 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20';
-        priceDisplay.innerText = '৳750';
-        oldPriceDisplay.innerText = '';
-        subtextDisplay.innerText = 'Regular Single Box Price';
-        subtextDisplay.className = 'text-xs font-bold text-gray-500 mt-0.5';
-        delivDisplay.innerText = '৳100';
+        pkg1.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between bg-emerald-50/70 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20 relative';
+        radio1.className = 'w-3.5 h-3.5 rounded-full border-2 border-[#4A6741] bg-[#4A6741] flex items-center justify-center';
+        radio1.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-white"></span>';
+
         deliveryLabel.innerText = '🚚 Delivery: ৳100';
         deliveryLabel.className = 'text-xs font-extrabold text-[#4A6741] bg-[#F4F7F2] px-2.5 py-1 rounded-full border border-[#4A6741]/20';
-        ctaBtnText.innerText = 'ORDER NOW • ৳750 (+৳100 Delivery)';
+
+        shippingProgressText.innerHTML = '<span>🚚</span> Add 4 more boxes for <strong>FREE Delivery</strong>';
+        shippingProgressPercent.innerText = '20%';
+        shippingProgressBar.style.width = '20%';
+
+        summaryBoxCount.innerText = '1 Box (6 Cups)';
+        summaryOldPrice.innerText = '';
+        summaryPrice.innerText = '৳750';
+        summaryDelivery.innerText = '৳100';
+        summaryDelivery.className = 'font-black text-[#4A6741]';
+        savingsRow.classList.add('hidden');
+        summaryTotal.innerText = '৳850';
+
+        btnPrice.innerText = '৳850';
+        btnSub.innerText = 'Total Incl. Deliv';
         ribbonText.innerHTML = 'ORDER 2 BOXES TO UNLOCK <span class="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">৳100 DISCOUNT</span>';
       } else if (qty === 2) {
         pkg2.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-emerald-50/70 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20';
-        priceDisplay.innerText = '৳1400';
-        oldPriceDisplay.innerText = '৳1500';
-        subtextDisplay.innerText = '🎉 Instant Discount: ৳100 Saved!';
-        subtextDisplay.className = 'text-xs font-black text-emerald-700 mt-0.5';
-        delivDisplay.innerText = '৳100';
+        radio2.className = 'w-3.5 h-3.5 rounded-full border-2 border-[#4A6741] bg-[#4A6741] flex items-center justify-center';
+        radio2.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-white"></span>';
+
         deliveryLabel.innerText = '🚚 Delivery: ৳100';
         deliveryLabel.className = 'text-xs font-extrabold text-[#4A6741] bg-[#F4F7F2] px-2.5 py-1 rounded-full border border-[#4A6741]/20';
-        ctaBtnText.innerText = 'ORDER NOW • ৳1400 (+৳100 Delivery)';
+
+        shippingProgressText.innerHTML = '<span>🚚</span> Add 3 more boxes for <strong>FREE Delivery</strong>';
+        shippingProgressPercent.innerText = '40%';
+        shippingProgressBar.style.width = '40%';
+
+        summaryBoxCount.innerText = '2 Boxes (12 Cups)';
+        summaryOldPrice.innerText = '৳1,500';
+        summaryPrice.innerText = '৳1,400';
+        summaryDelivery.innerText = '৳100';
+        summaryDelivery.className = 'font-black text-[#4A6741]';
+        savingsRow.classList.remove('hidden');
+        summarySavings.innerText = '-৳100 Saved';
+        summaryTotal.innerText = '৳1,500';
+
+        btnPrice.innerText = '৳1,500';
+        btnSub.innerText = 'Total Incl. Deliv';
         ribbonText.innerHTML = 'CONGRATULATIONS, YOU UNLOCKED <span class="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">৳100 DISCOUNT</span> WITH 2 BOXES';
       } else if (qty === 5) {
         pkg5.className = 'package-card p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative bg-emerald-50/70 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20';
-        priceDisplay.innerText = '৳3400';
-        oldPriceDisplay.innerText = '৳3750';
-        subtextDisplay.innerText = '🌟 MEGA SAVER: ৳350 Discount + FREE DELIVERY!';
-        subtextDisplay.className = 'text-xs font-black text-emerald-700 mt-0.5';
-        delivDisplay.innerText = 'FREE (৳0)';
+        radio5.className = 'w-3.5 h-3.5 rounded-full border-2 border-[#4A6741] bg-[#4A6741] flex items-center justify-center';
+        radio5.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-white"></span>';
+
         deliveryLabel.innerText = '🎉 FREE DELIVERY!';
         deliveryLabel.className = 'text-xs font-black text-white bg-[#4A6741] px-2.5 py-1 rounded-full shadow-sm';
-        ctaBtnText.innerText = 'ORDER NOW • ৳3400 (FREE DELIVERY 🚚)';
+
+        shippingProgressText.innerHTML = '🎉 <strong>CONGRATULATIONS! FREE DELIVERY UNLOCKED!</strong>';
+        shippingProgressPercent.innerText = '100%';
+        shippingProgressBar.style.width = '100%';
+
+        summaryBoxCount.innerText = '5 Boxes (30 Cups)';
+        summaryOldPrice.innerText = '৳3,750';
+        summaryPrice.innerText = '৳3,400';
+        summaryDelivery.innerText = 'FREE (৳0)';
+        summaryDelivery.className = 'font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full';
+        savingsRow.classList.remove('hidden');
+        summarySavings.innerText = '-৳350 + FREE DELIV';
+        summaryTotal.innerText = '৳3,400';
+
+        btnPrice.innerText = '৳3,400';
+        btnSub.innerText = 'FREE DELIVERY 🚚';
         ribbonText.innerHTML = '🎉 MEGA COMBO: YOU UNLOCKED <span class="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">FREE DELIVERY</span> + ৳350 OFF!';
       }
     }
