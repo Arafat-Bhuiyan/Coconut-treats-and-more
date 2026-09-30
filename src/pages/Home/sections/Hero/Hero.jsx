@@ -280,6 +280,7 @@ const Hero = () => {
                         muted 
                         playsInline
                         preload="metadata"
+                        poster="/hero.webp"
                         className="w-full h-full object-cover rounded-2xl cursor-pointer"
                         onClick={() => {
                           if (videoRef.current) {

@@ -9,6 +9,19 @@ const Navbar = () => {
         { name: "Reviews", href: "#reviews" },
     ];
 
+    const scrollToOrder = (e) => {
+        if (e && typeof e.preventDefault === 'function') e.preventDefault();
+        setIsOpen(false);
+        const orderEl = document.getElementById('order');
+        if (orderEl) {
+            const navOffset = 80;
+            const targetY = orderEl.getBoundingClientRect().top + window.pageYOffset - navOffset;
+            window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+        } else {
+            window.location.hash = "#order";
+        }
+    };
+
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 glass-panel border-b-0 border-x-0 rounded-b-2xl">
             {/* Top Announcement Bar */}
@@ -52,10 +65,7 @@ const Navbar = () => {
                     ))}
                     <a
                         href="#order"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }}
+                        onClick={scrollToOrder}
                         style={{ touchAction: 'manipulation' }}
                         className="flex items-center gap-2 bg-accent hover:bg-accent/90 text-husk font-black py-2.5 px-6 rounded-full transition-all transform hover:scale-105 shadow-xl shadow-accent/20 cursor-pointer select-none"
                     >
@@ -68,10 +78,7 @@ const Navbar = () => {
                 <div className="flex md:hidden items-center gap-4 relative z-50">
                     <a
                         href="#order"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }}
+                        onClick={scrollToOrder}
                         style={{ touchAction: 'manipulation' }}
                         className="bg-accent p-2.5 rounded-full text-husk shadow-lg shadow-accent/20 cursor-pointer select-none active:scale-95 transition-transform"
                         aria-label="Order section"
@@ -124,11 +131,7 @@ const Navbar = () => {
                     ))}
                     <a
                         href="#order"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            setIsOpen(false);
-                            document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }}
+                        onClick={scrollToOrder}
                         style={{ touchAction: 'manipulation' }}
                         className="flex items-center justify-center gap-2 bg-primary active:bg-primary-dark text-white p-5 rounded-3xl font-black text-lg shadow-xl shadow-primary/25 mt-2 cursor-pointer select-none transition-all active:scale-[0.98]"
                     >
