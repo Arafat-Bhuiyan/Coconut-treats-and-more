@@ -2,16 +2,14 @@ import React, { useRef, useEffect, useState } from "react";
 import { 
   ShoppingBag, 
   MapPin, 
-  CheckCircle, 
   Loader2, 
   Copy, 
   Check, 
-  ShieldCheck, 
-  Lock, 
-  Truck, 
   Smartphone, 
   Banknote,
-  ChevronRight
+  ChevronRight,
+  Plus,
+  Minus
 } from "lucide-react";
 import OrderSuccessPopup from "../Order/OrderSuccessPopup";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
@@ -38,6 +36,25 @@ const Hero = () => {
     agree: true
   });
 
+  // Auto-restore saved customer info from localStorage (Auto-fill for minimal customer effort)
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("coconut_customer_info");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setFormData((prev) => ({
+          ...prev,
+          name: parsed.name || prev.name,
+          phone: parsed.phone || prev.phone,
+          address: parsed.address || prev.address,
+          email: parsed.email || prev.email,
+        }));
+      }
+    } catch {
+      // Ignore if localStorage unavailable
+    }
+  }, []);
+
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.defaultMuted = true;
@@ -57,28 +74,72 @@ const Hero = () => {
     return () => window.removeEventListener("set-order-quantity", handleSetQuantity);
   }, []);
 
-  // Pricing calculations
+  // Pricing calculations supporting 1, 2, 5, or ANY custom quantity
   const isOne = selectedPkg === 1;
   const isTwo = selectedPkg === 2;
   const isFive = selectedPkg === 5;
 
-  const unitPrice = isFive ? 680 : isTwo ? 700 : 750;
-  const totalProductPrice = isFive ? 3400 : isTwo ? 1400 : 750;
-  const deliveryCharge = isFive ? 0 : 100;
+  let unitPrice = 750;
+  if (selectedPkg >= 5) {
+    unitPrice = 680; // Save ৳70/box + Free Delivery
+  } else if (selectedPkg >= 2) {
+    unitPrice = 700; // Save ৳50/box
+  }
+
+  const isFreeDelivery = selectedPkg >= 5;
+  const deliveryCharge = isFreeDelivery ? 0 : 100;
+  const totalProductPrice = selectedPkg * unitPrice;
+  const regularTotal = selectedPkg * 750;
   const grandTotalNumber = totalProductPrice + deliveryCharge;
   const grandTotal = `৳${grandTotalNumber.toLocaleString()}`;
-  const oldPrice = isOne ? null : isTwo ? "৳1,500" : "৳3,750";
-  const savingsText = isOne ? null : isTwo ? "-৳100 Saved" : "-৳350 + FREE DELIVERY";
-  const deliveryText = isFive ? "FREE (৳0)" : "৳100";
-  const boxCountLabel = isOne ? "1 Box (6 Cups)" : isTwo ? "2 Boxes (12 Cups)" : "5 Boxes (30 Cups)";
+  const oldPrice = selectedPkg >= 2 ? `৳${regularTotal.toLocaleString()}` : null;
+  const savingsText = selectedPkg >= 5 
+    ? `-৳${(regularTotal - totalProductPrice).toLocaleString()} + FREE DELIVERY` 
+    : selectedPkg >= 2 
+      ? `-৳${(regularTotal - totalProductPrice).toLocaleString()} Saved` 
+      : null;
+  const deliveryText = isFreeDelivery ? "FREE (৳0)" : "৳100";
+  const boxCountLabel = `${selectedPkg} ${selectedPkg === 1 ? "Box" : "Boxes"} (${selectedPkg * 6} Cups)`;
+
+  // Handle bundle selection & smooth scroll down to the order details form
+  const handleSelectPackage = (pkgCount) => {
+    setSelectedPkg(pkgCount);
+    setTimeout(() => {
+      const formSection = document.getElementById("order-form-details");
+      if (formSection) {
+        const navOffset = 90;
+        const targetY = formSection.getBoundingClientRect().top + window.pageYOffset - navOffset;
+        window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+        // Focus name or phone input
+        const nameInput = document.getElementById("customer-name");
+        if (nameInput && !nameInput.value) {
+          nameInput.focus();
+        }
+      }
+    }, 100);
+  };
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormError("");
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value
-    }));
+    setFormData((prev) => {
+      const next = {
+        ...prev,
+        [name]: type === "checkbox" ? checked : value
+      };
+      // Auto-save to localStorage so returning customer never types twice
+      try {
+        localStorage.setItem("coconut_customer_info", JSON.stringify({
+          name: next.name,
+          phone: next.phone,
+          address: next.address,
+          email: next.email
+        }));
+      } catch {
+        // Ignore localStorage write errors
+      }
+      return next;
+    });
   };
 
   const handleCopyBkash = () => {
@@ -208,15 +269,12 @@ const Hero = () => {
       setIsSubmitting(false);
       setSubmittedName(customerName);
       setShowSuccess(true);
-      // Reset form
-      setFormData({
-        name: "",
-        phone: "",
-        email: "",
-        address: "",
+      // Reset form keeping name/phone for convenience
+      setFormData((prev) => ({
+        ...prev,
         note: "",
         agree: true
-      });
+      }));
       setPaymentMethod("cod");
       setBkashTrx("");
       setSelectedPkg(2);
@@ -253,76 +311,73 @@ const Hero = () => {
         <form onSubmit={handleSubmitOrder} noValidate>
           <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border border-[#4A6741]/15 overflow-hidden p-4 sm:p-7 md:p-9 space-y-6 md:space-y-8">
             
-            {/* ROW 1: Product Showcase (Left) + Bundle Selection & Price (Right) */}
+            {/* ROW 1: Product Video + 3 Layers (Moved Below Video) & Bundles Selection */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
               
-              {/* ROW 1 LEFT: Product Video + 3 Benefit Tiles + Storage Tip */}
+              {/* ROW 1 LEFT: Product Video + 3 Layers Below Video + 3 Badges */}
               <div className="md:col-span-6 space-y-3.5">
-                {/* Product Showcase: Split Layout (Video Card + 3 Vertical Tiles) */}
-                <div className="grid grid-cols-12 gap-3 items-stretch">
-                  
-                  {/* Left Product Video Card (~72% width) */}
-                  <div className="col-span-8 bg-[#F4F7F2] rounded-3xl p-3 relative flex flex-col justify-between overflow-hidden border border-[#4A6741]/20 shadow-sm">
-                    {/* Best Seller Badge */}
-                    <div className="absolute top-3 left-3 z-20">
-                      <span className="bg-[#4A6741] text-white text-[11px] font-black px-3 py-1 rounded-full shadow-md tracking-wide uppercase">
-                        Best Seller
-                      </span>
-                    </div>
-
-                    {/* Video Container with rounded corners & shadow */}
-                    <div className="my-2 w-full aspect-square rounded-2xl overflow-hidden shadow-md bg-black/5 relative flex items-center justify-center">
-                      <video 
-                        ref={videoRef}
-                        autoPlay
-                        loop 
-                        muted 
-                        playsInline
-                        preload="metadata"
-                        poster="/hero.webp"
-                        className="w-full h-full object-cover rounded-2xl cursor-pointer"
-                        onClick={() => {
-                          if (videoRef.current) {
-                            if (videoRef.current.paused) videoRef.current.play().catch(() => {});
-                            else videoRef.current.pause();
-                          }
-                        }}
-                      >
-                        <source src="/hero-video.mp4" type="video/mp4" />
-                      </video>
-                    </div>
-
-                    {/* Bottom label under video */}
-                    <div className="text-center pt-1">
-                      <span className="text-[10px] font-black text-[#4A6741] uppercase tracking-wider">
-                        6 Pieces Per Box • Fresh Made Daily
-                      </span>
-                    </div>
+                
+                {/* Full-Width Video Card */}
+                <div className="bg-[#F4F7F2] rounded-3xl p-3 relative flex flex-col justify-between overflow-hidden border border-[#4A6741]/20 shadow-sm">
+                  {/* Best Seller Badge */}
+                  <div className="absolute top-3 left-3 z-20">
+                    <span className="bg-[#4A6741] text-white text-[11px] font-black px-3 py-1 rounded-full shadow-md tracking-wide uppercase">
+                      Best Seller
+                    </span>
                   </div>
 
-                  {/* Right 3 Stacked Benefit Tiles (~28% width) */}
-                  <div className="col-span-4 flex flex-col justify-between gap-2.5">
-                    {/* Tile 1: 1st Layer */}
-                    <div className="bg-[#F4F7F2] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/20 shadow-sm flex-1">
-                      <span className="text-2xl mb-1">🥥</span>
-                      <span className="text-[9px] font-black uppercase text-[#4A6741] tracking-wider leading-none">1st Layer</span>
-                      <span className="text-[10px] font-extrabold leading-tight text-[#1F291E] mt-1">Fresh Coconut Pudding</span>
-                    </div>
-
-                    {/* Tile 2: 2nd Layer Fresh Cow Milk Pudding */}
-                    <div className="bg-[#F4F7F2] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/20 shadow-sm flex-1">
-                      <span className="text-2xl mb-1">🥛</span>
-                      <span className="text-[9px] font-black uppercase text-[#4A6741] tracking-wider leading-none">2nd Layer</span>
-                      <span className="text-[10px] font-extrabold leading-tight text-[#1F291E] mt-1">Fresh Cow Milk Pudding</span>
-                    </div>
-
-                    {/* Tile 3: 100% Halal */}
-                    <div className="bg-[#F4F7F2] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/20 shadow-sm flex-1">
-                      <span className="text-2xl mb-1">🌿</span>
-                      <span className="text-[11px] font-black leading-tight text-[#4A6741] mt-1">100% Halal</span>
-                    </div>
+                  {/* Video Container */}
+                  <div className="my-2 w-full aspect-video sm:aspect-[4/3] rounded-2xl overflow-hidden shadow-md bg-black/5 relative flex items-center justify-center">
+                    <video 
+                      ref={videoRef}
+                      autoPlay
+                      loop 
+                      muted 
+                      playsInline
+                      preload="metadata"
+                      poster="/hero.webp"
+                      className="w-full h-full object-cover rounded-2xl cursor-pointer"
+                      onClick={() => {
+                        if (videoRef.current) {
+                          if (videoRef.current.paused) videoRef.current.play().catch(() => {});
+                          else videoRef.current.pause();
+                        }
+                      }}
+                    >
+                      <source src="/hero-video.mp4" type="video/mp4" />
+                    </video>
                   </div>
 
+                  {/* Bottom label under video */}
+                  <div className="text-center pt-1">
+                    <span className="text-[11px] font-black text-[#4A6741] uppercase tracking-wider">
+                      6 Pieces Per Box • Fresh Made Daily
+                    </span>
+                  </div>
+                </div>
+
+                {/* 1st Layer, 2nd Layer, 100% Halal (Moved Below Video as requested!) */}
+                <div className="grid grid-cols-3 gap-2.5">
+                  {/* Tile 1: 1st Layer */}
+                  <div className="bg-[#F4F7F2] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/20 shadow-sm">
+                    <span className="text-2xl mb-1">🥥</span>
+                    <span className="text-[9px] font-black uppercase text-[#4A6741] tracking-wider leading-none">1st Layer</span>
+                    <span className="text-[11px] font-extrabold leading-tight text-[#1F291E] mt-1">Fresh Coconut Pudding</span>
+                  </div>
+
+                  {/* Tile 2: 2nd Layer Fresh Cow Milk Pudding */}
+                  <div className="bg-[#F4F7F2] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/20 shadow-sm">
+                    <span className="text-2xl mb-1">🥛</span>
+                    <span className="text-[9px] font-black uppercase text-[#4A6741] tracking-wider leading-none">2nd Layer</span>
+                    <span className="text-[11px] font-extrabold leading-tight text-[#1F291E] mt-1">Fresh Cow Milk Pudding</span>
+                  </div>
+
+                  {/* Tile 3: 100% Halal */}
+                  <div className="bg-[#F4F7F2] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/20 shadow-sm">
+                    <span className="text-2xl mb-1">🌿</span>
+                    <span className="text-[9px] font-black uppercase text-[#4A6741] tracking-wider leading-none">Purity</span>
+                    <span className="text-[11px] font-black leading-tight text-[#4A6741] mt-1">100% Halal</span>
+                  </div>
                 </div>
 
                 {/* 3 Benefit Trust Badges */}
@@ -341,13 +396,6 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* Storage Tip */}
-                <div className="bg-emerald-50/80 border border-[#4A6741]/25 rounded-2xl p-3 sm:p-3.5 flex items-start gap-2.5 shadow-sm">
-                  <span className="text-lg flex-shrink-0 mt-0.5">💡</span>
-                  <p className="text-xs text-[#2B4025] font-bold leading-relaxed">
-                    <strong>Storage Tip:</strong> বক্স থেকে খুলে কাপগুলো নরমাল ফ্রিজে রাখুন, এতে পুডিং দীর্ঘক্ষণ তাজা ও সুস্বাদু থাকবে। (Keep cups unboxed in normal fridge to maintain peak freshness).
-                  </p>
-                </div>
               </div>
 
               {/* ROW 1 RIGHT: Product Title + Bundle Selector + Price Breakdown */}
@@ -379,14 +427,14 @@ const Hero = () => {
                   </span>
                 </div>
 
-                {/* Interactive Package Bundle Selector */}
+                {/* Interactive Package Bundle Selector (Clicking scrolls to order form!) */}
                 <div className="space-y-2 pt-0.5">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-black uppercase tracking-wider text-[#4A6741] flex items-center gap-1.5">
                       <span>🏷️</span> SELECT BUNDLE &amp; SAVE:
                     </span>
                     <span className="text-xs font-black text-[#4A6741] bg-[#F4F7F2] px-3 py-1 rounded-full border border-[#4A6741]/25 shadow-sm">
-                      {isFive ? "🎉 FREE DELIVERY!" : "🚚 Delivery: ৳100"}
+                      {isFreeDelivery ? "🎉 FREE DELIVERY!" : "🚚 Delivery: ৳100"}
                     </span>
                   </div>
 
@@ -394,8 +442,8 @@ const Hero = () => {
                   <div className="grid grid-cols-3 gap-2.5 pt-1">
                     {/* Package 1: 1 Box */}
                     <div 
-                      onClick={() => setSelectedPkg(1)}
-                      className={`package-card p-2.5 sm:p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative shadow-sm select-none ${
+                      onClick={() => handleSelectPackage(1)}
+                      className={`package-card p-2.5 sm:p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative shadow-sm select-none hover:scale-[1.02] active:scale-[0.98] ${
                         isOne 
                           ? "bg-emerald-50/90 border-[#4A6741] shadow-lg ring-2 ring-[#4A6741]/25" 
                           : "bg-white border-gray-300 hover:border-[#4A6741]/60"
@@ -420,8 +468,8 @@ const Hero = () => {
 
                     {/* Package 2: 2 Boxes (Most Popular) */}
                     <div 
-                      onClick={() => setSelectedPkg(2)}
-                      className={`package-card p-2.5 sm:p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative select-none ${
+                      onClick={() => handleSelectPackage(2)}
+                      className={`package-card p-2.5 sm:p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative select-none hover:scale-[1.02] active:scale-[0.98] ${
                         isTwo 
                           ? "bg-emerald-50/90 border-[#4A6741] shadow-lg ring-2 ring-[#4A6741]/25" 
                           : "bg-white border-gray-300 hover:border-[#4A6741]/60 shadow-sm"
@@ -450,8 +498,8 @@ const Hero = () => {
 
                     {/* Package 3: 5 Boxes (FREE DELIVERY) */}
                     <div 
-                      onClick={() => setSelectedPkg(5)}
-                      className={`package-card p-2.5 sm:p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative select-none ${
+                      onClick={() => handleSelectPackage(5)}
+                      className={`package-card p-2.5 sm:p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative select-none hover:scale-[1.02] active:scale-[0.98] ${
                         isFive 
                           ? "bg-emerald-50/90 border-[#4A6741] shadow-lg ring-2 ring-[#4A6741]/25" 
                           : "bg-white border-gray-300 hover:border-[#4A6741]/60 shadow-sm"
@@ -480,6 +528,42 @@ const Hero = () => {
                       </span>
                     </div>
                   </div>
+
+                  {/* Custom Quantity Stepper (Supports ANY number of boxes: 3, 4, 6, 8, 10, etc.) */}
+                  <div className="pt-2">
+                    <div className="bg-white/90 border border-[#4A6741]/20 rounded-xl px-3 py-2 flex items-center justify-between shadow-sm">
+                      <div className="text-left">
+                        <span className="text-[11px] font-black text-[#1F291E] block">
+                          কাস্টম পরিমাণ (Custom Quantity):
+                        </span>
+                        <span className="text-[10px] text-gray-500 font-semibold block">
+                          ৫ বা তার বেশি বক্সে ফ্রি ডেলিভারি!
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 bg-[#F4F7F2] border border-gray-300 rounded-xl p-1">
+                        <button
+                          type="button"
+                          onClick={() => handleSelectPackage(Math.max(1, selectedPkg - 1))}
+                          className="w-7 h-7 flex items-center justify-center rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 font-black text-base cursor-pointer select-none active:scale-90"
+                          aria-label="Decrease boxes"
+                        >
+                          <Minus size={14} />
+                        </button>
+                        <span className="w-14 text-center font-black text-xs text-[#1F291E]">
+                          {selectedPkg} Box{selectedPkg > 1 ? "es" : ""}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => handleSelectPackage(Math.min(50, selectedPkg + 1))}
+                          className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#4A6741] text-white hover:bg-[#3E5837] font-black text-base cursor-pointer select-none active:scale-90"
+                          aria-label="Increase boxes"
+                        >
+                          <Plus size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Unified Order Breakdown & Free Shipping Meter */}
@@ -488,22 +572,20 @@ const Hero = () => {
                   <div>
                     <div className="flex items-center justify-between text-xs font-bold text-[#1F291E] mb-1">
                       <span className="flex items-center gap-1.5">
-                        {isFive ? (
+                        {isFreeDelivery ? (
                           <span>🎉 <strong>CONGRATULATIONS! FREE DELIVERY UNLOCKED!</strong></span>
-                        ) : isTwo ? (
-                          <span>🚚 Add 3 more boxes for <strong>FREE Delivery</strong></span>
                         ) : (
-                          <span>🚚 Add 4 more boxes for <strong>FREE Delivery</strong></span>
+                          <span>🚚 Add {5 - selectedPkg} more {5 - selectedPkg === 1 ? "box" : "boxes"} for <strong>FREE Delivery</strong></span>
                         )}
                       </span>
                       <span className="text-[11px] font-black text-[#4A6741]">
-                        {isFive ? "100%" : isTwo ? "40%" : "20%"}
+                        {isFreeDelivery ? "100%" : `${Math.min(100, selectedPkg * 20)}%`}
                       </span>
                     </div>
                     <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-gradient-to-r from-[#8DA47E] to-[#4A6741] rounded-full transition-all duration-300" 
-                        style={{ width: isFive ? "100%" : isTwo ? "40%" : "20%" }}
+                        style={{ width: isFreeDelivery ? "100%" : `${Math.min(100, selectedPkg * 20)}%` }}
                       />
                     </div>
                   </div>
@@ -514,12 +596,12 @@ const Hero = () => {
                       <span>প্যাকেজ ({boxCountLabel}):</span>
                       <div className="font-extrabold text-[#1F291E]">
                         {oldPrice && <span className="line-through text-gray-400 text-[11px] mr-1">{oldPrice}</span>}
-                        <span className="text-sm font-black text-[#4A6741]">৳{totalProductPrice}</span>
+                        <span className="text-sm font-black text-[#4A6741]">৳{totalProductPrice.toLocaleString()}</span>
                       </div>
                     </div>
                     <div className="flex justify-between items-center text-gray-700">
                       <span>ডেলিভারি চার্জ (ঢাকা সিটি):</span>
-                      <span className={`font-black ${isFive ? "text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full" : "text-[#4A6741]"}`}>
+                      <span className={`font-black ${isFreeDelivery ? "text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full" : "text-[#4A6741]"}`}>
                         {deliveryText}
                       </span>
                     </div>
@@ -546,9 +628,9 @@ const Hero = () => {
             </div>
 
             {/* DIVIDER: Clean stylish boundary before Checkout Details */}
-            <div className="relative flex py-1 items-center">
+            <div id="order-form-details" className="scroll-mt-24 relative flex py-1 items-center">
               <div className="flex-grow border-t-2 border-[#4A6741]/15"></div>
-              <span className="flex-shrink mx-4 text-xs font-black text-[#4A6741] uppercase tracking-widest bg-emerald-50 px-4 py-1 rounded-full border border-[#4A6741]/20 shadow-sm flex items-center gap-1.5">
+              <span className="flex-shrink mx-4 text-xs font-black text-[#4A6741] uppercase tracking-widest bg-emerald-50 px-4 py-1.5 rounded-full border border-[#4A6741]/20 shadow-sm flex items-center gap-1.5">
                 <ShoppingBag size={14} /> অর্ডার ফর্ম (CHECKOUT DETAILS)
               </span>
               <div className="flex-grow border-t-2 border-[#4A6741]/15"></div>
@@ -557,7 +639,7 @@ const Hero = () => {
             {/* ROW 2: Delivery Details Form (Left) + Payment & Confirm Button (Right) */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
               
-              {/* ROW 2 LEFT: Customer Info & Delivery Address Form */}
+              {/* ROW 2 LEFT: Customer Info & Delivery Address Form (Auto-filled) */}
               <div className="md:col-span-6 bg-[#F4F7F2] rounded-2xl p-4 sm:p-5 border border-[#4A6741]/20 shadow-sm space-y-3.5">
                 <div className="flex items-center justify-between border-b border-[#4A6741]/20 pb-2.5">
                   <span className="text-xs sm:text-sm font-black text-[#1F291E] uppercase tracking-wider flex items-center gap-1.5">
@@ -626,24 +708,42 @@ const Hero = () => {
                   </p>
                 </div>
 
-                {/* Optional Note */}
-                <div className="space-y-1">
-                  <label htmlFor="customer-note" className="text-[11px] font-bold text-gray-600 block">
-                    বিশেষ নির্দেশনা (Special Note - ঐচ্ছিক):
-                  </label>
-                  <input
-                    id="customer-note"
-                    type="text"
-                    name="note"
-                    value={formData.note}
-                    onChange={handleInputChange}
-                    placeholder="ডেলিভারি সংক্রান্ত কিছু জানানোর থাকলে লিখুন..."
-                    className="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
-                  />
+                {/* Optional Email & Note */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label htmlFor="customer-email" className="text-[11px] font-bold text-gray-600 block">
+                      ইমেইল ঠিকানা (Email - ঐচ্ছিক):
+                    </label>
+                    <input
+                      id="customer-email"
+                      type="email"
+                      name="email"
+                      autoComplete="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="example@gmail.com"
+                      className="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label htmlFor="customer-note" className="text-[11px] font-bold text-gray-600 block">
+                      বিশেষ নির্দেশনা (Note - ঐচ্ছিক):
+                    </label>
+                    <input
+                      id="customer-note"
+                      type="text"
+                      name="note"
+                      value={formData.note}
+                      onChange={handleInputChange}
+                      placeholder="ডেলিভারি সংক্রান্ত কিছু থাকলে..."
+                      className="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
+                    />
+                  </div>
                 </div>
               </div>
 
-              {/* ROW 2 RIGHT: Payment Method Selector + Submit Button */}
+              {/* ROW 2 RIGHT: Payment Method Selector + Submit Button + Storage Tip (Directly below button!) */}
               <div className="md:col-span-6 space-y-3.5">
                 {/* PAYMENT METHOD SELECTOR (CASH ON DELIVERY DEFAULT + BKASH) */}
                 <div className="space-y-2">
@@ -722,7 +822,7 @@ const Hero = () => {
                           <span className="text-[10px] font-black uppercase tracking-wider text-[#D12053] block">
                             bKash Personal Account:
                           </span>
-                          <span className="text-base sm:text-lg font-black text-gray-900">
+                          <span className="text-base sm:lg font-black text-gray-900">
                             01618562844
                           </span>
                         </div>
@@ -800,7 +900,7 @@ const Hero = () => {
                 )}
 
                 {/* High-Converting Shopify-Style Call to Action Submit Button */}
-                <div className="pt-0.5">
+                <div className="pt-0.5 space-y-3">
                   <button 
                     type="submit"
                     disabled={isSubmitting}
@@ -832,7 +932,7 @@ const Hero = () => {
                       <div>
                         <span className="text-lg sm:text-xl font-black block leading-tight">{grandTotal}</span>
                         <span className="text-[10px] text-emerald-100 font-bold block">
-                          {isFive ? "FREE DELIVERY 🚚" : "Total Incl. Delivery"}
+                          {isFreeDelivery ? "FREE DELIVERY 🚚" : "Total Incl. Delivery"}
                         </span>
                       </div>
                       <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
@@ -841,8 +941,16 @@ const Hero = () => {
                     </div>
                   </button>
 
+                  {/* STORAGE TIP: Placed DIRECTLY under the CONFIRM ORDER button as requested! */}
+                  <div className="bg-emerald-50/90 border border-[#4A6741]/25 rounded-2xl p-3 sm:p-3.5 flex items-start gap-2.5 shadow-sm">
+                    <span className="text-xl flex-shrink-0 mt-0.5">💡</span>
+                    <p className="text-xs text-[#2B4025] font-bold leading-relaxed">
+                      <strong>Storage Tip:</strong> বক্স থেকে খুলে কাপগুলো নরমাল ফ্রিজে রাখুন, এতে পুডিং দীর্ঘক্ষণ তাজা ও সুস্বাদু থাকবে। (Keep cups unboxed in normal fridge to maintain peak freshness).
+                    </p>
+                  </div>
+
                   {/* Security & Guarantee Row */}
-                  <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-[11px] font-bold text-gray-500 pt-2.5">
+                  <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-[11px] font-bold text-gray-500 pt-1">
                     <span className="flex items-center gap-1">
                       <span className="text-[#4A6741]">💵</span> Cash on Delivery
                     </span>
@@ -859,21 +967,23 @@ const Hero = () => {
                       <span className="text-[#4A6741]">🌿</span> 100% Halal
                     </span>
                   </div>
+
+                  {/* Incentive / Unlocked Gift Ribbon */}
+                  <div className="bg-emerald-50 border-2 border-dashed border-[#8DA47E] rounded-xl py-2 px-3 flex items-center justify-center gap-2 text-center">
+                    <span className="text-base">🎁</span>
+                    <span className="text-[11px] font-black text-[#2B4025] uppercase tracking-wide">
+                      {selectedPkg >= 5 ? (
+                        <>🎉 MEGA COMBO: YOU UNLOCKED <span className="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">FREE DELIVERY</span> + ৳{((selectedPkg * 750) - totalProductPrice).toLocaleString()} OFF!</>
+                      ) : selectedPkg >= 2 ? (
+                        <>CONGRATULATIONS, YOU UNLOCKED <span className="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">৳{((selectedPkg * 750) - totalProductPrice).toLocaleString()} DISCOUNT</span> WITH {selectedPkg} BOXES</>
+                      ) : (
+                        <>ORDER 2 BOXES TO UNLOCK <span className="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">৳100 DISCOUNT</span></>
+                      )}
+                    </span>
+                  </div>
+
                 </div>
 
-                {/* Incentive / Unlocked Gift Ribbon */}
-                <div className="bg-emerald-50 border-2 border-dashed border-[#8DA47E] rounded-xl py-2 px-3 flex items-center justify-center gap-2 text-center">
-                  <span className="text-base">🎁</span>
-                  <span className="text-[11px] font-black text-[#2B4025] uppercase tracking-wide">
-                    {isFive ? (
-                      <>🎉 MEGA COMBO: YOU UNLOCKED <span className="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">FREE DELIVERY</span> + ৳350 OFF!</>
-                    ) : isTwo ? (
-                      <>CONGRATULATIONS, YOU UNLOCKED <span className="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">৳100 DISCOUNT</span> WITH 2 BOXES</>
-                    ) : (
-                      <>ORDER 2 BOXES TO UNLOCK <span className="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">৳100 DISCOUNT</span></>
-                    )}
-                  </span>
-                </div>
               </div>
 
             </div>
