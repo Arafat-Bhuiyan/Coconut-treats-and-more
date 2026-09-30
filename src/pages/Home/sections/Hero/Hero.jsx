@@ -36,12 +36,17 @@ const Hero = () => {
     agree: true
   });
 
+  const [hasSavedInfo, setHasSavedInfo] = useState(false);
+
   // Auto-restore saved customer info from localStorage (Auto-fill for minimal customer effort)
   useEffect(() => {
     try {
       const saved = localStorage.getItem("coconut_customer_info");
       if (saved) {
         const parsed = JSON.parse(saved);
+        if (parsed.name || parsed.phone || parsed.address) {
+          setHasSavedInfo(true);
+        }
         setFormData((prev) => ({
           ...prev,
           name: parsed.name || prev.name,
@@ -101,9 +106,12 @@ const Hero = () => {
   const deliveryText = isFreeDelivery ? "FREE (৳0)" : "৳100";
   const boxCountLabel = `${selectedPkg} ${selectedPkg === 1 ? "Box" : "Boxes"} (${selectedPkg * 6} Cups)`;
 
-  // Handle bundle selection & smooth scroll down to the order details form
+  // Handle bundle selection: scroll to order details unless package count is more than 5 boxes
   const handleSelectPackage = (pkgCount) => {
     setSelectedPkg(pkgCount);
+    // User request: If adding/selecting more than 5 boxes, do not auto-scroll down to order form
+    if (pkgCount > 5) return;
+
     setTimeout(() => {
       const formSection = document.getElementById("order-form-details");
       if (formSection) {
@@ -117,6 +125,49 @@ const Hero = () => {
         }
       }
     }, 100);
+  };
+
+  // 1-Click Quick Area selection for full auto address completion
+  const handleQuickAreaSelect = (area) => {
+    setFormError("");
+    setFormData((prev) => {
+      let newAddress = prev.address.trim();
+      if (!newAddress) {
+        newAddress = `${area}, ঢাকা`;
+      } else if (!newAddress.includes(area)) {
+        newAddress = `${newAddress}, ${area}`;
+      }
+      const next = { ...prev, address: newAddress };
+      try {
+        localStorage.setItem("coconut_customer_info", JSON.stringify({
+          name: next.name,
+          phone: next.phone,
+          address: next.address,
+          email: next.email
+        }));
+      } catch {
+        // Ignore localStorage write errors
+      }
+      return next;
+    });
+  };
+
+  const handleRestoreSavedInfo = () => {
+    try {
+      const saved = localStorage.getItem("coconut_customer_info");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setFormData((prev) => ({
+          ...prev,
+          name: parsed.name || prev.name,
+          phone: parsed.phone || prev.phone,
+          address: parsed.address || prev.address,
+          email: parsed.email || prev.email,
+        }));
+      }
+    } catch {
+      // Ignore if localStorage unavailable
+    }
   };
 
   const handleInputChange = (e) => {
@@ -326,8 +377,8 @@ const Hero = () => {
                     </span>
                   </div>
 
-                  {/* Video Container */}
-                  <div className="my-2 w-full aspect-video sm:aspect-[4/3] rounded-2xl overflow-hidden shadow-md bg-black/5 relative flex items-center justify-center">
+                  {/* Video Container (Aspect 4:5 ensures full uncropped view of all pudding cups & box) */}
+                  <div className="my-2 w-full aspect-[4/5] sm:aspect-[4/5] rounded-2xl overflow-hidden shadow-md bg-[#243520] relative flex items-center justify-center">
                     <video 
                       ref={videoRef}
                       autoPlay
@@ -336,7 +387,7 @@ const Hero = () => {
                       playsInline
                       preload="metadata"
                       poster="/hero.webp"
-                      className="w-full h-full object-cover rounded-2xl cursor-pointer"
+                      className="w-full h-full object-cover object-center rounded-2xl cursor-pointer"
                       onClick={() => {
                         if (videoRef.current) {
                           if (videoRef.current.paused) videoRef.current.play().catch(() => {});
@@ -544,7 +595,7 @@ const Hero = () => {
                       <div className="flex items-center gap-1.5 bg-[#F4F7F2] border border-gray-300 rounded-xl p-1">
                         <button
                           type="button"
-                          onClick={() => handleSelectPackage(Math.max(1, selectedPkg - 1))}
+                          onClick={() => setSelectedPkg((prev) => Math.max(1, prev - 1))}
                           className="w-7 h-7 flex items-center justify-center rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 font-black text-base cursor-pointer select-none active:scale-90"
                           aria-label="Decrease boxes"
                         >
@@ -555,7 +606,7 @@ const Hero = () => {
                         </span>
                         <button
                           type="button"
-                          onClick={() => handleSelectPackage(Math.min(50, selectedPkg + 1))}
+                          onClick={() => setSelectedPkg((prev) => Math.min(50, prev + 1))}
                           className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#4A6741] text-white hover:bg-[#3E5837] font-black text-base cursor-pointer select-none active:scale-90"
                           aria-label="Increase boxes"
                         >
@@ -646,9 +697,21 @@ const Hero = () => {
                     <MapPin size={16} className="text-[#4A6741]" />
                     <span>ডেলিভারি ঠিকানা ও তথ্য (Delivery Details)</span>
                   </span>
-                  <span className="text-[10px] font-black text-[#4A6741] bg-emerald-100/90 px-2.5 py-0.5 rounded-full">
-                    হোম ডেলিভারি
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    {hasSavedInfo && (
+                      <button
+                        type="button"
+                        onClick={handleRestoreSavedInfo}
+                        className="text-[10px] font-black text-[#4A6741] bg-emerald-100 hover:bg-emerald-200 px-2 py-0.5 rounded-full transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
+                        title="ক্লিক করে পূর্বের সংরক্ষিত তথ্য স্বয়ংক্রিয়ভাবে বসান"
+                      >
+                        <span>⚡ অটো ফিল</span>
+                      </button>
+                    )}
+                    <span className="text-[10px] font-black text-[#4A6741] bg-emerald-100/90 px-2.5 py-0.5 rounded-full">
+                      হোম ডেলিভারি
+                    </span>
+                  </div>
                 </div>
 
                 {/* Name & Phone */}
@@ -703,7 +766,27 @@ const Hero = () => {
                     placeholder="বাসা নম্বর, রোড নম্বর, ফ্ল্যাট নম্বর ও এলাকার নাম বিস্তারিত লিখুন"
                     className="w-full bg-white border-2 border-gray-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20 transition-all placeholder:text-gray-400 resize-none"
                   />
-                  <p className="text-[10px] sm:text-[11px] font-black text-[#4A6741] pt-0.5">
+                  
+                  {/* Quick 1-Click Area Chips (Click to auto-fill area without typing) */}
+                  <div className="pt-1">
+                    <span className="text-[10px] font-black text-[#4A6741] block mb-1">
+                      ⚡ দ্রুত এলাকা নির্বাচন করুন (১-ক্লিক অটো ফিল):
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {["মিরপুর", "উত্তরা", "ধানমন্ডি", "গুলশান", "বনানী", "মোহাম্মদপুর", "বসুন্ধরা", "বাড্ডা", "মগবাজার", "খিলগাঁও"].map((area) => (
+                        <button
+                          key={area}
+                          type="button"
+                          onClick={() => handleQuickAreaSelect(area)}
+                          className="text-[10px] font-bold bg-white hover:bg-emerald-50 text-[#2B4025] border border-gray-300 hover:border-[#4A6741] px-2 py-0.5 rounded-lg shadow-2xs transition-all active:scale-95 cursor-pointer"
+                        >
+                          📍 {area}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <p className="text-[10px] sm:text-[11px] font-black text-[#4A6741] pt-1">
                     ⚠️ অবশ্যই ফ্ল্যাট নম্বর উল্লেখ করবেন, যাতে ডেলিভারি পেতে সুবিধা হয়।
                   </p>
                 </div>
