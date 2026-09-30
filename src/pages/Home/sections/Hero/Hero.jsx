@@ -275,21 +275,25 @@ const Hero = () => {
       Total_Amount: `৳${grandTotalNumber}`
     };
 
-    // 1. Fire Facebook Purchase tracking
-    trackFacebookEvent("Purchase", {
-      value: grandTotalNumber,
-      currency: "BDT",
-      content_name: "Premium Coconut Pudding (6pc Box)",
-      content_ids: ["coconut-pudding-6pc"],
-      contents: [{ id: "coconut-pudding-6pc", quantity: selectedPkg, item_price: unitPrice }],
-      content_type: "product",
-      num_items: selectedPkg,
-    }, {
-      phone: capturedPhone,
-      name: capturedName,
-      email: capturedEmail,
-      address: fullAddress,
-    });
+    // 1. Fire Facebook Purchase tracking (wrapped in try-catch so adblockers never block orders)
+    try {
+      trackFacebookEvent("Purchase", {
+        value: grandTotalNumber,
+        currency: "BDT",
+        content_name: "Premium Coconut Pudding (6pc Box)",
+        content_ids: ["coconut-pudding-6pc"],
+        contents: [{ id: "coconut-pudding-6pc", quantity: selectedPkg, item_price: unitPrice }],
+        content_type: "product",
+        num_items: selectedPkg,
+      }, {
+        phone: capturedPhone,
+        name: capturedName,
+        email: capturedEmail,
+        address: fullAddress,
+      });
+    } catch (fbErr) {
+      console.warn("FB Purchase event skipped:", fbErr);
+    }
 
     // 2. Snappy optimistic UI feedback
     setTimeout(() => {
