@@ -50,9 +50,14 @@ export const Home = () => {
         const events = ['scroll', 'touchstart', 'mousemove', 'pointerdown'];
         events.forEach(e => window.removeEventListener(e, schedulePromo));
         promoTimer = setTimeout(() => {
-          setShowPromo(true);
-          sessionStorage.setItem("hasShownPromo", "true");
-        }, 3000);
+          // Do not interrupt customer if they are actively typing or already looking at checkout
+          const activeTag = document.activeElement ? document.activeElement.tagName : '';
+          const isUserTyping = activeTag === 'INPUT' || activeTag === 'TEXTAREA';
+          if (!isUserTyping) {
+            setShowPromo(true);
+            sessionStorage.setItem("hasShownPromo", "true");
+          }
+        }, 5000);
       };
 
       const events = ['scroll', 'touchstart', 'mousemove', 'pointerdown'];
