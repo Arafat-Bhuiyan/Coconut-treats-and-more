@@ -62,7 +62,6 @@ const Hero = () => {
   const isTwo = selectedPkg === 2;
   const isFive = selectedPkg === 5;
 
-  const basePrice = 750;
   const unitPrice = isFive ? 680 : isTwo ? 700 : 750;
   const totalProductPrice = isFive ? 3400 : isTwo ? 1400 : 750;
   const deliveryCharge = isFive ? 0 : 100;
