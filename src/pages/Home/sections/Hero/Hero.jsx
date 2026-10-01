@@ -14,6 +14,40 @@ import {
 import OrderSuccessPopup from "../Order/OrderSuccessPopup";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
 
+// Restricted areas where fresh chilled pudding cannot be safely delivered
+const RESTRICTED_AREAS = [
+  { key: "savar", bn: "সাভার" },
+  { key: "ashulia", bn: "আশুলিয়া", extra: ["asulia"] },
+  { key: "keraniganj", bn: "কেরানীগঞ্জ", extra: ["keranigang", "keranigonj"] },
+  { key: "narayanganj", bn: "নারায়ণগঞ্জ", extra: ["naraynganj", "narayangonj", "fatullah", "ফতুল্লা", "সিদ্ধিরগঞ্জ", "siddhirganj"] },
+  { key: "munshiganj", bn: "মুন্সীগঞ্জ", extra: ["munshigang", "munshigonj"] },
+  { key: "jatrabari", bn: "যাত্রাবাড়ী", extra: ["sayedabad", "সায়েদাবাদ"] },
+  { key: "gazipur", bn: "গাজীপুর", extra: ["tongi", "টঙ্গী"] },
+];
+
+const OUTSIDE_DHAKA_DISTRICTS = [
+  "chittagong", "চট্টগ্রাম", "sylhet", "সিলেট", "rajshahi", "রাজশাহী",
+  "khulna", "খুলনা", "barisal", "বরিশাল", "rangpur", "রংপুর",
+  "mymensingh", "ময়মনসিংহ", "comilla", "কুমিল্লা", "cox", "কক্সবাজার",
+  "feni", "ফেনী", "noakhali", "নোয়াখালী", "bogura", "বগুড়া", "jashore", "যশোর", "kushtia", "কুষ্টিয়া"
+];
+
+const getRestrictedAreaMatch = (address) => {
+  if (!address) return null;
+  const lower = address.toLowerCase();
+
+  for (const item of RESTRICTED_AREAS) {
+    if (lower.includes(item.key) || address.includes(item.bn)) return item.bn;
+    if (item.extra && item.extra.some((ex) => lower.includes(ex) || address.includes(ex))) return item.bn;
+  }
+
+  for (const city of OUTSIDE_DHAKA_DISTRICTS) {
+    if (lower.includes(city) || address.includes(city)) return "ঢাকার বাইরে";
+  }
+
+  return null;
+};
+
 const Hero = () => {
   const videoRef = useRef(null);
   const submittingRef = useRef(false);
@@ -37,6 +71,7 @@ const Hero = () => {
   });
 
   const [hasSavedInfo, setHasSavedInfo] = useState(false);
+  const detectedRestrictedArea = getRestrictedAreaMatch(formData.address);
 
   // Auto-restore saved customer info from localStorage (Auto-fill for minimal customer effort)
   useEffect(() => {
@@ -251,6 +286,19 @@ const Hero = () => {
       submittingRef.current = false;
       setFormError("দয়া করে আপনার সম্পূর্ণ ঠিকানা (রোড, বাড়ি, ফ্ল্যাট নম্বর) লিখুন।");
       const addressInput = document.getElementsByName("address")[0];
+      if (addressInput) {
+        addressInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        addressInput.focus();
+      }
+      return;
+    }
+
+    // Restricted delivery area validation (Method 1)
+    const restrictedMatch = getRestrictedAreaMatch(formData.address);
+    if (restrictedMatch) {
+      submittingRef.current = false;
+      setFormError(`দুঃখিত! ${restrictedMatch} এলাকায় ডাবের পুডিং ডেলিভারি সেবা বর্তমানে বন্ধ রয়েছে। ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে প্রযোজ্য।`);
+      const addressInput = document.getElementById("customer-address");
       if (addressInput) {
         addressInput.scrollIntoView({ behavior: "smooth", block: "center" });
         addressInput.focus();
@@ -798,9 +846,14 @@ const Hero = () => {
 
                 {/* Address */}
                 <div className="space-y-1">
-                  <label htmlFor="customer-address" className="text-[11px] font-black text-gray-700 uppercase tracking-wider block">
-                    সম্পূর্ণ ঠিকানা (Full Address) <span className="text-red-500">*</span>
-                  </label>
+                  <div className="flex items-center justify-between">
+                    <label htmlFor="customer-address" className="text-[11px] font-black text-gray-700 uppercase tracking-wider block">
+                      সম্পূর্ণ ঠিকানা (Full Address) <span className="text-red-500">*</span>
+                    </label>
+                    <span className="text-[10px] font-bold text-[#4A6741] bg-emerald-50 px-2 py-0.5 rounded-full border border-[#4A6741]/20">
+                      ঢাকা সিটি
+                    </span>
+                  </div>
                   <textarea
                     id="customer-address"
                     required
@@ -810,8 +863,37 @@ const Hero = () => {
                     value={formData.address}
                     onChange={handleInputChange}
                     placeholder="বাসা নম্বর, রোড নম্বর, ফ্ল্যাট নম্বর ও এলাকার নাম বিস্তারিত লিখুন"
-                    className="w-full bg-white border-2 border-gray-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20 transition-all placeholder:text-gray-400 resize-none"
+                    className={`w-full bg-white border-2 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-400 resize-none ${
+                      detectedRestrictedArea
+                        ? "border-red-500 focus:border-red-600 focus:ring-2 focus:ring-red-500/20 bg-red-50/20"
+                        : "border-gray-300 focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20"
+                    }`}
                   />
+
+                  {/* Real-time Restricted Delivery Area Alert */}
+                  {detectedRestrictedArea ? (
+                    <div className="bg-red-50 border-2 border-red-400 text-red-800 p-2.5 rounded-xl text-xs font-bold flex items-start gap-2 shadow-xs mt-1 animate-fadeIn">
+                      <span className="text-base flex-shrink-0 mt-0.5">⚠️</span>
+                      <div className="space-y-0.5">
+                        <span className="font-black text-red-700 block text-xs">
+                          দুঃখিত! {detectedRestrictedArea} এলাকায় আমাদের ডেলিভারি সার্ভিস বন্ধ রয়েছে।
+                        </span>
+                        <span className="text-[10px] text-gray-700 font-semibold block leading-tight">
+                          ডাবের পুডিংয়ের সর্বোচ্চ স্বাদ ও তাজা গুণমান বজায় রাখতে ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে প্রযোজ্য (সাভার, আশুলিয়া, কেরানীগঞ্জ, নারায়ণগঞ্জ, মুন্সীগঞ্জ ও যাত্রাবাড়ী বাদে)।
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pt-0.5 text-[10px] sm:text-[11px]">
+                      <span className="font-bold text-[#4A6741]">
+                        📍 ডেলিভারি এরিয়া: শুধুমাত্র ঢাকা সিটির ভেতরে।
+                      </span>
+                      <span className="font-semibold text-gray-500">
+                        (সাভার, আশুলিয়া, কেরানীগঞ্জ, নারায়ণগঞ্জ, মুন্সীগঞ্জ ও যাত্রাবাড়ী বাদে)
+                      </span>
+                    </div>
+                  )}
+
                   <p className="text-[10px] sm:text-[11px] font-black text-[#4A6741] pt-0.5">
                     ⚠️ অবশ্যই ফ্ল্যাট নম্বর উল্লেখ করবেন, যাতে ডেলিভারি পেতে সুবিধা হয়।
                   </p>

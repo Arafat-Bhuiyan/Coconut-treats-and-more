@@ -36,6 +36,24 @@ export default async function handler(req, res) {
       });
     }
 
+    // Server-side restricted delivery area check (Savar, Ashulia, Keraniganj, Narayanganj, Munshiganj, Jatrabari)
+    const RESTRICTED_KEYS = [
+      "savar", "সাভার", "ashulia", "আশুলিয়া", "asulia",
+      "keraniganj", "কেরানীগঞ্জ", "keranigang", "keranigonj",
+      "narayanganj", "নারায়ণগঞ্জ", "naraynganj", "narayangonj", "fatullah", "ফতুল্লা",
+      "munshiganj", "মুন্সীগঞ্জ", "munshigang",
+      "jatrabari", "যাত্রাবাড়ী", "sayedabad", "সায়েদাবাদ",
+      "gazipur", "গাজীপুর", "tongi", "টঙ্গী"
+    ];
+    const lowerAddr = String(address).toLowerCase();
+    const isRestricted = RESTRICTED_KEYS.some((k) => lowerAddr.includes(k));
+    if (isRestricted) {
+      return res.status(400).json({
+        success: false,
+        message: "Delivery is currently unavailable in this area. Fresh pudding delivery is inside Dhaka City only."
+      });
+    }
+
     orderData.Phone = phone;
     orderData.Address = address;
 
