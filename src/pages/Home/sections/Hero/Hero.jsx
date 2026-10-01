@@ -386,8 +386,8 @@ const Hero = () => {
             {/* ROW 1: Requested Day-1 Hero Layout (Left: Logo, Badge, Title, Description, Button, 500+ Happy Customers) + (Right: Video) */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center">
               
-              {/* ROW 1 LEFT: Logo, Title, Natural badge, Description and Order CTA (as in uploaded screenshot) */}
-              <div className="md:col-span-6 space-y-5 text-left">
+              {/* ROW 1 LEFT: Logo, Title, Natural badge, Description and Order CTA (order-2 on mobile, md:order-1 on PC) */}
+              <div className="md:col-span-6 space-y-5 text-left order-2 md:order-1">
                 {/* Logo */}
                 <div>
                   <img 
@@ -453,8 +453,8 @@ const Hero = () => {
                 </div>
               </div>
 
-              {/* ROW 1 RIGHT: Product Video ("just dan dike video thakbe") */}
-              <div className="md:col-span-6 space-y-4">
+              {/* ROW 1 RIGHT: Product Video (order-1 on mobile, md:order-2 on PC) */}
+              <div className="md:col-span-6 space-y-4 order-1 md:order-2">
                 {/* Video Card */}
                 <div className="bg-[#F4F7F2] rounded-3xl p-3 relative flex flex-col justify-between overflow-hidden border border-[#4A6741]/20 shadow-md">
                   {/* Best Seller Badge */}
