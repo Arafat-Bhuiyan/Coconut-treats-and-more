@@ -513,35 +513,35 @@ const Hero = () => {
                       scrollToCheckout(e);
                     }}
                     style={{ touchAction: 'manipulation' }}
-                    className="group relative w-full overflow-hidden inline-flex items-center justify-between gap-3 bg-gradient-to-r from-[#2B4C23] via-[#3E6533] to-[#2B4C23] hover:from-[#355D2B] hover:via-[#47733B] hover:to-[#355D2B] active:scale-[0.98] text-white py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl transition-all duration-300 shadow-xl shadow-[#2B4C23]/35 ring-1 ring-white/20 cursor-pointer select-none text-left"
+                    className="group relative w-full overflow-hidden inline-flex items-center justify-between flex-nowrap gap-2.5 sm:gap-3.5 bg-gradient-to-r from-[#2B4C23] via-[#3E6533] to-[#2B4C23] hover:from-[#355D2B] hover:via-[#47733B] hover:to-[#355D2B] active:scale-[0.98] text-white py-3 sm:py-4 px-3.5 sm:px-6 rounded-2xl transition-all duration-300 shadow-xl shadow-[#2B4C23]/35 ring-1 ring-white/20 cursor-pointer select-none text-left"
                   >
                     {/* Shimmer light sweep */}
                     <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
 
                     {/* Left Icon Badge */}
-                    <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center text-white shadow-inner flex-shrink-0 group-hover:scale-105 transition-transform">
-                      <ShoppingBag size={20} className="text-emerald-100" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/15 flex items-center justify-center text-white shadow-inner flex-shrink-0 group-hover:scale-105 transition-transform">
+                      <ShoppingBag size={18} className="text-emerald-100 sm:w-5 sm:h-5" />
                     </div>
 
                     {/* Center Text & Subtext */}
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="font-black text-base sm:text-lg tracking-tight text-white leading-tight">
+                      <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap">
+                        <span className="font-black text-sm sm:text-lg tracking-tight text-white leading-tight">
                           Quick Order Now
                         </span>
-                        <span className="text-xs sm:text-sm font-bold text-emerald-200">
+                        <span className="text-[11px] sm:text-sm font-bold text-emerald-200">
                           (কুইক অর্ডার)
                         </span>
                       </div>
-                      <p className="text-[11px] text-emerald-100/90 font-medium tracking-wide flex items-center gap-1.5 mt-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse"></span>
+                      <p className="text-[10px] sm:text-[11px] text-emerald-100/90 font-medium tracking-wide flex items-center gap-1 mt-0.5 whitespace-nowrap overflow-hidden text-ellipsis">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse flex-shrink-0"></span>
                         <span>ক্যাশ অন ডেলিভারি • সহজ চেকআউট</span>
                       </p>
                     </div>
 
                     {/* Right Arrow Pill */}
-                    <div className="w-8 h-8 rounded-full bg-white text-[#2B4C23] flex items-center justify-center flex-shrink-0 shadow-md group-hover:translate-x-1 transition-transform">
-                      <ChevronRight size={18} strokeWidth={3} />
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-[#2B4C23] flex items-center justify-center flex-shrink-0 shadow-md group-hover:translate-x-1 transition-transform ml-1">
+                      <ChevronRight size={16} strokeWidth={3} className="sm:w-[18px] sm:h-[18px]" />
                     </div>
                   </a>
                 </div>
