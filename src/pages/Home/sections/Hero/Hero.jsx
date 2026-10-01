@@ -134,12 +134,6 @@ const Hero = () => {
   const grandTotalNumber = totalProductPrice + deliveryCharge;
   const grandTotal = `৳${grandTotalNumber.toLocaleString()}`;
   const oldPrice = selectedPkg >= 2 ? `৳${regularTotal.toLocaleString()}` : null;
-  const savingsText = selectedPkg >= 5 
-    ? `-৳${(regularTotal - totalProductPrice).toLocaleString()} + FREE DELIVERY` 
-    : selectedPkg >= 2 
-      ? `-৳${(regularTotal - totalProductPrice).toLocaleString()} Saved` 
-      : null;
-  const deliveryText = isFreeDelivery ? "FREE (৳0)" : "৳100";
   const boxCountLabel = `${selectedPkg} ${selectedPkg === 1 ? "Box" : "Boxes"} (${selectedPkg * 6} Cups)`;
   const isPhoneValid = formData.phone.length === 11 && formData.phone.startsWith("01");
 
@@ -452,24 +446,6 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* 3 Core Highlights (Clean & Modern) */}
-                <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                  <div className="bg-white/90 backdrop-blur-xs rounded-xl p-2.5 text-center flex flex-col items-center justify-center border border-gray-200/80 shadow-2xs">
-                    <span className="text-xl sm:text-2xl mb-1">🥥</span>
-                    <span className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">১ম লেয়ার</span>
-                    <span className="text-[11px] sm:text-xs font-black text-[#1F291E] mt-0.5">ডাবের পুডিং</span>
-                  </div>
-                  <div className="bg-white/90 backdrop-blur-xs rounded-xl p-2.5 text-center flex flex-col items-center justify-center border border-gray-200/80 shadow-2xs">
-                    <span className="text-xl sm:text-2xl mb-1">🥛</span>
-                    <span className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">২য় লেয়ার</span>
-                    <span className="text-[11px] sm:text-xs font-black text-[#1F291E] mt-0.5">গরুর দুধের পুডিং</span>
-                  </div>
-                  <div className="bg-white/90 backdrop-blur-xs rounded-xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/30 bg-emerald-50/50 shadow-2xs">
-                    <span className="text-xl sm:text-2xl mb-1">🌿</span>
-                    <span className="text-[9px] font-black text-[#4A6741] uppercase tracking-wider">১০০% হালাল</span>
-                    <span className="text-[11px] sm:text-xs font-black text-[#4A6741] mt-0.5">প্রিজারভেটিভমুক্ত</span>
-                  </div>
-                </div>
 
               </div>
 
@@ -674,62 +650,6 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* Unified Order Breakdown & Free Shipping Meter */}
-                <div className="bg-[#F4F7F2] p-3 sm:p-4 rounded-2xl border border-[#4A6741]/20 shadow-sm space-y-2">
-                  {/* Free Shipping Meter */}
-                  <div>
-                    <div className="flex items-center justify-between text-xs font-bold text-[#1F291E] mb-1">
-                      <span className="flex items-center gap-1.5">
-                        {isFreeDelivery ? (
-                          <span>🎉 <strong>CONGRATULATIONS! FREE DELIVERY UNLOCKED!</strong></span>
-                        ) : (
-                          <span>🚚 Add {5 - selectedPkg} more {5 - selectedPkg === 1 ? "box" : "boxes"} for <strong>FREE Delivery</strong></span>
-                        )}
-                      </span>
-                      <span className="text-[11px] font-black text-[#4A6741]">
-                        {isFreeDelivery ? "100%" : `${Math.min(100, selectedPkg * 20)}%`}
-                      </span>
-                    </div>
-                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-gradient-to-r from-[#8DA47E] to-[#4A6741] rounded-full transition-all duration-300" 
-                        style={{ width: isFreeDelivery ? "100%" : `${Math.min(100, selectedPkg * 20)}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Breakdown Lines */}
-                  <div className="space-y-1 pt-1.5 border-t border-dashed border-[#4A6741]/20 text-xs">
-                    <div className="flex justify-between items-center text-gray-700">
-                      <span>প্যাকেজ ({boxCountLabel}):</span>
-                      <div className="font-extrabold text-[#1F291E]">
-                        {oldPrice && <span className="line-through text-gray-400 text-[11px] mr-1">{oldPrice}</span>}
-                        <span className="text-sm font-black text-[#4A6741]">৳{totalProductPrice.toLocaleString()}</span>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center text-gray-700">
-                      <span>ডেলিভারি চার্জ (ঢাকা সিটি):</span>
-                      <span className={`font-black ${isFreeDelivery ? "text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full" : "text-[#4A6741]"}`}>
-                        {deliveryText}
-                      </span>
-                    </div>
-                    {savingsText && (
-                      <div className="flex justify-between items-center text-emerald-800 bg-emerald-100/80 px-2.5 py-1 rounded-lg font-black text-[11px]">
-                        <span>🎉 ছাড় (Discount Unlocked):</span>
-                        <span>{savingsText}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between items-baseline pt-1.5 border-t border-[#4A6741]/20">
-                      <span className="text-sm font-black text-[#1F291E]">সর্বমোট (Total Payable):</span>
-                      <div className="text-right">
-                        <span className="text-2xl font-black text-[#4A6741]">{grandTotal}</span>
-                        <span className="text-[10px] text-gray-500 font-bold block">
-                          {paymentMethod === "cod" ? "ক্যাশ অন ডেলিভারি" : "বিকাশ পেমেন্ট"}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
               </div>
 
