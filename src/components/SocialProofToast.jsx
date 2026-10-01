@@ -100,24 +100,18 @@ const SocialProofToast = () => {
       }}
       onClick={handleClickToast}
       style={{ touchAction: "manipulation" }}
-      className={`fixed z-40 transition-all duration-500 ease-out transform cursor-pointer select-none
-        /* Mobile Position: Above WhatsApp button */
-        bottom-32 left-3 right-3 sm:right-auto sm:max-w-[360px]
-        /* Desktop Position: Stacked smoothly above WhatsApp */
-        sm:bottom-28 sm:left-6
-        ${
-          isVisible
-            ? "translate-y-0 opacity-100 scale-100 pointer-events-auto"
-            : "translate-y-8 opacity-0 scale-95 pointer-events-none"
-        }
-      `}
+      className={`fixed z-50 bottom-32 left-3 right-3 sm:right-auto sm:w-[350px] sm:bottom-28 sm:left-6 transition-all duration-500 ease-out transform cursor-pointer select-none ${
+        isVisible
+          ? "translate-y-0 opacity-100 scale-100 pointer-events-auto"
+          : "translate-y-8 opacity-0 scale-95 pointer-events-none"
+      }`}
       role="status"
       aria-live="polite"
     >
       <div className="bg-white/95 backdrop-blur-xl border border-gray-100 rounded-2xl p-3 sm:p-3.5 shadow-[0_16px_40px_-10px_rgba(31,41,30,0.18)] flex items-center gap-3 relative overflow-hidden group hover:scale-[1.02] hover:shadow-[0_20px_45px_-8px_rgba(31,41,30,0.22)] transition-all duration-300">
         
         {/* Left Product Thumbnail with Live Pulse */}
-        <div className="relative w-13 h-13 sm:w-14 sm:h-14 rounded-xl overflow-hidden flex-shrink-0 bg-emerald-50 border border-gray-100 shadow-inner">
+        <div className="relative w-14 h-14 min-w-[56px] min-h-[56px] max-w-[56px] max-h-[56px] rounded-xl overflow-hidden flex-shrink-0 bg-emerald-50 border border-gray-100 shadow-inner">
           <picture>
             <source srcSet="/pudding-3d.webp" type="image/webp" />
             <img
