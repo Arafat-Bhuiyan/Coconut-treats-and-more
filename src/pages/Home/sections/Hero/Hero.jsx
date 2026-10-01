@@ -474,7 +474,7 @@ const Hero = () => {
                     <span className="text-lg flex-shrink-0 mt-0.5">🥥</span>
                     <div className="space-y-0.5 leading-relaxed">
                       <p>
-                        <strong className="text-[#1F291E]">টপ লেয়ার (Top Layer):</strong> রিফ্রেশিং ফ্রেশ ডাবের পানি ও নরম ডাবের মিষ্টি শাঁস।
+                        <strong className="text-[#1F291E]">টপ লেয়ার (Top Layer):</strong> রিফ্রেশিং ফ্রেশ ডাবের পানি ও নরম ডাবের মিষ্টি শাঁস এর পুডিং।
                       </p>
                       <p className="text-[11px] sm:text-xs text-gray-500 font-medium">
                         Refreshing fresh green coconut water & tender coconut chunks.
