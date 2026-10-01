@@ -136,6 +136,22 @@ const Hero = () => {
     }));
   }, [selectedPkg, grandTotal]);
 
+  const scrollToCheckout = (e) => {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
+    const formSection = document.getElementById("order-form-details");
+    if (formSection) {
+      const navOffset = 90;
+      const targetY = formSection.getBoundingClientRect().top + window.pageYOffset - navOffset;
+      window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+      const nameInput = document.getElementById("customer-name");
+      if (nameInput) {
+        setTimeout(() => nameInput.focus(), 300);
+      }
+    }
+  };
+
   const handleRestoreSavedInfo = () => {
     try {
       const saved = localStorage.getItem("coconut_customer_info");
@@ -419,8 +435,8 @@ const Hero = () => {
 
               </div>
 
-              {/* ROW 1 RIGHT: Product Title + Bundle Selector + Price Breakdown */}
-              <div className="md:col-span-6 space-y-3.5">
+              {/* ROW 1 RIGHT: Product Showcase Highlights & Details */}
+              <div className="md:col-span-6 space-y-4 flex flex-col justify-center">
                 {/* Rating & Social Proof (Desktop only; on mobile it's directly under the video) */}
                 <div className="hidden md:flex items-center gap-2">
                   <div className="flex text-[#8DA47E] text-base">
@@ -432,7 +448,7 @@ const Hero = () => {
                 {/* Product Title */}
                 <div>
                   <h1 className="text-2xl sm:text-3xl font-black text-[#1F291E] tracking-tight leading-tight">
-                    Premium Coconut Pudding
+                    Fresh Homemade Premium Coconut Pudding
                   </h1>
                 </div>
 
@@ -446,120 +462,53 @@ const Hero = () => {
                     <span>❄️</span>
                     <span>4–5 Days Shelf Life</span>
                   </span>
+                  <span className="inline-flex items-center gap-1.5 bg-[#F4F7F2] text-[#4A6741] border border-[#4A6741]/25 px-3 py-1.5 rounded-full text-xs font-black">
+                    <span>🌿</span>
+                    <span>100% Halal | No Preservatives</span>
+                  </span>
                 </div>
 
-                {/* Order Summary (Original Look Requested by User) */}
-                <div className="bg-white/95 backdrop-blur-md p-4 sm:p-6 rounded-[2rem] border border-gray-200 shadow-sm space-y-4">
-                  <h3 className="text-xl sm:text-2xl font-black text-[#1F291E] pb-3 border-b border-gray-100 text-center sm:text-left">
-                    Order Summary
-                  </h3>
-
-                  {/* Product Info Row */}
-                  <div className="flex gap-3 sm:gap-4 items-center pb-5 border-b border-dashed border-gray-200">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-slate-50 rounded-2xl overflow-hidden border border-gray-200 shadow-xs">
-                      <picture>
-                        <source srcSet="/pudding-3d.webp" type="image/webp" />
-                        <img
-                          src="/pudding-3d.jpg"
-                          alt="Premium Coconut Pudding"
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                          width={80}
-                          height={80}
-                        />
-                      </picture>
-                    </div>
-
-                    <div className="flex-grow min-w-0">
-                      <div className="font-bold text-[#1F291E] text-xs sm:text-sm leading-snug">
-                        Premium Coconut Pudding (6pc Box)
-                      </div>
-                      <p className="text-xs sm:text-sm font-black text-[#4A6741] mt-1">
-                        ৳{unitPrice} / box
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
-                      <div className="flex items-center rounded-xl overflow-hidden border-2 border-[#4A6741]/40 shadow-xs bg-white">
-                        <button
-                          type="button"
-                          onClick={() => setSelectedPkg((prev) => Math.max(1, prev - 1))}
-                          style={{ touchAction: "manipulation" }}
-                          className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center bg-[#4A6741]/10 hover:bg-[#4A6741]/20 active:bg-[#4A6741]/30 text-[#4A6741] border-r-2 border-[#4A6741]/40 transition-colors select-none text-xl sm:text-2xl font-black cursor-pointer"
-                          aria-label="Decrease quantity"
-                        >
-                          −
-                        </button>
-                        <span className="w-10 sm:w-12 text-center font-black text-base sm:text-lg text-[#1F291E] select-none bg-white h-10 sm:h-11 flex items-center justify-center">
-                          {selectedPkg}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => setSelectedPkg((prev) => Math.min(50, prev + 1))}
-                          style={{ touchAction: "manipulation" }}
-                          className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center bg-[#4A6741] hover:bg-[#3E5837] active:bg-[#32492c] text-white border-l-2 border-[#4A6741]/40 transition-colors select-none text-xl sm:text-2xl font-black cursor-pointer"
-                          aria-label="Increase quantity"
-                        >
-                          +
-                        </button>
-                      </div>
-                      <p className="font-black text-[#1F291E] text-sm sm:text-base">
-                        ৳{totalProductPrice.toLocaleString()}
-                      </p>
-                    </div>
+                {/* Product Highlights Card */}
+                <div className="bg-[#F8FAF7] border border-[#4A6741]/20 rounded-2xl p-4 sm:p-5 space-y-2.5 text-xs sm:text-sm text-gray-700">
+                  <div className="flex items-start gap-2.5">
+                    <span className="text-lg flex-shrink-0">🥥</span>
+                    <p className="leading-relaxed">
+                      <strong className="text-[#1F291E]">টপ লেয়ার:</strong> রিফ্রেশিং ফ্রেশ ডাবের পানি ও নরম ডাবের মিষ্টি শাঁস (Coconut Chunks)।
+                    </p>
                   </div>
-
-                  {/* Summary Totals Breakdown */}
-                  <div className="space-y-2.5 pt-1">
-                    {selectedPkg >= 2 ? (
-                      <>
-                        <div className="flex justify-between text-xs sm:text-sm font-bold text-gray-600 uppercase">
-                          <span>মূল দাম (REGULAR PRICE)</span>
-                          <span className="line-through text-gray-400 font-bold">
-                            ৳{regularTotal.toLocaleString()}
-                          </span>
-                        </div>
-                        <div className="flex justify-between text-xs sm:text-sm font-bold text-emerald-600 uppercase">
-                          <span className="flex items-center gap-1.5">
-                            <CheckCircle size={15} /> বাল্ক অফার ছাড় (DISCOUNT)
-                          </span>
-                          <span className="font-black">- ৳{discountAmount.toLocaleString()}</span>
-                        </div>
-                        <div className="flex justify-between text-xs sm:text-sm font-bold text-gray-600 uppercase">
-                          <span>ডেলিভারি চার্জ</span>
-                          {isFreeDelivery ? (
-                            <span className="text-emerald-600 font-bold flex items-center gap-1.5">
-                              <span className="line-through text-gray-400 font-normal">৳১০০</span>
-                              <span>ফ্রি (৳০)</span>
-                            </span>
-                          ) : (
-                            <span>৳১০০</span>
-                          )}
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="flex justify-between text-xs sm:text-sm font-bold text-gray-600 uppercase">
-                          <span>সাবটোটাল</span>
-                          <span>৳{totalProductPrice.toLocaleString()}</span>
-                        </div>
-                        <div className="flex justify-between text-xs sm:text-sm font-bold text-gray-600 uppercase">
-                          <span>ডেলিভারি চার্জ</span>
-                          <span>৳{deliveryCharge}</span>
-                        </div>
-                      </>
-                    )}
-
-                    <div className="flex justify-between items-center text-xl sm:text-2xl font-black text-[#1F291E] pt-3.5 border-t border-dashed border-gray-300">
-                      <span className="uppercase text-sm sm:text-base font-black">সর্বমোট (TOTAL)</span>
-                      <span className="text-[#4A6741] text-2xl sm:text-3xl font-black">
-                        {grandTotal}
-                      </span>
-                    </div>
+                  <div className="flex items-start gap-2.5">
+                    <span className="text-lg flex-shrink-0">🥛</span>
+                    <p className="leading-relaxed">
+                      <strong className="text-[#1F291E]">বটম লেয়ার:</strong> খাঁটি গাভীর দুধের পুষ্টিকর, রিচ ও ক্রিমি সিল্কি পুডিং।
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <span className="text-lg flex-shrink-0">📦</span>
+                    <p className="leading-relaxed">
+                      <strong className="text-[#1F291E]">প্যাক সাইজ:</strong> প্রতি বক্সে ৬ কাপ • প্রতিদিন সকালে টাটকা তৈরি।
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <span className="text-lg flex-shrink-0">❄️</span>
+                    <p className="leading-relaxed">
+                      <strong className="text-[#1F291E]">সংরক্ষণ:</strong> ৪–৫ দিন নরমাল ফ্রিজে রেখে স্বাচ্ছন্দ্যে উপভোগ করুন।
+                    </p>
                   </div>
                 </div>
 
-
+                {/* Quick Action Button to Scroll Down to Order Form */}
+                <div className="pt-1">
+                  <a
+                    href="#order-form-details"
+                    onClick={scrollToCheckout}
+                    style={{ touchAction: 'manipulation' }}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#4A6741] hover:bg-[#3E5837] active:scale-95 text-white font-black py-3.5 px-8 rounded-2xl transition-all shadow-lg shadow-[#4A6741]/25 text-sm sm:text-base cursor-pointer select-none"
+                  >
+                    <ShoppingBag size={18} />
+                    <span>অর্ডার করতে নিচে যান</span>
+                    <ChevronRight size={18} strokeWidth={3} />
+                  </a>
+                </div>
               </div>
 
             </div>
@@ -728,9 +677,126 @@ const Hero = () => {
                 </div>
               </div>
 
-              {/* ROW 2 RIGHT: Payment Method Selector + Submit Button + Storage Tip (Directly below button!) */}
-              <div className="md:col-span-6 space-y-3.5">
-                {/* PAYMENT METHOD SELECTOR (CASH ON DELIVERY DEFAULT + BKASH) */}
+              {/* ROW 2 RIGHT: Order Summary (Top) + Payment Method (Below) + Submit Button */}
+              <div className="md:col-span-6 space-y-4">
+                {/* 1. ORDER SUMMARY CARD (User Requested: Delivery Details er Dan Pashe) */}
+                <div className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200 shadow-xs space-y-4">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-2.5">
+                    <span className="text-xs sm:text-sm font-black text-[#1F291E] uppercase tracking-wider flex items-center gap-1.5">
+                      <ShoppingBag size={16} className="text-[#4A6741]" />
+                      <span>Order Summary</span>
+                    </span>
+                    <span className="text-[11px] font-black text-[#4A6741] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/60">
+                      {boxCountLabel}
+                    </span>
+                  </div>
+
+                  {/* Product Info Row */}
+                  <div className="flex gap-3 sm:gap-4 items-center pb-4 border-b border-dashed border-gray-200">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-slate-50 rounded-2xl overflow-hidden border border-gray-200 shadow-xs">
+                      <picture>
+                        <source srcSet="/pudding-3d.webp" type="image/webp" />
+                        <img
+                          src="/pudding-3d.jpg"
+                          alt="Premium Coconut Pudding"
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                          width={80}
+                          height={80}
+                        />
+                      </picture>
+                    </div>
+
+                    <div className="flex-grow min-w-0">
+                      <div className="font-bold text-[#1F291E] text-xs sm:text-sm leading-snug">
+                        Premium Coconut Pudding (6pc Box)
+                      </div>
+                      <p className="text-xs sm:text-sm font-black text-[#4A6741] mt-1">
+                        ৳{unitPrice} / box
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
+                      <div className="flex items-center rounded-xl overflow-hidden border-2 border-[#4A6741]/40 shadow-xs bg-white">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedPkg((prev) => Math.max(1, prev - 1))}
+                          style={{ touchAction: "manipulation" }}
+                          className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center bg-[#4A6741]/10 hover:bg-[#4A6741]/20 active:bg-[#4A6741]/30 text-[#4A6741] border-r-2 border-[#4A6741]/40 transition-colors select-none text-xl sm:text-2xl font-black cursor-pointer"
+                          aria-label="Decrease quantity"
+                        >
+                          −
+                        </button>
+                        <span className="w-10 sm:w-12 text-center font-black text-base sm:text-lg text-[#1F291E] select-none bg-white h-10 sm:h-11 flex items-center justify-center">
+                          {selectedPkg}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedPkg((prev) => Math.min(50, prev + 1))}
+                          style={{ touchAction: "manipulation" }}
+                          className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center bg-[#4A6741] hover:bg-[#3E5837] active:bg-[#32492c] text-white border-l-2 border-[#4A6741]/40 transition-colors select-none text-xl sm:text-2xl font-black cursor-pointer"
+                          aria-label="Increase quantity"
+                        >
+                          +
+                        </button>
+                      </div>
+                      <p className="font-black text-[#1F291E] text-sm sm:text-base">
+                        ৳{totalProductPrice.toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Summary Totals Breakdown */}
+                  <div className="space-y-2 pt-0.5">
+                    {selectedPkg >= 2 ? (
+                      <>
+                        <div className="flex justify-between text-xs sm:text-sm font-bold text-gray-600 uppercase">
+                          <span>মূল দাম (REGULAR PRICE)</span>
+                          <span className="line-through text-gray-400 font-bold">
+                            ৳{regularTotal.toLocaleString()}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-xs sm:text-sm font-bold text-emerald-600 uppercase">
+                          <span className="flex items-center gap-1.5">
+                            <CheckCircle size={15} /> বাল্ক অফার ছাড় (DISCOUNT)
+                          </span>
+                          <span className="font-black">- ৳{discountAmount.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between text-xs sm:text-sm font-bold text-gray-600 uppercase">
+                          <span>ডেলিভারি চার্জ</span>
+                          {isFreeDelivery ? (
+                            <span className="text-emerald-600 font-bold flex items-center gap-1.5">
+                              <span className="line-through text-gray-400 font-normal">৳১০০</span>
+                              <span>ফ্রি (৳০)</span>
+                            </span>
+                          ) : (
+                            <span>৳১০০</span>
+                          )}
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex justify-between text-xs sm:text-sm font-bold text-gray-600 uppercase">
+                          <span>সাবটোটাল</span>
+                          <span>৳{totalProductPrice.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between text-xs sm:text-sm font-bold text-gray-600 uppercase">
+                          <span>ডেলিভারি চার্জ</span>
+                          <span>৳{deliveryCharge}</span>
+                        </div>
+                      </>
+                    )}
+
+                    <div className="flex justify-between items-center text-lg sm:text-xl font-black text-[#1F291E] pt-3 border-t border-dashed border-gray-300">
+                      <span className="uppercase text-xs sm:text-sm font-black">সর্বমোট (TOTAL)</span>
+                      <span className="text-[#4A6741] text-xl sm:text-2xl font-black">
+                        {grandTotal}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. PAYMENT METHOD SELECTOR (UNDERNEATH ORDER SUMMARY) */}
                 <div className="space-y-2">
                   <span className="text-xs font-black uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
                     <Banknote size={15} className="text-[#4A6741]" />
