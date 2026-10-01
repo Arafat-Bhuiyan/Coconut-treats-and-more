@@ -130,10 +130,8 @@ const Hero = () => {
   const isFreeDelivery = selectedPkg >= 5;
   const deliveryCharge = isFreeDelivery ? 0 : 100;
   const totalProductPrice = selectedPkg * unitPrice;
-  const regularTotal = selectedPkg * 750;
   const grandTotalNumber = totalProductPrice + deliveryCharge;
   const grandTotal = `৳${grandTotalNumber.toLocaleString()}`;
-  const oldPrice = selectedPkg >= 2 ? `৳${regularTotal.toLocaleString()}` : null;
   const boxCountLabel = `${selectedPkg} ${selectedPkg === 1 ? "Box" : "Boxes"} (${selectedPkg * 6} Cups)`;
   const isPhoneValid = formData.phone.length === 11 && formData.phone.startsWith("01");
 
@@ -585,65 +583,50 @@ const Hero = () => {
                       </div>
                     </div>
 
-                    {/* Custom Quantity Stepper Row (Supports ANY number of boxes: 3, 4, 6, 8, 10, etc.) */}
+                    {/* Custom Quantity Stepper (Direct Button with + / - to adjust boxes) */}
                     <div 
                       className={`p-3 sm:p-3.5 rounded-2xl border transition-all flex items-center justify-between shadow-xs select-none ${
                         isCustom
                           ? "bg-emerald-50/90 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/25"
-                          : "bg-white/90 border-[#4A6741]/20"
+                          : "bg-white border-gray-200"
                       }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
-                          isCustom ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400 bg-white"
-                        }`}>
-                          {isCustom && <span className="w-2 h-2 rounded-full bg-white"></span>}
-                        </span>
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs sm:text-sm font-black text-[#1F291E] block">
-                              কাস্টম পরিমাণ (Custom):
-                            </span>
-                            {isCustom && (
-                              <span className="text-[10px] font-black text-[#4A6741] bg-white px-2 py-0.5 rounded-md border border-[#4A6741]/30">
-                                ৳{unitPrice}/বক্স
-                              </span>
-                            )}
-                          </div>
-                          <span className="text-[10px] sm:text-[11px] text-gray-500 font-semibold block mt-0.5">
-                            {selectedPkg >= 5 ? "🚚 ফ্রি ডেলিভারি কার্যকর!" : "৫ বা তার বেশি বক্সে ফ্রি ডেলিভারি"}
+                      <div className="text-left">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs sm:text-sm font-black text-[#1F291E] block">
+                            অন্যান্য পরিমাণ (Custom Quantity):
                           </span>
+                          {isCustom && (
+                            <span className="text-[10px] font-black text-[#4A6741] bg-white px-2 py-0.5 rounded-md border border-[#4A6741]/30">
+                              ৳{unitPrice}/বক্স
+                            </span>
+                          )}
                         </div>
+                        <span className="text-[10px] sm:text-[11px] text-gray-500 font-bold block mt-0.5">
+                          {selectedPkg >= 5 ? "🚚 ফ্রি ডেলিভারি কার্যকর!" : "৫ বা তার বেশি বক্সে ফ্রি ডেলিভারি"}
+                        </span>
                       </div>
 
-                      <div className="flex items-center gap-2">
-                        {isCustom && (
-                          <div className="text-right mr-1 hidden sm:block">
-                            {oldPrice && <span className="text-[11px] text-gray-400 line-through block font-bold leading-none mb-0.5">{oldPrice}</span>}
-                            <span className="text-base font-black text-[#4A6741] leading-none">{grandTotal}</span>
-                          </div>
-                        )}
-                        <div className="flex items-center gap-1.5 bg-[#F4F7F2] border border-gray-300 rounded-xl p-1">
-                          <button
-                            type="button"
-                            onClick={() => setSelectedPkg((prev) => Math.max(1, prev - 1))}
-                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 font-black text-base cursor-pointer select-none active:scale-90 shadow-xs"
-                            aria-label="Decrease boxes"
-                          >
-                            <Minus size={15} />
-                          </button>
-                          <span className="w-14 text-center font-black text-xs sm:text-sm text-[#1F291E]">
-                            {selectedPkg} Box{selectedPkg > 1 ? "es" : ""}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => setSelectedPkg((prev) => Math.min(50, prev + 1))}
-                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#4A6741] text-white hover:bg-[#3E5837] font-black text-base cursor-pointer select-none active:scale-90 shadow-xs"
-                            aria-label="Increase boxes"
-                          >
-                            <Plus size={15} />
-                          </button>
-                        </div>
+                      <div className="flex items-center gap-1.5 bg-[#F4F7F2] border border-gray-300 rounded-xl p-1 shadow-inner">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedPkg((prev) => Math.max(1, prev - 1))}
+                          className="w-8 h-8 flex items-center justify-center rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 active:bg-gray-200 font-black text-base cursor-pointer select-none active:scale-90 shadow-xs"
+                          aria-label="Decrease boxes"
+                        >
+                          <Minus size={15} />
+                        </button>
+                        <span className="w-16 text-center font-black text-xs sm:text-sm text-[#1F291E]">
+                          {selectedPkg} Box{selectedPkg > 1 ? "es" : ""}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedPkg((prev) => Math.min(50, prev + 1))}
+                          className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#4A6741] text-white hover:bg-[#3E5837] active:bg-[#32492c] font-black text-base cursor-pointer select-none active:scale-90 shadow-xs"
+                          aria-label="Increase boxes"
+                        >
+                          <Plus size={15} />
+                        </button>
                       </div>
                     </div>
                   </div>
