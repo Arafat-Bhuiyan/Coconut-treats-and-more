@@ -452,43 +452,22 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* 1st Layer, 2nd Layer, 100% Halal (Moved Below Video as requested!) */}
-                <div className="grid grid-cols-3 gap-2.5">
-                  {/* Tile 1: 1st Layer */}
-                  <div className="bg-[#F4F7F2] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/20 shadow-sm">
-                    <span className="text-2xl mb-1">🥥</span>
-                    <span className="text-[9px] font-black uppercase text-[#4A6741] tracking-wider leading-none">1st Layer</span>
-                    <span className="text-[11px] font-extrabold leading-tight text-[#1F291E] mt-1">Fresh Coconut Pudding</span>
+                {/* 3 Core Highlights (Clean & Modern) */}
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                  <div className="bg-white/90 backdrop-blur-xs rounded-xl p-2.5 text-center flex flex-col items-center justify-center border border-gray-200/80 shadow-2xs">
+                    <span className="text-xl sm:text-2xl mb-1">🥥</span>
+                    <span className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">১ম লেয়ার</span>
+                    <span className="text-[11px] sm:text-xs font-black text-[#1F291E] mt-0.5">ডাবের পুডিং</span>
                   </div>
-
-                  {/* Tile 2: 2nd Layer Fresh Cow Milk Pudding */}
-                  <div className="bg-[#F4F7F2] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/20 shadow-sm">
-                    <span className="text-2xl mb-1">🥛</span>
-                    <span className="text-[9px] font-black uppercase text-[#4A6741] tracking-wider leading-none">2nd Layer</span>
-                    <span className="text-[11px] font-extrabold leading-tight text-[#1F291E] mt-1">Fresh Cow Milk Pudding</span>
+                  <div className="bg-white/90 backdrop-blur-xs rounded-xl p-2.5 text-center flex flex-col items-center justify-center border border-gray-200/80 shadow-2xs">
+                    <span className="text-xl sm:text-2xl mb-1">🥛</span>
+                    <span className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">২য় লেয়ার</span>
+                    <span className="text-[11px] sm:text-xs font-black text-[#1F291E] mt-0.5">গরুর দুধের পুডিং</span>
                   </div>
-
-                  {/* Tile 3: 100% Halal */}
-                  <div className="bg-[#F4F7F2] rounded-2xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/20 shadow-sm">
-                    <span className="text-2xl mb-1">🌿</span>
-                    <span className="text-[9px] font-black uppercase text-[#4A6741] tracking-wider leading-none">Purity</span>
-                    <span className="text-[11px] font-black leading-tight text-[#4A6741] mt-1">100% Halal</span>
-                  </div>
-                </div>
-
-                {/* 3 Benefit Trust Badges */}
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="bg-[#F4F7F2] rounded-xl px-2 py-2 flex items-center justify-center gap-1.5 border border-[#4A6741]/20 shadow-sm text-center">
-                    <span className="w-3.5 h-3.5 rounded-full bg-[#4A6741] text-white flex items-center justify-center text-[9px] font-black flex-shrink-0">✓</span>
-                    <span className="text-[10px] sm:text-[11px] font-extrabold text-[#1F291E] leading-tight">No Preservatives</span>
-                  </div>
-                  <div className="bg-[#F4F7F2] rounded-xl px-2 py-2 flex items-center justify-center gap-1.5 border border-[#4A6741]/20 shadow-sm text-center">
-                    <span className="w-3.5 h-3.5 rounded-full bg-[#4A6741] text-white flex items-center justify-center text-[9px] font-black flex-shrink-0">✓</span>
-                    <span className="text-[10px] sm:text-[11px] font-extrabold text-[#1F291E] leading-tight">100% Halal</span>
-                  </div>
-                  <div className="bg-[#F4F7F2] rounded-xl px-2 py-2 flex items-center justify-center gap-1.5 border border-[#4A6741]/20 shadow-sm text-center">
-                    <span className="w-3.5 h-3.5 rounded-full bg-[#4A6741] text-white flex items-center justify-center text-[9px] font-black flex-shrink-0">✓</span>
-                    <span className="text-[10px] sm:text-[11px] font-extrabold text-[#1F291E] leading-tight">Fresh Made Daily</span>
+                  <div className="bg-white/90 backdrop-blur-xs rounded-xl p-2.5 text-center flex flex-col items-center justify-center border border-[#4A6741]/30 bg-emerald-50/50 shadow-2xs">
+                    <span className="text-xl sm:text-2xl mb-1">🌿</span>
+                    <span className="text-[9px] font-black text-[#4A6741] uppercase tracking-wider">১০০% হালাল</span>
+                    <span className="text-[11px] sm:text-xs font-black text-[#4A6741] mt-0.5">প্রিজারভেটিভমুক্ত</span>
                   </div>
                 </div>
 
@@ -769,27 +748,22 @@ const Hero = () => {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
               
               {/* ROW 2 LEFT: Customer Info & Delivery Address Form (Auto-filled) */}
-              <div className="md:col-span-6 bg-[#F4F7F2] rounded-2xl p-4 sm:p-5 border border-[#4A6741]/20 shadow-sm space-y-3.5">
-                <div className="flex items-center justify-between border-b border-[#4A6741]/20 pb-2.5">
+              <div className="md:col-span-6 bg-white rounded-2xl p-4 sm:p-5 border border-gray-200 shadow-xs space-y-3.5">
+                <div className="flex items-center justify-between border-b border-gray-100 pb-2.5">
                   <span className="text-xs sm:text-sm font-black text-[#1F291E] uppercase tracking-wider flex items-center gap-1.5">
                     <MapPin size={16} className="text-[#4A6741]" />
                     <span>ডেলিভারি ঠিকানা ও তথ্য (Delivery Details)</span>
                   </span>
-                  <div className="flex items-center gap-1.5">
-                    {hasSavedInfo && (
-                      <button
-                        type="button"
-                        onClick={handleRestoreSavedInfo}
-                        className="text-[10px] font-black text-[#4A6741] bg-emerald-100 hover:bg-emerald-200 px-2 py-0.5 rounded-full transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
-                        title="ক্লিক করে পূর্বের সংরক্ষিত তথ্য স্বয়ংক্রিয়ভাবে বসান"
-                      >
-                        <span>⚡ অটো ফিল</span>
-                      </button>
-                    )}
-                    <span className="text-[10px] font-black text-[#4A6741] bg-emerald-100/90 px-2.5 py-0.5 rounded-full">
-                      হোম ডেলিভারি
-                    </span>
-                  </div>
+                  {hasSavedInfo && (
+                    <button
+                      type="button"
+                      onClick={handleRestoreSavedInfo}
+                      className="text-[10px] font-black text-[#4A6741] bg-emerald-50 hover:bg-emerald-100 border border-[#4A6741]/20 px-2 py-0.5 rounded-full transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
+                      title="ক্লিক করে পূর্বের সংরক্ষিত তথ্য স্বয়ংক্রিয়ভাবে বসান"
+                    >
+                      <span>⚡ অটো ফিল</span>
+                    </button>
+                  )}
                 </div>
 
                 {/* Name & Phone */}
@@ -1130,46 +1104,12 @@ const Hero = () => {
                   </button>
 
                   {/* STORAGE TIP: Placed DIRECTLY under the CONFIRM ORDER button as requested! */}
-                  <div className="bg-emerald-50/90 border border-[#4A6741]/25 rounded-2xl p-3 sm:p-3.5 flex items-start gap-2.5 shadow-sm">
+                  <div className="bg-emerald-50/90 border border-[#4A6741]/20 rounded-2xl p-3 sm:p-3.5 flex items-start gap-2.5 shadow-2xs">
                     <span className="text-xl flex-shrink-0 mt-0.5">💡</span>
                     <p className="text-xs text-[#2B4025] font-bold leading-relaxed">
-                      <strong>Storage Tip:</strong> বক্স থেকে খুলে কাপগুলো নরমাল ফ্রিজে রাখুন, এতে পুডিং দীর্ঘক্ষণ তাজা ও সুস্বাদু থাকবে। (Keep cups unboxed in normal fridge to maintain peak freshness).
+                      <strong>সংরক্ষণ পদ্ধতি:</strong> বক্স থেকে খুলে কাপগুলো নরমাল ফ্রিজে রাখুন, এতে পুডিং দীর্ঘক্ষণ তাজা ও সুস্বাদু থাকবে।
                     </p>
                   </div>
-
-                  {/* Security & Guarantee Row */}
-                  <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-[11px] font-bold text-gray-500 pt-1">
-                    <span className="flex items-center gap-1">
-                      <span className="text-[#4A6741]">💵</span> Cash on Delivery
-                    </span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1">
-                      <span className="text-[#E2136E]">📱</span> bKash Available
-                    </span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1">
-                      <span className="text-[#4A6741]">⚡</span> Fresh Daily Batch
-                    </span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1">
-                      <span className="text-[#4A6741]">🌿</span> 100% Halal
-                    </span>
-                  </div>
-
-                  {/* Incentive / Unlocked Gift Ribbon */}
-                  <div className="bg-emerald-50 border-2 border-dashed border-[#8DA47E] rounded-xl py-2 px-3 flex items-center justify-center gap-2 text-center">
-                    <span className="text-base">🎁</span>
-                    <span className="text-[11px] font-black text-[#2B4025] uppercase tracking-wide">
-                      {selectedPkg >= 5 ? (
-                        <>🎉 MEGA COMBO: YOU UNLOCKED <span className="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">FREE DELIVERY</span> + ৳{((selectedPkg * 750) - totalProductPrice).toLocaleString()} OFF!</>
-                      ) : selectedPkg >= 2 ? (
-                        <>CONGRATULATIONS, YOU UNLOCKED <span className="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">৳{((selectedPkg * 750) - totalProductPrice).toLocaleString()} DISCOUNT</span> WITH {selectedPkg} BOXES</>
-                      ) : (
-                        <>ORDER 2 BOXES TO UNLOCK <span className="bg-[#4A6741] text-white px-2 py-0.5 rounded text-[10px]">৳100 DISCOUNT</span></>
-                      )}
-                    </span>
-                  </div>
-
                 </div>
 
               </div>
