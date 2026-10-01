@@ -382,43 +382,12 @@ const Hero = () => {
         <form onSubmit={handleSubmitOrder} noValidate>
           <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border border-[#4A6741]/15 overflow-hidden p-4 sm:p-7 md:p-9 space-y-6 md:space-y-8">
             
-            {/* ROW 1: Popup Offer Card & Quick Order (Left) + Video (Right: video ta dan pashe niben) */}
+            {/* ROW 1: Popup Offer Card & Quick Order (Left: popup ta arow upore utbe) + Video & Title (Right: eta thik video er niche thakbe) */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
               
-              {/* ROW 1 LEFT: Product Title, Badges, Offer Card ("pop up er jinish ta") & Quick Order */}
-              <div className="md:col-span-6 space-y-4">
-                {/* Rating & Social Proof */}
-                <div className="flex items-center gap-2">
-                  <div className="flex text-[#8DA47E] text-base">
-                    ★★★★★
-                  </div>
-                  <span className="text-xs sm:text-sm font-black text-[#1F291E]">4.9/5 Loved by 1,000+ Customers</span>
-                </div>
-
-                {/* Product Title */}
-                <div>
-                  <h1 className="text-2xl sm:text-3xl font-black text-[#1F291E] tracking-tight leading-tight">
-                    Fresh Homemade Premium Coconut Pudding
-                  </h1>
-                </div>
-
-                {/* Feature Pill Tags */}
-                <div className="flex flex-wrap gap-2">
-                  <span className="inline-flex items-center gap-1.5 bg-[#F4F7F2] text-[#4A6741] border border-[#4A6741]/25 px-3 py-1.5 rounded-full text-xs font-black">
-                    <span>⚡</span>
-                    <span>Mild Sugar Added</span>
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 bg-[#F4F7F2] text-[#4A6741] border border-[#4A6741]/25 px-3 py-1.5 rounded-full text-xs font-black">
-                    <span>❄️</span>
-                    <span>4–5 Days Shelf Life</span>
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 bg-[#F4F7F2] text-[#4A6741] border border-[#4A6741]/25 px-3 py-1.5 rounded-full text-xs font-black">
-                    <span>🌿</span>
-                    <span>100% Halal | No Preservatives</span>
-                  </span>
-                </div>
-
-                {/* THE POPUP OFFER CARD: "likhatar bodole thakbe pop up er jinish ta" */}
+              {/* ROW 1 LEFT: THE POPUP OFFER CARD ("popup ta arow upore utbe") & Quick Order */}
+              <div className="md:col-span-6 space-y-4 order-2 md:order-1">
+                {/* THE POPUP OFFER CARD: Elevated to top */}
                 <div className="bg-[#F8FAF7] border-2 border-[#4A6741]/25 rounded-2xl p-4 sm:p-5 space-y-3 shadow-sm relative overflow-hidden">
                   {/* Top Header */}
                   <div className="flex items-center justify-between">
@@ -478,7 +447,7 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* QUICK ORDER NOW BUTTON: "tar niche quick order now" */}
+                {/* QUICK ORDER NOW BUTTON */}
                 <div className="pt-1">
                   <a
                     href="#order-form-details"
@@ -497,8 +466,9 @@ const Hero = () => {
                 </div>
               </div>
 
-              {/* ROW 1 RIGHT: Product Video ("video ta dan pashe niben") */}
-              <div className="md:col-span-6 space-y-3.5">
+              {/* ROW 1 RIGHT: Product Video + Title, Rating & Badges directly under video (eta thik video er niche thakbe) */}
+              <div className="md:col-span-6 space-y-4 order-1 md:order-2">
+                {/* Video Card */}
                 <div className="bg-[#F4F7F2] rounded-3xl p-3 relative flex flex-col justify-between overflow-hidden border border-[#4A6741]/20 shadow-md">
                   {/* Best Seller Badge */}
                   <div className="absolute top-3 left-3 z-20">
@@ -535,6 +505,41 @@ const Hero = () => {
                     </span>
                   </div>
                 </div>
+
+                {/* DIRECTLY UNDER THE VIDEO: Rating, Title & Feature Badges ("eta thik video er niche thakbe") */}
+                <div className="space-y-3 pt-1">
+                  {/* Rating & Social Proof */}
+                  <div className="flex items-center gap-2">
+                    <div className="flex text-[#8DA47E] text-base">
+                      ★★★★★
+                    </div>
+                    <span className="text-xs sm:text-sm font-black text-[#1F291E]">4.9/5 Loved by 1,000+ Customers</span>
+                  </div>
+
+                  {/* Product Title */}
+                  <div>
+                    <h1 className="text-2xl sm:text-3xl font-black text-[#1F291E] tracking-tight leading-tight">
+                      Fresh Homemade Premium Coconut Pudding
+                    </h1>
+                  </div>
+
+                  {/* Feature Pill Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    <span className="inline-flex items-center gap-1.5 bg-[#F4F7F2] text-[#4A6741] border border-[#4A6741]/25 px-3 py-1.5 rounded-full text-xs font-black">
+                      <span>⚡</span>
+                      <span>Mild Sugar Added</span>
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 bg-[#F4F7F2] text-[#4A6741] border border-[#4A6741]/25 px-3 py-1.5 rounded-full text-xs font-black">
+                      <span>❄️</span>
+                      <span>4–5 Days Shelf Life</span>
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 bg-[#F4F7F2] text-[#4A6741] border border-[#4A6741]/25 px-3 py-1.5 rounded-full text-xs font-black">
+                      <span>🌿</span>
+                      <span>100% Halal | No Preservatives</span>
+                    </span>
+                  </div>
+                </div>
+
               </div>
 
             </div>
