@@ -372,8 +372,16 @@ const Hero = () => {
                   </div>
 
                   {/* Bottom label under video */}
-                  <div className="text-center pt-1">
-                    <span className="text-[11px] font-black text-[#4A6741] uppercase tracking-wider">
+                  <div className="text-center pt-1.5 space-y-1">
+                    {/* Mobile Only: Rating directly under video */}
+                    <div className="flex md:hidden items-center justify-center gap-1.5 bg-white/90 py-1 px-3.5 rounded-full border border-[#4A6741]/20 mx-auto w-fit shadow-xs">
+                      <div className="flex text-[#8DA47E] text-xs">
+                        ★★★★★
+                      </div>
+                      <span className="text-[11px] font-black text-[#1F291E]">4.9/5 Loved by 1,000+ Customers</span>
+                    </div>
+
+                    <span className="text-[11px] font-black text-[#4A6741] uppercase tracking-wider block">
                       6 Pieces Per Box • Fresh Made Daily
                     </span>
                   </div>
@@ -423,8 +431,8 @@ const Hero = () => {
 
               {/* ROW 1 RIGHT: Product Title + Bundle Selector + Price Breakdown */}
               <div className="md:col-span-6 space-y-3.5">
-                {/* Rating & Social Proof */}
-                <div className="flex items-center gap-2">
+                {/* Rating & Social Proof (Desktop only; on mobile it's directly under the video) */}
+                <div className="hidden md:flex items-center gap-2">
                   <div className="flex text-[#8DA47E] text-base">
                     ★★★★★
                   </div>
