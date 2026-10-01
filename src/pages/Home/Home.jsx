@@ -7,6 +7,7 @@ import { trackFacebookEvent } from "../../utils/facebookTracking";
 import Testimonials from "./sections/Testimonials/Testimonials";
 import Footer from "./sections/Footer/Footer";
 import PromotionPopup from "./sections/Hero/PromotionPopup";
+import StickyMobileOrderBar from "../../components/StickyMobileOrderBar";
 
 
 export const Home = () => {
@@ -110,6 +111,7 @@ export const Home = () => {
         onClose={() => setShowPromo(false)}
         onClaim={claimOffer}
       />
+      <StickyMobileOrderBar />
       <WhatsAppButton />
     </div>
   );

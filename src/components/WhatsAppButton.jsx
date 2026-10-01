@@ -24,7 +24,7 @@ const WhatsAppButton = () => {
 
   return (
     <div
-      className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 flex flex-col items-start gap-3 transition-all duration-500 pointer-events-none"
+      className="fixed bottom-16 sm:bottom-6 left-4 sm:left-6 z-40 flex flex-col items-start gap-3 transition-all duration-500 pointer-events-none"
       style={{
         transform: visible ? "scale(1)" : "scale(0.75)",
         opacity: visible ? 1 : 0

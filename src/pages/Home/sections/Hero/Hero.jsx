@@ -106,6 +106,14 @@ const Hero = () => {
       : null;
   const deliveryText = isFreeDelivery ? "FREE (৳0)" : "৳100";
   const boxCountLabel = `${selectedPkg} ${selectedPkg === 1 ? "Box" : "Boxes"} (${selectedPkg * 6} Cups)`;
+  const isPhoneValid = formData.phone.length === 11 && formData.phone.startsWith("01");
+
+  // Emit package & price updates for the floating sticky order bar
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent("sticky-order-info", {
+      detail: { selectedPkg, grandTotal }
+    }));
+  }, [selectedPkg, grandTotal]);
 
   // Handle bundle selection: scroll to order details unless package count is more than 5 boxes
   const handleSelectPackage = (pkgCount) => {
@@ -128,8 +136,6 @@ const Hero = () => {
     }, 100);
   };
 
-
-
   const handleRestoreSavedInfo = () => {
     try {
       const saved = localStorage.getItem("coconut_customer_info");
@@ -151,10 +157,21 @@ const Hero = () => {
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormError("");
+
+    let nextVal = type === "checkbox" ? checked : value;
+    if (name === "phone") {
+      const bnToEnMap = { '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4', '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9' };
+      let clean = String(value).replace(/[০-৯]/g, (d) => bnToEnMap[d] || d);
+      clean = clean.replace(/[^0-9+]/g, '');
+      if (clean.startsWith('+88')) clean = clean.slice(3);
+      else if (clean.startsWith('88')) clean = clean.slice(2);
+      nextVal = clean.slice(0, 11);
+    }
+
     setFormData((prev) => {
       const next = {
         ...prev,
-        [name]: type === "checkbox" ? checked : value
+        [name]: nextVal
       };
       // Auto-save to localStorage so returning customer never types twice
       try {
@@ -473,6 +490,7 @@ const Hero = () => {
                   <div className="space-y-3 pt-1">
                     {/* Row 1: 1 Box */}
                     <div 
+                      id="pkg-row-1"
                       onClick={() => handleSelectPackage(1)}
                       className={`p-3.5 sm:p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between relative select-none hover:scale-[1.01] active:scale-[0.99] ${
                         isOne 
@@ -501,6 +519,7 @@ const Hero = () => {
 
                     {/* Row 2: 2 Boxes (MOST POPULAR) */}
                     <div 
+                      id="pkg-row-2"
                       onClick={() => handleSelectPackage(2)}
                       className={`p-3.5 sm:p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between relative select-none hover:scale-[1.01] active:scale-[0.99] mt-3 sm:mt-3.5 ${
                         isTwo 
@@ -533,6 +552,7 @@ const Hero = () => {
 
                     {/* Row 3: 5 Boxes (BEST VALUE / FREE DELIVERY) */}
                     <div 
+                      id="pkg-row-5"
                       onClick={() => handleSelectPackage(5)}
                       className={`p-3.5 sm:p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between relative select-none hover:scale-[1.01] active:scale-[0.99] mt-3 sm:mt-3.5 ${
                         isFive 
@@ -742,21 +762,37 @@ const Hero = () => {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label htmlFor="customer-phone" className="text-[11px] font-black text-gray-700 uppercase tracking-wider block">
-                      মোবাইল নম্বর (Phone) <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      id="customer-phone"
-                      type="tel"
-                      required
-                      name="phone"
-                      autoComplete="tel"
-                      inputMode="tel"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      placeholder="01XXX-XXXXXX"
-                      className="w-full bg-white border-2 border-gray-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20 transition-all placeholder:text-gray-400"
-                    />
+                    <div className="flex items-center justify-between">
+                      <label htmlFor="customer-phone" className="text-[11px] font-black text-gray-700 uppercase tracking-wider block">
+                        মোবাইল নম্বর (Phone) <span className="text-red-500">*</span>
+                      </label>
+                      {isPhoneValid && (
+                        <span className="text-[10px] font-black text-emerald-700 flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                          <Check size={12} strokeWidth={3} /> সঠিক নম্বর
+                        </span>
+                      )}
+                    </div>
+                    <div className="relative">
+                      <input
+                        id="customer-phone"
+                        type="tel"
+                        required
+                        name="phone"
+                        autoComplete="tel"
+                        inputMode="numeric"
+                        maxLength={11}
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        placeholder="01XXXXXXXXX"
+                        className={`w-full bg-white border-2 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-400 ${
+                          isPhoneValid
+                            ? "border-emerald-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
+                            : formData.phone.length > 0 && formData.phone.length < 11
+                              ? "border-amber-400 focus:border-amber-500"
+                              : "border-gray-300 focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20"
+                        }`}
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -828,6 +864,7 @@ const Hero = () => {
                   <div className="grid grid-cols-2 gap-2.5">
                     {/* Option 1: Cash on Delivery (Default Selected) */}
                     <div
+                      id="payment-method-cod"
                       role="button"
                       tabIndex={0}
                       onClick={() => setPaymentMethod("cod")}
@@ -858,6 +895,7 @@ const Hero = () => {
 
                     {/* Option 2: bKash */}
                     <div
+                      id="payment-method-bkash"
                       role="button"
                       tabIndex={0}
                       onClick={() => setPaymentMethod("bkash")}
@@ -891,11 +929,15 @@ const Hero = () => {
                   {paymentMethod === "bkash" && (
                     <div className="bg-gradient-to-br from-pink-50/95 to-rose-50/80 p-3.5 sm:p-4 rounded-2xl border-2 border-[#D12053]/30 shadow-sm space-y-3 animate-fadeIn">
                       <div className="flex items-center justify-between gap-2 pb-2 border-b border-[#D12053]/20">
-                        <div>
+                        <div 
+                          onClick={handleCopyBkash} 
+                          className="cursor-pointer select-none group"
+                          title="ক্লিক করে নাম্বারটি কপি করুন"
+                        >
                           <span className="text-[10px] font-black uppercase tracking-wider text-[#D12053] block">
-                            bKash Personal Account:
+                            bKash Personal Account (ক্লিক করে কপি):
                           </span>
-                          <span className="text-base sm:lg font-black text-gray-900">
+                          <span className="text-base sm:text-lg font-black text-gray-900 group-hover:text-[#D12053] transition-colors">
                             01618562844
                           </span>
                         </div>
