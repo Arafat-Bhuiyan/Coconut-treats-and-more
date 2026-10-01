@@ -83,6 +83,7 @@ const Hero = () => {
   const isOne = selectedPkg === 1;
   const isTwo = selectedPkg === 2;
   const isFive = selectedPkg === 5;
+  const isCustom = !isOne && !isTwo && !isFive;
 
   let unitPrice = 750;
   if (selectedPkg >= 5) {
@@ -460,129 +461,159 @@ const Hero = () => {
                     </span>
                   </div>
 
-                  {/* 3 High-Contrast Segmented Package Cards */}
-                  <div className="grid grid-cols-3 gap-2.5 pt-1">
-                    {/* Package 1: 1 Box */}
+                  {/* High-Contrast Stacked Package Rows (Shopify DTC Style - Lomba Lomba) */}
+                  <div className="space-y-3 pt-1">
+                    {/* Row 1: 1 Box */}
                     <div 
                       onClick={() => handleSelectPackage(1)}
-                      className={`package-card p-2.5 sm:p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative shadow-sm select-none hover:scale-[1.02] active:scale-[0.98] ${
+                      className={`p-3.5 sm:p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between relative select-none hover:scale-[1.01] active:scale-[0.99] ${
                         isOne 
-                          ? "bg-emerald-50/90 border-[#4A6741] shadow-lg ring-2 ring-[#4A6741]/25" 
-                          : "bg-white border-gray-300 hover:border-[#4A6741]/60"
+                          ? "bg-emerald-50/90 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/25" 
+                          : "bg-white border-gray-200 hover:border-[#4A6741]/60 shadow-xs"
                       }`}
                     >
-                      <div className="flex items-center justify-center mb-1">
-                        <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                          isOne ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400"
+                      <div className="flex items-center gap-3">
+                        <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
+                          isOne ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400 bg-white"
                         }`}>
-                          {isOne && <span className="w-1.5 h-1.5 rounded-full bg-white"></span>}
+                          {isOne && <span className="w-2 h-2 rounded-full bg-white"></span>}
                         </span>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-black text-sm sm:text-base text-[#1F291E]">১ বক্স (৬ কাপ)</span>
+                            <span className="text-[10px] font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded">1 Box</span>
+                          </div>
+                          <span className="text-[11px] text-gray-600 font-bold block mt-0.5">+ ৳১০০ ডেলিভারি চার্জ</span>
+                        </div>
                       </div>
-                      <div>
-                        <span className="text-xs font-black text-[#1F291E] uppercase block tracking-wide">1 Box</span>
-                        <span className="text-[11px] text-[#4A6741] font-bold block">6 Cups</span>
+                      <div className="text-right">
+                        <span className="text-xl sm:text-2xl font-black text-[#1F291E] leading-none">৳৭৫০</span>
                       </div>
-                      <div className="my-1">
-                        <span className="text-lg sm:text-xl font-black text-[#1F291E]">৳750</span>
-                      </div>
-                      <span className="text-[10px] sm:text-[11px] font-bold text-gray-600 block leading-tight">+ ৳100 Delivery</span>
                     </div>
 
-                    {/* Package 2: 2 Boxes (Most Popular) */}
+                    {/* Row 2: 2 Boxes (MOST POPULAR) */}
                     <div 
                       onClick={() => handleSelectPackage(2)}
-                      className={`package-card p-2.5 sm:p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative select-none hover:scale-[1.02] active:scale-[0.98] ${
+                      className={`p-3.5 sm:p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between relative select-none hover:scale-[1.01] active:scale-[0.99] mt-3 sm:mt-3.5 ${
                         isTwo 
-                          ? "bg-emerald-50/90 border-[#4A6741] shadow-lg ring-2 ring-[#4A6741]/25" 
-                          : "bg-white border-gray-300 hover:border-[#4A6741]/60 shadow-sm"
+                          ? "bg-emerald-50/90 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/25" 
+                          : "bg-white border-gray-200 hover:border-[#4A6741]/60 shadow-xs"
                       }`}
                     >
-                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#4A6741] text-white text-[9px] font-black px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-md uppercase tracking-wider">
-                        SAVE ৳100
+                      <span className="absolute -top-2.5 right-4 bg-[#4A6741] text-white text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow">
+                        🔥 MOST POPULAR • ১০০ টাকা ছাড়
                       </span>
-                      <div className="flex items-center justify-center mb-1 mt-0.5">
-                        <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                          isTwo ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400"
+                      <div className="flex items-center gap-3">
+                        <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
+                          isTwo ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400 bg-white"
                         }`}>
-                          {isTwo && <span className="w-1.5 h-1.5 rounded-full bg-white"></span>}
+                          {isTwo && <span className="w-2 h-2 rounded-full bg-white"></span>}
                         </span>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-black text-sm sm:text-base text-[#1F291E]">২ বক্স (১২ কাপ)</span>
+                            <span className="text-[10px] font-black text-[#4A6741] bg-white px-2 py-0.5 rounded-md border border-[#4A6741]/30">৳৭০০/বক্স</span>
+                          </div>
+                          <span className="text-[11px] text-[#4A6741] font-bold block mt-0.5">+ ৳১০০ ডেলিভারি চার্জ</span>
+                        </div>
                       </div>
-                      <div>
-                        <span className="text-xs font-black text-[#4A6741] uppercase block tracking-wide">2 Boxes</span>
-                        <span className="text-[11px] text-[#4A6741] font-extrabold block">12 Cups</span>
+                      <div className="text-right">
+                        <span className="text-xs text-gray-400 line-through block font-bold leading-none mb-0.5">৳১,৫০০</span>
+                        <span className="text-xl sm:text-2xl font-black text-[#4A6741] leading-none">৳১,৪০০</span>
                       </div>
-                      <div className="my-0.5">
-                        <span className="text-[11px] font-bold text-gray-400 line-through block leading-none">৳1,500</span>
-                        <span className="text-xl sm:text-2xl font-black text-[#4A6741] leading-tight">৳1,400</span>
-                      </div>
-                      <span className="text-[10px] sm:text-[11px] font-extrabold text-[#2E4A26] block leading-tight">+ ৳100 Delivery</span>
                     </div>
 
-                    {/* Package 3: 5 Boxes (FREE DELIVERY) */}
+                    {/* Row 3: 5 Boxes (BEST VALUE / FREE DELIVERY) */}
                     <div 
                       onClick={() => handleSelectPackage(5)}
-                      className={`package-card p-2.5 sm:p-3 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col justify-between relative select-none hover:scale-[1.02] active:scale-[0.98] ${
+                      className={`p-3.5 sm:p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between relative select-none hover:scale-[1.01] active:scale-[0.99] mt-3 sm:mt-3.5 ${
                         isFive 
-                          ? "bg-emerald-50/90 border-[#4A6741] shadow-lg ring-2 ring-[#4A6741]/25" 
-                          : "bg-white border-gray-300 hover:border-[#4A6741]/60 shadow-sm"
+                          ? "bg-emerald-50/90 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/25" 
+                          : "bg-white border-gray-200 hover:border-[#4A6741]/60 shadow-xs"
                       }`}
                     >
-                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-700 text-white text-[9px] font-black px-2 py-0.5 rounded-full whitespace-nowrap shadow-md uppercase tracking-wider">
-                        FREE DELIVERY
+                      <span className="absolute -top-2.5 right-4 bg-emerald-700 text-white text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow">
+                        🎉 BEST VALUE • ফ্রি ডেলিভারি
                       </span>
-                      <div className="flex items-center justify-center mb-1 mt-0.5">
-                        <span className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                          isFive ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400"
+                      <div className="flex items-center gap-3">
+                        <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
+                          isFive ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400 bg-white"
                         }`}>
-                          {isFive && <span className="w-1.5 h-1.5 rounded-full bg-white"></span>}
+                          {isFive && <span className="w-2 h-2 rounded-full bg-white"></span>}
                         </span>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-black text-sm sm:text-base text-[#1F291E]">৫ বক্স (৩০ কাপ)</span>
+                            <span className="text-[10px] font-black text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-300">৳৬৮০/বক্স</span>
+                          </div>
+                          <span className="text-[11px] font-black text-emerald-700 block mt-0.5">🚚 ফ্রি ডেলিভারি (৳০)</span>
+                        </div>
                       </div>
-                      <div>
-                        <span className="text-xs font-black text-[#1F291E] uppercase block tracking-wide">5 Boxes</span>
-                        <span className="text-[11px] text-[#4A6741] font-bold block">30 Cups</span>
+                      <div className="text-right">
+                        <span className="text-xs text-gray-400 line-through block font-bold leading-none mb-0.5">৳৩,৭৫০</span>
+                        <span className="text-xl sm:text-2xl font-black text-[#4A6741] leading-none">৳৩,৪০০</span>
                       </div>
-                      <div className="my-0.5">
-                        <span className="text-[11px] font-bold text-gray-400 line-through block leading-none">৳3,750</span>
-                        <span className="text-xl sm:text-2xl font-black text-[#4A6741] leading-tight">৳3,400</span>
-                      </div>
-                      <span className="text-[9px] sm:text-[10px] font-black text-white bg-[#4A6741] rounded-full px-2 py-0.5 block shadow-sm uppercase tracking-wide">
-                        FREE DELIVERY
-                      </span>
                     </div>
-                  </div>
 
-                  {/* Custom Quantity Stepper (Supports ANY number of boxes: 3, 4, 6, 8, 10, etc.) */}
-                  <div className="pt-2">
-                    <div className="bg-white/90 border border-[#4A6741]/20 rounded-xl px-3 py-2 flex items-center justify-between shadow-sm">
-                      <div className="text-left">
-                        <span className="text-[11px] font-black text-[#1F291E] block">
-                          কাস্টম পরিমাণ (Custom Quantity):
+                    {/* Custom Quantity Stepper Row (Supports ANY number of boxes: 3, 4, 6, 8, 10, etc.) */}
+                    <div 
+                      className={`p-3 sm:p-3.5 rounded-2xl border transition-all flex items-center justify-between shadow-xs select-none ${
+                        isCustom
+                          ? "bg-emerald-50/90 border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/25"
+                          : "bg-white/90 border-[#4A6741]/20"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
+                          isCustom ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400 bg-white"
+                        }`}>
+                          {isCustom && <span className="w-2 h-2 rounded-full bg-white"></span>}
                         </span>
-                        <span className="text-[10px] text-gray-500 font-semibold block">
-                          ৫ বা তার বেশি বক্সে ফ্রি ডেলিভারি!
-                        </span>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs sm:text-sm font-black text-[#1F291E] block">
+                              কাস্টম পরিমাণ (Custom):
+                            </span>
+                            {isCustom && (
+                              <span className="text-[10px] font-black text-[#4A6741] bg-white px-2 py-0.5 rounded-md border border-[#4A6741]/30">
+                                ৳{unitPrice}/বক্স
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-[10px] sm:text-[11px] text-gray-500 font-semibold block mt-0.5">
+                            {selectedPkg >= 5 ? "🚚 ফ্রি ডেলিভারি কার্যকর!" : "৫ বা তার বেশি বক্সে ফ্রি ডেলিভারি"}
+                          </span>
+                        </div>
                       </div>
 
-                      <div className="flex items-center gap-1.5 bg-[#F4F7F2] border border-gray-300 rounded-xl p-1">
-                        <button
-                          type="button"
-                          onClick={() => setSelectedPkg((prev) => Math.max(1, prev - 1))}
-                          className="w-7 h-7 flex items-center justify-center rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 font-black text-base cursor-pointer select-none active:scale-90"
-                          aria-label="Decrease boxes"
-                        >
-                          <Minus size={14} />
-                        </button>
-                        <span className="w-14 text-center font-black text-xs text-[#1F291E]">
-                          {selectedPkg} Box{selectedPkg > 1 ? "es" : ""}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => setSelectedPkg((prev) => Math.min(50, prev + 1))}
-                          className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#4A6741] text-white hover:bg-[#3E5837] font-black text-base cursor-pointer select-none active:scale-90"
-                          aria-label="Increase boxes"
-                        >
-                          <Plus size={14} />
-                        </button>
+                      <div className="flex items-center gap-2">
+                        {isCustom && (
+                          <div className="text-right mr-1 hidden sm:block">
+                            {oldPrice && <span className="text-[11px] text-gray-400 line-through block font-bold leading-none mb-0.5">{oldPrice}</span>}
+                            <span className="text-base font-black text-[#4A6741] leading-none">{grandTotal}</span>
+                          </div>
+                        )}
+                        <div className="flex items-center gap-1.5 bg-[#F4F7F2] border border-gray-300 rounded-xl p-1">
+                          <button
+                            type="button"
+                            onClick={() => setSelectedPkg((prev) => Math.max(1, prev - 1))}
+                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-100 font-black text-base cursor-pointer select-none active:scale-90 shadow-xs"
+                            aria-label="Decrease boxes"
+                          >
+                            <Minus size={15} />
+                          </button>
+                          <span className="w-14 text-center font-black text-xs sm:text-sm text-[#1F291E]">
+                            {selectedPkg} Box{selectedPkg > 1 ? "es" : ""}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedPkg((prev) => Math.min(50, prev + 1))}
+                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#4A6741] text-white hover:bg-[#3E5837] font-black text-base cursor-pointer select-none active:scale-90 shadow-xs"
+                            aria-label="Increase boxes"
+                          >
+                            <Plus size={15} />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
