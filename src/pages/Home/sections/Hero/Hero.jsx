@@ -433,10 +433,12 @@ const Hero = () => {
                       scrollToCheckout(e);
                     }}
                     style={{ touchAction: 'manipulation' }}
-                    className="inline-flex items-center justify-center gap-2.5 bg-[#4A6741] hover:bg-[#3E5837] active:scale-95 text-white font-extrabold py-3.5 px-6 sm:px-8 rounded-xl transition-all shadow-xl shadow-[#4A6741]/25 text-base sm:text-lg cursor-pointer select-none text-center"
+                    className="group relative overflow-hidden inline-flex items-center gap-3 bg-gradient-to-r from-[#2B4C23] via-[#3E6533] to-[#2B4C23] hover:from-[#355D2B] hover:via-[#47733B] hover:to-[#355D2B] active:scale-[0.98] text-white font-black py-3.5 px-6 sm:px-7 rounded-2xl transition-all shadow-xl shadow-[#2B4C23]/30 ring-1 ring-white/20 text-base sm:text-lg cursor-pointer select-none"
                   >
-                    <ShoppingBag size={20} />
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+                    <ShoppingBag size={20} className="text-emerald-100 group-hover:scale-110 transition-transform" />
                     <span>Order Now (কুইক অর্ডার)</span>
+                    <ChevronRight size={18} strokeWidth={3} className="group-hover:translate-x-1 transition-transform" />
                   </a>
 
                   <div className="flex items-center gap-2.5 px-1">
@@ -502,8 +504,8 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* QUICK ORDER BUTTON DIRECTLY UNDER VIDEO ("thik video er niche quick order button thakbe") */}
-                <div className="pt-1">
+                {/* ULTRA-SMART QUICK ORDER BUTTON DIRECTLY UNDER VIDEO */}
+                <div className="pt-2">
                   <a
                     href="#order-form-details"
                     onClick={(e) => {
@@ -511,14 +513,40 @@ const Hero = () => {
                       scrollToCheckout(e);
                     }}
                     style={{ touchAction: 'manipulation' }}
-                    className="w-full inline-flex items-center justify-center gap-2.5 bg-[#4A6741] hover:bg-[#3E5837] active:scale-95 text-white font-black py-4 px-6 sm:px-8 rounded-2xl transition-all shadow-xl shadow-[#4A6741]/25 text-base sm:text-lg cursor-pointer select-none text-center"
+                    className="group relative w-full overflow-hidden inline-flex items-center justify-between gap-3 bg-gradient-to-r from-[#2B4C23] via-[#3E6533] to-[#2B4C23] hover:from-[#355D2B] hover:via-[#47733B] hover:to-[#355D2B] active:scale-[0.98] text-white py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl transition-all duration-300 shadow-xl shadow-[#2B4C23]/35 ring-1 ring-white/20 cursor-pointer select-none text-left"
                   >
-                    <ShoppingBag size={20} />
-                    <span>Quick Order Now (কুইক অর্ডার)</span>
-                    <ChevronRight size={20} strokeWidth={3} />
+                    {/* Shimmer light sweep */}
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+
+                    {/* Left Icon Badge */}
+                    <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center text-white shadow-inner flex-shrink-0 group-hover:scale-105 transition-transform">
+                      <ShoppingBag size={20} className="text-emerald-100" />
+                    </div>
+
+                    {/* Center Text & Subtext */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="font-black text-base sm:text-lg tracking-tight text-white leading-tight">
+                          Quick Order Now
+                        </span>
+                        <span className="text-xs sm:text-sm font-bold text-emerald-200">
+                          (কুইক অর্ডার)
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-emerald-100/90 font-medium tracking-wide flex items-center gap-1.5 mt-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse"></span>
+                        <span>ক্যাশ অন ডেলিভারি • সহজ চেকআউট</span>
+                      </p>
+                    </div>
+
+                    {/* Right Arrow Pill */}
+                    <div className="w-8 h-8 rounded-full bg-white text-[#2B4C23] flex items-center justify-center flex-shrink-0 shadow-md group-hover:translate-x-1 transition-transform">
+                      <ChevronRight size={18} strokeWidth={3} />
+                    </div>
                   </a>
                 </div>
               </div>
+
 
             </div>
 
