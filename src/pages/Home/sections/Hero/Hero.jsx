@@ -871,7 +871,7 @@ const Hero = () => {
                   />
 
                   {/* Real-time Restricted Delivery Area Alert */}
-                  {detectedRestrictedArea ? (
+                  {detectedRestrictedArea && (
                     <div className="bg-red-50 border-2 border-red-400 text-red-800 p-2.5 rounded-xl text-xs font-bold flex items-start gap-2 shadow-xs mt-1 animate-fadeIn">
                       <span className="text-base flex-shrink-0 mt-0.5">⚠️</span>
                       <div className="space-y-0.5">
@@ -882,15 +882,6 @@ const Hero = () => {
                           ডাবের পুডিংয়ের সর্বোচ্চ স্বাদ ও তাজা গুণমান বজায় রাখতে ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে প্রযোজ্য (সাভার, আশুলিয়া, কেরানীগঞ্জ, নারায়ণগঞ্জ, মুন্সীগঞ্জ ও যাত্রাবাড়ী বাদে)।
                         </span>
                       </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pt-0.5 text-[10px] sm:text-[11px]">
-                      <span className="font-bold text-[#4A6741]">
-                        📍 ডেলিভারি এরিয়া: শুধুমাত্র ঢাকা সিটির ভেতরে।
-                      </span>
-                      <span className="font-semibold text-gray-500">
-                        (সাভার, আশুলিয়া, কেরানীগঞ্জ, নারায়ণগঞ্জ, মুন্সীগঞ্জ ও যাত্রাবাড়ী বাদে)
-                      </span>
                     </div>
                   )}
 
