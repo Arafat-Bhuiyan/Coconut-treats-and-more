@@ -501,6 +501,23 @@ const Hero = () => {
                     </span>
                   </div>
                 </div>
+
+                {/* QUICK ORDER BUTTON DIRECTLY UNDER VIDEO ("thik video er niche quick order button thakbe") */}
+                <div className="pt-1">
+                  <a
+                    href="#order-form-details"
+                    onClick={(e) => {
+                      if (e && typeof e.preventDefault === 'function') e.preventDefault();
+                      scrollToCheckout(e);
+                    }}
+                    style={{ touchAction: 'manipulation' }}
+                    className="w-full inline-flex items-center justify-center gap-2.5 bg-[#4A6741] hover:bg-[#3E5837] active:scale-95 text-white font-black py-4 px-6 sm:px-8 rounded-2xl transition-all shadow-xl shadow-[#4A6741]/25 text-base sm:text-lg cursor-pointer select-none text-center"
+                  >
+                    <ShoppingBag size={20} />
+                    <span>Quick Order Now (কুইক অর্ডার)</span>
+                    <ChevronRight size={20} strokeWidth={3} />
+                  </a>
+                </div>
               </div>
 
             </div>
