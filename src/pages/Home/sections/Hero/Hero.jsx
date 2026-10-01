@@ -468,35 +468,55 @@ const Hero = () => {
                   </span>
                 </div>
 
-                {/* Product Highlights Card */}
-                <div className="bg-[#F8FAF7] border border-[#4A6741]/20 rounded-2xl p-4 sm:p-5 space-y-2.5 text-xs sm:text-sm text-gray-700">
+                {/* Product Highlights Card (Bilingual: Bangla & English) */}
+                <div className="bg-[#F8FAF7] border border-[#4A6741]/20 rounded-2xl p-4 sm:p-5 space-y-3 text-xs sm:text-sm text-gray-700">
                   <div className="flex items-start gap-2.5">
-                    <span className="text-lg flex-shrink-0">🥥</span>
-                    <p className="leading-relaxed">
-                      <strong className="text-[#1F291E]">টপ লেয়ার:</strong> রিফ্রেশিং ফ্রেশ ডাবের পানি ও নরম ডাবের মিষ্টি শাঁস (Coconut Chunks)।
-                    </p>
+                    <span className="text-lg flex-shrink-0 mt-0.5">🥥</span>
+                    <div className="space-y-0.5 leading-relaxed">
+                      <p>
+                        <strong className="text-[#1F291E]">টপ লেয়ার (Top Layer):</strong> রিফ্রেশিং ফ্রেশ ডাবের পানি ও নরম ডাবের মিষ্টি শাঁস।
+                      </p>
+                      <p className="text-[11px] sm:text-xs text-gray-500 font-medium">
+                        Refreshing fresh green coconut water & tender coconut chunks.
+                      </p>
+                    </div>
                   </div>
                   <div className="flex items-start gap-2.5">
-                    <span className="text-lg flex-shrink-0">🥛</span>
-                    <p className="leading-relaxed">
-                      <strong className="text-[#1F291E]">বটম লেয়ার:</strong> খাঁটি গাভীর দুধের পুষ্টিকর, রিচ ও ক্রিমি সিল্কি পুডিং।
-                    </p>
+                    <span className="text-lg flex-shrink-0 mt-0.5">🥛</span>
+                    <div className="space-y-0.5 leading-relaxed">
+                      <p>
+                        <strong className="text-[#1F291E]">বটম লেয়ার (Bottom Layer):</strong> খাঁটি গাভীর দুধের পুষ্টিকর, রিচ ও ক্রিমি সিল্কি পুডিং।
+                      </p>
+                      <p className="text-[11px] sm:text-xs text-gray-500 font-medium">
+                        Nutritious, rich, creamy & velvety pure cow milk pudding.
+                      </p>
+                    </div>
                   </div>
                   <div className="flex items-start gap-2.5">
-                    <span className="text-lg flex-shrink-0">📦</span>
-                    <p className="leading-relaxed">
-                      <strong className="text-[#1F291E]">প্যাক সাইজ:</strong> প্রতি বক্সে ৬ কাপ • প্রতিদিন সকালে টাটকা তৈরি।
-                    </p>
+                    <span className="text-lg flex-shrink-0 mt-0.5">📦</span>
+                    <div className="space-y-0.5 leading-relaxed">
+                      <p>
+                        <strong className="text-[#1F291E]">প্যাক সাইজ (Pack Size):</strong> প্রতি বক্সে ৬ কাপ • প্রতিদিন সকালে টাটকা তৈরি।
+                      </p>
+                      <p className="text-[11px] sm:text-xs text-gray-500 font-medium">
+                        6 Cups per Box • Freshly handcrafted every morning.
+                      </p>
+                    </div>
                   </div>
                   <div className="flex items-start gap-2.5">
-                    <span className="text-lg flex-shrink-0">❄️</span>
-                    <p className="leading-relaxed">
-                      <strong className="text-[#1F291E]">সংরক্ষণ:</strong> ৪–৫ দিন নরমাল ফ্রিজে রেখে স্বাচ্ছন্দ্যে উপভোগ করুন।
-                    </p>
+                    <span className="text-lg flex-shrink-0 mt-0.5">❄️</span>
+                    <div className="space-y-0.5 leading-relaxed">
+                      <p>
+                        <strong className="text-[#1F291E]">সংরক্ষণ (Storage):</strong> ৪–৫ দিন নরমাল ফ্রিজে রেখে স্বাচ্ছন্দ্যে উপভোগ করুন।
+                      </p>
+                      <p className="text-[11px] sm:text-xs text-gray-500 font-medium">
+                        Keeps 4–5 days fresh in standard refrigerator.
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                {/* Quick Action Button to Scroll Down to Order Form */}
+                {/* Quick Order Button */}
                 <div className="pt-1">
                   <a
                     href="#order-form-details"
@@ -505,7 +525,7 @@ const Hero = () => {
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#4A6741] hover:bg-[#3E5837] active:scale-95 text-white font-black py-3.5 px-8 rounded-2xl transition-all shadow-lg shadow-[#4A6741]/25 text-sm sm:text-base cursor-pointer select-none"
                   >
                     <ShoppingBag size={18} />
-                    <span>অর্ডার করতে নিচে যান</span>
+                    <span>Quick Order (কুইক অর্ডার)</span>
                     <ChevronRight size={18} strokeWidth={3} />
                   </a>
                 </div>

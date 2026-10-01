@@ -1,0 +1,51 @@
+
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>body { font-family: system-ui, -apple-system, sans-serif; }</style>
+  </head>
+  <body class="bg-[#F6F8F5] p-3 text-[#1F291E]">
+    <div class="max-w-sm mx-auto space-y-8">
+      
+      <!-- OPTION 1: Directly under video inside the video card -->
+      <div class="space-y-3">
+        <h3 class="text-xs font-black text-gray-500 uppercase">Option 1: Inside video card at bottom</h3>
+        <div class="bg-[#F4F7F2] rounded-3xl p-3 border border-[#4A6741]/20 shadow-sm">
+          <div class="w-full aspect-[4/5] rounded-2xl bg-[#243520] flex items-center justify-center text-white text-xs">
+            [VIDEO ASPECT 4:5]
+          </div>
+          <div class="flex items-center justify-between pt-2.5 px-1">
+            <span class="text-[10px] font-black text-[#4A6741] uppercase">6 Pcs Per Box • Fresh Daily</span>
+            <div class="flex items-center gap-1.5">
+              <span class="text-[#8DA47E] text-xs">★★★★★</span>
+              <span class="text-[11px] font-black text-[#1F291E]">4.9/5 (1k+ Loved)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OPTION 2: As a dedicated social proof bar directly below video card -->
+      <div class="space-y-3">
+        <h3 class="text-xs font-black text-gray-500 uppercase">Option 2: Dedicated bar directly below video card</h3>
+        <div class="bg-[#F4F7F2] rounded-3xl p-3 border border-[#4A6741]/20 shadow-sm">
+          <div class="w-full aspect-[4/5] rounded-2xl bg-[#243520] flex items-center justify-center text-white text-xs">
+            [VIDEO ASPECT 4:5]
+          </div>
+          <div class="text-center pt-2">
+            <span class="text-[11px] font-black text-[#4A6741] uppercase tracking-wider">6 Pieces Per Box • Fresh Made Daily</span>
+          </div>
+        </div>
+        <!-- Rating Bar directly below video -->
+        <div class="flex items-center justify-center gap-2 py-2 px-3 bg-white rounded-2xl border border-[#4A6741]/20 shadow-xs">
+          <div class="flex text-[#8DA47E] text-base">★★★★★</div>
+          <span className="text-xs font-black text-[#1F291E]">4.9/5 Loved by 1,000+ Customers</span>
+        </div>
+      </div>
+
+    </div>
+  </body>
+  </html>
+  

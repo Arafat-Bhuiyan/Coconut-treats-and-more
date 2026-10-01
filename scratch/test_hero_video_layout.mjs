@@ -1,0 +1,95 @@
+import puppeteer from 'puppeteer-core';
+import path from 'path';
+import fs from 'fs';
+
+async function testHeroVideoLayout() {
+  const html = `
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body { font-family: system-ui, sans-serif; }
+    </style>
+  </head>
+  <body class="bg-[#F6F8F5] p-6">
+    <div class="max-w-5xl mx-auto space-y-8">
+      
+      <!-- Option 1: aspect-[4/5] with object-cover -->
+      <div class="bg-white p-6 rounded-3xl shadow">
+        <h2 class="font-bold text-lg mb-4 text-[#1F291E]">Option 1: aspect-[4/5] object-cover</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          <div class="bg-[#F4F7F2] rounded-3xl p-3 border border-[#4A6741]/20">
+            <div class="w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-md bg-black/5 relative flex items-center justify-center">
+              <video src="../public/hero-video.mp4" class="w-full h-full object-cover rounded-2xl" autoplay loop muted></video>
+            </div>
+            <div class="text-center pt-2">
+              <span class="text-[11px] font-black text-[#4A6741] uppercase tracking-wider">6 Pieces Per Box • Fresh Made Daily</span>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <h1 class="text-2xl font-black text-[#1F291E]">Premium Coconut Pudding</h1>
+            <p class="text-sm text-gray-600">Testing side-by-side proportion</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 2: aspect-[4/5] with object-contain bg-[#1F2D1C] -->
+      <div class="bg-white p-6 rounded-3xl shadow">
+        <h2 class="font-bold text-lg mb-4 text-[#1F291E]">Option 2: aspect-[4/5] object-contain with matching dark green BG</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          <div class="bg-[#F4F7F2] rounded-3xl p-3 border border-[#4A6741]/20">
+            <div class="w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-md bg-[#243520] relative flex items-center justify-center">
+              <video src="../public/hero-video.mp4" class="w-full h-full object-contain rounded-2xl" autoplay loop muted></video>
+            </div>
+            <div class="text-center pt-2">
+              <span class="text-[11px] font-black text-[#4A6741] uppercase tracking-wider">6 Pieces Per Box • Fresh Made Daily</span>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <h1 class="text-2xl font-black text-[#1F291E]">Premium Coconut Pudding</h1>
+            <p class="text-sm text-gray-600">Testing 100% full uncropped video</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 3: aspect-[9/16] max-h-[480px] centered -->
+      <div class="bg-white p-6 rounded-3xl shadow">
+        <h2 class="font-bold text-lg mb-4 text-[#1F291E]">Option 3: aspect-[9/16] max-h-[480px] mx-auto (Native 9:16)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          <div class="bg-[#F4F7F2] rounded-3xl p-3 border border-[#4A6741]/20">
+            <div class="w-full max-w-[270px] aspect-[9/16] mx-auto rounded-2xl overflow-hidden shadow-md bg-black/5 relative flex items-center justify-center">
+              <video src="../public/hero-video.mp4" class="w-full h-full object-cover rounded-2xl" autoplay loop muted></video>
+            </div>
+            <div class="text-center pt-2">
+              <span class="text-[11px] font-black text-[#4A6741] uppercase tracking-wider">6 Pieces Per Box • Fresh Made Daily</span>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <h1 class="text-2xl font-black text-[#1F291E]">Premium Coconut Pudding</h1>
+            <p class="text-sm text-gray-600">Testing native vertical reel size</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+  </html>
+  `;
+  fs.writeFileSync('scratch/test_hero_video_layout.html', html);
+
+  const browser = await puppeteer.launch({
+    headless: true,
+    executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+    args: ['--allow-file-access-from-files']
+  });
+  const page = await browser.newPage();
+  await page.setViewport({ width: 1300, height: 1600 });
+  await page.goto('file:///' + path.resolve('scratch/test_hero_video_layout.html').replace(/\\/g, '/'));
+  await new Promise(r => setTimeout(r, 2000));
+  await page.screenshot({ path: 'scratch/hero_video_layout_comparison.png', fullPage: true });
+  await browser.close();
+}
+testHeroVideoLayout();

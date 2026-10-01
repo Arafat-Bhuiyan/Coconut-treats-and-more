@@ -1,0 +1,100 @@
+import puppeteer from 'puppeteer-core';
+import path from 'path';
+import fs from 'fs';
+
+async function testMobileHero() {
+  const html = `
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>body { font-family: system-ui, -apple-system, sans-serif; }</style>
+  </head>
+  <body class="bg-[#F6F8F5] p-3 text-[#1F291E]">
+    <div class="max-w-sm mx-auto space-y-8">
+      
+      <!-- VARIANT A: Rating inside the video card directly under video -->
+      <div>
+        <h3 class="text-xs font-bold text-gray-500 mb-2">Variant A: Inside Video Card</h3>
+        <div class="bg-white rounded-3xl p-3 shadow border border-[#4A6741]/15 space-y-3">
+          <div class="bg-[#F4F7F2] rounded-3xl p-3 border border-[#4A6741]/20 shadow-sm relative">
+            <span class="absolute top-3 left-3 bg-[#4A6741] text-white text-[11px] font-black px-3 py-1 rounded-full uppercase">Best Seller</span>
+            <div class="my-2 w-full aspect-[4/5] rounded-2xl bg-[#243520] flex items-center justify-center text-white text-xs">
+              [VIDEO]
+            </div>
+            
+            <!-- Rating directly under video -->
+            <div className="pt-1 text-center">
+              <div class="flex items-center justify-center gap-1.5 mb-0.5">
+                <span class="text-[#8DA47E] text-base">★★★★★</span>
+                <span class="text-xs font-black text-[#1F291E]">4.9/5 Loved by 1,000+ Customers</span>
+              </div>
+              <span class="text-[11px] font-black text-[#4A6741] uppercase tracking-wider block">
+                6 Pieces Per Box • Fresh Made Daily
+              </span>
+            </div>
+          </div>
+
+          <!-- 3 Layers -->
+          <div class="grid grid-cols-3 gap-2 text-center text-xs">
+            <div class="bg-[#F4F7F2] p-2 rounded-xl border border-[#4A6741]/20">🥥 1st Layer</div>
+            <div class="bg-[#F4F7F2] p-2 rounded-xl border border-[#4A6741]/20">🥛 2nd Layer</div>
+            <div class="bg-[#F4F7F2] p-2 rounded-xl border border-[#4A6741]/20">🌿 100% Halal</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VARIANT B: Rating directly under video card as a pill/row -->
+      <div>
+        <h3 class="text-xs font-bold text-gray-500 mb-2">Variant B: Dedicated bar between video card & 3 layers</h3>
+        <div class="bg-white rounded-3xl p-3 shadow border border-[#4A6741]/15 space-y-2.5">
+          <div class="bg-[#F4F7F2] rounded-3xl p-3 border border-[#4A6741]/20 shadow-sm relative">
+            <span class="absolute top-3 left-3 bg-[#4A6741] text-white text-[11px] font-black px-3 py-1 rounded-full uppercase">Best Seller</span>
+            <div class="my-2 w-full aspect-[4/5] rounded-2xl bg-[#243520] flex items-center justify-center text-white text-xs">
+              [VIDEO]
+            </div>
+            <div class="text-center pt-1">
+              <span class="text-[11px] font-black text-[#4A6741] uppercase tracking-wider">
+                6 Pieces Per Box • Fresh Made Daily
+              </span>
+            </div>
+          </div>
+
+          <!-- Rating Bar directly below video -->
+          <div class="flex items-center justify-center gap-2 py-2 px-3 bg-[#F4F7F2] rounded-2xl border border-[#4A6741]/20 shadow-xs">
+            <span class="text-[#8DA47E] text-base leading-none">★★★★★</span>
+            <span class="text-xs font-black text-[#1F291E]">4.9/5 Loved by 1,000+ Customers</span>
+          </div>
+
+          <!-- 3 Layers -->
+          <div class="grid grid-cols-3 gap-2 text-center text-xs">
+            <div class="bg-[#F4F7F2] p-2 rounded-xl border border-[#4A6741]/20">🥥 1st Layer</div>
+            <div class="bg-[#F4F7F2] p-2 rounded-xl border border-[#4A6741]/20">🥛 2nd Layer</div>
+            <div class="bg-[#F4F7F2] p-2 rounded-xl border border-[#4A6741]/20">🌿 100% Halal</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+  </html>
+  `;
+
+  fs.writeFileSync('scratch/test_mobile_hero.html', html);
+
+  const browser = await puppeteer.launch({
+    headless: true,
+    executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+    args: ['--allow-file-access-from-files']
+  });
+  const page = await browser.newPage();
+  await page.setViewport({ width: 393, height: 1100 });
+  await page.goto('file:///' + path.resolve('scratch/test_mobile_hero.html').replace(/\\/g, '/'));
+  await page.screenshot({ path: 'scratch/mobile_hero_variants.png' });
+  await browser.close();
+  console.log("Variants generated.");
+}
+
+testMobileHero();
