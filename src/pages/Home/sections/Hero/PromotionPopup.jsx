@@ -22,6 +22,18 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
     }
     if (onClose) onClose();
     if (onClaim) onClaim();
+
+    // Direct fail-safe scroll to order form details
+    setTimeout(() => {
+      const target = document.getElementById("order-form-details");
+      if (target) {
+        const navOffset = 90;
+        const targetY = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
+        window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+        const nameInput = document.getElementById("customer-name");
+        if (nameInput) setTimeout(() => nameInput.focus(), 350);
+      }
+    }, 50);
   };
 
   return (
@@ -136,7 +148,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
               </span>
               <ShoppingBag size={20} className="pointer-events-none animate-bounce" />
-              <span className="pointer-events-none">অর্ডার করুন (Order Now)</span>
+              <span className="pointer-events-none">Quick Order (কুইক অর্ডার)</span>
             </button>
 
             <div className="flex items-center justify-center gap-1.5 text-primary text-[11px] font-bold">

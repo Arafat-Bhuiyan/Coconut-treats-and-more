@@ -12,13 +12,15 @@ const Navbar = () => {
     const scrollToOrder = (e) => {
         if (e && typeof e.preventDefault === 'function') e.preventDefault();
         setIsOpen(false);
-        const orderEl = document.getElementById('order');
+        const orderEl = document.getElementById('order-form-details') || document.getElementById('order');
         if (orderEl) {
-            const navOffset = 80;
+            const navOffset = 90;
             const targetY = orderEl.getBoundingClientRect().top + window.pageYOffset - navOffset;
             window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+            const nameInput = document.getElementById("customer-name");
+            if (nameInput) setTimeout(() => nameInput.focus(), 350);
         } else {
-            window.location.hash = "#order";
+            window.location.hash = "#order-form-details";
         }
     };
 

@@ -80,23 +80,27 @@ export const Home = () => {
     window.dispatchEvent(new CustomEvent("set-order-quantity", { detail: 2 }));
 
     const scrollToOrder = () => {
-      const element = document.getElementById("order");
+      const element = document.getElementById("order-form-details") || document.getElementById("order");
       if (element) {
-        const navOffset = 70;
+        const navOffset = 90;
         const targetY = element.getBoundingClientRect().top + window.pageYOffset - navOffset;
         window.scrollTo({
           top: Math.max(0, targetY),
           behavior: "smooth"
         });
+        const nameInput = document.getElementById("customer-name");
+        if (nameInput) {
+          setTimeout(() => nameInput.focus(), 350);
+        }
       } else {
-        window.location.hash = "#order";
+        window.location.hash = "#order-form-details";
       }
     };
 
     // Trigger smooth scroll with guaranteed position
     scrollToOrder();
-    setTimeout(scrollToOrder, 60);
-    setTimeout(scrollToOrder, 180);
+    setTimeout(scrollToOrder, 80);
+    setTimeout(scrollToOrder, 220);
   };
 
   return (
