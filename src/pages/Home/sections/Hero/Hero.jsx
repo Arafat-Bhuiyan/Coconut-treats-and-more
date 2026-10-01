@@ -410,21 +410,62 @@ const Hero = () => {
                   <span className="text-[#4A6741]">Premium Coconut Pudding</span>
                 </h1>
 
-                {/* Description & Layers */}
-                <div className="space-y-4 max-w-lg text-left">
-                  <p className="text-base sm:text-lg text-[#2C332A]/90 leading-relaxed font-medium">
-                    Made with <span className="text-[#4A6741] font-bold">fresh coconut water</span>, <span className="text-[#4A6741] font-bold">authentic cow milk</span>, and <span className="text-[#4A6741] font-bold">imported agar-agar</span> jelly powder.
-                  </p>
-                  <div className="text-sm sm:text-base text-[#2C332A]/85 border-l-4 border-[#97BC62] pl-3.5 sm:pl-4 py-0.5 space-y-1.5">
-                    <p><span className="font-bold text-[#2C332A]">Top layer:</span> Refreshing coconut water with coconut chunks (রিফ্রেশিং ফ্রেশ ডাবের পানি ও নরম ডাবের মিষ্টি শাঁস এর পুডিং)</p>
-                    <p><span className="font-bold text-[#2C332A]">Bottom layer:</span> Rich, creamy cow milk.</p>
+                {/* 4 Feature Specification Cards (from 2nd screenshot - compact yet crystal clear) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-xl text-left pt-0.5 pb-1">
+                  {/* Top Layer */}
+                  <div className="bg-[#F8FAF7] border border-[#4A6741]/20 rounded-xl p-2.5 sm:p-3 flex items-start gap-2 shadow-2xs">
+                    <span className="text-lg sm:text-xl flex-shrink-0 mt-0.5">🥥</span>
+                    <div className="space-y-0.5 leading-snug">
+                      <p className="text-xs font-bold text-[#1F291E]">
+                        <strong className="text-[#3E6533]">টপ লেয়ার (Top Layer):</strong> রিফ্রেশিং ফ্রেশ ডাবের পানি ও নরম ডাবের মিষ্টি শাঁস এর পুডিং।
+                      </p>
+                      <p className="text-[10px] sm:text-[10.5px] text-gray-500 font-medium">
+                        Refreshing fresh green coconut water & tender coconut chunks.
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-xs sm:text-sm text-[#2C332A]/65 italic font-medium">
-                    Creamy, refreshing dessert that melts in your mouth. Perfectly balanced sweetness for your healthy lifestyle.
-                  </p>
+
+                  {/* Bottom Layer */}
+                  <div className="bg-[#F8FAF7] border border-[#4A6741]/20 rounded-xl p-2.5 sm:p-3 flex items-start gap-2 shadow-2xs">
+                    <span className="text-lg sm:text-xl flex-shrink-0 mt-0.5">🥛</span>
+                    <div className="space-y-0.5 leading-snug">
+                      <p className="text-xs font-bold text-[#1F291E]">
+                        <strong className="text-[#3E6533]">বটম লেয়ার (Bottom Layer):</strong> খাঁটি গাভীর দুধের পুষ্টিকর, রিচ ও ক্রিমি সিল্কি পুডিং।
+                      </p>
+                      <p className="text-[10px] sm:text-[10.5px] text-gray-500 font-medium">
+                        Nutritious, rich, creamy & velvety pure cow milk pudding.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Pack Size */}
+                  <div className="bg-[#F8FAF7] border border-[#4A6741]/20 rounded-xl p-2.5 sm:p-3 flex items-start gap-2 shadow-2xs">
+                    <span className="text-lg sm:text-xl flex-shrink-0 mt-0.5">📦</span>
+                    <div className="space-y-0.5 leading-snug">
+                      <p className="text-xs font-bold text-[#1F291E]">
+                        <strong className="text-[#3E6533]">প্যাক সাইজ (Pack Size):</strong> প্রতি বক্সে ৬ কাপ • প্রতিদিন সকালে টাটকা তৈরি।
+                      </p>
+                      <p className="text-[10px] sm:text-[10.5px] text-gray-500 font-medium">
+                        6 Cups per Box • Freshly handcrafted every morning.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Storage */}
+                  <div className="bg-[#F8FAF7] border border-[#4A6741]/20 rounded-xl p-2.5 sm:p-3 flex items-start gap-2 shadow-2xs">
+                    <span className="text-lg sm:text-xl flex-shrink-0 mt-0.5">❄️</span>
+                    <div className="space-y-0.5 leading-snug">
+                      <p className="text-xs font-bold text-[#1F291E]">
+                        <strong className="text-[#3E6533]">সংরক্ষণ (Storage):</strong> ৪–৫ দিন নরমাল ফ্রিজে রেখে স্বাচ্ছন্দ্যে উপভোগ করুন।
+                      </p>
+                      <p className="text-[10px] sm:text-[10.5px] text-gray-500 font-medium">
+                        Keeps 4–5 days fresh in standard refrigerator.
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Button & 500+ happy customers */}
+                {/* SMART ORDER NOW BUTTON (as in 3rd screenshot) & 500+ happy customers */}
                 <div className="flex flex-wrap items-center gap-4 pt-1">
                   <a
                     href="#order-form-details"
@@ -433,12 +474,16 @@ const Hero = () => {
                       scrollToCheckout(e);
                     }}
                     style={{ touchAction: 'manipulation' }}
-                    className="group relative overflow-hidden inline-flex items-center gap-3 bg-gradient-to-r from-[#2B4C23] via-[#3E6533] to-[#2B4C23] hover:from-[#355D2B] hover:via-[#47733B] hover:to-[#355D2B] active:scale-[0.98] text-white font-black py-3.5 px-6 sm:px-7 rounded-2xl transition-all shadow-xl shadow-[#2B4C23]/30 ring-1 ring-white/20 text-base sm:text-lg cursor-pointer select-none"
+                    className="group relative overflow-hidden inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#2B4C23] via-[#3E6533] to-[#2B4C23] hover:from-[#355D2B] hover:via-[#47733B] hover:to-[#355D2B] active:scale-[0.98] text-white font-black py-3.5 px-6 sm:px-8 rounded-2xl transition-all duration-300 shadow-xl shadow-[#2B4C23]/35 ring-1 ring-white/20 text-base sm:text-lg cursor-pointer select-none text-center"
                   >
-                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
-                    <ShoppingBag size={20} className="text-emerald-100 group-hover:scale-110 transition-transform" />
-                    <span>Order Now (কুইক অর্ডার)</span>
-                    <ChevronRight size={18} strokeWidth={3} className="group-hover:translate-x-1 transition-transform" />
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
+                    <div className="w-8 h-8 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <ShoppingBag size={18} className="text-emerald-100" />
+                    </div>
+                    <span className="tracking-tight">
+                      Order Now <span className="text-emerald-200 font-bold">(কুইক অর্ডার)</span>
+                    </span>
+                    <ChevronRight size={18} strokeWidth={3} className="text-white group-hover:translate-x-1 transition-transform" />
                   </a>
 
                   <div className="flex items-center gap-2.5 px-1">
@@ -454,6 +499,7 @@ const Hero = () => {
                   </div>
                 </div>
               </div>
+
 
               {/* ROW 1 RIGHT: Product Video (order-1 on mobile, md:order-2 on PC) */}
               <div className="md:col-span-6 space-y-4 order-1 md:order-2">
@@ -504,7 +550,7 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* ULTRA-SMART QUICK ORDER BUTTON DIRECTLY UNDER VIDEO */}
+                {/* SMART QUICK ORDER BUTTON DIRECTLY UNDER VIDEO (as in 3rd screenshot) */}
                 <div className="pt-2">
                   <a
                     href="#order-form-details"
@@ -513,36 +559,16 @@ const Hero = () => {
                       scrollToCheckout(e);
                     }}
                     style={{ touchAction: 'manipulation' }}
-                    className="group relative w-full overflow-hidden inline-flex items-center justify-between flex-nowrap gap-2.5 sm:gap-3.5 bg-gradient-to-r from-[#2B4C23] via-[#3E6533] to-[#2B4C23] hover:from-[#355D2B] hover:via-[#47733B] hover:to-[#355D2B] active:scale-[0.98] text-white py-3 sm:py-4 px-3.5 sm:px-6 rounded-2xl transition-all duration-300 shadow-xl shadow-[#2B4C23]/35 ring-1 ring-white/20 cursor-pointer select-none text-left"
+                    className="group relative w-full overflow-hidden inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#2B4C23] via-[#3E6533] to-[#2B4C23] hover:from-[#355D2B] hover:via-[#47733B] hover:to-[#355D2B] active:scale-[0.98] text-white font-black py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl transition-all duration-300 shadow-xl shadow-[#2B4C23]/35 ring-1 ring-white/20 text-base sm:text-lg cursor-pointer select-none text-center"
                   >
-                    {/* Shimmer light sweep */}
-                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
-
-                    {/* Left Icon Badge */}
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/15 flex items-center justify-center text-white shadow-inner flex-shrink-0 group-hover:scale-105 transition-transform">
-                      <ShoppingBag size={18} className="text-emerald-100 sm:w-5 sm:h-5" />
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
+                    <div className="w-8 h-8 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <ShoppingBag size={18} className="text-emerald-100" />
                     </div>
-
-                    {/* Center Text & Subtext */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap">
-                        <span className="font-black text-sm sm:text-lg tracking-tight text-white leading-tight">
-                          Quick Order Now
-                        </span>
-                        <span className="text-[11px] sm:text-sm font-bold text-emerald-200">
-                          (কুইক অর্ডার)
-                        </span>
-                      </div>
-                      <p className="text-[10px] sm:text-[11px] text-emerald-100/90 font-medium tracking-wide flex items-center gap-1 mt-0.5 whitespace-nowrap overflow-hidden text-ellipsis">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse flex-shrink-0"></span>
-                        <span>ক্যাশ অন ডেলিভারি • সহজ চেকআউট</span>
-                      </p>
-                    </div>
-
-                    {/* Right Arrow Pill */}
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-[#2B4C23] flex items-center justify-center flex-shrink-0 shadow-md group-hover:translate-x-1 transition-transform ml-1">
-                      <ChevronRight size={16} strokeWidth={3} className="sm:w-[18px] sm:h-[18px]" />
-                    </div>
+                    <span className="tracking-tight">
+                      Order Now <span className="text-emerald-200 font-bold">(কুইক অর্ডার)</span>
+                    </span>
+                    <ChevronRight size={18} strokeWidth={3} className="text-white group-hover:translate-x-1 transition-transform" />
                   </a>
                 </div>
               </div>
@@ -1048,73 +1074,9 @@ const Hero = () => {
 
             </div>
 
-            {/* ROW 3: Product Highlights Card (screnshort er likhata niche chole jabe) */}
-            <div className="pt-4 border-t border-gray-100">
-              <div className="bg-[#F8FAF7] border border-[#4A6741]/20 rounded-2xl p-4 sm:p-6 space-y-3.5 text-xs sm:text-sm text-gray-700 shadow-xs">
-                <div className="flex items-center justify-between border-b border-[#4A6741]/15 pb-2.5 mb-1">
-                  <span className="text-xs sm:text-sm font-black text-[#1F291E] uppercase tracking-wider flex items-center gap-2">
-                    <span>🥥</span>
-                    <span>ডাবের পুডিংয়ের বিশেষত্ব ও বিবরণ (Product Highlights)</span>
-                  </span>
-                  <span className="text-[10px] font-black text-[#4A6741] bg-emerald-50 border border-[#4A6741]/20 px-2.5 py-0.5 rounded-full">
-                    100% Homemade & Fresh
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  <div className="flex items-start gap-2.5 bg-white p-3.5 rounded-xl border border-gray-100 shadow-2xs">
-                    <span className="text-xl flex-shrink-0 mt-0.5">🥥</span>
-                    <div className="space-y-0.5 leading-relaxed">
-                      <p>
-                        <strong className="text-[#1F291E]">টপ লেয়ার (Top Layer):</strong> রিফ্রেশিং ফ্রেশ ডাবের পানি ও নরম ডাবের মিষ্টি শাঁস এর পুডিং।
-                      </p>
-                      <p className="text-[11px] text-gray-500 font-medium">
-                        Refreshing fresh green coconut water & tender coconut chunks.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5 bg-white p-3.5 rounded-xl border border-gray-100 shadow-2xs">
-                    <span className="text-xl flex-shrink-0 mt-0.5">🥛</span>
-                    <div className="space-y-0.5 leading-relaxed">
-                      <p>
-                        <strong className="text-[#1F291E]">বটম লেয়ার (Bottom Layer):</strong> খাঁটি গাভীর দুধের পুষ্টিকর, রিচ ও ক্রিমি সিল্কি পুডিং।
-                      </p>
-                      <p className="text-[11px] text-gray-500 font-medium">
-                        Nutritious, rich, creamy & velvety pure cow milk pudding.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5 bg-white p-3.5 rounded-xl border border-gray-100 shadow-2xs">
-                    <span className="text-xl flex-shrink-0 mt-0.5">📦</span>
-                    <div className="space-y-0.5 leading-relaxed">
-                      <p>
-                        <strong className="text-[#1F291E]">প্যাক সাইজ (Pack Size):</strong> প্রতি বক্সে ৬ কাপ • প্রতিদিন সকালে টাটকা তৈরি।
-                      </p>
-                      <p className="text-[11px] text-gray-500 font-medium">
-                        6 Cups per Box • Freshly handcrafted every morning.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5 bg-white p-3.5 rounded-xl border border-gray-100 shadow-2xs">
-                    <span className="text-xl flex-shrink-0 mt-0.5">❄️</span>
-                    <div className="space-y-0.5 leading-relaxed">
-                      <p>
-                        <strong className="text-[#1F291E]">সংরক্ষণ (Storage):</strong> ৪–৫ দিন নরমাল ফ্রিজে রেখে স্বাচ্ছন্দ্যে উপভোগ করুন।
-                      </p>
-                      <p className="text-[11px] text-gray-500 font-medium">
-                        Keeps 4–5 days fresh in standard refrigerator.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
         </form>
+
 
       </div>
 
