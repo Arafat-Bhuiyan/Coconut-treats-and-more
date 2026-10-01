@@ -8,6 +8,7 @@ import Testimonials from "./sections/Testimonials/Testimonials";
 import Footer from "./sections/Footer/Footer";
 import PromotionPopup from "./sections/Hero/PromotionPopup";
 import StickyMobileOrderBar from "../../components/StickyMobileOrderBar";
+import SocialProofToast from "../../components/SocialProofToast";
 
 
 export const Home = () => {
@@ -113,6 +114,7 @@ export const Home = () => {
       />
       <StickyMobileOrderBar />
       <WhatsAppButton />
+      <SocialProofToast />
     </div>
   );
 };
