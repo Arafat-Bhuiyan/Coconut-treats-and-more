@@ -16,6 +16,7 @@ import {
 import OrderSuccessPopup from "../Order/OrderSuccessPopup";
 import CountdownTimer from "../../../../components/CountdownTimer";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
+import brandLogo from "../../../../assets/images/coconuts-treats-more-logo.webp";
 
 // Restricted areas where fresh chilled pudding cannot be safely delivered
 const RESTRICTED_AREAS = [
@@ -382,92 +383,78 @@ const Hero = () => {
         <form onSubmit={handleSubmitOrder} noValidate>
           <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border border-[#4A6741]/15 overflow-hidden p-4 sm:p-7 md:p-9 space-y-6 md:space-y-8">
             
-            {/* ROW 1: Popup Offer Card & Quick Order (Left: popup ta arow upore utbe) + Video & Title (Right: eta thik video er niche thakbe) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
+            {/* ROW 1: Requested Day-1 Hero Layout (Left: Logo, Badge, Title, Description, Button, 500+ Happy Customers) + (Right: Video) */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center">
               
-              {/* ROW 1 LEFT: THE POPUP OFFER CARD ("popup ta arow upore utbe") & Quick Order */}
-              <div className="md:col-span-6 space-y-4 order-2 md:order-1">
-                {/* THE POPUP OFFER CARD: Elevated to top */}
-                <div className="bg-[#F8FAF7] border-2 border-[#4A6741]/25 rounded-2xl p-4 sm:p-5 space-y-3 shadow-sm relative overflow-hidden">
-                  {/* Top Header */}
-                  <div className="flex items-center justify-between">
-                    <span className="bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-black px-2.5 py-1 rounded-xl uppercase tracking-wider inline-flex items-center gap-1.5 shadow-xs">
-                      <Sparkles size={11} fill="currentColor" className="animate-pulse text-amber-600" />
-                      LIMITED TIME DEAL
-                    </span>
-                    <span className="text-[10px] font-black text-[#4A6741] bg-emerald-50 border border-[#4A6741]/20 px-2 py-0.5 rounded-full">
-                      100% Fresh Daily
-                    </span>
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl sm:text-2xl font-black text-[#1F291E] tracking-tight leading-tight">
-                      Super Saver Bulk Offer!
-                    </h3>
-                    <p className="text-[11px] text-gray-500 font-bold">Don't miss out on these premium savings</p>
-                  </div>
-
-                  {/* Pricing Comparison Grid */}
-                  <div className="grid grid-cols-2 gap-3">
-                    {/* Regular Price */}
-                    <div className="bg-white p-2.5 rounded-xl border border-gray-200 text-center shadow-2xs flex flex-col justify-center">
-                      <p className="text-[9px] text-gray-500 font-black uppercase tracking-wider mb-0.5">Regular Price</p>
-                      <p className="text-lg font-extrabold text-gray-400 line-through">৳750</p>
-                      <p className="text-[8px] text-gray-400 font-bold">per box</p>
-                    </div>
-
-                    {/* Offer Price */}
-                    <div className="bg-emerald-50/70 p-2.5 rounded-xl border-2 border-[#4A6741]/50 text-center relative overflow-hidden shadow-2xs flex flex-col justify-center">
-                      <div className="absolute top-0 right-0 bg-[#4A6741] text-white text-[8px] font-black px-1.5 py-0.5 rounded-bl-lg uppercase tracking-wider">
-                        DEAL
-                      </div>
-                      <p className="text-[9px] text-[#4A6741] font-black uppercase tracking-wider mb-0.5">Bulk Offer</p>
-                      <p className="text-xl font-black text-[#1F291E]">৳700</p>
-                      <p className="text-[8px] text-[#4A6741] font-black">per box</p>
-                    </div>
-                  </div>
-
-                  {/* Savings Banner */}
-                  <div className="rounded-xl py-3 px-3 flex flex-col items-center justify-center gap-1 bg-gradient-to-r from-[#4A6741] via-[#3E5837] to-[#4A6741] text-white shadow-md">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-base animate-bounce">🎁</span>
-                      <span className="text-xs font-black uppercase tracking-wider text-emerald-100">Instant Discount</span>
-                    </div>
-                    <p className="font-black text-sm sm:text-base text-center leading-snug">🎉 ২ টি বাক্স একসাথে কিনলেই ১০০ টাকা ছাড়!</p>
-                  </div>
-
-                  {/* Countdown Timer */}
-                  <div className="pt-2 border-t border-dashed border-gray-200 flex items-center justify-center w-full">
-                    <CountdownTimer />
-                  </div>
-
-                  <div className="flex items-center justify-center gap-1.5 text-[#4A6741] text-[11px] font-bold">
-                    <CheckCircle size={12} className="text-[#4A6741] flex-shrink-0" />
-                    <span>Minimum 2 boxes order required for ৳100 discount</span>
-                  </div>
+              {/* ROW 1 LEFT: Logo, Title, Natural badge, Description and Order CTA (as in uploaded screenshot) */}
+              <div className="md:col-span-6 space-y-5 text-left">
+                {/* Logo */}
+                <div>
+                  <img 
+                    src={brandLogo} 
+                    alt="Coconut Treats & More" 
+                    className="w-24 sm:w-32 h-auto object-contain drop-shadow-sm" 
+                  />
                 </div>
 
-                {/* QUICK ORDER NOW BUTTON */}
-                <div className="pt-1">
+                {/* 100% Natural Ingredients Badge */}
+                <div>
+                  <span className="inline-block px-3.5 py-1 rounded-full bg-[#8DA47E]/20 text-[#4A6741] font-bold text-xs sm:text-sm">
+                    100% Natural Ingredients
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-[#2C332A] leading-tight tracking-tight break-words">
+                  Fresh Homemade <br />
+                  <span className="text-[#4A6741]">Premium Coconut Pudding</span>
+                </h1>
+
+                {/* Description & Layers */}
+                <div className="space-y-4 max-w-lg text-left">
+                  <p className="text-base sm:text-lg text-[#2C332A]/90 leading-relaxed font-medium">
+                    Made with <span className="text-[#4A6741] font-bold">fresh coconut water</span>, <span className="text-[#4A6741] font-bold">authentic cow milk</span>, and <span className="text-[#4A6741] font-bold">imported agar-agar</span> jelly powder.
+                  </p>
+                  <div className="text-sm sm:text-base text-[#2C332A]/85 border-l-4 border-[#97BC62] pl-3.5 sm:pl-4 py-0.5 space-y-1.5">
+                    <p><span className="font-bold text-[#2C332A]">Top layer:</span> Refreshing coconut water with coconut chunks (রিফ্রেশিং ফ্রেশ ডাবের পানি ও নরম ডাবের মিষ্টি শাঁস এর পুডিং)</p>
+                    <p><span className="font-bold text-[#2C332A]">Bottom layer:</span> Rich, creamy cow milk.</p>
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#2C332A]/65 italic font-medium">
+                    Creamy, refreshing dessert that melts in your mouth. Perfectly balanced sweetness for your healthy lifestyle.
+                  </p>
+                </div>
+
+                {/* Button & 500+ happy customers */}
+                <div className="flex flex-wrap items-center gap-4 pt-1">
                   <a
                     href="#order-form-details"
                     onClick={(e) => {
                       if (e && typeof e.preventDefault === 'function') e.preventDefault();
-                      setSelectedPkg(2);
                       scrollToCheckout(e);
                     }}
                     style={{ touchAction: 'manipulation' }}
-                    className="w-full inline-flex items-center justify-center gap-2.5 bg-[#4A6741] hover:bg-[#3E5837] active:scale-95 text-white font-black py-4 px-8 rounded-2xl transition-all shadow-xl shadow-[#4A6741]/30 text-base sm:text-lg cursor-pointer select-none text-center"
+                    className="inline-flex items-center justify-center gap-2.5 bg-[#4A6741] hover:bg-[#3E5837] active:scale-95 text-white font-extrabold py-3.5 px-6 sm:px-8 rounded-xl transition-all shadow-xl shadow-[#4A6741]/25 text-base sm:text-lg cursor-pointer select-none text-center"
                   >
                     <ShoppingBag size={20} />
-                    <span>Quick Order Now (কুইক অর্ডার)</span>
-                    <ChevronRight size={20} strokeWidth={3} />
+                    <span>Order Now (কুইক অর্ডার)</span>
                   </a>
+
+                  <div className="flex items-center gap-2.5 px-1">
+                    <div className="flex -space-x-2">
+                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80" alt="customer 1" />
+                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" alt="customer 2" />
+                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80" alt="customer 3" />
+                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80" alt="customer 4" />
+                    </div>
+                    <p className="text-xs sm:text-sm font-bold text-[#2C332A]/70">
+                      <span className="text-[#4A6741] font-black">500+</span> happy customers
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              {/* ROW 1 RIGHT: Product Video + Title, Rating & Badges directly under video (eta thik video er niche thakbe) */}
-              <div className="md:col-span-6 space-y-4 order-1 md:order-2">
+              {/* ROW 1 RIGHT: Product Video ("just dan dike video thakbe") */}
+              <div className="md:col-span-6 space-y-4">
                 {/* Video Card */}
                 <div className="bg-[#F4F7F2] rounded-3xl p-3 relative flex flex-col justify-between overflow-hidden border border-[#4A6741]/20 shadow-md">
                   {/* Best Seller Badge */}
@@ -475,6 +462,15 @@ const Hero = () => {
                     <span className="bg-[#4A6741] text-white text-[11px] font-black px-3 py-1 rounded-full shadow-md tracking-wide uppercase">
                       Best Seller
                     </span>
+                  </div>
+
+                  {/* Floating Badge (like the Day 1 screenshot) */}
+                  <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm p-2 sm:p-2.5 rounded-2xl shadow-xl flex items-center gap-2 border border-[#8DA47E]/20 z-20">
+                    <div className="bg-[#97BC62]/20 p-1.5 rounded-lg text-lg sm:text-xl">🥥</div>
+                    <div>
+                      <p className="text-[9px] sm:text-[10px] text-gray-500 font-semibold leading-tight">Made Fresh</p>
+                      <p className="font-extrabold text-[#2C332A] text-xs sm:text-sm leading-tight">Every Morning</p>
+                    </div>
                   </div>
 
                   {/* Video Container (Aspect 4:5 ensures full uncropped view of all pudding cups & box) */}
@@ -505,44 +501,31 @@ const Hero = () => {
                     </span>
                   </div>
                 </div>
-
-                {/* DIRECTLY UNDER THE VIDEO: Rating, Title & Feature Badges ("eta thik video er niche thakbe") */}
-                <div className="space-y-3 pt-1">
-                  {/* Rating & Social Proof */}
-                  <div className="flex items-center gap-2">
-                    <div className="flex text-[#8DA47E] text-base">
-                      ★★★★★
-                    </div>
-                    <span className="text-xs sm:text-sm font-black text-[#1F291E]">4.9/5 Loved by 1,000+ Customers</span>
-                  </div>
-
-                  {/* Product Title */}
-                  <div>
-                    <h1 className="text-2xl sm:text-3xl font-black text-[#1F291E] tracking-tight leading-tight">
-                      Fresh Homemade Premium Coconut Pudding
-                    </h1>
-                  </div>
-
-                  {/* Feature Pill Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    <span className="inline-flex items-center gap-1.5 bg-[#F4F7F2] text-[#4A6741] border border-[#4A6741]/25 px-3 py-1.5 rounded-full text-xs font-black">
-                      <span>⚡</span>
-                      <span>Mild Sugar Added</span>
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 bg-[#F4F7F2] text-[#4A6741] border border-[#4A6741]/25 px-3 py-1.5 rounded-full text-xs font-black">
-                      <span>❄️</span>
-                      <span>4–5 Days Shelf Life</span>
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 bg-[#F4F7F2] text-[#4A6741] border border-[#4A6741]/25 px-3 py-1.5 rounded-full text-xs font-black">
-                      <span>🌿</span>
-                      <span>100% Halal | No Preservatives</span>
-                    </span>
-                  </div>
-                </div>
-
               </div>
 
             </div>
+
+            {/* SUPER SAVER DEAL BANNER & COUNTDOWN */}
+            <div className="bg-[#F8FAF7] border-2 border-[#4A6741]/25 rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="space-y-1 text-center md:text-left">
+                <div className="flex items-center justify-center md:justify-start gap-2">
+                  <span className="bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                    <Sparkles size={11} className="text-amber-600 animate-pulse" /> LIMITED TIME OFFER
+                  </span>
+                  <span className="text-[10px] font-black text-[#4A6741] bg-emerald-50 border border-[#4A6741]/20 px-2 py-0.5 rounded-full">
+                    Super Saver Bulk Offer
+                  </span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-black text-[#1F291E]">
+                  🎉 ২ টি বাক্স একসাথে কিনলেই ১০০ টাকা ছাড়! (৳৭০০/বক্স)
+                </h3>
+                <p className="text-xs text-gray-500 font-medium">Regular price ৳৭৫০ per box • ২ বা ততোধিক বক্স অর্ডার করলে প্রতি বক্সে ৫০ টাকা ছাড়</p>
+              </div>
+              <div className="flex flex-col items-center gap-1.5 flex-shrink-0">
+                <CountdownTimer />
+              </div>
+            </div>
+
 
             {/* DIVIDER: Clean stylish boundary before Checkout Details (tar niche order form thakbe) */}
             <div id="order-form-details" className="scroll-mt-24 relative flex py-1 items-center">
