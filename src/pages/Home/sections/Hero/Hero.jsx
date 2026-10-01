@@ -416,8 +416,7 @@ const Hero = () => {
                       loop 
                       muted 
                       playsInline
-                      preload="metadata"
-                      poster="/hero.webp"
+                      preload="auto"
                       className="w-full h-full object-cover object-center rounded-2xl cursor-pointer"
                       onClick={() => {
                         if (videoRef.current) {
