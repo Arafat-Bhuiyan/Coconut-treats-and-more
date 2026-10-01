@@ -468,10 +468,7 @@ const Hero = () => {
                   </div>
 
                   {/* Countdown Timer */}
-                  <div className="pt-2 border-t border-dashed border-gray-200 flex flex-col items-center justify-center gap-1.5">
-                    <span className="text-[10px] font-black text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                      ⏳ LIMITED OFFER ENDS IN:
-                    </span>
+                  <div className="pt-2 border-t border-dashed border-gray-200 flex items-center justify-center w-full">
                     <CountdownTimer />
                   </div>
 
