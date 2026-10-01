@@ -86,7 +86,7 @@ const Testimonials = () => {
                             </h2>
 
                             <p className="text-sm sm:text-base md:text-lg text-gray-700 font-medium leading-relaxed">
-                                Made with <strong className="text-[#4A6741] font-black">fresh coconut water</strong>, <strong className="text-[#4A6741] font-black">authentic cow milk</strong>, and <strong className="text-[#4A6741] font-black">imported agar-agar</strong> jelly powder.
+                                Made with <strong className="text-[#4A6741] font-black">fresh coconut water</strong>, <strong className="text-[#4A6741] font-black">authentic cow milk</strong>, and <strong className="text-[#4A6741] font-black">imported agar-agar</strong>.
                             </p>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
