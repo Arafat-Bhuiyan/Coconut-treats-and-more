@@ -11,7 +11,8 @@ import {
   ChevronRight,
   Plus,
   Minus,
-  Sparkles
+  Sparkles,
+  Star
 } from "lucide-react";
 import OrderSuccessPopup from "../Order/OrderSuccessPopup";
 import CountdownTimer from "../../../../components/CountdownTimer";
@@ -397,11 +398,28 @@ const Hero = () => {
                   />
                 </div>
 
-                {/* 100% Natural Ingredients Badge */}
-                <div>
-                  <span className="inline-block px-3.5 py-1 rounded-full bg-[#8DA47E]/20 text-[#4A6741] font-bold text-xs sm:text-sm">
+                {/* 100% Natural Ingredients Badge & 4.9/5 Gold Rating Badge */}
+                <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#8DA47E]/20 text-[#4A6741] font-bold text-xs sm:text-sm">
                     100% Natural Ingredients
                   </span>
+
+                  {/* Smart Gold/Yellow Rating Badge */}
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 border border-amber-300/80 shadow-2xs">
+                    <div className="flex items-center text-amber-500 gap-0.5">
+                      <Star size={12} className="fill-amber-400 text-amber-500" />
+                      <Star size={12} className="fill-amber-400 text-amber-500" />
+                      <Star size={12} className="fill-amber-400 text-amber-500" />
+                      <Star size={12} className="fill-amber-400 text-amber-500" />
+                      <Star size={12} className="fill-amber-400 text-amber-500" />
+                    </div>
+                    <span className="text-xs font-black text-amber-950 tracking-tight">
+                      4.9 out of 5
+                    </span>
+                    <span className="text-[11px] font-bold text-amber-800">
+                      • 1,000+ Customers
+                    </span>
+                  </div>
                 </div>
 
                 {/* Title */}
@@ -512,8 +530,8 @@ const Hero = () => {
                     </span>
                   </div>
 
-                  {/* Floating Badge (like the Day 1 screenshot) */}
-                  <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm p-2 sm:p-2.5 rounded-2xl shadow-xl flex items-center gap-2 border border-[#8DA47E]/20 z-20">
+                  {/* Floating Badge (with gentle playful sway animation) */}
+                  <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm p-2 sm:p-2.5 rounded-2xl shadow-xl flex items-center gap-2 border border-[#8DA47E]/20 z-20 animate-float-sway select-none pointer-events-none">
                     <div className="bg-[#97BC62]/20 p-1.5 rounded-lg text-lg sm:text-xl">🥥</div>
                     <div>
                       <p className="text-[9px] sm:text-[10px] text-gray-500 font-semibold leading-tight">Made Fresh</p>
