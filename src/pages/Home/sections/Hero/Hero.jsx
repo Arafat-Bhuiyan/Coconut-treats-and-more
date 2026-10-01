@@ -505,28 +505,6 @@ const Hero = () => {
 
             </div>
 
-            {/* SUPER SAVER DEAL BANNER & COUNTDOWN */}
-            <div className="bg-[#F8FAF7] border-2 border-[#4A6741]/25 rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="space-y-1 text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start gap-2">
-                  <span className="bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
-                    <Sparkles size={11} className="text-amber-600 animate-pulse" /> LIMITED TIME OFFER
-                  </span>
-                  <span className="text-[10px] font-black text-[#4A6741] bg-emerald-50 border border-[#4A6741]/20 px-2 py-0.5 rounded-full">
-                    Super Saver Bulk Offer
-                  </span>
-                </div>
-                <h3 className="text-lg sm:text-xl font-black text-[#1F291E]">
-                  🎉 ২ টি বাক্স একসাথে কিনলেই ১০০ টাকা ছাড়! (৳৭০০/বক্স)
-                </h3>
-                <p className="text-xs text-gray-500 font-medium">Regular price ৳৭৫০ per box • ২ বা ততোধিক বক্স অর্ডার করলে প্রতি বক্সে ৫০ টাকা ছাড়</p>
-              </div>
-              <div className="flex flex-col items-center gap-1.5 flex-shrink-0">
-                <CountdownTimer />
-              </div>
-            </div>
-
-
             {/* DIVIDER: Clean stylish boundary before Checkout Details (tar niche order form thakbe) */}
             <div id="order-form-details" className="scroll-mt-24 relative flex py-1 items-center">
               <div className="flex-grow border-t-2 border-[#4A6741]/15"></div>
