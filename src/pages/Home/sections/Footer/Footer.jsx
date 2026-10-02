@@ -73,8 +73,16 @@ const Footer = () => {
                                 href="#order" 
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    const target = document.getElementById('order-form-details') || document.getElementById('order');
+                                    if (target) {
+                                        const navOffset = 90;
+                                        const targetY = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
+                                        window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+                                        const nameInput = document.getElementById("customer-name");
+                                        if (nameInput) setTimeout(() => nameInput.focus(), 350);
+                                    }
                                 }}
+                                style={{ touchAction: 'manipulation' }}
                                 className="text-milk-white/60 hover:text-accent transition-colors font-black"
                             >
                                 Order Now

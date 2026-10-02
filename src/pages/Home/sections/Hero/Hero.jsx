@@ -9,13 +9,9 @@ import {
   Smartphone, 
   Banknote,
   ChevronRight,
-  Plus,
-  Minus,
-  Sparkles,
   Star
 } from "lucide-react";
 import OrderSuccessPopup from "../Order/OrderSuccessPopup";
-import CountdownTimer from "../../../../components/CountdownTimer";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
 import brandLogo from "../../../../assets/images/coconuts-treats-more-logo.webp";
 
@@ -506,13 +502,13 @@ const Hero = () => {
 
                   <div className="flex items-center gap-2.5 px-1">
                     <div className="flex -space-x-2">
-                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80" alt="customer 1" />
-                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" alt="customer 2" />
-                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80" alt="customer 3" />
-                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80" alt="customer 4" />
+                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-1.webp" alt="Bangladeshi Customer 1" width={36} height={36} loading="lazy" />
+                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-2.webp" alt="Bangladeshi Customer 2" width={36} height={36} loading="lazy" />
+                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-3.webp" alt="Bangladeshi Customer 3" width={36} height={36} loading="lazy" />
+                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-4.webp" alt="Bangladeshi Customer 4" width={36} height={36} loading="lazy" />
                     </div>
                     <p className="text-xs sm:text-sm font-bold text-[#2C332A]/70">
-                      <span className="text-[#4A6741] font-black">500+</span> happy customers
+                      <span className="text-[#4A6741] font-black">1000+</span> happy customers
                     </p>
                   </div>
                 </div>

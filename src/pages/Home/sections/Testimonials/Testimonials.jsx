@@ -116,7 +116,14 @@ const Testimonials = () => {
                                 href="#order"
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    const target = document.getElementById('order-form-details') || document.getElementById('order');
+                                    if (target) {
+                                        const navOffset = 90;
+                                        const targetY = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
+                                        window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+                                        const nameInput = document.getElementById("customer-name");
+                                        if (nameInput) setTimeout(() => nameInput.focus(), 350);
+                                    }
                                 }}
                                 style={{ touchAction: 'manipulation' }}
                                 className="w-full lg:w-auto bg-[#4A6741] hover:bg-[#3E5837] active:scale-[0.98] text-white px-8 py-4 sm:py-5 rounded-2xl font-black text-base sm:text-lg transition-all shadow-xl shadow-[#4A6741]/25 whitespace-nowrap text-center flex items-center justify-center gap-2 group cursor-pointer select-none"
@@ -165,7 +172,14 @@ const Testimonials = () => {
                         href="#order"
                         onClick={(e) => {
                             e.preventDefault();
-                            document.getElementById('order')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            const target = document.getElementById('order-form-details') || document.getElementById('order');
+                            if (target) {
+                                const navOffset = 90;
+                                const targetY = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
+                                window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+                                const nameInput = document.getElementById("customer-name");
+                                if (nameInput) setTimeout(() => nameInput.focus(), 350);
+                            }
                         }}
                         style={{ touchAction: 'manipulation' }}
                         className="inline-flex items-center gap-2.5 bg-[#4A6741] hover:bg-[#3E5837] active:scale-95 text-white font-black px-8 sm:px-10 py-4 rounded-2xl shadow-xl shadow-[#4A6741]/30 hover:scale-105 transition-all text-base sm:text-lg uppercase tracking-wider select-none cursor-pointer"
