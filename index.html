@@ -33,7 +33,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://connect.facebook.net" />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   
+  <!-- Google tag (gtag.js) - Google Analytics 4 Realtime Tracking -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D10ED1Y2Z0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-D10ED1Y2Z0', {
+      send_page_view: true
+    });
+  </script>
+
   <!-- Optimized Font Loading (Non-Render-Blocking) -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
   <noscript>

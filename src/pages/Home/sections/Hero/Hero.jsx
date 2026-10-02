@@ -358,6 +358,24 @@ const Hero = () => {
       console.warn("FB Purchase event skipped:", fbErr);
     }
 
+    // 1b. Fire Google Analytics 4 Purchase tracking event
+    try {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'purchase', {
+          transaction_id: `ORD_${Date.now()}`,
+          value: grandTotalNumber,
+          currency: 'BDT',
+          items: [{
+            item_name: 'Premium Coconut Pudding (6pc Box)',
+            quantity: selectedPkg,
+            price: unitPrice
+          }]
+        });
+      }
+    } catch (gaErr) {
+      console.warn("GA Purchase event skipped:", gaErr);
+    }
+
     // 2. Snappy optimistic UI feedback
     setTimeout(() => {
       setIsSubmitting(false);
