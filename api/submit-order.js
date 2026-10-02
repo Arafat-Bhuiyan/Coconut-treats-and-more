@@ -7,6 +7,19 @@
  * NOTE: Google Apps Script Web Apps redirect POST requests.
  * We handle this by following redirects (redirect: 'follow').
  */
+// Server-side in-memory cache to prevent duplicate order submissions (e.g. double taps, network retries)
+const recentOrdersCache = new Map();
+const DEDUPLICATION_WINDOW_MS = 90 * 1000; // 90 seconds deduplication window
+
+function cleanupExpiredOrders() {
+  const now = Date.now();
+  for (const [key, timestamp] of recentOrdersCache.entries()) {
+    if (now - timestamp > DEDUPLICATION_WINDOW_MS * 2) {
+      recentOrdersCache.delete(key);
+    }
+  }
+}
+
 export default async function handler(req, res) {
   // Allow only POST requests
   if (req.method !== 'POST') {
@@ -53,6 +66,30 @@ export default async function handler(req, res) {
         message: "Delivery is currently unavailable in this area. Fresh pudding delivery is inside Dhaka City only."
       });
     }
+
+    // Clean phone number for deduplication
+    const cleanPhone = String(phone).replace(/[^0-9]/g, '');
+    const idempotencyKey = `${cleanPhone}_${String(address).trim().toLowerCase().slice(0, 35)}`;
+
+    // Periodic cleanup of expired orders
+    cleanupExpiredOrders();
+
+    // Check if this exact order was already processed recently
+    if (recentOrdersCache.has(idempotencyKey)) {
+      const lastProcessedTime = recentOrdersCache.get(idempotencyKey);
+      const elapsed = Date.now() - lastProcessedTime;
+      if (elapsed < DEDUPLICATION_WINDOW_MS) {
+        console.warn(`[Idempotency Guard] Duplicate order attempt for ${cleanPhone} blocked (${Math.round(elapsed / 1000)}s since last submission).`);
+        return res.status(200).json({
+          success: true,
+          duplicate: true,
+          message: "Order already received and queued for dispatch. Duplicate email suppressed."
+        });
+      }
+    }
+
+    // Record order timestamp immediately to lock out concurrent duplicate requests
+    recentOrdersCache.set(idempotencyKey, Date.now());
 
     orderData.Phone = phone;
     orderData.Address = address;
