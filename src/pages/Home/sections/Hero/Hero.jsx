@@ -583,6 +583,7 @@ const Hero = () => {
                       muted 
                       playsInline
                       preload="auto"
+                      poster="/video-poster.webp"
                       className="w-full h-full object-cover object-center rounded-2xl cursor-pointer"
                       onClick={() => {
                         if (videoRef.current) {
