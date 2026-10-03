@@ -9,7 +9,8 @@ import {
   Smartphone, 
   Banknote,
   ChevronRight,
-  Star
+  Star,
+  Play
 } from "lucide-react";
 import OrderSuccessPopup from "../Order/OrderSuccessPopup";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
@@ -54,6 +55,7 @@ const Hero = () => {
   const submittingRef = useRef(false);
   const lastOrderRef = useRef({ phone: "", timestamp: 0 });
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
 
   const [selectedPkg, setSelectedPkg] = useState(2); // Default: 2 Boxes (Most Popular)
   const [paymentMethod, setPaymentMethod] = useState("cod"); // "cod" (Default) | "bkash"
@@ -99,11 +101,44 @@ const Hero = () => {
   }, []);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.defaultMuted = true;
-      videoRef.current.muted = true;
-      videoRef.current.play().catch(() => {});
-    }
+    const vid = videoRef.current;
+    if (!vid) return;
+
+    vid.defaultMuted = true;
+    vid.muted = true;
+    vid.setAttribute('muted', '');
+    vid.setAttribute('playsinline', '');
+
+    const tryPlay = () => {
+      const p = vid.play();
+      if (p !== undefined) {
+        p.then(() => setIsVideoPlaying(true)).catch(() => {
+          setIsVideoPlaying(false);
+          // Unlock on first touch, click, or scroll
+          const unlock = () => {
+            vid.play().then(() => setIsVideoPlaying(true)).catch(() => {});
+            ['click', 'touchstart', 'scroll'].forEach((evt) =>
+              window.removeEventListener(evt, unlock)
+            );
+          };
+          ['click', 'touchstart', 'scroll'].forEach((evt) =>
+            window.addEventListener(evt, unlock, { once: true, passive: true })
+          );
+        });
+      }
+    };
+
+    tryPlay();
+
+    const onPlay = () => setIsVideoPlaying(true);
+    const onPause = () => setIsVideoPlaying(false);
+    vid.addEventListener('play', onPlay);
+    vid.addEventListener('pause', onPause);
+
+    return () => {
+      vid.removeEventListener('play', onPlay);
+      vid.removeEventListener('pause', onPause);
+    };
   }, []);
 
   // Listen for quantity changes from popups or external triggers
@@ -575,25 +610,45 @@ const Hero = () => {
                   </div>
 
                   {/* Video Container (Aspect 4:5 ensures full uncropped view of all pudding cups & box) */}
-                  <div className="my-2 w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-md bg-[#243520] relative flex items-center justify-center">
+                  <div 
+                    onClick={() => {
+                      if (videoRef.current) {
+                        if (videoRef.current.paused) {
+                          videoRef.current.play().then(() => setIsVideoPlaying(true)).catch(() => {});
+                        } else {
+                          videoRef.current.pause();
+                          setIsVideoPlaying(false);
+                        }
+                      }
+                    }}
+                    className="my-2 w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-md bg-[#243520] relative flex items-center justify-center cursor-pointer group"
+                  >
                     <video 
                       ref={videoRef}
+                      src="/hero-video-0924.mp4"
                       autoPlay
                       loop 
                       muted 
                       playsInline
                       preload="auto"
-                      poster="/video-poster.webp"
-                      className="w-full h-full object-cover object-center rounded-2xl cursor-pointer"
-                      onClick={() => {
-                        if (videoRef.current) {
-                          if (videoRef.current.paused) videoRef.current.play().catch(() => {});
-                          else videoRef.current.pause();
-                        }
-                      }}
+                      poster="/video-poster-0924.webp"
+                      className="w-full h-full object-cover object-center rounded-2xl"
                     >
+                      <source src="/hero-video-0924.mp4" type="video/mp4" />
                       <source src="/hero-video.mp4" type="video/mp4" />
                     </video>
+
+                    {/* Play/Pause Overlay button when paused or blocked by browser power-saving */}
+                    {!isVideoPlaying && (
+                      <div className="absolute inset-0 bg-black/35 backdrop-blur-[1px] flex flex-col items-center justify-center gap-2 z-10 transition-all select-none">
+                        <div className="w-14 h-14 rounded-full bg-white/95 text-[#4A6741] flex items-center justify-center shadow-2xl transform group-hover:scale-110 active:scale-95 transition-transform">
+                          <Play size={26} className="ml-1 fill-current" />
+                        </div>
+                        <span className="text-white text-xs font-black bg-black/60 px-3.5 py-1 rounded-full shadow-md">
+                          ভিডিওটি প্লে করতে চাপ দিন ▶
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Bottom label under video */}
