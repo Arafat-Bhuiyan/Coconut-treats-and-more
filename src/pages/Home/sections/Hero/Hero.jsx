@@ -872,11 +872,8 @@ const Hero = () => {
                       id="gift-option-checkbox"
                       name="gift-option-checkbox"
                       checked={isGift}
-                      onChange={(e) => {
-                        // Handled by parent container click
-                      }}
-                      className="w-4 h-4 accent-[#4A6741] rounded cursor-pointer pointer-events-none"
                       readOnly
+                      className="w-4 h-4 accent-[#4A6741] rounded cursor-pointer pointer-events-none"
                     />
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <span className="text-base sm:text-lg">🎁</span>
