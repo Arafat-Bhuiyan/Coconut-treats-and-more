@@ -19,7 +19,7 @@ const StickyMobileOrderBar = ({ initialPkg = 2, initialTotal = "৳1,500" }) => 
 
   useEffect(() => {
     const handleScroll = () => {
-      const orderSection = document.getElementById("order");
+      const orderSection = document.getElementById("order-form-details") || document.getElementById("order");
       if (!orderSection) return;
 
       const orderRect = orderSection.getBoundingClientRect();
