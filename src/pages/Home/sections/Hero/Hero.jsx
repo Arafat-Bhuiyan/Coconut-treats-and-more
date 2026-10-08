@@ -827,19 +827,16 @@ const Hero = () => {
                     ? "bg-amber-50/90 border-amber-400 shadow-sm ring-2 ring-amber-400/20" 
                     : "bg-amber-50/40 border-amber-200/80 hover:border-amber-300"
                 }`}>
-                  <div 
-                    onClick={() => setIsGift((prev) => !prev)}
+                  <label 
+                    htmlFor="gift-option-checkbox"
                     className="flex items-center gap-2.5 cursor-pointer select-none"
                   >
                     <input
                       type="checkbox"
                       id="gift-option-checkbox"
+                      name="gift-option-checkbox"
                       checked={isGift}
-                      onChange={(e) => {
-                        e.stopPropagation();
-                        setIsGift(e.target.checked);
-                      }}
-                      onClick={(e) => e.stopPropagation()}
+                      onChange={(e) => setIsGift(e.target.checked)}
                       className="w-4 h-4 accent-[#4A6741] rounded cursor-pointer"
                     />
                     <div className="flex items-center gap-1.5 flex-wrap">
@@ -851,7 +848,7 @@ const Hero = () => {
                         ফ্রি কার্ড সহ
                       </span>
                     </div>
-                  </div>
+                  </label>
 
                   {isGift && (
                     <div className="space-y-2.5 pt-2.5 pl-6 sm:pl-7 border-t border-amber-200/80 mt-2 animate-fade-in">
@@ -1305,7 +1302,11 @@ const Hero = () => {
 
       <OrderSuccessPopup 
         isOpen={showSuccess} 
-        onClose={() => setShowSuccess(false)} 
+        onClose={() => {
+          setShowSuccess(false);
+          setIsGift(false);
+          setGiftMessage("");
+        }} 
         customerName={submittedName} 
         isGift={isGift}
         giftMessage={giftMessage}
