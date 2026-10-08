@@ -863,8 +863,8 @@ const Hero = () => {
                     ? "bg-amber-50/90 border-amber-400 shadow-sm ring-2 ring-amber-400/20" 
                     : "bg-amber-50/40 border-amber-200/80 hover:border-amber-300"
                 }`}>
-                  <label 
-                    htmlFor="gift-option-checkbox"
+                  <div 
+                    onClick={() => setIsGift(prev => !prev)}
                     className="flex items-center gap-2.5 cursor-pointer select-none"
                   >
                     <input
@@ -872,8 +872,11 @@ const Hero = () => {
                       id="gift-option-checkbox"
                       name="gift-option-checkbox"
                       checked={isGift}
-                      onChange={(e) => setIsGift(e.target.checked)}
-                      className="w-4 h-4 accent-[#4A6741] rounded cursor-pointer"
+                      onChange={(e) => {
+                        // Handled by parent container click
+                      }}
+                      className="w-4 h-4 accent-[#4A6741] rounded cursor-pointer pointer-events-none"
+                      readOnly
                     />
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <span className="text-base sm:text-lg">🎁</span>
@@ -884,10 +887,13 @@ const Hero = () => {
                         +৳১০০ গিফট কার্ড সহ
                       </span>
                     </div>
-                  </label>
+                  </div>
 
                   {isGift && (
-                    <div className="space-y-2.5 pt-2.5 pl-6 sm:pl-7 border-t border-amber-200/80 mt-2 animate-fade-in">
+                    <div 
+                      onClick={(e) => e.stopPropagation()}
+                      className="space-y-2.5 pt-2.5 pl-6 sm:pl-7 border-t border-amber-200/80 mt-2 animate-fade-in"
+                    >
                       <div className="space-y-1">
                         <label htmlFor="gift-message-input" className="text-[11px] font-black text-amber-900 block">
                           কার্ডে শুভেচ্ছা বার্তা (Gift Message - আমরা লিখে দেব):
@@ -913,7 +919,10 @@ const Hero = () => {
                           <button
                             key={preset}
                             type="button"
-                            onClick={() => setGiftMessage(preset)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setGiftMessage(preset);
+                            }}
                             className="text-[10px] font-bold bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 px-2.5 py-1 rounded-lg transition-all cursor-pointer active:scale-95 shadow-2xs"
                           >
                             {preset}
