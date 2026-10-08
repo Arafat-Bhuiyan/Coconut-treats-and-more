@@ -883,7 +883,7 @@ const Hero = () => {
                       <span className="text-xs sm:text-sm font-black text-amber-950">
                         প্রিয়জনকে উপহার হিসেবে পাঠাতে চান? (Send as a Gift)
                       </span>
-                      <span className="text-[10px] font-black text-amber-950 bg-amber-200 px-2 py-0.5 rounded-full border border-amber-300 shadow-2xs">
+                      <span className="text-xs sm:text-sm font-black text-amber-950 bg-amber-200/90 px-3 py-1 rounded-full border border-amber-400 shadow-xs tracking-tight">
                         +৳১০০ গিফট কার্ড সহ
                       </span>
                     </div>
@@ -1052,7 +1052,7 @@ const Hero = () => {
                     {isGift && (
                       <div className="flex justify-between items-center text-xs sm:text-sm font-bold text-amber-900 uppercase bg-amber-50 px-2.5 py-1.5 rounded-xl border border-amber-300">
                         <span className="flex items-center gap-1.5">
-                          <span>🎁</span> গিফট কার্ড ও প্যাকেজিং (GIFT PACK)
+                          <span>🎁</span> গিফট কার্ড
                         </span>
                         <span className="font-black text-amber-950">+ ৳১০০</span>
                       </div>
