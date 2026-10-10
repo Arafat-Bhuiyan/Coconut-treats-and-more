@@ -705,7 +705,7 @@ const Hero = () => {
               {/* COLUMN 1: Order Summary (Top) + Gift Card Option (Middle) + Payment Method Selector (Bottom) */}
               <div className="md:col-span-6 space-y-4">
                 {/* 1. ORDER SUMMARY CARD */}
-                <div className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200 shadow-xs space-y-4">
+                <div className="bg-white rounded-2xl p-4 sm:p-5 border-2 border-[#4A6741]/40 shadow-sm space-y-4">
                   <div className="flex items-center justify-between border-b border-gray-100 pb-2.5">
                     <span className="text-xs sm:text-sm font-black text-[#1F291E] uppercase tracking-wider flex items-center gap-1.5">
                       <ShoppingBag size={16} className="text-[#4A6741]" />
@@ -881,7 +881,8 @@ const Hero = () => {
                           value={giftMessage}
                           onChange={(e) => setGiftMessage(e.target.value)}
                           placeholder="e.g. শুভ জন্মদিন প্রিয়! / সুস্থ থাকুন / অনেক ভালোবাসা রইলো..."
-                          className="w-full bg-white border border-amber-300 rounded-xl px-3 py-2 text-xs font-bold text-gray-900 outline-none focus:border-[#4A6741] placeholder:text-gray-400 shadow-inner"
+                          className="w-full bg-white border border-amber-300 rounded-xl px-3 py-2 text-base sm:text-xs font-bold text-gray-900 outline-none focus:border-[#4A6741] placeholder:text-gray-400 shadow-inner"
+                          style={{ touchAction: 'manipulation' }}
                         />
                       </div>
 
@@ -1048,7 +1049,8 @@ const Hero = () => {
                           value={bkashTrx}
                           onChange={(e) => setBkashTrx(e.target.value)}
                           placeholder="e.g. 9J4K8L2M বা 01XXXXXXXXX"
-                          className="w-full bg-white border-2 border-[#D12053]/30 rounded-xl px-3 py-2 outline-none focus:border-[#D12053] text-xs font-bold text-gray-900 placeholder:text-gray-400"
+                          style={{ touchAction: 'manipulation' }}
+                          className="w-full bg-white border-2 border-[#D12053]/30 rounded-xl px-3 py-2 outline-none focus:border-[#D12053] text-base sm:text-xs font-bold text-gray-900 placeholder:text-gray-400"
                         />
                       </div>
                     </div>
@@ -1058,7 +1060,7 @@ const Hero = () => {
 
               {/* COLUMN 2: Delivery Details Form (Top) + Terms Checkbox + Confirm Order + Storage Tip (Bottom) */}
               <div className="md:col-span-6 space-y-4">
-                <div className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200 shadow-xs space-y-3.5">
+                <div className="bg-white rounded-2xl p-4 sm:p-5 border-2 border-[#4A6741]/40 shadow-sm space-y-3.5">
                   <div className="flex items-center justify-between border-b border-gray-100 pb-2.5">
                     <span className="text-xs sm:text-sm font-black text-[#1F291E] uppercase tracking-wider flex items-center gap-1.5">
                       <MapPin size={16} className="text-[#4A6741]" />
@@ -1068,6 +1070,7 @@ const Hero = () => {
                       <button
                         type="button"
                         onClick={handleRestoreSavedInfo}
+                        style={{ touchAction: 'manipulation' }}
                         className="text-[10px] font-black text-[#4A6741] bg-emerald-50 hover:bg-emerald-100 border border-[#4A6741]/20 px-2 py-0.5 rounded-full transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
                         title="ক্লিক করে পূর্বের সংরক্ষিত তথ্য স্বয়ংক্রিয়ভাবে বসান"
                       >
@@ -1079,7 +1082,7 @@ const Hero = () => {
                   {/* Name & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label htmlFor="customer-name" className="text-[11px] font-black text-gray-700 uppercase tracking-wider block">
+                      <label htmlFor="customer-name" className="text-xs sm:text-[11px] font-black text-gray-700 uppercase tracking-wider block">
                         আপনার নাম (Full Name)
                       </label>
                       <input
@@ -1090,12 +1093,13 @@ const Hero = () => {
                         value={formData.name}
                         onChange={handleInputChange}
                         placeholder="আপনার নাম লিখুন"
-                        className="w-full bg-white border-2 border-gray-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20 transition-all placeholder:text-gray-400"
+                        style={{ touchAction: 'manipulation' }}
+                        className="w-full bg-white border-2 border-gray-300 rounded-xl px-3.5 py-2.5 text-base sm:text-sm font-bold text-gray-900 outline-none focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20 transition-all placeholder:text-gray-400"
                       />
                     </div>
                     <div className="space-y-1">
                       <div className="flex items-center justify-between">
-                        <label htmlFor="customer-phone" className="text-[11px] font-black text-gray-700 uppercase tracking-wider block">
+                        <label htmlFor="customer-phone" className="text-xs sm:text-[11px] font-black text-gray-700 uppercase tracking-wider block">
                           মোবাইল নম্বর (Phone) <span className="text-red-500">*</span>
                         </label>
                         {isPhoneValid && (
@@ -1116,7 +1120,8 @@ const Hero = () => {
                           value={formData.phone}
                           onChange={handleInputChange}
                           placeholder="01XXXXXXXXX"
-                          className={`w-full bg-white border-2 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-400 ${
+                          style={{ touchAction: 'manipulation' }}
+                          className={`w-full bg-white border-2 rounded-xl px-3.5 py-2.5 text-base sm:text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-400 ${
                             isPhoneValid
                               ? "border-emerald-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
                               : formData.phone.length > 0 && formData.phone.length < 11
@@ -1131,7 +1136,7 @@ const Hero = () => {
                   {/* Address */}
                   <div className="space-y-1">
                     <div className="flex items-center justify-between">
-                      <label htmlFor="customer-address" className="text-[11px] font-black text-gray-700 uppercase tracking-wider block">
+                      <label htmlFor="customer-address" className="text-xs sm:text-[11px] font-black text-gray-700 uppercase tracking-wider block">
                         সম্পূর্ণ ঠিকানা (Full Address) <span className="text-red-500">*</span>
                       </label>
                       <span className="text-[10px] font-bold text-[#4A6741] bg-emerald-50 px-2 py-0.5 rounded-full border border-[#4A6741]/20">
@@ -1147,7 +1152,8 @@ const Hero = () => {
                       value={formData.address}
                       onChange={handleInputChange}
                       placeholder="বাসা নম্বর, রোড নম্বর, ফ্ল্যাট নম্বর ও এলাকার নাম বিস্তারিত লিখুন"
-                      className={`w-full bg-white border-2 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-400 resize-none ${
+                      style={{ touchAction: 'manipulation' }}
+                      className={`w-full bg-white border-2 rounded-xl px-3.5 py-2.5 text-base sm:text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-400 resize-none ${
                         detectedRestrictedArea
                           ? "border-red-500 focus:border-red-600 focus:ring-2 focus:ring-red-500/20 bg-red-50/20"
                           : "border-gray-300 focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20"
@@ -1177,7 +1183,7 @@ const Hero = () => {
                   {/* Optional Email & Note */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label htmlFor="customer-email" className="text-[11px] sm:text-xs font-black text-gray-800 tracking-tight block">
+                      <label htmlFor="customer-email" className="text-xs sm:text-[11px] font-black text-gray-800 tracking-tight block">
                         ইমেইল ঠিকানা (Email - ঐচ্ছিক):
                       </label>
                       <input
@@ -1188,12 +1194,13 @@ const Hero = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="example@gmail.com"
-                        className="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
+                        style={{ touchAction: 'manipulation' }}
+                        className="w-full bg-white border-2 border-gray-300 rounded-xl px-3.5 py-2.5 text-base sm:text-sm font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label htmlFor="customer-note" className="text-[11px] sm:text-xs font-black text-gray-800 tracking-tight block">
+                      <label htmlFor="customer-note" className="text-xs sm:text-[11px] font-black text-gray-800 tracking-tight block">
                         বিশেষ নির্দেশনা (Note - ঐচ্ছিক):
                       </label>
                       <input
@@ -1203,7 +1210,8 @@ const Hero = () => {
                         value={formData.note}
                         onChange={handleInputChange}
                         placeholder="ডেলিভারি সংক্রান্ত কিছু থাকলে..."
-                        className="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
+                        style={{ touchAction: 'manipulation' }}
+                        className="w-full bg-white border-2 border-gray-300 rounded-xl px-3.5 py-2.5 text-base sm:text-sm font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
                       />
                     </div>
                   </div>

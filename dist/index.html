@@ -5,13 +5,20 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="/coconuts-treats-more-logo.png" />
   <link rel="apple-touch-icon" href="/coconuts-treats-more-logo.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <meta name="theme-color" content="#4A6741" />
   <style>
     html, body {
       background-color: #F6F8F5;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* Prevent iOS/Android mobile auto-zoom on input focus */
+    @media (max-width: 768px) {
+      input, textarea, select {
+        font-size: 16px !important;
+      }
     }
   </style>
   <meta name="facebook-domain-verification" content="ygl1uvnelcn8up3suwqslogjwoasqi" />
@@ -56,10 +63,10 @@
   <!-- Preload LCP Logo & Video Poster Asset — Stable public/ path (not hashed by Vite) -->
   <link rel="preload" href="/logo.webp" as="image" fetchpriority="high" type="image/webp" imagesizes="128px" />
   <link rel="preload" href="/video-poster-0924.webp" as="image" fetchpriority="high" type="image/webp" />
-  <script type="module" crossorigin src="/assets/index-DM_VRz1G.js"></script>
+  <script type="module" crossorigin src="/assets/index-CKtUQ8mc.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/vendor-libs-D6fkXHED.js">
-  <link rel="modulepreload" crossorigin href="/assets/vendor-react-Bn1SLzxp.js">
-  <link rel="stylesheet" crossorigin href="/assets/style-BJP9438i.css">
+  <link rel="modulepreload" crossorigin href="/assets/vendor-react-C0Vt5ouB.js">
+  <link rel="stylesheet" crossorigin href="/assets/style-BwvWNrLk.css">
 </head>
 
 <body>

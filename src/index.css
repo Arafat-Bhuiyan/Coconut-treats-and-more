@@ -4,6 +4,19 @@
 
 html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Ensure no double-tap delay and snappy clicks on mobile */
+a, button, input, textarea, select, label, [role="button"] {
+    touch-action: manipulation;
+}
+
+/* Ensure all form controls on mobile have at least 16px to prevent viewport zoom on focus */
+@media screen and (max-width: 768px) {
+    input, textarea, select {
+        font-size: 16px !important;
+    }
 }
 
 /* Custom utility to hide scrollbars while preserving scrolling */
