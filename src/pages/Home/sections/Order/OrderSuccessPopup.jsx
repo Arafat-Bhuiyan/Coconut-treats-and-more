@@ -88,7 +88,7 @@ const OrderSuccessPopup = ({ isOpen, onClose, customerName, isGift = false, gift
                 <span>উপহার অর্ডার সফল হয়েছে! (+৳১০০ গিফট কার্ড)</span>
               </div>
               <p className="text-[11px] text-amber-800 font-semibold leading-relaxed">
-                আপনার দেওয়া শুভেচ্ছা বার্তা: <strong className="text-amber-950">"{giftMessage || "শুভেচ্ছা রইলো"}"</strong> একটি সুন্দর কার্ডে লিখে গিফট বক্সে যুক্ত করা হবে।
+                আপনার দেওয়া শুভেচ্ছা বার্তা বা মনের কথা: <strong className="text-amber-950">"{giftMessage || "শুভেচ্ছা রইলো"}"</strong> একটি সুন্দর কার্ডে লিখে গিফট বক্সে যুক্ত করা হবে।
               </p>
             </div>
           )}
