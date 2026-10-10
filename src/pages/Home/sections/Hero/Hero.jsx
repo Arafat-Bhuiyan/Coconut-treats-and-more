@@ -826,7 +826,7 @@ const Hero = () => {
                 {/* Optional Email & Note */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <label htmlFor="customer-email" className="text-[11px] font-bold text-gray-600 block">
+                    <label htmlFor="customer-email" className="text-[11px] sm:text-xs font-black text-gray-800 tracking-tight block">
                       ইমেইল ঠিকানা (Email - ঐচ্ছিক):
                     </label>
                     <input
@@ -842,7 +842,7 @@ const Hero = () => {
                   </div>
 
                   <div className="space-y-1">
-                    <label htmlFor="customer-note" className="text-[11px] font-bold text-gray-600 block">
+                    <label htmlFor="customer-note" className="text-[11px] sm:text-xs font-black text-gray-800 tracking-tight block">
                       বিশেষ নির্দেশনা (Note - ঐচ্ছিক):
                     </label>
                     <input
