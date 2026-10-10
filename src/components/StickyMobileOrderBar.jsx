@@ -19,13 +19,20 @@ const StickyMobileOrderBar = ({ initialPkg = 2, initialTotal = "৳1,500" }) => 
 
   useEffect(() => {
     const handleScroll = () => {
-      const orderSection = document.getElementById("order-form-details") || document.getElementById("order");
-      if (!orderSection) return;
+      const checkoutEl = document.getElementById("checkout-grid-container") || document.getElementById("order-form-details");
+      if (!checkoutEl) return;
 
-      const orderRect = orderSection.getBoundingClientRect();
-      // Show sticky bar ONLY when user has scrolled past the main order card
-      const isPastOrder = orderRect.bottom < 100;
-      setIsVisible(isPastOrder);
+      const rect = checkoutEl.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+      // Check if checkout form is actively visible in the mobile viewport
+      const isInCheckout = rect.top < windowHeight * 0.85 && rect.bottom > 80;
+
+      // Has user scrolled past top hero section?
+      const hasScrolledPastHero = window.scrollY > 350;
+
+      // Show sticky bar ONLY when browsing outside the form (never block form inputs or confirm button)
+      setIsVisible(hasScrolledPastHero && !isInCheckout);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -38,10 +45,6 @@ const StickyMobileOrderBar = ({ initialPkg = 2, initialTotal = "৳1,500" }) => 
       const navOffset = 90;
       const targetY = formSection.getBoundingClientRect().top + window.pageYOffset - navOffset;
       window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
-      setTimeout(() => {
-        const phoneInput = document.getElementById("customer-phone");
-        if (phoneInput) phoneInput.focus();
-      }, 400);
     }
   };
 

@@ -41,7 +41,7 @@ const OrderSuccessPopup = ({ isOpen, onClose, customerName, isGift = false, gift
 
       {/* Modal */}
       <div
-        className={`relative w-full max-w-sm bg-white rounded-[2rem] overflow-hidden shadow-[0_40px_80px_-15px_rgba(0,0,0,0.5)] z-10 text-center transition-all duration-300 transform ${
+        className={`relative w-full max-w-sm max-h-[92vh] overflow-y-auto bg-white rounded-[2rem] shadow-[0_40px_80px_-15px_rgba(0,0,0,0.5)] z-10 text-center transition-all duration-300 transform ${
           isAnimated ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-8"
         }`}
       >

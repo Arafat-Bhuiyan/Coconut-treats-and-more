@@ -87,10 +87,6 @@ export const Home = () => {
           top: Math.max(0, targetY),
           behavior: "smooth"
         });
-        const nameInput = document.getElementById("customer-name");
-        if (nameInput) {
-          setTimeout(() => nameInput.focus(), 350);
-        }
       } else {
         window.location.hash = "#order-form-details";
       }

@@ -185,10 +185,6 @@ const Hero = () => {
       const navOffset = 90;
       const targetY = formSection.getBoundingClientRect().top + window.pageYOffset - navOffset;
       window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
-      const nameInput = document.getElementById("customer-name");
-      if (nameInput) {
-        setTimeout(() => nameInput.focus(), 300);
-      }
     }
   };
 
@@ -704,7 +700,7 @@ const Hero = () => {
             </div>
 
             {/* CHECKOUT ROW: Column 1 (Order Summary + Gift Card + Payment) | Column 2 (Delivery Details + Confirm Order) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
+            <div id="checkout-grid-container" className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
               
               {/* COLUMN 1: Order Summary (Top) + Gift Card Option (Middle) + Payment Method Selector (Bottom) */}
               <div className="md:col-span-6 space-y-4">
