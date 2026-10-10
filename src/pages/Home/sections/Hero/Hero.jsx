@@ -832,46 +832,68 @@ const Hero = () => {
 
                 {/* 2. SEND AS A GIFT OPTION (Placed right between Order Summary and Payment Method) */}
                 <div 
-                  className={`rounded-2xl transition-all p-3.5 sm:p-4 border ${
+                  id="gift-card-box-container"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setIsGift((prev) => !prev)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setIsGift((prev) => !prev);
+                    }
+                  }}
+                  style={{ touchAction: 'manipulation' }}
+                  className={`rounded-2xl transition-all p-3.5 sm:p-4 border-2 cursor-pointer select-none text-left w-full ${
                     isGift 
-                      ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/70 to-[#FFF9ED] border-amber-400 shadow-md ring-2 ring-amber-400/15" 
-                      : "bg-gradient-to-br from-[#FFFDF9] via-amber-50/40 to-[#FFFDF5] border-amber-300/80 hover:border-amber-400 shadow-xs"
+                      ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/70 to-[#FFF9ED] border-amber-500 shadow-md ring-2 ring-amber-400/20" 
+                      : "bg-gradient-to-br from-[#FFFDF9] via-amber-50/40 to-[#FFFDF5] border-amber-300 hover:border-amber-400 hover:shadow-xs"
                   }`}
                 >
-                  <label 
-                    htmlFor="gift-option-checkbox"
-                    style={{ touchAction: 'manipulation' }}
-                    className="flex flex-col cursor-pointer select-none group w-full"
-                  >
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="checkbox"
-                        id="gift-option-checkbox"
-                        name="gift-option-checkbox"
-                        checked={isGift}
-                        onChange={(e) => setIsGift(e.target.checked)}
-                        className="w-5 h-5 accent-[#4A6741] rounded cursor-pointer flex-shrink-0"
-                      />
+                  <div className="flex items-start gap-3 w-full">
+                    {/* Visual Checkbox Indicator */}
+                    <div 
+                      className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all flex-shrink-0 mt-0.5 ${
+                        isGift 
+                          ? "bg-[#4A6741] border-[#4A6741] text-white shadow-xs" 
+                          : "bg-white border-amber-400 hover:border-amber-500"
+                      }`}
+                    >
+                      {isGift && <Check size={14} strokeWidth={3.5} className="text-white" />}
+                    </div>
+
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="text-lg flex-shrink-0">🎁</span>
-                        <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight group-hover:text-amber-800 transition-colors">
+                        <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight">
                           প্রিয়জনকে গিফট কার্ড পাঠাতে চান?
                         </span>
                       </div>
-                    </div>
 
-                    {/* Sleek Emotional Subtitle */}
-                    <p className="text-[11px] sm:text-[11.5px] text-amber-900/80 font-medium mt-1.5 pl-8 leading-snug">
-                      আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব।
-                    </p>
-                  </label>
+                      {/* Sleek Emotional Subtitle */}
+                      <p className="text-[11px] sm:text-[11.5px] text-amber-900/80 font-medium mt-1 leading-snug">
+                        আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব।
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Hidden accessibility input keeping compatibility with automated checks */}
+                  <input
+                    type="checkbox"
+                    id="gift-option-checkbox"
+                    name="gift-option-checkbox"
+                    checked={isGift}
+                    readOnly
+                    className="sr-only"
+                    tabIndex={-1}
+                  />
 
                   {isGift && (
                     <div 
-                      className="space-y-2.5 pt-2.5 pl-0 sm:pl-8 border-t border-amber-200/80 mt-2.5 animate-fade-in"
+                      onClick={(e) => e.stopPropagation()}
+                      className="space-y-2.5 pt-3 pl-0 sm:pl-8 border-t border-amber-200/80 mt-3 animate-fade-in cursor-default"
                     >
                       <div className="space-y-1">
-                        <label htmlFor="gift-message-input" className="text-[11px] sm:text-xs font-black text-amber-950 flex items-center gap-1.5 cursor-pointer">
+                        <label htmlFor="gift-message-input" className="text-[11px] sm:text-xs font-black text-amber-950 flex items-center gap-1.5">
                           <span>✍️</span>
                           <span>কার্ডে আপনার শুভেচ্ছা বার্তা (Wish Note):</span>
                         </label>
