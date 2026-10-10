@@ -703,252 +703,12 @@ const Hero = () => {
               <div className="flex-grow border-t-2 border-[#4A6741]/15"></div>
             </div>
 
-            {/* ROW 2: Delivery Details Form (Left) + Payment & Confirm Button (Right) */}
+            {/* CHECKOUT ROW: Column 1 (Order Summary + Gift Card + Payment) | Column 2 (Delivery Details + Confirm Order) */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
               
-              {/* ROW 2 LEFT: Customer Info & Delivery Address Form (Auto-filled) */}
-              <div className="md:col-span-6 bg-white rounded-2xl p-4 sm:p-5 border border-gray-200 shadow-xs space-y-3.5">
-                <div className="flex items-center justify-between border-b border-gray-100 pb-2.5">
-                  <span className="text-xs sm:text-sm font-black text-[#1F291E] uppercase tracking-wider flex items-center gap-1.5">
-                    <MapPin size={16} className="text-[#4A6741]" />
-                    <span>ডেলিভারি ঠিকানা ও তথ্য (Delivery Details)</span>
-                  </span>
-                  {hasSavedInfo && (
-                    <button
-                      type="button"
-                      onClick={handleRestoreSavedInfo}
-                      className="text-[10px] font-black text-[#4A6741] bg-emerald-50 hover:bg-emerald-100 border border-[#4A6741]/20 px-2 py-0.5 rounded-full transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
-                      title="ক্লিক করে পূর্বের সংরক্ষিত তথ্য স্বয়ংক্রিয়ভাবে বসান"
-                    >
-                      <span>⚡ অটো ফিল</span>
-                    </button>
-                  )}
-                </div>
-
-                {/* Name & Phone */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <label htmlFor="customer-name" className="text-[11px] font-black text-gray-700 uppercase tracking-wider block">
-                      আপনার নাম (Full Name)
-                    </label>
-                    <input
-                      id="customer-name"
-                      type="text"
-                      name="name"
-                      autoComplete="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      placeholder="আপনার নাম লিখুন"
-                      className="w-full bg-white border-2 border-gray-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20 transition-all placeholder:text-gray-400"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between">
-                      <label htmlFor="customer-phone" className="text-[11px] font-black text-gray-700 uppercase tracking-wider block">
-                        মোবাইল নম্বর (Phone) <span className="text-red-500">*</span>
-                      </label>
-                      {isPhoneValid && (
-                        <span className="text-[10px] font-black text-emerald-700 flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                          <Check size={12} strokeWidth={3} /> সঠিক নম্বর
-                        </span>
-                      )}
-                    </div>
-                    <div className="relative">
-                      <input
-                        id="customer-phone"
-                        type="tel"
-                        required
-                        name="phone"
-                        autoComplete="tel"
-                        inputMode="numeric"
-                        maxLength={11}
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        placeholder="01XXXXXXXXX"
-                        className={`w-full bg-white border-2 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-400 ${
-                          isPhoneValid
-                            ? "border-emerald-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
-                            : formData.phone.length > 0 && formData.phone.length < 11
-                              ? "border-amber-400 focus:border-amber-500"
-                              : "border-gray-300 focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20"
-                        }`}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Address */}
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between">
-                    <label htmlFor="customer-address" className="text-[11px] font-black text-gray-700 uppercase tracking-wider block">
-                      সম্পূর্ণ ঠিকানা (Full Address) <span className="text-red-500">*</span>
-                    </label>
-                    <span className="text-[10px] font-bold text-[#4A6741] bg-emerald-50 px-2 py-0.5 rounded-full border border-[#4A6741]/20">
-                      ঢাকা সিটি
-                    </span>
-                  </div>
-                  <textarea
-                    id="customer-address"
-                    required
-                    name="address"
-                    autoComplete="street-address"
-                    rows={2}
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    placeholder="বাসা নম্বর, রোড নম্বর, ফ্ল্যাট নম্বর ও এলাকার নাম বিস্তারিত লিখুন"
-                    className={`w-full bg-white border-2 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-400 resize-none ${
-                      detectedRestrictedArea
-                        ? "border-red-500 focus:border-red-600 focus:ring-2 focus:ring-red-500/20 bg-red-50/20"
-                        : "border-gray-300 focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20"
-                    }`}
-                  />
-
-                  {/* Real-time Restricted Delivery Area Alert */}
-                  {detectedRestrictedArea && (
-                    <div className="bg-red-50 border-2 border-red-400 text-red-800 p-2.5 rounded-xl text-xs font-bold flex items-start gap-2 shadow-xs mt-1 animate-fadeIn">
-                      <span className="text-base flex-shrink-0 mt-0.5">⚠️</span>
-                      <div className="space-y-0.5">
-                        <span className="font-black text-red-700 block text-xs">
-                          দুঃখিত! {detectedRestrictedArea} এলাকায় আমাদের ডেলিভারি সার্ভিস বন্ধ রয়েছে।
-                        </span>
-                        <span className="text-[10px] text-gray-700 font-semibold block leading-tight">
-                          ডাবের পুডিংয়ের সর্বোচ্চ স্বাদ ও তাজা গুণমান বজায় রাখতে ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে প্রযোজ্য (সাভার, আশুলিয়া, কেরানীগঞ্জ, নারায়ণগঞ্জ, মুন্সীগঞ্জ ও যাত্রাবাড়ী বাদে)।
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                  <p className="text-[10px] sm:text-[11px] font-black text-[#4A6741] pt-0.5">
-                    ⚠️ অবশ্যই ফ্ল্যাট নম্বর উল্লেখ করবেন, যাতে ডেলিভারি পেতে সুবিধা হয়।
-                  </p>
-                </div>
-
-                {/* Optional Email & Note */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <label htmlFor="customer-email" className="text-[11px] sm:text-xs font-black text-gray-800 tracking-tight block">
-                      ইমেইল ঠিকানা (Email - ঐচ্ছিক):
-                    </label>
-                    <input
-                      id="customer-email"
-                      type="email"
-                      name="email"
-                      autoComplete="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="example@gmail.com"
-                      className="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
-                    />
-                  </div>
-
-                  <div className="space-y-1">
-                    <label htmlFor="customer-note" className="text-[11px] sm:text-xs font-black text-gray-800 tracking-tight block">
-                      বিশেষ নির্দেশনা (Note - ঐচ্ছিক):
-                    </label>
-                    <input
-                      id="customer-note"
-                      type="text"
-                      name="note"
-                      value={formData.note}
-                      onChange={handleInputChange}
-                      placeholder="ডেলিভারি সংক্রান্ত কিছু থাকলে..."
-                      className="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
-                    />
-                  </div>
-                </div>
-
-                {/* Send as a Gift Option (Positioned below Email & Note) */}
-                <div className={`rounded-2xl transition-all p-3 sm:p-3.5 ${
-                  isGift 
-                    ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/70 to-[#FFF9ED] border-2 border-amber-400 shadow-md ring-2 ring-amber-400/15" 
-                    : "bg-gradient-to-br from-[#FFFDF9] via-amber-50/40 to-[#FFFDF5] border border-amber-300/80 hover:border-amber-400 shadow-xs"
-                }`}>
-                  <div 
-                    onClick={() => setIsGift(prev => !prev)}
-                    className="flex items-center justify-between gap-2 cursor-pointer select-none"
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <input
-                        type="checkbox"
-                        id="gift-option-checkbox"
-                        name="gift-option-checkbox"
-                        checked={isGift}
-                        readOnly
-                        className="w-4 h-4 accent-[#4A6741] rounded cursor-pointer pointer-events-none flex-shrink-0"
-                      />
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="text-base flex-shrink-0">🎁</span>
-                        <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight">
-                          প্রিয়জনকে গিফট কার্ড পাঠাতে চান?
-                        </span>
-                      </div>
-                    </div>
-                    <span className="text-[11px] sm:text-xs font-black text-amber-950 bg-amber-200/90 px-2.5 py-0.5 sm:py-1 rounded-full border border-amber-400 shadow-2xs whitespace-nowrap flex-shrink-0">
-                      প্রাইজ ১০০ টাকা
-                    </span>
-                  </div>
-
-                  {/* Sleek Emotional Subtitle */}
-                  <p className="text-[11px] sm:text-[11.5px] text-amber-900/80 font-medium mt-1.5 pl-6 sm:pl-7 leading-snug">
-                    আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব।
-                  </p>
-
-                  {isGift && (
-                    <div 
-                      onClick={(e) => e.stopPropagation()}
-                      className="space-y-2.5 pt-2.5 pl-6 sm:pl-7 border-t border-amber-200/80 mt-2 animate-fade-in"
-                    >
-                      <div className="space-y-1">
-                        <label htmlFor="gift-message-input" className="text-[11px] sm:text-xs font-black text-amber-950 flex items-center gap-1.5">
-                          <span>✍️</span>
-                          <span>কার্ডে আপনার শুভেচ্ছা বার্তা (Wish Note):</span>
-                        </label>
-                        <input
-                          id="gift-message-input"
-                          type="text"
-                          value={giftMessage}
-                          onChange={(e) => setGiftMessage(e.target.value)}
-                          placeholder="e.g. শুভ জন্মদিন প্রিয়! / সুস্থ থাকুন / অনেক ভালোবাসা রইলো..."
-                          className="w-full bg-white border border-amber-300 rounded-xl px-3 py-2 text-xs font-bold text-gray-900 outline-none focus:border-[#4A6741] placeholder:text-gray-400 shadow-inner"
-                        />
-                      </div>
-
-                      <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-                        <span className="text-[10px] sm:text-[11px] font-bold text-amber-900">কুইক উইশ:</span>
-                        {[
-                          "শুভ জন্মদিন! 🎂", 
-                          "দ্রুত সুস্থ হয়ে উঠুন 🌸", 
-                          "অনেক ভালোবাসা রইলো ❤️", 
-                          "উপহারটি গ্রহণ করুন 🎁"
-                        ].map((preset) => (
-                          <button
-                            key={preset}
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setGiftMessage(preset);
-                            }}
-                            className="text-[10px] sm:text-[11px] font-bold bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-lg transition-all cursor-pointer active:scale-95 shadow-2xs"
-                          >
-                            {preset}
-                          </button>
-                        ))}
-                      </div>
-
-                      <div className="bg-amber-100/60 border border-amber-300/70 rounded-xl p-2 flex items-center gap-2">
-                        <span className="text-sm flex-shrink-0">💌</span>
-                        <p className="text-[10.5px] font-bold text-amber-950 leading-snug">
-                          আপনার মনের কথাটি প্রিমিয়াম শুভেচ্ছা কার্ডে লিখে উপহার বক্সের সাথে পৌঁছে দেওয়া হবে। (চার্জ: ৳১০০)
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* ROW 2 RIGHT: Order Summary (Top) + Payment Method (Below) + Submit Button */}
+              {/* COLUMN 1: Order Summary (Top) + Gift Card Option (Middle) + Payment Method Selector (Bottom) */}
               <div className="md:col-span-6 space-y-4">
-                {/* 1. ORDER SUMMARY CARD (User Requested: Delivery Details er Dan Pashe) */}
+                {/* 1. ORDER SUMMARY CARD */}
                 <div className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200 shadow-xs space-y-4">
                   <div className="flex items-center justify-between border-b border-gray-100 pb-2.5">
                     <span className="text-xs sm:text-sm font-black text-[#1F291E] uppercase tracking-wider flex items-center gap-1.5">
@@ -1074,7 +834,95 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* 2. PAYMENT METHOD SELECTOR (UNDERNEATH ORDER SUMMARY) */}
+                {/* 2. SEND AS A GIFT OPTION (Placed right between Order Summary and Payment Method) */}
+                <div className={`rounded-2xl transition-all p-3 sm:p-3.5 border ${
+                  isGift 
+                    ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/70 to-[#FFF9ED] border-amber-400 shadow-md ring-2 ring-amber-400/15" 
+                    : "bg-gradient-to-br from-[#FFFDF9] via-amber-50/40 to-[#FFFDF5] border-amber-300/80 hover:border-amber-400 shadow-xs"
+                }`}>
+                  <div 
+                    onClick={() => setIsGift(prev => !prev)}
+                    className="flex items-center justify-between gap-2 cursor-pointer select-none"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <input
+                        type="checkbox"
+                        id="gift-option-checkbox"
+                        name="gift-option-checkbox"
+                        checked={isGift}
+                        readOnly
+                        className="w-4 h-4 accent-[#4A6741] rounded cursor-pointer pointer-events-none flex-shrink-0"
+                      />
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-base flex-shrink-0">🎁</span>
+                        <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight">
+                          প্রিয়জনকে গিফট কার্ড পাঠাতে চান?
+                        </span>
+                      </div>
+                    </div>
+                    <span className="text-[11px] sm:text-xs font-black text-amber-950 bg-amber-200/90 px-2.5 py-0.5 sm:py-1 rounded-full border border-amber-400 shadow-2xs whitespace-nowrap flex-shrink-0">
+                      প্রাইজ ১০০ টাকা
+                    </span>
+                  </div>
+
+                  {/* Sleek Emotional Subtitle */}
+                  <p className="text-[11px] sm:text-[11.5px] text-amber-900/80 font-medium mt-1.5 pl-6 sm:pl-7 leading-snug">
+                    আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব।
+                  </p>
+
+                  {isGift && (
+                    <div 
+                      onClick={(e) => e.stopPropagation()}
+                      className="space-y-2.5 pt-2.5 pl-6 sm:pl-7 border-t border-amber-200/80 mt-2 animate-fade-in"
+                    >
+                      <div className="space-y-1">
+                        <label htmlFor="gift-message-input" className="text-[11px] sm:text-xs font-black text-amber-950 flex items-center gap-1.5">
+                          <span>✍️</span>
+                          <span>কার্ডে আপনার শুভেচ্ছা বার্তা (Wish Note):</span>
+                        </label>
+                        <input
+                          id="gift-message-input"
+                          type="text"
+                          value={giftMessage}
+                          onChange={(e) => setGiftMessage(e.target.value)}
+                          placeholder="e.g. শুভ জন্মদিন প্রিয়! / সুস্থ থাকুন / অনেক ভালোবাসা রইলো..."
+                          className="w-full bg-white border border-amber-300 rounded-xl px-3 py-2 text-xs font-bold text-gray-900 outline-none focus:border-[#4A6741] placeholder:text-gray-400 shadow-inner"
+                        />
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                        <span className="text-[10px] sm:text-[11px] font-bold text-amber-900">কুইক উইশ:</span>
+                        {[
+                          "শুভ জন্মদিন! 🎂", 
+                          "দ্রুত সুস্থ হয়ে উঠুন 🌸", 
+                          "অনেক ভালোবাসা রইলো ❤️", 
+                          "উপহারটি গ্রহণ করুন 🎁"
+                        ].map((preset) => (
+                          <button
+                            key={preset}
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setGiftMessage(preset);
+                            }}
+                            className="text-[10px] sm:text-[11px] font-bold bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-lg transition-all cursor-pointer active:scale-95 shadow-2xs"
+                          >
+                            {preset}
+                          </button>
+                        ))}
+                      </div>
+
+                      <div className="bg-amber-100/60 border border-amber-300/70 rounded-xl p-2 flex items-center gap-2">
+                        <span className="text-sm flex-shrink-0">💌</span>
+                        <p className="text-[10.5px] font-bold text-amber-950 leading-snug">
+                          আপনার মনের কথাটি প্রিমিয়াম শুভেচ্ছা কার্ডে লিখে উপহার বক্সের সাথে পৌঁছে দেওয়া হবে। (চার্জ: ৳১০০)
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* 3. PAYMENT METHOD SELECTOR */}
                 <div className="space-y-2">
                   <span className="text-xs font-black uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
                     <Banknote size={15} className="text-[#4A6741]" />
@@ -1209,6 +1057,160 @@ const Hero = () => {
                       </div>
                     </div>
                   )}
+                </div>
+              </div>
+
+              {/* COLUMN 2: Delivery Details Form (Top) + Terms Checkbox + Confirm Order + Storage Tip (Bottom) */}
+              <div className="md:col-span-6 space-y-4">
+                <div className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200 shadow-xs space-y-3.5">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-2.5">
+                    <span className="text-xs sm:text-sm font-black text-[#1F291E] uppercase tracking-wider flex items-center gap-1.5">
+                      <MapPin size={16} className="text-[#4A6741]" />
+                      <span>ডেলিভারি ঠিকানা ও তথ্য (Delivery Details)</span>
+                    </span>
+                    {hasSavedInfo && (
+                      <button
+                        type="button"
+                        onClick={handleRestoreSavedInfo}
+                        className="text-[10px] font-black text-[#4A6741] bg-emerald-50 hover:bg-emerald-100 border border-[#4A6741]/20 px-2 py-0.5 rounded-full transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
+                        title="ক্লিক করে পূর্বের সংরক্ষিত তথ্য স্বয়ংক্রিয়ভাবে বসান"
+                      >
+                        <span>⚡ অটো ফিল</span>
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Name & Phone */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <label htmlFor="customer-name" className="text-[11px] font-black text-gray-700 uppercase tracking-wider block">
+                        আপনার নাম (Full Name)
+                      </label>
+                      <input
+                        id="customer-name"
+                        type="text"
+                        name="name"
+                        autoComplete="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder="আপনার নাম লিখুন"
+                        className="w-full bg-white border-2 border-gray-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20 transition-all placeholder:text-gray-400"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <label htmlFor="customer-phone" className="text-[11px] font-black text-gray-700 uppercase tracking-wider block">
+                          মোবাইল নম্বর (Phone) <span className="text-red-500">*</span>
+                        </label>
+                        {isPhoneValid && (
+                          <span className="text-[10px] font-black text-emerald-700 flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                            <Check size={12} strokeWidth={3} /> সঠিক নম্বর
+                          </span>
+                        )}
+                      </div>
+                      <div className="relative">
+                        <input
+                          id="customer-phone"
+                          type="tel"
+                          required
+                          name="phone"
+                          autoComplete="tel"
+                          inputMode="numeric"
+                          maxLength={11}
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          placeholder="01XXXXXXXXX"
+                          className={`w-full bg-white border-2 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-400 ${
+                            isPhoneValid
+                              ? "border-emerald-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20"
+                              : formData.phone.length > 0 && formData.phone.length < 11
+                                ? "border-amber-400 focus:border-amber-500"
+                                : "border-gray-300 focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20"
+                          }`}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Address */}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <label htmlFor="customer-address" className="text-[11px] font-black text-gray-700 uppercase tracking-wider block">
+                        সম্পূর্ণ ঠিকানা (Full Address) <span className="text-red-500">*</span>
+                      </label>
+                      <span className="text-[10px] font-bold text-[#4A6741] bg-emerald-50 px-2 py-0.5 rounded-full border border-[#4A6741]/20">
+                        ঢাকা সিটি
+                      </span>
+                    </div>
+                    <textarea
+                      id="customer-address"
+                      required
+                      name="address"
+                      autoComplete="street-address"
+                      rows={2}
+                      value={formData.address}
+                      onChange={handleInputChange}
+                      placeholder="বাসা নম্বর, রোড নম্বর, ফ্ল্যাট নম্বর ও এলাকার নাম বিস্তারিত লিখুন"
+                      className={`w-full bg-white border-2 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-400 resize-none ${
+                        detectedRestrictedArea
+                          ? "border-red-500 focus:border-red-600 focus:ring-2 focus:ring-red-500/20 bg-red-50/20"
+                          : "border-gray-300 focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20"
+                      }`}
+                    />
+
+                    {/* Real-time Restricted Delivery Area Alert */}
+                    {detectedRestrictedArea && (
+                      <div className="bg-red-50 border-2 border-red-400 text-red-800 p-2.5 rounded-xl text-xs font-bold flex items-start gap-2 shadow-xs mt-1 animate-fadeIn">
+                        <span className="text-base flex-shrink-0 mt-0.5">⚠️</span>
+                        <div className="space-y-0.5">
+                          <span className="font-black text-red-700 block text-xs">
+                            দুঃখিত! {detectedRestrictedArea} এলাকায় আমাদের ডেলিভারি সার্ভিস বন্ধ রয়েছে।
+                          </span>
+                          <span className="text-[10px] text-gray-700 font-semibold block leading-tight">
+                            ডাবের পুডিংয়ের সর্বোচ্চ স্বাদ ও তাজা গুণমান বজায় রাখতে ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে প্রযোজ্য (সাভার, আশুলিয়া, কেরানীগঞ্জ, নারায়ণগঞ্জ, মুন্সীগঞ্জ ও যাত্রাবাড়ী বাদে)।
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    <p className="text-[10px] sm:text-[11px] font-black text-[#4A6741] pt-0.5">
+                      ⚠️ অবশ্যই ফ্ল্যাট নম্বর উল্লেখ করবেন, যাতে ডেলিভারি পেতে সুবিধা হয়।
+                    </p>
+                  </div>
+
+                  {/* Optional Email & Note */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <label htmlFor="customer-email" className="text-[11px] sm:text-xs font-black text-gray-800 tracking-tight block">
+                        ইমেইল ঠিকানা (Email - ঐচ্ছিক):
+                      </label>
+                      <input
+                        id="customer-email"
+                        type="email"
+                        name="email"
+                        autoComplete="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="example@gmail.com"
+                        className="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label htmlFor="customer-note" className="text-[11px] sm:text-xs font-black text-gray-800 tracking-tight block">
+                        বিশেষ নির্দেশনা (Note - ঐচ্ছিক):
+                      </label>
+                      <input
+                        id="customer-note"
+                        type="text"
+                        name="note"
+                        value={formData.note}
+                        onChange={handleInputChange}
+                        placeholder="ডেলিভারি সংক্রান্ত কিছু থাকলে..."
+                        className="w-full bg-white border border-gray-300 rounded-xl px-3.5 py-2 text-xs font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 {/* Terms Agreement Checkbox */}
