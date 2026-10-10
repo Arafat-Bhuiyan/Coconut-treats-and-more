@@ -858,48 +858,50 @@ const Hero = () => {
                 </div>
 
                 {/* Send as a Gift Option (Positioned below Email & Note) */}
-                <div className={`rounded-2xl border-2 transition-all p-3 sm:p-3.5 ${
+                <div className={`rounded-2xl transition-all p-3 sm:p-3.5 ${
                   isGift 
-                    ? "bg-amber-50/95 border-amber-400 shadow-sm ring-2 ring-amber-400/20" 
-                    : "bg-amber-50/40 border-amber-200/80 hover:border-amber-300"
+                    ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/70 to-[#FFF9ED] border-2 border-amber-400 shadow-md ring-2 ring-amber-400/15" 
+                    : "bg-gradient-to-br from-[#FFFDF9] via-amber-50/40 to-[#FFFDF5] border border-amber-300/80 hover:border-amber-400 shadow-xs"
                 }`}>
                   <div 
                     onClick={() => setIsGift(prev => !prev)}
-                    className="flex items-center gap-2.5 cursor-pointer select-none"
+                    className="flex items-center justify-between gap-2 cursor-pointer select-none"
                   >
-                    <input
-                      type="checkbox"
-                      id="gift-option-checkbox"
-                      name="gift-option-checkbox"
-                      checked={isGift}
-                      readOnly
-                      className="w-4 h-4 accent-[#4A6741] rounded cursor-pointer pointer-events-none"
-                    />
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="text-base sm:text-lg">🎁</span>
-                      <span className="text-xs sm:text-sm font-black text-amber-950">
-                        প্রিয়জনকে উপহার হিসেবে পাঠাতে চান? (Send as a Gift)
-                      </span>
-                      <span className="text-xs sm:text-sm font-black text-amber-950 bg-amber-200 px-3 py-1 rounded-full border border-amber-400 shadow-xs tracking-tight">
-                        গিফট কার্ড প্রাইজ ১০০ টাকা
-                      </span>
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <input
+                        type="checkbox"
+                        id="gift-option-checkbox"
+                        name="gift-option-checkbox"
+                        checked={isGift}
+                        readOnly
+                        className="w-4 h-4 accent-[#4A6741] rounded cursor-pointer pointer-events-none flex-shrink-0"
+                      />
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-base flex-shrink-0">🎁</span>
+                        <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight">
+                          প্রিয়জনকে গিফট কার্ড পাঠাতে চান?
+                        </span>
+                      </div>
                     </div>
+                    <span className="text-[11px] sm:text-xs font-black text-amber-950 bg-amber-200/90 px-2.5 py-0.5 sm:py-1 rounded-full border border-amber-400 shadow-2xs whitespace-nowrap flex-shrink-0">
+                      প্রাইজ ১০০ টাকা
+                    </span>
                   </div>
 
-                  {/* Warm Emotional Touch Subtitle */}
-                  <p className="text-[11px] sm:text-xs text-amber-900/90 font-semibold mt-1.5 pl-6 sm:pl-7 leading-relaxed">
-                    💝 প্রিয়জনকে পাঠাতে পারেন স্পেশাল সারপ্রাইজ গিফট! আপনার মনের কথা বা wish নোট বক্সে লিখে দিন — আমরা তা সুন্দর একটি প্রিমিয়াম কার্ডে লিখে গিফট বক্স সহ পৌঁছে দেব।
+                  {/* Sleek Emotional Subtitle */}
+                  <p className="text-[11px] sm:text-[11.5px] text-amber-900/80 font-medium mt-1.5 pl-6 sm:pl-7 leading-snug">
+                    আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব।
                   </p>
 
                   {isGift && (
                     <div 
                       onClick={(e) => e.stopPropagation()}
-                      className="space-y-3 pt-3 pl-6 sm:pl-7 border-t border-amber-200/90 mt-2.5 animate-fade-in"
+                      className="space-y-2.5 pt-2.5 pl-6 sm:pl-7 border-t border-amber-200/80 mt-2 animate-fade-in"
                     >
-                      <div className="space-y-1.5">
-                        <label htmlFor="gift-message-input" className="text-xs font-black text-amber-950 flex items-center gap-1.5">
+                      <div className="space-y-1">
+                        <label htmlFor="gift-message-input" className="text-[11px] sm:text-xs font-black text-amber-950 flex items-center gap-1.5">
                           <span>✍️</span>
-                          <span>কার্ডে আপনার শুভেচ্ছা বার্তা বা মনের কথা (Wish Note):</span>
+                          <span>কার্ডে আপনার শুভেচ্ছা বার্তা (Wish Note):</span>
                         </label>
                         <input
                           id="gift-message-input"
@@ -907,12 +909,12 @@ const Hero = () => {
                           value={giftMessage}
                           onChange={(e) => setGiftMessage(e.target.value)}
                           placeholder="e.g. শুভ জন্মদিন প্রিয়! / সুস্থ থাকুন / অনেক ভালোবাসা রইলো..."
-                          className="w-full bg-white border-2 border-amber-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold text-gray-900 outline-none focus:border-[#4A6741] placeholder:text-gray-400 shadow-inner"
+                          className="w-full bg-white border border-amber-300 rounded-xl px-3 py-2 text-xs font-bold text-gray-900 outline-none focus:border-[#4A6741] placeholder:text-gray-400 shadow-inner"
                         />
                       </div>
 
                       <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-                        <span className="text-[10px] sm:text-[11px] font-black text-amber-900">কুইক উইশ (১-ক্লিকে সিলেক্ট করুন):</span>
+                        <span className="text-[10px] sm:text-[11px] font-bold text-amber-900">কুইক উইশ:</span>
                         {[
                           "শুভ জন্মদিন! 🎂", 
                           "দ্রুত সুস্থ হয়ে উঠুন 🌸", 
@@ -926,17 +928,17 @@ const Hero = () => {
                               e.stopPropagation();
                               setGiftMessage(preset);
                             }}
-                            className="text-[10px] sm:text-[11px] font-bold bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 px-2.5 py-1 rounded-lg transition-all cursor-pointer active:scale-95 shadow-2xs"
+                            className="text-[10px] sm:text-[11px] font-bold bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-lg transition-all cursor-pointer active:scale-95 shadow-2xs"
                           >
                             {preset}
                           </button>
                         ))}
                       </div>
 
-                      <div className="bg-amber-100/70 border border-amber-300/80 rounded-xl p-2.5 flex items-center gap-2">
-                        <span className="text-base flex-shrink-0">💌</span>
-                        <p className="text-[11px] font-bold text-amber-950 leading-snug">
-                          আপনার মনের কথাটি প্রিমিয়াম শুভেচ্ছা কার্ডে হাতে লিখে গিফট বক্সের সাথে যত্ন সহকারে পৌঁছে দেওয়া হবে। (চার্জ: ৳১০০)
+                      <div className="bg-amber-100/60 border border-amber-300/70 rounded-xl p-2 flex items-center gap-2">
+                        <span className="text-sm flex-shrink-0">💌</span>
+                        <p className="text-[10.5px] font-bold text-amber-950 leading-snug">
+                          আপনার মনের কথাটি প্রিমিয়াম শুভেচ্ছা কার্ডে লিখে উপহার বক্সের সাথে পৌঁছে দেওয়া হবে। (চার্জ: ৳১০০)
                         </p>
                       </div>
                     </div>
