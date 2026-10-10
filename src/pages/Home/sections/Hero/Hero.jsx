@@ -831,45 +831,47 @@ const Hero = () => {
                 </div>
 
                 {/* 2. SEND AS A GIFT OPTION (Placed right between Order Summary and Payment Method) */}
-                <div className={`rounded-2xl transition-all p-3 sm:p-3.5 border ${
-                  isGift 
-                    ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/70 to-[#FFF9ED] border-amber-400 shadow-md ring-2 ring-amber-400/15" 
-                    : "bg-gradient-to-br from-[#FFFDF9] via-amber-50/40 to-[#FFFDF5] border-amber-300/80 hover:border-amber-400 shadow-xs"
-                }`}>
-                  <div 
-                    onClick={() => setIsGift(prev => !prev)}
-                    className="flex items-center justify-between gap-2 cursor-pointer select-none"
+                <div 
+                  className={`rounded-2xl transition-all p-3.5 sm:p-4 border ${
+                    isGift 
+                      ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/70 to-[#FFF9ED] border-amber-400 shadow-md ring-2 ring-amber-400/15" 
+                      : "bg-gradient-to-br from-[#FFFDF9] via-amber-50/40 to-[#FFFDF5] border-amber-300/80 hover:border-amber-400 shadow-xs"
+                  }`}
+                >
+                  <label 
+                    htmlFor="gift-option-checkbox"
+                    style={{ touchAction: 'manipulation' }}
+                    className="flex flex-col cursor-pointer select-none group w-full"
                   >
-                    <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="flex items-center gap-3">
                       <input
                         type="checkbox"
                         id="gift-option-checkbox"
                         name="gift-option-checkbox"
                         checked={isGift}
-                        readOnly
-                        className="w-4 h-4 accent-[#4A6741] rounded cursor-pointer pointer-events-none flex-shrink-0"
+                        onChange={(e) => setIsGift(e.target.checked)}
+                        className="w-5 h-5 accent-[#4A6741] rounded cursor-pointer flex-shrink-0"
                       />
                       <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="text-base flex-shrink-0">🎁</span>
-                        <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight">
+                        <span className="text-lg flex-shrink-0">🎁</span>
+                        <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight group-hover:text-amber-800 transition-colors">
                           প্রিয়জনকে গিফট কার্ড পাঠাতে চান?
                         </span>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Sleek Emotional Subtitle */}
-                  <p className="text-[11px] sm:text-[11.5px] text-amber-900/80 font-medium mt-1.5 pl-6 sm:pl-7 leading-snug">
-                    আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব।
-                  </p>
+                    {/* Sleek Emotional Subtitle */}
+                    <p className="text-[11px] sm:text-[11.5px] text-amber-900/80 font-medium mt-1.5 pl-8 leading-snug">
+                      আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব।
+                    </p>
+                  </label>
 
                   {isGift && (
                     <div 
-                      onClick={(e) => e.stopPropagation()}
-                      className="space-y-2.5 pt-2.5 pl-6 sm:pl-7 border-t border-amber-200/80 mt-2 animate-fade-in"
+                      className="space-y-2.5 pt-2.5 pl-0 sm:pl-8 border-t border-amber-200/80 mt-2.5 animate-fade-in"
                     >
                       <div className="space-y-1">
-                        <label htmlFor="gift-message-input" className="text-[11px] sm:text-xs font-black text-amber-950 flex items-center gap-1.5">
+                        <label htmlFor="gift-message-input" className="text-[11px] sm:text-xs font-black text-amber-950 flex items-center gap-1.5 cursor-pointer">
                           <span>✍️</span>
                           <span>কার্ডে আপনার শুভেচ্ছা বার্তা (Wish Note):</span>
                         </label>
@@ -895,6 +897,7 @@ const Hero = () => {
                             key={preset}
                             type="button"
                             onClick={(e) => {
+                              e.preventDefault();
                               e.stopPropagation();
                               setGiftMessage(preset);
                             }}
