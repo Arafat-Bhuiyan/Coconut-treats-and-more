@@ -860,9 +860,6 @@ const Hero = () => {
                         </span>
                       </div>
                     </div>
-                    <span className="text-[11px] sm:text-xs font-black text-amber-950 bg-amber-200/90 px-2.5 py-0.5 sm:py-1 rounded-full border border-amber-400 shadow-2xs whitespace-nowrap flex-shrink-0">
-                      প্রাইজ ১০০ টাকা
-                    </span>
                   </div>
 
                   {/* Sleek Emotional Subtitle */}
