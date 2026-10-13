@@ -833,26 +833,27 @@ const Hero = () => {
                 {/* 2. SEND AS A GIFT OPTION (Placed right between Order Summary and Payment Method) */}
                 <div 
                   id="gift-card-box-container"
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => setIsGift((prev) => !prev)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setIsGift((prev) => !prev);
-                    }
-                  }}
-                  style={{ touchAction: 'manipulation' }}
-                  className={`rounded-2xl transition-all p-3.5 sm:p-4 border-2 cursor-pointer select-none text-left w-full ${
+                  className={`rounded-2xl transition-all border-2 w-full overflow-hidden ${
                     isGift 
                       ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/70 to-[#FFF9ED] border-amber-500 shadow-md ring-2 ring-amber-400/20" 
                       : "bg-gradient-to-br from-[#FFFDF9] via-amber-50/40 to-[#FFFDF5] border-amber-300 hover:border-amber-400 hover:shadow-xs"
                   }`}
                 >
-                  <div className="flex items-start gap-3 w-full">
+                  {/* Semantic Native Button - 100% Guaranteed cross-browser click & tap trigger */}
+                  <button
+                    type="button"
+                    id="gift-card-toggle-btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsGift((prev) => !prev);
+                    }}
+                    style={{ touchAction: 'manipulation' }}
+                    className="w-full p-3.5 sm:p-4 text-left flex items-start gap-3 cursor-pointer select-none bg-transparent border-0 outline-none transition-all active:scale-[0.99]"
+                    aria-pressed={isGift}
+                  >
                     {/* Visual Checkbox Indicator */}
                     <div 
-                      className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all flex-shrink-0 mt-0.5 ${
+                      className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all flex-shrink-0 mt-0.5 pointer-events-none ${
                         isGift 
                           ? "bg-[#4A6741] border-[#4A6741] text-white shadow-xs" 
                           : "bg-white border-amber-400 hover:border-amber-500"
@@ -861,11 +862,20 @@ const Hero = () => {
                       {isGift && <Check size={14} strokeWidth={3.5} className="text-white" />}
                     </div>
 
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="text-lg flex-shrink-0">🎁</span>
-                        <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight">
-                          প্রিয়জনকে গিফট কার্ড পাঠাতে চান?
+                    <div className="flex-1 min-w-0 pointer-events-none">
+                      <div className="flex items-center justify-between gap-1.5 flex-wrap">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="text-lg flex-shrink-0">🎁</span>
+                          <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight">
+                            প্রিয়জনকে গিফট কার্ড পাঠাতে চান?
+                          </span>
+                        </div>
+                        <span className={`text-[10.5px] sm:text-[11px] font-black px-2 py-0.5 rounded-full border transition-all ${
+                          isGift 
+                            ? "bg-emerald-100 text-emerald-800 border-emerald-300" 
+                            : "bg-amber-100/80 text-amber-900 border-amber-300"
+                        }`}>
+                          {isGift ? "✓ সিলেক্ট করা হয়েছে" : "+ ৳১০০"}
                         </span>
                       </div>
 
@@ -874,7 +884,7 @@ const Hero = () => {
                         আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব।
                       </p>
                     </div>
-                  </div>
+                  </button>
 
                   {/* Hidden accessibility input keeping compatibility with automated checks */}
                   <input
@@ -887,11 +897,9 @@ const Hero = () => {
                     tabIndex={-1}
                   />
 
+                  {/* Expanded Section: completely outside the button, so inputs and buttons never interfere! */}
                   {isGift && (
-                    <div 
-                      onClick={(e) => e.stopPropagation()}
-                      className="space-y-2.5 pt-3 pl-0 sm:pl-8 border-t border-amber-200/80 mt-3 animate-fade-in cursor-default"
-                    >
+                    <div className="px-3.5 pb-3.5 sm:px-4 sm:pb-4 space-y-2.5 pt-2 border-t border-amber-200/80 animate-fade-in">
                       <div className="space-y-1">
                         <label htmlFor="gift-message-input" className="text-[11px] sm:text-xs font-black text-amber-950 flex items-center gap-1.5">
                           <span>✍️</span>
