@@ -833,7 +833,7 @@ const Hero = () => {
                 {/* 2. SEND AS A GIFT OPTION (Placed right between Order Summary and Payment Method) */}
                 <div 
                   id="gift-card-box-container"
-                  className={`rounded-2xl transition-all border-2 w-full overflow-hidden ${
+                  className={`relative z-10 rounded-2xl transition-all border-2 w-full overflow-hidden ${
                     isGift 
                       ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/70 to-[#FFF9ED] border-amber-500 shadow-md ring-2 ring-amber-400/20" 
                       : "bg-gradient-to-br from-[#FFFDF9] via-amber-50/40 to-[#FFFDF5] border-amber-300 hover:border-amber-400 hover:shadow-xs"
