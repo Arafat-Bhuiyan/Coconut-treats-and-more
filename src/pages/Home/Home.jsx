@@ -14,7 +14,7 @@ export const Home = () => {
   const [showPromo, setShowPromo] = useState(false);
 
   useEffect(() => {
-    // 1. Dynamically initialize and load Meta Pixel script (eliminates render-blocking impact)
+    // 1. Initialize Meta Pixel queue immediately so no events are ever dropped
     if (!window.fbq) {
       window._fbq = window.fbq = function() {
         window.fbq.callMethod ? window.fbq.callMethod.apply(window.fbq, arguments) : window.fbq.queue.push(arguments);
@@ -24,20 +24,25 @@ export const Home = () => {
       window.fbq.loaded = true;
       window.fbq.version = '2.0';
       window.fbq.queue = [];
-      
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://connect.facebook.net/en_US/fbevents.js';
-      document.head.appendChild(script);
     }
 
-    // 2. Dynamic high-deduplication PageView tracking
-    let cachedUserData = {};
-    try {
-      const cached = localStorage.getItem("cc_user_data");
-      if (cached) cachedUserData = JSON.parse(cached);
-    } catch { /* localStorage unavailable or invalid JSON — ignore */ }
-    trackFacebookEvent("PageView", {}, cachedUserData);
+    // Defer external Meta script & PageView network request slightly so initial render has 100% bandwidth
+    const pixelTimer = setTimeout(() => {
+      if (!document.getElementById('fb-pixel-script')) {
+        const script = document.createElement('script');
+        script.id = 'fb-pixel-script';
+        script.async = true;
+        script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        document.head.appendChild(script);
+      }
+
+      let cachedUserData = {};
+      try {
+        const cached = localStorage.getItem("cc_user_data");
+        if (cached) cachedUserData = JSON.parse(cached);
+      } catch { /* localStorage unavailable or invalid JSON — ignore */ }
+      trackFacebookEvent("PageView", {}, cachedUserData);
+    }, 900);
 
     // 3. Show popup ONLY after real user interaction (guards against Lighthouse/bots)
     const hasShownPromo = sessionStorage.getItem("hasShownPromo");
@@ -65,10 +70,13 @@ export const Home = () => {
       events.forEach(e => window.addEventListener(e, schedulePromo, { passive: true }));
 
       return () => {
+        clearTimeout(pixelTimer);
         if (promoTimer) clearTimeout(promoTimer);
         events.forEach(e => window.removeEventListener(e, schedulePromo));
       };
     }
+
+    return () => clearTimeout(pixelTimer);
   }, []);
 
   const claimOffer = (e) => {

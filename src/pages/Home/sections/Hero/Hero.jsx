@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import OrderSuccessPopup from "../Order/OrderSuccessPopup";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
-import brandLogo from "../../../../assets/images/coconuts-treats-more-logo.webp";
 
 // Restricted areas where fresh chilled pudding cannot be safely delivered
 const RESTRICTED_AREAS = [
@@ -105,12 +104,16 @@ const Hero = () => {
     vid.setAttribute('playsinline', '');
 
     const tryPlay = () => {
+      if (!vid.getAttribute('src')) {
+        vid.src = '/hero-video-0924.mp4';
+      }
       const p = vid.play();
       if (p !== undefined) {
         p.then(() => setIsVideoPlaying(true)).catch(() => {
           setIsVideoPlaying(false);
           // Unlock on first touch, click, or scroll
           const unlock = () => {
+            if (!vid.getAttribute('src')) vid.src = '/hero-video-0924.mp4';
             vid.play().then(() => setIsVideoPlaying(true)).catch(() => {});
             ['click', 'touchstart', 'scroll'].forEach((evt) =>
               window.removeEventListener(evt, unlock)
@@ -123,7 +126,7 @@ const Hero = () => {
       }
     };
 
-    tryPlay();
+    const startTimer = setTimeout(tryPlay, 700);
 
     const onPlay = () => setIsVideoPlaying(true);
     const onPause = () => setIsVideoPlaying(false);
@@ -131,6 +134,7 @@ const Hero = () => {
     vid.addEventListener('pause', onPause);
 
     return () => {
+      clearTimeout(startTimer);
       vid.removeEventListener('play', onPlay);
       vid.removeEventListener('pause', onPause);
     };
@@ -464,8 +468,11 @@ const Hero = () => {
                 {/* Logo */}
                 <div>
                   <img 
-                    src={brandLogo} 
+                    src="/logo.webp" 
                     alt="Coconut Treats & More" 
+                    width={128}
+                    height={128}
+                    fetchPriority="high"
                     className="w-24 sm:w-32 h-auto object-contain drop-shadow-sm" 
                   />
                 </div>
@@ -615,6 +622,9 @@ const Hero = () => {
                   <div 
                     onClick={() => {
                       if (videoRef.current) {
+                        if (!videoRef.current.getAttribute('src')) {
+                          videoRef.current.src = '/hero-video-0924.mp4';
+                        }
                         if (videoRef.current.paused) {
                           videoRef.current.play().then(() => setIsVideoPlaying(true)).catch(() => {});
                         } else {
@@ -627,12 +637,10 @@ const Hero = () => {
                   >
                     <video 
                       ref={videoRef}
-                      src="/hero-video-0924.mp4"
-                      autoPlay
                       loop 
                       muted 
                       playsInline
-                      preload="metadata"
+                      preload="none"
                       poster="/video-poster-0924.webp"
                       className="w-full h-full object-cover object-center rounded-2xl"
                     />
