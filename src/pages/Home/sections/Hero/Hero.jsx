@@ -80,7 +80,7 @@ const Hero = () => {
   const [hasSavedInfo, setHasSavedInfo] = useState(false);
   const detectedRestrictedArea = getRestrictedAreaMatch(formData.address);
 
-  // Auto-restore saved customer info from localStorage (Auto-fill for minimal customer effort)
+  // Detect saved customer info in localStorage so user can 1-tap "⚡ অটো ফিল" if desired without pre-dirtying inputs
   useEffect(() => {
     try {
       const saved = localStorage.getItem("coconut_customer_info");
@@ -89,13 +89,6 @@ const Hero = () => {
         if (parsed.name || parsed.phone || parsed.address) {
           setHasSavedInfo(true);
         }
-        setFormData((prev) => ({
-          ...prev,
-          name: parsed.name || prev.name,
-          phone: parsed.phone || prev.phone,
-          address: parsed.address || prev.address,
-          email: parsed.email || prev.email,
-        }));
       }
     } catch {
       // Ignore if localStorage unavailable
@@ -422,12 +415,16 @@ const Hero = () => {
       setOrderPlaced(true);
       setSubmittedName(customerName);
       setShowSuccess(true);
-      // Reset form keeping name/phone for convenience
-      setFormData((prev) => ({
-        ...prev,
+      setHasSavedInfo(true);
+      // Reset form cleanly so subsequent orders never concatenate previous inputs
+      setFormData({
+        name: "",
+        phone: "",
+        address: "",
+        email: "",
         note: "",
         agree: true
-      }));
+      });
       setPaymentMethod("cod");
       setBkashTrx("");
       setSelectedPkg(2);
@@ -635,13 +632,10 @@ const Hero = () => {
                       loop 
                       muted 
                       playsInline
-                      preload="auto"
+                      preload="metadata"
                       poster="/video-poster-0924.webp"
                       className="w-full h-full object-cover object-center rounded-2xl"
-                    >
-                      <source src="/hero-video-0924.mp4" type="video/mp4" />
-                      <source src="/hero-video.mp4" type="video/mp4" />
-                    </video>
+                    />
 
                     {/* Play/Pause Overlay button when paused or blocked by browser power-saving */}
                     {!isVideoPlaying && (
@@ -958,19 +952,19 @@ const Hero = () => {
 
                   <div className="grid grid-cols-2 gap-2.5">
                     {/* Option 1: Cash on Delivery (Default Selected) */}
-                    <div
+                    <button
+                      type="button"
                       id="payment-method-cod"
-                      role="button"
-                      tabIndex={0}
+                      aria-pressed={paymentMethod === "cod"}
                       onClick={() => setPaymentMethod("cod")}
-                      style={{ touchAction: 'manipulation' }}
+                      style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
                       className={`p-3 rounded-2xl border-2 transition-all cursor-pointer select-none text-left flex flex-col justify-between ${
                         paymentMethod === "cod"
                           ? "bg-emerald-50/90 border-[#4A6741] ring-2 ring-[#4A6741]/25 shadow-md"
                           : "bg-white border-gray-300 hover:border-gray-400 opacity-80"
                       }`}
                     >
-                      <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center justify-between mb-1 w-full pointer-events-none">
                         <span className="text-[11px] font-black uppercase text-[#4A6741] flex items-center gap-1">
                           <Banknote size={14} /> Cash on Delivery
                         </span>
@@ -980,28 +974,28 @@ const Hero = () => {
                           {paymentMethod === "cod" && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
                         </div>
                       </div>
-                      <p className="text-xs font-black text-gray-900">
+                      <p className="text-xs font-black text-gray-900 pointer-events-none">
                         ক্যাশ অন ডেলিভারি (COD)
                       </p>
-                      <p className="text-[10px] text-gray-600 font-semibold mt-0.5">
+                      <p className="text-[10px] text-gray-600 font-semibold mt-0.5 pointer-events-none">
                         পণ্য পেয়ে টাকা দিন।
                       </p>
-                    </div>
+                    </button>
 
                     {/* Option 2: bKash */}
-                    <div
+                    <button
+                      type="button"
                       id="payment-method-bkash"
-                      role="button"
-                      tabIndex={0}
+                      aria-pressed={paymentMethod === "bkash"}
                       onClick={() => setPaymentMethod("bkash")}
-                      style={{ touchAction: 'manipulation' }}
+                      style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
                       className={`p-3 rounded-2xl border-2 transition-all cursor-pointer select-none text-left flex flex-col justify-between ${
                         paymentMethod === "bkash"
                           ? "bg-pink-50/90 border-[#D12053] ring-2 ring-[#D12053]/25 shadow-md"
                           : "bg-white border-gray-300 hover:border-gray-400 opacity-80"
                       }`}
                     >
-                      <div className="flex items-center justify-between mb-1">
+                      <div className="flex items-center justify-between mb-1 w-full pointer-events-none">
                         <span className="text-[11px] font-black uppercase text-[#D12053] flex items-center gap-1">
                           <Smartphone size={14} /> bKash Payment
                         </span>
@@ -1011,13 +1005,13 @@ const Hero = () => {
                           {paymentMethod === "bkash" && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
                         </div>
                       </div>
-                      <p className="text-xs font-black text-gray-900">
+                      <p className="text-xs font-black text-gray-900 pointer-events-none">
                         বিকাশ (Send Money)
                       </p>
-                      <p className="text-[10px] text-gray-600 font-semibold mt-0.5">
+                      <p className="text-[10px] text-gray-600 font-semibold mt-0.5 pointer-events-none">
                         দ্রুত ক্যাশলেস পেমেন্ট।
                       </p>
-                    </div>
+                    </button>
                   </div>
 
                   {/* If bKash Selected: Show Ultra-Smart Copy Button & Guide */}

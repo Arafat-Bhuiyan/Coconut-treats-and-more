@@ -15,6 +15,18 @@ const SocialProofToast = () => {
   const showNextNotification = useCallback(() => {
     if (isDismissed) return;
 
+    // Don't show toast if user is actively in checkout form
+    const checkoutEl = document.getElementById("checkout-grid-container") || document.getElementById("order-form-details");
+    if (checkoutEl) {
+      const rect = checkoutEl.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const isInCheckout = rect.top < windowHeight * 0.85 && rect.bottom > 80;
+      if (isInCheckout) {
+        setIsVisible(false);
+        return;
+      }
+    }
+
     const customer = getRandomItem(BANGLADESH_CUSTOMERS);
     const variation = getRandomItem(ORDER_VARIATIONS);
     const time = getRandomItem(RELATIVE_TIMES);

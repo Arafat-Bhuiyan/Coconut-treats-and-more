@@ -78,8 +78,6 @@ const Footer = () => {
                                         const navOffset = 90;
                                         const targetY = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
                                         window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
-                                        const nameInput = document.getElementById("customer-name");
-                                        if (nameInput) setTimeout(() => nameInput.focus(), 350);
                                     }
                                 }}
                                 style={{ touchAction: 'manipulation' }}

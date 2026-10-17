@@ -96,50 +96,46 @@ const Navbar = () => {
                 </div>
             </div>
 
-            {/* Mobile Drawer — CSS animated, no Framer Motion */}
-            <div
-                style={{
-                    transition: "opacity 0.25s ease, transform 0.25s ease",
-                    opacity: isOpen ? 1 : 0,
-                    transform: isOpen ? "scale(1)" : "scale(1.06)",
-                    pointerEvents: isOpen ? "auto" : "none",
-                }}
-                className="fixed inset-0 bg-white/70 z-40 flex flex-col pt-28 px-6 md:hidden backdrop-blur-2xl"
-            >
-                <div className="flex flex-col gap-4">
-                    {navLinks.map((link) => (
+            {/* Mobile Drawer — Conditionally mounted only when open to save mobile GPU compositing */}
+            {isOpen && (
+                <div
+                    className="fixed inset-0 bg-white/85 z-40 flex flex-col pt-28 px-6 md:hidden backdrop-blur-2xl animate-fadeIn"
+                >
+                    <div className="flex flex-col gap-4">
+                        {navLinks.map((link) => (
+                            <a
+                                key={link.name}
+                                href={link.href}
+                                onClick={(e) => {
+                                    setIsOpen(false);
+                                    if (link.href === "#") {
+                                        e.preventDefault();
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    } else if (link.href.startsWith("#")) {
+                                        e.preventDefault();
+                                        document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    }
+                                }}
+                                className="flex items-center justify-between bg-secondary/70 p-5 rounded-3xl group active:bg-primary/5 transition-colors cursor-pointer select-none"
+                            >
+                                <span className="text-xl font-black text-husk group-active:text-primary">{link.name}</span>
+                                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                                </div>
+                            </a>
+                        ))}
                         <a
-                            key={link.name}
-                            href={link.href}
-                            onClick={(e) => {
-                                setIsOpen(false);
-                                if (link.href === "#") {
-                                    e.preventDefault();
-                                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                                } else if (link.href.startsWith("#")) {
-                                    e.preventDefault();
-                                    document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                }
-                            }}
-                            className="flex items-center justify-between bg-secondary/70 p-5 rounded-3xl group active:bg-primary/5 transition-colors cursor-pointer select-none"
+                            href="#order"
+                            onClick={scrollToOrder}
+                            style={{ touchAction: 'manipulation' }}
+                            className="flex items-center justify-center gap-2 bg-primary active:bg-primary-dark text-white p-5 rounded-3xl font-black text-lg shadow-xl shadow-primary/25 mt-2 cursor-pointer select-none transition-all active:scale-[0.98]"
                         >
-                            <span className="text-xl font-black text-husk group-active:text-primary">{link.name}</span>
-                            <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm">
-                                <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                            </div>
+                            <ShoppingCart size={20} />
+                            <span>অর্ডার করুন (Order Now)</span>
                         </a>
-                    ))}
-                    <a
-                        href="#order"
-                        onClick={scrollToOrder}
-                        style={{ touchAction: 'manipulation' }}
-                        className="flex items-center justify-center gap-2 bg-primary active:bg-primary-dark text-white p-5 rounded-3xl font-black text-lg shadow-xl shadow-primary/25 mt-2 cursor-pointer select-none transition-all active:scale-[0.98]"
-                    >
-                        <ShoppingCart size={20} />
-                        <span>অর্ডার করুন (Order Now)</span>
-                    </a>
+                    </div>
                 </div>
-            </div>
+            )}
         </nav>
     );
 };
