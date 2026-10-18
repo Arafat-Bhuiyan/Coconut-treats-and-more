@@ -42,7 +42,7 @@ export const Home = () => {
         if (cached) cachedUserData = JSON.parse(cached);
       } catch { /* localStorage unavailable or invalid JSON — ignore */ }
       trackFacebookEvent("PageView", {}, cachedUserData);
-    }, 900);
+    }, 1400);
 
     // 3. Show popup ONLY after real user interaction (guards against Lighthouse/bots)
     const hasShownPromo = sessionStorage.getItem("hasShownPromo");

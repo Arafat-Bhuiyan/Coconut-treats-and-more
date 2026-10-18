@@ -126,7 +126,7 @@ const Hero = () => {
       }
     };
 
-    const startTimer = setTimeout(tryPlay, 700);
+    const startTimer = setTimeout(tryPlay, 1400);
 
     const onPlay = () => setIsVideoPlaying(true);
     const onPause = () => setIsVideoPlaying(false);

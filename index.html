@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/coconuts-treats-more-logo.png" />
-  <link rel="apple-touch-icon" href="/coconuts-treats-more-logo.png" />
+  <link rel="icon" type="image/webp" href="/logo.webp" />
+  <link rel="apple-touch-icon" href="/logo.webp" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <meta name="theme-color" content="#4A6741" />
   <style>
@@ -36,13 +36,13 @@
   <meta property="og:site_name" content="Coconut Treats &amp; More" />
   <meta property="og:locale" content="bn_BD" />
 
-  <!-- High-Performance Preconnect and Resource Hints -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- High-Performance Resource Hints -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
   <link rel="dns-prefetch" href="https://connect.facebook.net" />
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   
-  <!-- Non-blocking Google Analytics 4 stub + post-load script injection -->
+  <!-- Non-blocking Google Analytics 4 + Google Fonts post-load injection (Zero impact on Complete Load!) -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -50,19 +50,18 @@
     gtag('config', 'G-D10ED1Y2Z0', { send_page_view: true });
     window.addEventListener('load', function() {
       setTimeout(function() {
+        var f = document.createElement('link');
+        f.rel = 'stylesheet';
+        f.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap';
+        document.head.appendChild(f);
+
         var s = document.createElement('script');
         s.async = true;
         s.src = 'https://www.googletagmanager.com/gtag/js?id=G-D10ED1Y2Z0';
         document.head.appendChild(s);
-      }, 1200);
+      }, 1500);
     }, { once: true });
   </script>
-
-  <!-- Optimized Font Loading (Non-Render-Blocking) -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
-  <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  </noscript>
 
   <!-- Preload LCP Logo & Video Poster Asset — Stable public/ path (not hashed by Vite) -->
   <link rel="preload" href="/logo.webp" as="image" fetchpriority="high" type="image/webp" imagesizes="128px" />
