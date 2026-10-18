@@ -52,6 +52,7 @@ const getRestrictedAreaMatch = (address) => {
 const Hero = () => {
   const videoRef = useRef(null);
   const submittingRef = useRef(false);
+  const hasInitiatedCheckoutRef = useRef(false);
   const lastOrderRef = useRef({ phone: "", timestamp: 0 });
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
@@ -168,10 +169,28 @@ const Hero = () => {
     }));
   }, [selectedPkg, grandTotal]);
 
+  const triggerInitiateCheckoutOnce = (overrideUserData = {}) => {
+    if (hasInitiatedCheckoutRef.current) return;
+    hasInitiatedCheckoutRef.current = true;
+    try {
+      trackFacebookEvent("InitiateCheckout", {
+        content_name: "Premium Coconut Pudding (6pc Box)",
+        content_ids: ["coconut-pudding-6pc"],
+        content_type: "product",
+        value: grandTotalNumber,
+        num_items: selectedPkg,
+        currency: "BDT"
+      }, overrideUserData);
+    } catch {
+      // Ignore tracking errors
+    }
+  };
+
   const scrollToCheckout = (e) => {
     if (e && typeof e.preventDefault === 'function') {
       e.preventDefault();
     }
+    triggerInitiateCheckoutOnce();
     const formSection = document.getElementById("order-form-details");
     if (formSection) {
       const navOffset = 90;
@@ -201,6 +220,7 @@ const Hero = () => {
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormError("");
+    triggerInitiateCheckoutOnce();
 
     let nextVal = type === "checkbox" ? checked : value;
     if (name === "phone") {
@@ -744,7 +764,20 @@ const Hero = () => {
                       <div className="flex items-center rounded-xl overflow-hidden border-2 border-[#4A6741]/40 shadow-xs bg-white">
                         <button
                           type="button"
-                          onClick={() => setSelectedPkg((prev) => Math.max(1, prev - 1))}
+                          onClick={() => {
+                            const nextPkg = Math.max(1, selectedPkg - 1);
+                            setSelectedPkg(nextPkg);
+                            try {
+                              trackFacebookEvent("AddToCart", {
+                                content_name: "Premium Coconut Pudding (6pc Box)",
+                                content_ids: ["coconut-pudding-6pc"],
+                                content_type: "product",
+                                value: nextPkg * (nextPkg >= 2 ? offerPrice : basePrice),
+                                num_items: nextPkg,
+                                currency: "BDT"
+                              });
+                            } catch { /* ignore */ }
+                          }}
                           style={{ touchAction: "manipulation" }}
                           className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center bg-[#4A6741]/10 hover:bg-[#4A6741]/20 active:bg-[#4A6741]/30 text-[#4A6741] border-r-2 border-[#4A6741]/40 transition-colors select-none text-xl sm:text-2xl font-black cursor-pointer"
                           aria-label="Decrease quantity"
@@ -756,7 +789,20 @@ const Hero = () => {
                         </span>
                         <button
                           type="button"
-                          onClick={() => setSelectedPkg((prev) => Math.min(50, prev + 1))}
+                          onClick={() => {
+                            const nextPkg = Math.min(50, selectedPkg + 1);
+                            setSelectedPkg(nextPkg);
+                            try {
+                              trackFacebookEvent("AddToCart", {
+                                content_name: "Premium Coconut Pudding (6pc Box)",
+                                content_ids: ["coconut-pudding-6pc"],
+                                content_type: "product",
+                                value: nextPkg * (nextPkg >= 2 ? offerPrice : basePrice),
+                                num_items: nextPkg,
+                                currency: "BDT"
+                              });
+                            } catch { /* ignore */ }
+                          }}
                           style={{ touchAction: "manipulation" }}
                           className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center bg-[#4A6741] hover:bg-[#3E5837] active:bg-[#32492c] text-white border-l-2 border-[#4A6741]/40 transition-colors select-none text-xl sm:text-2xl font-black cursor-pointer"
                           aria-label="Increase quantity"

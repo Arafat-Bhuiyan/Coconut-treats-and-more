@@ -42,6 +42,13 @@ export const Home = () => {
         if (cached) cachedUserData = JSON.parse(cached);
       } catch { /* localStorage unavailable or invalid JSON — ignore */ }
       trackFacebookEvent("PageView", {}, cachedUserData);
+      trackFacebookEvent("ViewContent", {
+        content_name: "Premium Coconut Pudding (6pc Box)",
+        content_ids: ["coconut-pudding-6pc"],
+        content_type: "product",
+        value: 1400,
+        currency: "BDT"
+      }, cachedUserData);
     }, 1400);
 
     // 3. Show popup ONLY after real user interaction (guards against Lighthouse/bots)
