@@ -36,13 +36,16 @@
   <meta property="og:site_name" content="Coconut Treats &amp; More" />
   <meta property="og:locale" content="bn_BD" />
 
-  <!-- High-Performance Resource Hints -->
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+  <!-- High-Performance Preconnect and Resource Hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://connect.facebook.net" />
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+  <!-- Crisp Inter Font (weights 400 to 900) loaded immediately -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
   
-  <!-- Non-blocking Google Analytics 4 + Google Fonts post-load injection (Zero impact on Complete Load!) -->
+  <!-- Non-blocking Google Analytics 4 post-load injection -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -50,16 +53,11 @@
     gtag('config', 'G-D10ED1Y2Z0', { send_page_view: true });
     window.addEventListener('load', function() {
       setTimeout(function() {
-        var f = document.createElement('link');
-        f.rel = 'stylesheet';
-        f.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap';
-        document.head.appendChild(f);
-
         var s = document.createElement('script');
         s.async = true;
         s.src = 'https://www.googletagmanager.com/gtag/js?id=G-D10ED1Y2Z0';
         document.head.appendChild(s);
-      }, 1500);
+      }, 1200);
     }, { once: true });
   </script>
 
