@@ -37,9 +37,9 @@ const Navbar = () => {
                             e.preventDefault();
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                         }}
-                        className="text-base sm:text-xl md:text-2xl font-black text-primary tracking-tight cursor-pointer no-underline select-none whitespace-nowrap"
+                        className="text-base sm:text-xl md:text-2xl font-extrabold text-primary tracking-tight cursor-pointer no-underline select-none whitespace-nowrap"
                     >
-                        Coconut <span className="text-secondary font-black">Treats &amp; More</span>
+                        Coconut <span className="text-secondary font-extrabold">Treats &amp; More</span>
                     </a>
                 </div>
 
