@@ -104,16 +104,12 @@ const Hero = () => {
     vid.setAttribute('playsinline', '');
 
     const tryPlay = () => {
-      if (!vid.getAttribute('src')) {
-        vid.src = '/hero-video-0924.mp4';
-      }
       const p = vid.play();
       if (p !== undefined) {
         p.then(() => setIsVideoPlaying(true)).catch(() => {
           setIsVideoPlaying(false);
           // Unlock on first touch, click, or scroll
           const unlock = () => {
-            if (!vid.getAttribute('src')) vid.src = '/hero-video-0924.mp4';
             vid.play().then(() => setIsVideoPlaying(true)).catch(() => {});
             ['click', 'touchstart', 'scroll'].forEach((evt) =>
               window.removeEventListener(evt, unlock)
@@ -126,7 +122,7 @@ const Hero = () => {
       }
     };
 
-    const startTimer = setTimeout(tryPlay, 1400);
+    tryPlay();
 
     const onPlay = () => setIsVideoPlaying(true);
     const onPause = () => setIsVideoPlaying(false);
@@ -134,7 +130,6 @@ const Hero = () => {
     vid.addEventListener('pause', onPause);
 
     return () => {
-      clearTimeout(startTimer);
       vid.removeEventListener('play', onPlay);
       vid.removeEventListener('pause', onPause);
     };
@@ -637,10 +632,12 @@ const Hero = () => {
                   >
                     <video 
                       ref={videoRef}
+                      src="/hero-video-0924.mp4"
+                      autoPlay
                       loop 
                       muted 
                       playsInline
-                      preload="none"
+                      preload="auto"
                       poster="/video-poster-0924.webp"
                       className="w-full h-full object-cover object-center rounded-2xl"
                     />
