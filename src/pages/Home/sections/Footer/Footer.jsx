@@ -1,5 +1,6 @@
 import React from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { trackFacebookEvent } from "../../../../utils/facebookTracking";
 
 const FacebookIcon = ({ size = 24 }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -102,6 +103,11 @@ const Footer = () => {
                                     href="https://wa.me/8801618562844"
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={() => {
+                                        try {
+                                            trackFacebookEvent("Contact", { content_name: "Footer WhatsApp Clicked" });
+                                        } catch { /* ignore */ }
+                                    }}
                                     className="text-milk-white hover:text-accent transition-colors text-base sm:text-lg font-black tracking-tight"
                                 >
                                     +880 1618 562 844

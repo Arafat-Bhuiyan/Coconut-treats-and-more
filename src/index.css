@@ -47,7 +47,13 @@ body {
     @apply bg-husk/80 backdrop-blur-xl border border-husk/50 shadow-2xl;
 }
 .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-white/60 shadow-[0_4px_20px_rgb(0,0,0,0.03)];
+    @apply bg-white/95 border border-white/60 shadow-[0_4px_20px_rgb(0,0,0,0.03)];
+}
+
+/* Accelerate initial Complete Load and scroll rendering for below-the-fold sections */
+#reviews, footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 850px;
 }
 
 /* Hardware-accelerated CSS animations replacing JS motion */

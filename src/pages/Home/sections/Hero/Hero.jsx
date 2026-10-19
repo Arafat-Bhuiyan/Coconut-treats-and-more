@@ -600,10 +600,10 @@ const Hero = () => {
 
                   <div className="flex items-center gap-2.5 px-1">
                     <div className="flex -space-x-2">
-                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-1.webp" alt="Bangladeshi Customer 1" width={36} height={36} loading="lazy" />
-                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-2.webp" alt="Bangladeshi Customer 2" width={36} height={36} loading="lazy" />
-                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-3.webp" alt="Bangladeshi Customer 3" width={36} height={36} loading="lazy" />
-                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-4.webp" alt="Bangladeshi Customer 4" width={36} height={36} loading="lazy" />
+                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-1.webp" alt="Bangladeshi Customer 1" width={36} height={36} loading="lazy" decoding="async" />
+                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-2.webp" alt="Bangladeshi Customer 2" width={36} height={36} loading="lazy" decoding="async" />
+                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-3.webp" alt="Bangladeshi Customer 3" width={36} height={36} loading="lazy" decoding="async" />
+                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-4.webp" alt="Bangladeshi Customer 4" width={36} height={36} loading="lazy" decoding="async" />
                     </div>
                     <p className="text-xs sm:text-sm font-bold text-[#2C332A]/70">
                       <span className="text-[#4A6741] font-black">1000+</span> happy customers
@@ -745,6 +745,7 @@ const Hero = () => {
                           alt="Premium Coconut Pudding"
                           className="w-full h-full object-cover"
                           loading="lazy"
+                          decoding="async"
                           width={80}
                           height={80}
                         />
