@@ -37,6 +37,15 @@ const getRestrictedAreaMatch = (address) => {
   if (!address) return null;
   const lower = address.toLowerCase();
 
+  // Do not false-positive on well-known Dhaka City road/area names containing district words
+  const DHAKA_SAFE_PHRASES = [
+    "tongi diversion", "টঙ্গী ডাইভারশন", "mymensingh road", "mymensingh lane", "ময়মনসিংহ রোড",
+    "comilla para", "কুমিল্লা পাড়া", "noakhali tower", "barisal plaza", "sylhet tower"
+  ];
+  if (DHAKA_SAFE_PHRASES.some((p) => lower.includes(p) || address.includes(p))) {
+    return null;
+  }
+
   for (const item of RESTRICTED_AREAS) {
     if (lower.includes(item.key) || address.includes(item.bn)) return item.bn;
     if (item.extra && item.extra.some((ex) => lower.includes(ex) || address.includes(ex))) return item.bn;
@@ -226,9 +235,13 @@ const Hero = () => {
     if (name === "phone") {
       const bnToEnMap = { '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4', '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9' };
       let clean = String(value).replace(/[০-৯]/g, (d) => bnToEnMap[d] || d);
-      clean = clean.replace(/[^0-9+]/g, '');
-      if (clean.startsWith('+88')) clean = clean.slice(3);
-      else if (clean.startsWith('88')) clean = clean.slice(2);
+      clean = clean.replace(/[^0-9]/g, '');
+      if (clean.startsWith('00880')) clean = clean.slice(4);
+      else if (clean.startsWith('880')) clean = clean.slice(2);
+      else if (clean.startsWith('8801')) clean = clean.slice(2);
+      if (clean.length >= 10 && clean.startsWith('1')) {
+        clean = '0' + clean;
+      }
       nextVal = clean.slice(0, 11);
     }
 
@@ -277,12 +290,24 @@ const Hero = () => {
     if (submittingRef.current) return;
     submittingRef.current = true;
 
+    // Read from React state with DOM fallback (ensures Mobile Autofill in iOS/Android/In-App browsers never fails)
+    const domPhone = document.getElementById("customer-phone")?.value || "";
+    const domAddress = document.getElementById("customer-address")?.value || "";
+    const domName = document.getElementById("customer-name")?.value || "";
+    const domEmail = document.getElementById("customer-email")?.value || "";
+    const domNote = document.getElementById("customer-note")?.value || "";
+
+    const rawPhone = (formData.phone || domPhone).trim();
+    const rawAddress = (formData.address || domAddress).trim();
+    const rawName = (formData.name || domName).trim();
+    const rawEmail = (formData.email || domEmail).trim();
+    const rawNote = (formData.note || domNote).trim();
+
     // Phone validation
-    const trimmedPhone = formData.phone.trim();
-    if (!trimmedPhone) {
+    if (!rawPhone) {
       submittingRef.current = false;
       setFormError("দয়া করে আপনার মোবাইল নম্বর লিখুন।");
-      const phoneInput = document.getElementsByName("phone")[0];
+      const phoneInput = document.getElementById("customer-phone");
       if (phoneInput) {
         phoneInput.scrollIntoView({ behavior: "smooth", block: "center" });
         phoneInput.focus();
@@ -291,18 +316,20 @@ const Hero = () => {
     }
 
     const bnToEnMap = { '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4', '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9' };
-    const normalizedPhone = trimmedPhone.replace(/[০-৯]/g, (d) => bnToEnMap[d] || d);
-    const phoneClean = normalizedPhone.replace(/[^0-9]/g, '');
-    let standardPhone = phoneClean.startsWith('880') ? '0' + phoneClean.slice(3) : phoneClean;
-    if (standardPhone.length === 10 && standardPhone.startsWith('1')) {
-      standardPhone = '0' + standardPhone;
+    const normalizedPhone = rawPhone.replace(/[০-৯]/g, (d) => bnToEnMap[d] || d);
+    let phoneClean = normalizedPhone.replace(/[^0-9]/g, '');
+    if (phoneClean.startsWith('00880')) phoneClean = phoneClean.slice(4);
+    else if (phoneClean.startsWith('880')) phoneClean = phoneClean.slice(2);
+    if (phoneClean.length === 10 && phoneClean.startsWith('1')) {
+      phoneClean = '0' + phoneClean;
     }
+    const standardPhone = phoneClean.slice(0, 11);
     const isValidBDPhone = standardPhone.length === 11 && standardPhone.startsWith('01');
 
     if (!isValidBDPhone) {
       submittingRef.current = false;
       setFormError("দয়া করে একটি সঠিক ১১ ডিজিটের মোবাইল নম্বর লিখুন (যেমন: 01XXXXXXXXX)।");
-      const phoneInput = document.getElementsByName("phone")[0];
+      const phoneInput = document.getElementById("customer-phone");
       if (phoneInput) {
         phoneInput.scrollIntoView({ behavior: "smooth", block: "center" });
         phoneInput.focus();
@@ -311,10 +338,10 @@ const Hero = () => {
     }
 
     // Address validation
-    if (!formData.address.trim()) {
+    if (!rawAddress) {
       submittingRef.current = false;
       setFormError("দয়া করে আপনার সম্পূর্ণ ঠিকানা (রোড, বাড়ি, ফ্ল্যাট নম্বর) লিখুন।");
-      const addressInput = document.getElementsByName("address")[0];
+      const addressInput = document.getElementById("customer-address");
       if (addressInput) {
         addressInput.scrollIntoView({ behavior: "smooth", block: "center" });
         addressInput.focus();
@@ -323,7 +350,7 @@ const Hero = () => {
     }
 
     // Restricted delivery area validation (Method 1)
-    const restrictedMatch = getRestrictedAreaMatch(formData.address);
+    const restrictedMatch = getRestrictedAreaMatch(rawAddress);
     if (restrictedMatch) {
       submittingRef.current = false;
       setFormError(`দুঃখিত! ${restrictedMatch} এলাকায় ডাবের পুডিং ডেলিভারি সেবা বর্তমানে বন্ধ রয়েছে। ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে প্রযোজ্য।`);
@@ -342,13 +369,14 @@ const Hero = () => {
       return;
     }
 
-    // Client-side idempotency check (blocks duplicate submission within 60s)
+    // Client-side idempotency check (blocks duplicate double-tap within 15s for exact same phone)
     const now = Date.now();
     if (
       lastOrderRef.current.phone === standardPhone &&
-      now - lastOrderRef.current.timestamp < 60000
+      now - lastOrderRef.current.timestamp < 15000
     ) {
-      console.warn("[Idempotency] Duplicate client submission suppressed within 60s");
+      console.warn("[Idempotency] Duplicate client submission suppressed within 15s");
+      submittingRef.current = false;
       setShowSuccess(true);
       return;
     }
@@ -357,15 +385,15 @@ const Hero = () => {
     lastOrderRef.current = { phone: standardPhone, timestamp: now };
     setIsSubmitting(true);
 
-    const fullAddress = formData.address.trim();
-    const customerName = formData.name.trim() || "Customer";
+    const fullAddress = rawAddress;
+    const customerName = rawName || "Customer";
     const capturedPhone = standardPhone;
-    const capturedName = formData.name.trim();
-    const capturedEmail = formData.email ? formData.email.trim() : "";
+    const capturedName = rawName;
+    const capturedEmail = rawEmail;
 
     const formattedPaymentNote = paymentMethod === "cod"
-      ? (formData.note.trim() ? `[Cash on Delivery] ${formData.note.trim()}` : "Cash on Delivery")
-      : `[bKash] TrxID/No: ${bkashTrx.trim() || "Not provided"}${formData.note.trim() ? ` | ${formData.note.trim()}` : ""}`;
+      ? (rawNote ? `[Cash on Delivery] ${rawNote}` : "Cash on Delivery")
+      : `[bKash] TrxID/No: ${bkashTrx.trim() || "Not provided"}${rawNote ? ` | ${rawNote}` : ""}`;
 
     const giftNote = isGift
       ? ` | [🎁 GIFT ORDER (+৳100) - Card Note: "${giftMessage.trim() || "শুভেচ্ছা রইলো"}"]`
@@ -449,10 +477,10 @@ const Hero = () => {
       setSelectedPkg(2);
     }, 350);
 
-    // Keep submitting lock active for 60 seconds to completely prevent double taps/clicks
+    // Keep submitting lock active for 2.5 seconds to prevent accidental double taps
     setTimeout(() => {
       submittingRef.current = false;
-    }, 60000);
+    }, 2500);
 
     // 3. Send order to backend with keepalive
     fetch("/api/submit-order", {
@@ -1155,6 +1183,14 @@ const Hero = () => {
                     )}
                   </div>
 
+                  {/* Top Form Error Banner (Visible immediately even when mobile keyboard is open!) */}
+                  {formError && (
+                    <div className="bg-red-50 border-2 border-red-400 text-red-700 px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm animate-pulse">
+                      <span className="text-base flex-shrink-0">⚠️</span>
+                      <span>{formError}</span>
+                    </div>
+                  )}
+
                   {/* Name & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
@@ -1192,7 +1228,7 @@ const Hero = () => {
                           name="phone"
                           autoComplete="tel"
                           inputMode="numeric"
-                          maxLength={11}
+                          maxLength={20}
                           value={formData.phone}
                           onChange={handleInputChange}
                           placeholder="01XXXXXXXXX"

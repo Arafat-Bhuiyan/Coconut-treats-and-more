@@ -58,8 +58,13 @@ export default async function handler(req, res) {
       "jatrabari", "যাত্রাবাড়ী", "sayedabad", "সায়েদাবাদ",
       "gazipur", "গাজীপুর", "tongi", "টঙ্গী"
     ];
+    const SAFE_DHAKA_ROADS = [
+      "tongi diversion", "টঙ্গী ডাইভারশন", "mymensingh road", "mymensingh lane", "ময়মনসিংহ রোড",
+      "comilla para", "কুমিল্লা পাড়া"
+    ];
     const lowerAddr = String(address).toLowerCase();
-    const isRestricted = RESTRICTED_KEYS.some((k) => lowerAddr.includes(k));
+    const isSafeRoad = SAFE_DHAKA_ROADS.some((r) => lowerAddr.includes(r));
+    const isRestricted = !isSafeRoad && RESTRICTED_KEYS.some((k) => lowerAddr.includes(k));
     if (isRestricted) {
       return res.status(400).json({
         success: false,
