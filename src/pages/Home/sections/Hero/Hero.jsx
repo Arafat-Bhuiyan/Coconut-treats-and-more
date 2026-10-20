@@ -232,6 +232,7 @@ const Hero = () => {
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormError("");
+    submittingRef.current = false;
     if (orderPlaced) setOrderPlaced(false);
     triggerInitiateCheckoutOnce();
 
@@ -462,6 +463,7 @@ const Hero = () => {
 
     // 2. Snappy optimistic UI feedback
     setTimeout(() => {
+      submittingRef.current = false;
       setIsSubmitting(false);
       setOrderPlaced(true);
       setSubmittedName(customerName);
@@ -480,11 +482,6 @@ const Hero = () => {
       setBkashTrx("");
       setSelectedPkg(2);
     }, 350);
-
-    // Keep submitting lock active for 2.5 seconds to prevent accidental double taps
-    setTimeout(() => {
-      submittingRef.current = false;
-    }, 2500);
 
     // 3. Send order to backend with keepalive
     fetch("/api/submit-order", {
