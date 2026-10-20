@@ -7,17 +7,58 @@
  * NOTE: Google Apps Script Web Apps redirect POST requests.
  * We handle this by following redirects (redirect: 'follow').
  */
-// Server-side in-memory cache to prevent duplicate order submissions (e.g. double taps, network retries)
+// Server-side in-memory cache to prevent accidental double-tap order submissions within 3 seconds
 const recentOrdersCache = new Map();
-const DEDUPLICATION_WINDOW_MS = 90 * 1000; // 90 seconds deduplication window
+const DEDUPLICATION_WINDOW_MS = 3000; // 3 seconds double-tap guard (allows consecutive/concurrent orders freely)
 
 function cleanupExpiredOrders() {
   const now = Date.now();
   for (const [key, timestamp] of recentOrdersCache.entries()) {
-    if (now - timestamp > DEDUPLICATION_WINDOW_MS * 2) {
+    if (now - timestamp > 10000) {
       recentOrdersCache.delete(key);
     }
   }
+}
+
+async function postToGoogleScriptWithRetry(url, payload, maxAttempts = 3) {
+  let lastError = null;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        redirect: 'follow',
+        body: JSON.stringify(payload)
+      });
+
+      const text = await response.text();
+      if (response.ok) {
+        let parsed = { success: true };
+        try {
+          if (text) parsed = JSON.parse(text);
+        } catch {
+          parsed = { success: true, message: "Order logged" };
+        }
+        if (parsed && parsed.success !== false) {
+          return { ok: true, status: response.status, result: parsed };
+        }
+        lastError = new Error(parsed.error || parsed.message || "Script lock/error");
+      } else {
+        lastError = new Error(`HTTP ${response.status}: ${text?.slice(0, 120)}`);
+      }
+    } catch (err) {
+      lastError = err;
+    }
+
+    if (attempt < maxAttempts) {
+      // Jittered backoff (250ms–850ms) so concurrent requests never collide on Google Sheets lock
+      const jitterMs = 250 * attempt + Math.floor(Math.random() * 350);
+      await new Promise((resolve) => setTimeout(resolve, jitterMs));
+    }
+  }
+  return { ok: false, status: 502, error: lastError?.message || "Failed after retries" };
 }
 
 export default async function handler(req, res) {
@@ -72,28 +113,32 @@ export default async function handler(req, res) {
       });
     }
 
-    // Clean phone number for deduplication
+    // Clean phone number and build full order fingerprint (only blocks accidental double-taps of the exact same order within 3s)
     const cleanPhone = String(phone).replace(/[^0-9]/g, '');
-    const idempotencyKey = `${cleanPhone}_${String(address).trim().toLowerCase().slice(0, 35)}`;
+    const customerName = String(orderData?.Customer || orderData?.from_name || '').trim().toLowerCase();
+    const quantity = String(orderData?.Quantity || '').trim().toLowerCase();
+    const totalAmt = String(orderData?.Total_Amount || '').trim().toLowerCase();
+    const note = String(orderData?.Note || '').trim().toLowerCase();
+    const idempotencyKey = `${cleanPhone}_${customerName}_${String(address).trim().toLowerCase().slice(0, 35)}_${quantity}_${totalAmt}_${note}`;
 
     // Periodic cleanup of expired orders
     cleanupExpiredOrders();
 
-    // Check if this exact order was already processed recently
+    // Check if this exact order was double-tapped within 3 seconds
     if (recentOrdersCache.has(idempotencyKey)) {
       const lastProcessedTime = recentOrdersCache.get(idempotencyKey);
       const elapsed = Date.now() - lastProcessedTime;
       if (elapsed < DEDUPLICATION_WINDOW_MS) {
-        console.warn(`[Idempotency Guard] Duplicate order attempt for ${cleanPhone} blocked (${Math.round(elapsed / 1000)}s since last submission).`);
+        console.warn(`[Double-Tap Guard] Duplicate tap for ${cleanPhone} suppressed (${elapsed}ms).`);
         return res.status(200).json({
           success: true,
           duplicate: true,
-          message: "Order already received and queued for dispatch. Duplicate email suppressed."
+          message: "Order already received and queued for dispatch."
         });
       }
     }
 
-    // Record order timestamp immediately to lock out concurrent duplicate requests
+    // Record order timestamp for 3-second double-tap guard
     recentOrdersCache.set(idempotencyKey, Date.now());
 
     orderData.Phone = phone;
@@ -102,46 +147,18 @@ export default async function handler(req, res) {
     // New Apps Script deployed from coconuttreatsmore@gmail.com
     const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbygtsftenbteNaL_IUxy1a82Yy8Jy__jAHeK26NRG0HUrH_jVnCMkAeOyITvQ-lzW9f/exec";
 
-    // Forward the request to Google Apps Script
-    const response = await fetch(googleScriptUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      redirect: 'follow',
-      body: JSON.stringify(orderData)
-    });
+    // Forward the request to Google Apps Script with automatic concurrency retry & jittered backoff
+    const forwardRes = await postToGoogleScriptWithRetry(googleScriptUrl, orderData, 3);
 
-    // Try to parse response
-    let result = { success: false };
-    const text = await response.text();
-
-    if (!response.ok) {
-      console.error(`Google Apps Script returned status ${response.status}:`, text);
-      return res.status(response.status).json({
+    if (!forwardRes.ok) {
+      console.error("Google Apps Script failed after retries:", forwardRes.error);
+      return res.status(200).json({
         success: false,
-        message: `Google Sheets API returned status ${response.status}. Please make sure 'Who has access' is set to 'Anyone'.`
+        message: forwardRes.error
       });
     }
 
-    try {
-      if (text) {
-        result = JSON.parse(text);
-      } else {
-        result = { success: true };
-      }
-    } catch {
-      // If it's a 200 response but not valid JSON
-      result = { success: true, message: "Order logged" };
-    }
-
-    // Return the actual result from Apps Script
-    if (result.success === false) {
-      console.error("Apps Script reported error:", result.error || result.message);
-      return res.status(200).json({ success: false, message: result.error || result.message || "Script error" });
-    }
-
-    return res.status(200).json({ success: true, result });
+    return res.status(200).json({ success: true, result: forwardRes.result });
 
   } catch (error) {
     console.error("Google Apps Script serverless proxy failed:", error);

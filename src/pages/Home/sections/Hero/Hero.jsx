@@ -209,6 +209,9 @@ const Hero = () => {
   };
 
   const handleRestoreSavedInfo = () => {
+    setOrderPlaced(false);
+    setFormError("");
+    submittingRef.current = false;
     try {
       const saved = localStorage.getItem("coconut_customer_info");
       if (saved) {
@@ -229,6 +232,7 @@ const Hero = () => {
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormError("");
+    if (orderPlaced) setOrderPlaced(false);
     triggerInitiateCheckoutOnce();
 
     let nextVal = type === "checkbox" ? checked : value;
@@ -369,20 +373,20 @@ const Hero = () => {
       return;
     }
 
-    // Client-side idempotency check (blocks duplicate double-tap within 15s for exact same phone)
+    // Client-side double-tap guard (only blocks accidental double-tap within 2.5s for exact same order)
     const now = Date.now();
+    const orderFingerprint = `${standardPhone}_${rawAddress}_${selectedPkg}`;
     if (
-      lastOrderRef.current.phone === standardPhone &&
-      now - lastOrderRef.current.timestamp < 15000
+      lastOrderRef.current.phone === orderFingerprint &&
+      now - lastOrderRef.current.timestamp < 2500
     ) {
-      console.warn("[Idempotency] Duplicate client submission suppressed within 15s");
       submittingRef.current = false;
       setShowSuccess(true);
       return;
     }
 
     submittingRef.current = true;
-    lastOrderRef.current = { phone: standardPhone, timestamp: now };
+    lastOrderRef.current = { phone: orderFingerprint, timestamp: now };
     setIsSubmitting(true);
 
     const fullAddress = rawAddress;
@@ -1352,79 +1356,59 @@ const Hero = () => {
                   </div>
                 )}
 
-                {/* High-Converting Shopify-Style Call to Action Submit Button */}
+                {/* High-Converting Shopify-Style Call to Action Submit Button (Always visible for consecutive/multi-person orders) */}
                 <div className="pt-0.5 space-y-3">
-                  {orderPlaced ? (
-                    <div className="bg-emerald-50 border-2 border-emerald-500 rounded-2xl p-4 text-center space-y-2 shadow-sm animate-fade-in">
+                  {orderPlaced && (
+                    <div className="bg-emerald-50 border-2 border-emerald-500 rounded-2xl p-3.5 text-center space-y-1.5 shadow-sm animate-fade-in">
                       <div className="flex items-center justify-center gap-2 text-emerald-800 font-black text-sm sm:text-base">
                         <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0" />
                         <span>আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে!</span>
                       </div>
-                      {isGift && (
-                        <div className="bg-amber-100/90 border border-amber-300 rounded-xl p-2.5 text-xs font-bold text-amber-900 flex items-center justify-center gap-1.5 shadow-2xs">
-                          <span>🎁</span>
-                          <span>গিফট অর্ডার: আপনার শুভেচ্ছা বার্তাটি সুন্দর কার্ডে লিখে বক্সে যুক্ত করা হবে!</span>
-                        </div>
-                      )}
                       <p className="text-xs text-emerald-700 font-bold">
-                        আমাদের প্রতিনিধি দ্রুত আপনার সাথে ফোনে বা WhatsApp-এ যোগাযোগ করবেন।
+                        আমাদের প্রতিনিধি দ্রুত আপনার সাথে ফোনে বা WhatsApp-এ যোগাযোগ করবেন। নতুন আরেকটি অর্ডার করতে চাইলে নিচের বাটনে চাপ দিন।
                       </p>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setOrderPlaced(false);
-                          setIsGift(false);
-                          setGiftMessage("");
-                          submittingRef.current = false;
-                          lastOrderRef.current = { phone: "", timestamp: 0 };
-                          setFormData({ name: "", phone: "", address: "", email: "", note: "", agree: true });
-                        }}
-                        className="text-xs font-black text-[#4A6741] underline hover:text-[#385031] pt-1 inline-block cursor-pointer"
-                      >
-                        + নতুন আরেকটি অর্ডার করতে এখানে চাপ দিন
-                      </button>
                     </div>
-                  ) : (
-                    <button 
-                      type="submit"
-                      disabled={isSubmitting}
-                      style={{ touchAction: 'manipulation' }}
-                      className="w-full relative group overflow-hidden bg-gradient-to-r from-[#4A6741] via-[#3E5837] to-[#31462A] hover:brightness-110 active:scale-[0.98] text-white p-4 rounded-2xl shadow-xl shadow-[#4A6741]/30 flex items-center justify-between transition-all cursor-pointer select-none disabled:opacity-75 disabled:cursor-not-allowed"
-                    >
-                      {/* Shiny sweep reflection */}
-                      <span className="absolute inset-0 w-1/2 h-full bg-white/10 skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out" />
-
-                      <div className="flex items-center gap-3 relative z-10">
-                        <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner">
-                          {isSubmitting ? (
-                            <Loader2 className="w-5 h-5 text-white animate-spin" />
-                          ) : (
-                            <ShoppingBag className="w-5 h-5 text-white" />
-                          )}
-                        </div>
-                        <div className="text-left">
-                          <span className="block text-base sm:text-lg font-black tracking-wide leading-tight uppercase">
-                            {isSubmitting ? "PROCESSING..." : "CONFIRM ORDER"}
-                          </span>
-                          <span className="block text-[11px] font-semibold text-emerald-100/90">
-                            {paymentMethod === "cod" ? "Cash on Delivery • Click to Complete" : "bKash Payment • Click to Complete"}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="text-right flex items-center gap-2 relative z-10">
-                        <div>
-                          <span className="text-lg sm:text-xl font-black block leading-tight">{grandTotal}</span>
-                          <span className="text-[10px] text-emerald-100 font-bold block">
-                            {isFreeDelivery ? "FREE DELIVERY 🚚" : "Total Incl. Delivery"}
-                          </span>
-                        </div>
-                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                          <ChevronRight className="w-4 h-4 text-white" strokeWidth={3} />
-                        </div>
-                      </div>
-                    </button>
                   )}
+
+                  <button 
+                    type="submit"
+                    disabled={isSubmitting}
+                    style={{ touchAction: 'manipulation' }}
+                    className="w-full relative group overflow-hidden bg-gradient-to-r from-[#4A6741] via-[#3E5837] to-[#31462A] hover:brightness-110 active:scale-[0.98] text-white p-4 rounded-2xl shadow-xl shadow-[#4A6741]/30 flex items-center justify-between transition-all cursor-pointer select-none disabled:opacity-75 disabled:cursor-not-allowed"
+                  >
+                    {/* Shiny sweep reflection */}
+                    <span className="absolute inset-0 w-1/2 h-full bg-white/10 skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out" />
+
+                    <div className="flex items-center gap-3 relative z-10">
+                      <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner">
+                        {isSubmitting ? (
+                          <Loader2 className="w-5 h-5 text-white animate-spin" />
+                        ) : (
+                          <ShoppingBag className="w-5 h-5 text-white" />
+                        )}
+                      </div>
+                      <div className="text-left">
+                        <span className="block text-base sm:text-lg font-black tracking-wide leading-tight uppercase">
+                          {isSubmitting ? "PROCESSING..." : "CONFIRM ORDER"}
+                        </span>
+                        <span className="block text-[11px] font-semibold text-emerald-100/90">
+                          {paymentMethod === "cod" ? "Cash on Delivery • Click to Complete" : "bKash Payment • Click to Complete"}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="text-right flex items-center gap-2 relative z-10">
+                      <div>
+                        <span className="text-lg sm:text-xl font-black block leading-tight">{grandTotal}</span>
+                        <span className="text-[10px] text-emerald-100 font-bold block">
+                          {isFreeDelivery ? "FREE DELIVERY 🚚" : "Total Incl. Delivery"}
+                        </span>
+                      </div>
+                      <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                        <ChevronRight className="w-4 h-4 text-white" strokeWidth={3} />
+                      </div>
+                    </div>
+                  </button>
 
                   {/* STORAGE TIP: Placed DIRECTLY under the CONFIRM ORDER button as requested! */}
                   <div className="bg-emerald-50/90 border border-[#4A6741]/20 rounded-2xl p-3 sm:p-3.5 flex items-start gap-2.5 shadow-2xs">
@@ -1449,6 +1433,8 @@ const Hero = () => {
         isOpen={showSuccess} 
         onClose={() => {
           setShowSuccess(false);
+          setOrderPlaced(false);
+          submittingRef.current = false;
           setIsGift(false);
           setGiftMessage("");
         }} 
