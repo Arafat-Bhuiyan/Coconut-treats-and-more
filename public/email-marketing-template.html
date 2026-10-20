@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coconut Treats &amp; More — Mobile &amp; PC Marketing Template</title>
+  <title>Coconut Treats &amp; More — Mobile Screen Poster Template</title>
   <style>
     body {
       margin: 0;
@@ -13,94 +13,112 @@
       -webkit-font-smoothing: antialiased;
     }
     .toolbar {
-      max-width: 520px;
-      margin: 12px auto 8px auto;
+      max-width: 340px;
+      margin: 8px auto 6px auto;
       background: #1F291E;
       color: #ffffff;
-      padding: 12px 16px;
-      border-radius: 14px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      padding: 10px 12px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.14);
     }
     .toolbar button, .toolbar a.dl-btn {
       background: #97BC62;
       color: #1F291E;
       border: none;
-      padding: 9px 11px;
-      border-radius: 9px;
+      padding: 8px 8px;
+      border-radius: 8px;
       font-weight: 800;
-      font-size: 12px;
+      font-size: 11.5px;
       cursor: pointer;
       text-decoration: none;
       text-align: center;
       display: inline-block;
     }
-    .toolbar button:hover, .toolbar a.dl-btn:hover {
-      background: #a8cc73;
-    }
   </style>
 </head>
 <body>
 
-  <!-- 1-Click Copy Toolbar -->
+  <!-- Compact 1-Click Copy Toolbar -->
   <div class="toolbar">
-    <div style="width: 100%; margin-bottom: 4px;">
-      <strong style="font-size:13px; display:block;">📧 Mobile-Locked Short Email &amp; WhatsApp Template (লম্বা হবে না!)</strong>
-      <span style="font-size:11.5px; color:#cfe3c4;">Subject: <b>🥥 Fresh Homemade Coconut Pudding — Flat ৳100 OFF!</b></span>
+    <div style="margin-bottom: 6px; font-size: 11px; color: #cfe3c4; line-height: 1.35;">
+      <strong style="color:#fff; font-size:12px;">📱 Mobile 1-Screen Poster Template</strong><br/>
+      Subject: <b>🥥 Fresh Homemade Coconut Pudding — Flat ৳100 OFF!</b>
     </div>
-    <div style="display:flex; flex-wrap:wrap; gap:6px; width:100%;">
-      <button style="flex:1; min-width:115px;" onclick="copySubject(this)">📋 Copy Subject</button>
-      <button style="flex:1.3; min-width:145px;" onclick="copyVisualEmail(this)">📋 Copy Email for Gmail</button>
-      <button style="flex:1.3; min-width:155px; background:#25D366; color:#ffffff;" onclick="copyWhatsAppMsg(this)">💬 Copy 4-Line WhatsApp</button>
-      <a class="dl-btn" style="flex:1; min-width:125px; background:#FFF8E7; color:#1F291E;" href="/email-card.jpg" download="Coconut-Pudding-Offer-Card.jpg">📥 Download Card</a>
+    <div style="display:flex; flex-wrap:wrap; gap:5px; width:100%;">
+      <button style="flex:1;" onclick="copySubject(this)">📋 Subject</button>
+      <button style="flex:1.4;" onclick="copyVisualEmail(this)">📋 Copy Email</button>
+      <button style="flex:1.4; background:#25D366; color:#fff;" onclick="copyWhatsAppMsg(this)">💬 WhatsApp Msg</button>
+      <a class="dl-btn" style="flex:1; background:#FFF8E7;" href="/email-poster.jpg" download="Coconut-Pudding-Poster.jpg">📥 Poster</a>
     </div>
   </div>
 
-  <!-- START OF ASPECT-RATIO LOCKED EMAIL CONTENT (Never stretches vertically on Mobile!) -->
-  <div id="email-content-area" style="padding: 6px 4px;">
-    <table role="presentation" width="510" cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%; max-width: 510px; margin: 0 auto; background-color: #ffffff; border-radius: 14px; overflow: hidden; border: 1.5px solid #cfe0c7; font-family: 'Segoe UI', Arial, sans-serif; box-shadow: 0 6px 18px rgba(31,41,30,0.08);">
+  <!-- START OF MOBILE 1-SCREEN POSTER EMAIL (Fits 100% inside mobile screen when opened!) -->
+  <div id="email-content-area" style="padding: 2px;">
+    <table role="presentation" width="290" cellspacing="0" cellpadding="0" border="0" align="center" style="width: 290px; max-width: 290px; margin: 0 auto; background-color: #ffffff; border-radius: 14px; overflow: hidden; border: 1.5px solid #cfe0c7; font-family: 'Segoe UI', Arial, sans-serif; box-shadow: 0 4px 14px rgba(31,41,30,0.08);">
       
-      <!-- Fixed Aspect-Ratio HD Card (Scales proportionally on Mobile — ZERO vertical text wrapping!) -->
+      <!-- 1. ONLY THE POSTER (Sized to fit Mobile Viewport without scrolling!) -->
       <tr>
-        <td colspan="3" align="center" style="padding: 0; margin: 0; line-height: 0;">
+        <td align="center" style="background-color: #f4f9f1; padding: 8px 8px 6px 8px;">
           <a href="https://coconuttreatsmore.com/" target="_blank" style="text-decoration: none; display: block;">
-            <img src="https://coconuttreatsmore.com/email-card.jpg" alt="Coconut Treats &amp; More — Fresh Homemade Coconut Pudding (Order Online: coconuttreatsmore.com | WhatsApp/Call: +8801618562844)" width="510" style="width: 100%; max-width: 510px; height: auto; display: block; border: 0;" />
+            <img src="https://coconuttreatsmore.com/email-poster.jpg" alt="Coconut Treats &amp; More — Fresh Homemade Coconut Pudding" width="225" style="width: 225px; max-width: 225px; height: auto; display: block; margin: 0 auto; border-radius: 10px; border: 0;" />
           </a>
         </td>
       </tr>
 
-      <!-- Single Slim Clickable Action Bar (1 Line on Mobile & PC!) -->
-      <tr style="background-color: #1F291E;">
-        <td width="42%" align="center" style="padding: 7px 3px 7px 6px;">
-          <a href="https://coconuttreatsmore.com/" target="_blank" style="display: block; background-color: #4A6741; color: #ffffff; font-size: 11px; font-weight: 900; text-decoration: none; padding: 7px 4px; border-radius: 6px; text-align: center; white-space: nowrap;">
-            🛒 Website Order
-          </a>
-        </td>
-        <td width="30%" align="center" style="padding: 7px 3px;">
-          <a href="https://wa.me/8801618562844?text=Hello!%20I%20want%20to%20order%20Coconut%20Pudding." target="_blank" style="display: block; background-color: #25D366; color: #ffffff; font-size: 11px; font-weight: 900; text-decoration: none; padding: 7px 4px; border-radius: 6px; text-align: center; white-space: nowrap;">
-            💬 WhatsApp
-          </a>
-        </td>
-        <td width="28%" align="center" style="padding: 7px 6px 7px 3px;">
-          <a href="tel:+8801618562844" style="display: block; background-color: #FFF8E7; color: #1F291E; font-size: 11px; font-weight: 900; text-decoration: none; padding: 7px 4px; border-radius: 6px; text-align: center; white-space: nowrap;">
-            📞 Call Now
-          </a>
+      <!-- 2. ULTRA-SHORT 2-LINE OFFER (English + Bangla) -->
+      <tr>
+        <td align="center" style="padding: 6px 8px 6px 8px; text-align: center; background-color: #ffffff;">
+          <div style="font-size: 11.5px; font-weight: 800; color: #1F291E; line-height: 1.3; margin-bottom: 3px;">
+            🥥 100% Pure Coconut Pudding • <span style="color:#2B4C23;">তাজা ডাবের পুডিং!</span>
+          </div>
+          <div style="font-size: 11px; font-weight: 800; color: #4A6741; background-color: #FFFDF5; border: 1px dashed #4A6741; border-radius: 6px; padding: 4px 6px; line-height: 1.35;">
+            📦 1 Box: ৳750 | 🔥 2 Boxes: <strong>৳1,400 (৳100 OFF!)</strong>
+          </div>
         </td>
       </tr>
+
+      <!-- 3. COMPACT CLICKABLE ORDER BUTTONS (Fits inside the same mobile screen!) -->
+      <tr>
+        <td style="padding: 0 8px 8px 8px; background-color: #ffffff;">
+          <!-- Website Button -->
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-bottom: 5px;">
+            <tr>
+              <td align="center">
+                <a href="https://coconuttreatsmore.com/" target="_blank" style="display: block; background-color: #4A6741; color: #ffffff; font-size: 11.5px; font-weight: 900; text-decoration: none; padding: 7px 6px; border-radius: 7px; text-align: center;">
+                  🛒 Order: coconuttreatsmore.com ➔
+                </a>
+              </td>
+            </tr>
+          </table>
+
+          <!-- WhatsApp & Call Row -->
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+            <tr>
+              <td width="50%" style="padding-right: 3px;">
+                <a href="https://wa.me/8801618562844?text=Hello!%20I%20want%20to%20order%20Coconut%20Pudding." target="_blank" style="display: block; background-color: #25D366; color: #ffffff; font-size: 11px; font-weight: 900; text-decoration: none; padding: 6px 4px; border-radius: 7px; text-align: center;">
+                  💬 WhatsApp
+                </a>
+              </td>
+              <td width="50%" style="padding-left: 3px;">
+                <a href="tel:+8801618562844" style="display: block; background-color: #FFF8E7; color: #1F291E; border: 1px solid #eab308; font-size: 11px; font-weight: 900; text-decoration: none; padding: 5px 4px; border-radius: 7px; text-align: center;">
+                  📞 +8801618562844
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
     </table>
   </div>
-  <!-- END OF EMAIL CONTENT -->
+  <!-- END OF MOBILE 1-SCREEN POSTER EMAIL -->
 
   <script>
     function copySubject(btn) {
       const subject = "🥥 Fresh Homemade Coconut Pudding — Flat ৳100 OFF!";
       navigator.clipboard.writeText(subject);
       const old = btn.innerText;
-      btn.innerText = "✓ Subject Copied!";
+      btn.innerText = "✓ Copied!";
       setTimeout(() => btn.innerText = old, 2000);
     }
 
@@ -114,18 +132,17 @@
       document.execCommand('copy');
       sel.removeAllRanges();
       const old = btn.innerText;
-      btn.innerText = "✓ Copied! Paste in Gmail";
+      btn.innerText = "✓ Copied!";
       setTimeout(() => btn.innerText = old, 2500);
     }
 
     function copyWhatsAppMsg(btn) {
-      const msg = `🥥 *Fresh Homemade Coconut Pudding!* (১০০% তাজা ডাবের পানি ও শাঁসে তৈরি)
-📦 *1 Box (6 Cups):* ৳750 | 🔥 *2 Boxes:* ৳1,400 *(৳100 OFF!)* | 🚚 *5+:* FREE Delivery
-🛒 *Order Online:* https://coconuttreatsmore.com/
-📞 *Call / WhatsApp:* +8801618562844 (Cash on Delivery)`;
+      const msg = `🥥 *100% Fresh Homemade Coconut Pudding!* (তাজা ডাবের পানি ও শাঁসে তৈরি)
+📦 *1 Box:* ৳750 | 🔥 *2 Boxes:* ৳1,400 *(৳100 OFF!)* | 🚚 *5+:* FREE Delivery
+🛒 *Order:* https://coconuttreatsmore.com/ | 📞 *Call/WA:* +8801618562844`;
       navigator.clipboard.writeText(msg);
       const old = btn.innerText;
-      btn.innerText = "✓ 4-Line Msg Copied!";
+      btn.innerText = "✓ Copied!";
       setTimeout(() => btn.innerText = old, 2500);
     }
   </script>
