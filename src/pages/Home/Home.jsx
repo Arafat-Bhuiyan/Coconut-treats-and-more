@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import Navbar from "./sections/Navbar/Navbar";
 import Hero from "./sections/Hero/Hero";
 import WhatsAppButton from "../../components/WhatsAppButton";
@@ -6,9 +6,9 @@ import { trackFacebookEvent } from "../../utils/facebookTracking";
 
 import Testimonials from "./sections/Testimonials/Testimonials";
 import Footer from "./sections/Footer/Footer";
-import PromotionPopup from "./sections/Hero/PromotionPopup";
 import StickyMobileOrderBar from "../../components/StickyMobileOrderBar";
 
+const PromotionPopup = lazy(() => import("./sections/Hero/PromotionPopup"));
 
 export const Home = () => {
   const [showPromo, setShowPromo] = useState(false);
@@ -121,14 +121,17 @@ export const Home = () => {
         <Testimonials />
       </main>
       <Footer />
-      <PromotionPopup
-        isOpen={showPromo}
-        onClose={() => setShowPromo(false)}
-        onClaim={claimOffer}
-      />
+      {showPromo && (
+        <Suspense fallback={null}>
+          <PromotionPopup
+            isOpen={showPromo}
+            onClose={() => setShowPromo(false)}
+            onClaim={claimOffer}
+          />
+        </Suspense>
+      )}
       <StickyMobileOrderBar />
       <WhatsAppButton />
     </div>
   );
 };
-
