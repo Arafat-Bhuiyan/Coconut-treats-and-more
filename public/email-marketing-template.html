@@ -49,9 +49,10 @@
       <strong style="font-size:13px; display:block;">📧 One-Screen Email Template (এক নজরে সম্পূর্ণ ইমেইল!)</strong>
       <span style="font-size:11.5px; color:#cfe3c4;">Subject: <b>🥥 Fresh Homemade Coconut Pudding — Flat ৳100 OFF!</b></span>
     </div>
-    <div style="display:flex; gap:8px; width:100%;">
-      <button style="flex:1;" onclick="copySubject(this)">📋 Copy English Subject</button>
-      <button style="flex:1.4;" onclick="copyVisualEmail(this)">📋 Copy Email for Gmail</button>
+    <div style="display:flex; flex-wrap:wrap; gap:8px; width:100%;">
+      <button style="flex:1; min-width:130px;" onclick="copySubject(this)">📋 Copy Subject</button>
+      <button style="flex:1.3; min-width:150px;" onclick="copyVisualEmail(this)">📋 Copy Email for Gmail</button>
+      <button style="flex:1.3; min-width:155px; background:#25D366; color:#ffffff;" onclick="copyWhatsAppMsg(this)">💬 Copy WhatsApp Msg</button>
     </div>
   </div>
 
@@ -157,6 +158,28 @@
       sel.removeAllRanges();
       const old = btn.innerText;
       btn.innerText = "✓ Copied! Paste in Gmail (Ctrl+V)";
+      setTimeout(() => btn.innerText = old, 2500);
+    }
+
+    function copyWhatsAppMsg(btn) {
+      const msg = `🥥 *Fresh Homemade Coconut Pudding!* 🍮
+A Tropical Treat in Every Spoon!
+
+Made fresh daily with *100% pure coconut water, soft coconut chunks & cow milk* — Zero preservatives!
+তাজা ডাবের পানি, নরম শাঁস ও খাঁটি গরুর দুধে তৈরি ১০০% ন্যাচারাল পুডিং! 💚
+
+📦 *1 Box (6 Cups):* ৳750
+🔥 *2 Boxes Offer:* ৳1,400 *(Flat ৳100 OFF!)*
+🚚 *5+ Boxes:* *FREE Delivery* in Dhaka!
+
+🛒 *Order Online (1-Click):*
+👉 https://coconuttreatsmore.com/
+
+📞 *Call or WhatsApp Order:* +8801618562844
+✅ *Cash on Delivery & bKash Available!*`;
+      navigator.clipboard.writeText(msg);
+      const old = btn.innerText;
+      btn.innerText = "✓ WhatsApp Msg Copied!";
       setTimeout(() => btn.innerText = old, 2500);
     }
   </script>
