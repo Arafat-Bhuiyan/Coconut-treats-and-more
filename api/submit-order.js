@@ -90,26 +90,79 @@ export default async function handler(req, res) {
       });
     }
 
-    // Server-side restricted delivery area check (Savar, Ashulia, Keraniganj, Narayanganj, Munshiganj, Jatrabari)
-    const RESTRICTED_KEYS = [
-      "savar", "সাভার", "ashulia", "আশুলিয়া", "asulia",
+    // Server-side outside-Dhaka delivery restriction check (7 Divisions & surrounding restricted areas)
+    const OUTSIDE_DHAKA_AREAS = [
+      // চট্টগ্রাম বিভাগ (Chittagong Division)
+      "chittagong", "chattogram", "ctg", "চট্টগ্রাম", "চট্টগ্রাাম", "চাটগাঁ",
+      "cox's bazar", "coxs bazar", "coxsbazar", "কক্সবাজার", "কক্স বাজার",
+      "cumilla", "comilla", "কুমিল্লা", "feni", "ফেনী", "ফেণী",
+      "brahmanbaria", "ব্রাহ্মণবাড়িয়া", "ব্রাহ্মণবাড়িয়া", "rangamati", "রাঙ্গামাটি", "রাঙামাটি",
+      "noakhali", "নোয়াখালী", "নোয়াখালী", "chandpur", "চাঁদপুর",
+      "lakshmipur", "লক্ষ্মীপুর", "লক্ষীপুর", "khagrachhari", "খাগড়াছড়ি", "খাগড়াছড়ি",
+      "bandarban", "বান্দরবান", "sitakunda", "সীতাকুণ্ড", "mirsharai", "মিরসরাই", "hathazari", "হাটহাজারী", "teknaf", "টেকনাফ",
+
+      // রাজশাহী বিভাগ (Rajshahi Division)
+      "rajshahi", "রাজশাহী", "bogura", "bogra", "বগুড়া", "বগুড়া", "joypurhat", "জয়পুরহাট", "জয়পুরহাট",
+      "naogaon", "নওগাঁ", "natore", "নাটোর", "chapainawabganj", "nawabganj", "চাঁপাইনবাবগঞ্জ", "নবাবগঞ্জ",
+      "pabna", "পাবনা", "sirajganj", "সিরাজগঞ্জ", "iswardi", "ishwardi", "ঈশ্বরদী",
+
+      // খুলনা বিভাগ (Khulna Division)
+      "khulna", "খুলনা", "bagerhat", "বাগেরহাট", "chuadanga", "চুয়াডাঙ্গা", "চুয়াডাঙ্গা",
+      "jashore", "jessore", "যশোর", "jhenaidah", "ঝিনাইদহ", "kushtia", "কুষ্টিয়া", "কুষ্টিয়া",
+      "magura", "মাগুরা", "meherpur", "মেহেরপুর", "narail", "নড়াইল", "নড়াইল", "satkhira", "সাতক্ষীরা",
+      "benapole", "বেনাপোল", "mongla", "মংলা",
+
+      // বরিশাল বিভাগ (Barisal Division)
+      "barisal", "barishal", "বরিশাল", "barguna", "বরগুনা", "bhola", "ভোলা",
+      "jhalokati", "jhalakathi", "ঝালকাঠি", "ঝালকাঠী", "patuakhali", "পটুয়াখালী", "পটুয়াখালী",
+      "pirojpur", "পিরোজপুর", "kuakata", "কুয়াকাটা", "কুয়াকাটা",
+
+      // সিলেট বিভাগ (Sylhet Division)
+      "sylhet", "সিলেট", "habiganj", "হবিগঞ্জ", "moulvibazar", "maulvibazar", "মৌলভীবাজার",
+      "sunamganj", "সুনামগঞ্জ", "sreemangal", "srimangal", "শ্রীমঙ্গল", "beanibazar", "বিয়ানীবাজার", "বিয়ানীবাজার",
+
+      // রংপুর বিভাগ (Rangpur Division)
+      "rangpur", "রংপুর", "dinajpur", "দিনাজপুর", "gaibandha", "গাইবান্ধা", "kurigram", "কুড়িগ্রাম", "কুড়িগ্রাম",
+      "lalmonirhat", "লালমনিরহাট", "nilphamari", "নীলফামারী", "panchagarh", "পঞ্চগড়", "পঞ্চগড়",
+      "thakurgaon", "ঠাকুরগাঁও", "saidpur", "syedpur", "সৈয়দপুর", "সৈয়দপুর",
+
+      // ময়মনসিংহ বিভাগ (Mymensingh Division)
+      "mymensingh", "ময়মনসিংহ", "ময়মনসিংহ", "jamalpur", "জামালপুর", "netrokona", "netrakona", "নেত্রকোণা", "নেত্রকোনা",
+      "sherpur", "শেরপুর", "muktagacha", "মুক্তাগাছা",
+
+      // ঢাকা বিভাগের বাইরের জেলা ও শহর
+      "savar", "সাভার", "ashulia", "আশুলিয়া", "আশুলিয়া", "asulia",
       "keraniganj", "কেরানীগঞ্জ", "keranigang", "keranigonj",
-      "narayanganj", "নারায়ণগঞ্জ", "naraynganj", "narayangonj", "fatullah", "ফতুল্লা",
-      "munshiganj", "মুন্সীগঞ্জ", "munshigang",
-      "jatrabari", "যাত্রাবাড়ী", "sayedabad", "সায়েদাবাদ",
-      "gazipur", "গাজীপুর", "tongi", "টঙ্গী"
+      "narayanganj", "নারায়ণগঞ্জ", "নারায়ণগঞ্জ", "naraynganj", "narayangonj", "fatullah", "ফতুল্লা", "সিদ্ধিরগঞ্জ", "siddhirganj",
+      "munshiganj", "মুন্সীগঞ্জ", "মুন্সিগঞ্জ", "munshigang",
+      "jatrabari", "যাত্রাবাড়ী", "যাত্রাবাড়ী", "sayedabad", "সায়েদাবাদ", "সায়েদাবাদ",
+      "gazipur", "গাজীপুর", "tongi", "টঙ্গী", "টঙ্গি",
+      "tangail", "টাঙ্গাইল", "faridpur", "ফরিদপুর", "gopalganj", "গোপালগঞ্জ",
+      "madaripur", "মাদারীপুর", "manikganj", "মানিকগঞ্জ", "narsingdi", "নরসিংদী",
+      "rajbari", "রাজবাড়ী", "রাজবাড়ী", "shariatpur", "শরীয়তপুর", "শরিয়তপুর", "kishoreganj", "কিশোরগঞ্জ"
     ];
+
     const SAFE_DHAKA_ROADS = [
-      "tongi diversion", "টঙ্গী ডাইভারশন", "mymensingh road", "mymensingh lane", "ময়মনসিংহ রোড",
-      "comilla para", "কুমিল্লা পাড়া"
+      "tongi diversion", "টঙ্গী ডাইভারশন", "টঙ্গি ডাইভারশন",
+      "mymensingh road", "mymensingh lane", "ময়মনসিংহ রোড", "ময়মনসিংহ রোড",
+      "comilla para", "কুমিল্লা পাড়া", "কুমিল্লা পাড়া",
+      "noakhali tower", "নোয়াখালী টাওয়ার", "নোয়াখালী টাওয়ার",
+      "barisal plaza", "বরিশাল প্লাজা", "sylhet tower", "সিলেট টাওয়ার", "সিলেট টাওয়ার",
+      "bogura bhaban", "বগুড়া ভবন", "বগুড়া ভবন", "rajshahi market", "রাজশাহী মার্কেট", "rangpur house", "রংপুর হাউস"
     ];
-    const lowerAddr = String(address).toLowerCase();
-    const isSafeRoad = SAFE_DHAKA_ROADS.some((r) => lowerAddr.includes(r));
-    const isRestricted = !isSafeRoad && RESTRICTED_KEYS.some((k) => lowerAddr.includes(k));
-    if (isRestricted) {
+
+    let checkText = `${String(address).toLowerCase()} ${String(orderData?.Customer || '').toLowerCase()}`;
+    for (const safeRoad of SAFE_DHAKA_ROADS) {
+      if (checkText.includes(safeRoad.toLowerCase())) {
+        checkText = checkText.replace(new RegExp(safeRoad.toLowerCase(), "g"), " ");
+      }
+    }
+
+    const matchedRestrictedKey = OUTSIDE_DHAKA_AREAS.find((k) => checkText.includes(k.toLowerCase()));
+    if (matchedRestrictedKey) {
       return res.status(400).json({
         success: false,
-        message: "Delivery is currently unavailable in this area. Fresh pudding delivery is inside Dhaka City only."
+        message: `দুঃখিত! এই অর্ডার আপনার ঠিকানায় (${matchedRestrictedKey}) ডেলিভারি করা সম্ভব নয়। ফ্রেশ ডাবের পুডিং ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে সীমাবদ্ধ (ঢাকার বাইরে কোনো ডেলিভারি সেবা নেই)।`
       });
     }
 
