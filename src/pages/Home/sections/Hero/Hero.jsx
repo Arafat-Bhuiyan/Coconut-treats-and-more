@@ -132,7 +132,19 @@ const Hero = () => {
       }
     };
 
-    tryPlay();
+    const startVideoPlayback = () => {
+      if (!vid.getAttribute('src')) {
+        vid.src = '/hero-video-0924.mp4';
+      }
+      tryPlay();
+    };
+
+    if (document.readyState === 'complete') {
+      const t = setTimeout(startVideoPlayback, 40);
+      return () => clearTimeout(t);
+    } else {
+      window.addEventListener('load', startVideoPlayback, { once: true });
+    }
 
     const onPlay = () => setIsVideoPlaying(true);
     const onPause = () => setIsVideoPlaying(false);
@@ -140,6 +152,7 @@ const Hero = () => {
     vid.addEventListener('pause', onPause);
 
     return () => {
+      window.removeEventListener('load', startVideoPlayback);
       vid.removeEventListener('play', onPlay);
       vid.removeEventListener('pause', onPause);
     };
@@ -483,15 +496,27 @@ const Hero = () => {
       setSelectedPkg(2);
     }, 350);
 
-    // 3. Send order to backend with keepalive
-    fetch("/api/submit-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(emailPayload),
-      keepalive: true,
-    }).catch((err) => {
-      console.error("Order submit error:", err);
-    });
+    // 3. Send order to backend with keepalive + 3-attempt client-side resilience retry
+    const sendOrderToServer = async (attempt = 1) => {
+      try {
+        const res = await fetch("/api/submit-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(emailPayload),
+          keepalive: true,
+        });
+        if (!res.ok && attempt < 3) {
+          setTimeout(() => sendOrderToServer(attempt + 1), 600 * attempt);
+        }
+      } catch (err) {
+        if (attempt < 3) {
+          setTimeout(() => sendOrderToServer(attempt + 1), 600 * attempt);
+        } else {
+          console.error("Order submit error:", err);
+        }
+      }
+    };
+    sendOrderToServer();
   };
 
   return (
@@ -681,12 +706,11 @@ const Hero = () => {
                   >
                     <video 
                       ref={videoRef}
-                      src="/hero-video-0924.mp4"
                       autoPlay
                       loop 
                       muted 
                       playsInline
-                      preload="auto"
+                      preload="none"
                       poster="/video-poster-0924.webp"
                       className="w-full h-full object-cover object-center rounded-2xl"
                     />

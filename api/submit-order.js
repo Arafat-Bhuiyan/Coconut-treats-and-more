@@ -147,8 +147,8 @@ export default async function handler(req, res) {
     // New Apps Script deployed from coconuttreatsmore@gmail.com
     const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbygtsftenbteNaL_IUxy1a82Yy8Jy__jAHeK26NRG0HUrH_jVnCMkAeOyITvQ-lzW9f/exec";
 
-    // Forward the request to Google Apps Script with automatic concurrency retry & jittered backoff
-    const forwardRes = await postToGoogleScriptWithRetry(googleScriptUrl, orderData, 3);
+    // Forward the request to Google Apps Script with 5-attempt automatic concurrency retry & jittered backoff
+    const forwardRes = await postToGoogleScriptWithRetry(googleScriptUrl, orderData, 5);
 
     if (!forwardRes.ok) {
       console.error("Google Apps Script failed after retries:", forwardRes.error);
