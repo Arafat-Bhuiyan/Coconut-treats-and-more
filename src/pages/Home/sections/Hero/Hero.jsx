@@ -329,7 +329,7 @@ const Hero = () => {
     const restrictedMatch = checkRestrictedDeliveryArea(`${rawAddress} ${rawName}`);
     if (restrictedMatch) {
       submittingRef.current = false;
-      setFormError(`🚫 দুঃখিত! এই অর্ডার আপনার ঠিকানায় (${restrictedMatch.displayText}) ডেলিভারি করা সম্ভব নয়। আমাদের ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে সীমাবদ্ধ (ঢাকার বাইরে কোনো ডেলিভারি হয় না)।`);
+      setFormError(`🚫 দুঃখিত! এই অর্ডার আপনার ঠিকানায় (${restrictedMatch.displayText}) ডেলিভারি করা সম্ভব নয়। আমাদের ডেলিভারি শুধুমাত্র ঢাকা বিভাগে (Dhaka Division) সীমাবদ্ধ (অন্য ৭টি বিভাগে ডেলিভারি বন্ধ)।`);
       const addressInput = document.getElementById("customer-address");
       if (addressInput) {
         addressInput.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -1235,7 +1235,7 @@ const Hero = () => {
                         সম্পূর্ণ ঠিকানা (Full Address) <span className="text-red-500">*</span>
                       </label>
                       <span className="text-[10px] font-bold text-[#4A6741] bg-emerald-50 px-2 py-0.5 rounded-full border border-[#4A6741]/20">
-                        ঢাকা সিটি
+                        ঢাকা বিভাগ (Dhaka Division)
                       </span>
                     </div>
                     <textarea
@@ -1278,10 +1278,10 @@ const Hero = () => {
                             দুঃখিত! <strong>"{detectedRestrictedArea.matchedWord}"</strong> ({detectedRestrictedArea.divisionBn}) ঠিকানায় এই অর্ডারটি ডেলিভারি করা সম্ভব নয়।
                           </p>
                           <p className="text-[11px] sm:text-xs text-gray-800 font-semibold leading-relaxed">
-                            ১০০% প্রিমিয়াম ডাবের পুডিংয়ের সর্বোচ্চ স্বাদ ও তাজা গুণমান বজায় রাখতে আমাদের হোম ডেলিভারি সেবা <strong>শুধুমাত্র ঢাকা সিটির ভেতরেই সীমাবদ্ধ</strong> (ঢাকার বাইরে কোনো ডেলিভারি সেবা উপলব্ধ নেই)।
+                            ১০০% প্রিমিয়াম ডাবের পুডিংয়ের সর্বোচ্চ স্বাদ ও তাজা গুণমান বজায় রাখতে আমাদের হোম ডেলিভারি সেবা <strong>শুধুমাত্র ঢাকা বিভাগের (Dhaka Division) ভেতরেই সীমাবদ্ধ</strong> (ঢাকা বিভাগের বাইরের অন্য ৭টি বিভাগে ডেলিভারি নেই)।
                           </p>
                           <div className="bg-white/85 border border-red-200 rounded-xl px-2.5 py-1.5 text-[10px] sm:text-[11px] text-red-900 font-medium italic">
-                            Sorry! Delivery is available strictly inside Dhaka City only. We currently do not offer delivery to {detectedRestrictedArea.displayText}.
+                            Sorry! Delivery is available strictly inside Dhaka Division only. We currently do not offer delivery to {detectedRestrictedArea.displayText}.
                           </div>
                         </div>
                       </div>

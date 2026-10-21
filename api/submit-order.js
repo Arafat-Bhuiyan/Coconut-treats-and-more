@@ -128,18 +128,7 @@ export default async function handler(req, res) {
 
       // ময়মনসিংহ বিভাগ (Mymensingh Division)
       "mymensingh", "ময়মনসিংহ", "ময়মনসিংহ", "jamalpur", "জামালপুর", "netrokona", "netrakona", "নেত্রকোণা", "নেত্রকোনা",
-      "sherpur", "শেরপুর", "muktagacha", "মুক্তাগাছা",
-
-      // ঢাকা বিভাগের বাইরের জেলা ও শহর
-      "savar", "সাভার", "ashulia", "আশুলিয়া", "আশুলিয়া", "asulia",
-      "keraniganj", "কেরানীগঞ্জ", "keranigang", "keranigonj",
-      "narayanganj", "নারায়ণগঞ্জ", "নারায়ণগঞ্জ", "naraynganj", "narayangonj", "fatullah", "ফতুল্লা", "সিদ্ধিরগঞ্জ", "siddhirganj",
-      "munshiganj", "মুন্সীগঞ্জ", "মুন্সিগঞ্জ", "munshigang",
-      "jatrabari", "যাত্রাবাড়ী", "যাত্রাবাড়ী", "sayedabad", "সায়েদাবাদ", "সায়েদাবাদ",
-      "gazipur", "গাজীপুর", "tongi", "টঙ্গী", "টঙ্গি",
-      "tangail", "টাঙ্গাইল", "faridpur", "ফরিদপুর", "gopalganj", "গোপালগঞ্জ",
-      "madaripur", "মাদারীপুর", "manikganj", "মানিকগঞ্জ", "narsingdi", "নরসিংদী",
-      "rajbari", "রাজবাড়ী", "রাজবাড়ী", "shariatpur", "শরীয়তপুর", "শরিয়তপুর", "kishoreganj", "কিশোরগঞ্জ"
+      "sherpur", "শেরপুর", "muktagacha", "মুক্তাগাছা"
     ];
 
     const SAFE_DHAKA_ROADS = [
@@ -162,7 +151,7 @@ export default async function handler(req, res) {
     if (matchedRestrictedKey) {
       return res.status(400).json({
         success: false,
-        message: `দুঃখিত! এই অর্ডার আপনার ঠিকানায় (${matchedRestrictedKey}) ডেলিভারি করা সম্ভব নয়। ফ্রেশ ডাবের পুডিং ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে সীমাবদ্ধ (ঢাকার বাইরে কোনো ডেলিভারি সেবা নেই)।`
+        message: `দুঃখিত! এই অর্ডার আপনার ঠিকানায় (${matchedRestrictedKey}) ডেলিভারি করা সম্ভব নয়। ফ্রেশ ডাবের পুডিং ডেলিভারি শুধুমাত্র ঢাকা বিভাগে (Dhaka Division) সীমাবদ্ধ (ঢাকা বিভাগের বাইরের অন্য ৭টি বিভাগে ডেলিভারি নেই)।`
       });
     }
 
