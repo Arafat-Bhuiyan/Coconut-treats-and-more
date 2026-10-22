@@ -229,28 +229,32 @@ export default async function handler(req, res) {
     const primaryScriptUrl = process.env.GOOGLE_SCRIPT_URL || ONGON_SCRIPT_URL;
     const backupScriptUrl = process.env.BACKUP_GOOGLE_SCRIPT_URL || REHAB_SCRIPT_URL;
 
-    // Forward request to primary Google Apps Script (Ongon script with fresh 100 quota)
-    let forwardRes = await postToGoogleScriptWithRetry(primaryScriptUrl, orderData, 3);
+    // Run Primary Script (Ongon: sends fresh emails) and Main Sheet Script (Coconut: saves to 1N_ZIAnGtN9Zx-NL0ncPqH1GOCAKZBWhc7_j94y0-5rY) simultaneously via Promise.allSettled
+    // Awaiting both ensures Vercel never freezes before the main spreadsheet row is written!
+    const [primarySettled, coconutSettled] = await Promise.allSettled([
+      postToGoogleScriptWithRetry(primaryScriptUrl, orderData, 3),
+      postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, orderData, 3)
+    ]);
 
-    // If primary fails, failover to backup
-    if (!forwardRes.ok && backupScriptUrl) {
+    let forwardRes = primarySettled.status === 'fulfilled' ? primarySettled.value : { ok: false };
+    const coconutRes = coconutSettled.status === 'fulfilled' ? coconutSettled.value : { ok: false };
+
+    // If primary failed, try backup (Rehab script)
+    if (!forwardRes.ok && backupScriptUrl && backupScriptUrl !== primaryScriptUrl) {
       console.warn("Primary script failed, failing over to backup script:", backupScriptUrl);
       forwardRes = await postToGoogleScriptWithRetry(backupScriptUrl, orderData, 3);
-    } else {
-      // In background, also record row in the other sheets (multi-sheet recording)
-      postToGoogleScriptWithRetry(backupScriptUrl, orderData, 2).catch(() => {});
-      postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, orderData, 2).catch(() => {});
     }
 
-    if (!forwardRes.ok) {
-      console.error("Google Apps Script failed after retries:", forwardRes.error);
+    // Success if either primary (email) or coconut (sheet) succeeded
+    if (!forwardRes.ok && !coconutRes.ok) {
+      console.error("All Google Apps Script endpoints failed:", forwardRes.error || coconutRes.error);
       return res.status(200).json({
         success: false,
-        message: forwardRes.error
+        message: forwardRes.error || coconutRes.error
       });
     }
 
-    return res.status(200).json({ success: true, result: forwardRes.result });
+    return res.status(200).json({ success: true, result: forwardRes.result || coconutRes.result || { success: true } });
 
   } catch (error) {
     console.error("Google Apps Script serverless proxy failed:", error);
