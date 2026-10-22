@@ -889,16 +889,32 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* 2. SEND AS A GIFT OPTION (Smart, Eye-catching, Subtle Blinking Glow Box) */}
+                {/* 2. SEND AS A GIFT OPTION (Smart, Eye-catching, Blinking Glow Box) */}
                 <div 
                   id="gift-card-box-container"
                   className={`relative z-10 rounded-2xl transition-all border-2 w-full overflow-hidden ${
                     isGift 
                       ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/80 to-[#FFF9ED] border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20" 
-                      : "bg-gradient-to-br from-[#FFFDF8] via-amber-50/50 to-[#FFF9EE] border-amber-400 hover:border-amber-500 shadow-xs hover:shadow-md animate-pulse"
+                      : "bg-gradient-to-br from-[#FFFDF8] via-amber-50/60 to-[#FFF9EE] border-amber-400 hover:border-amber-500 shadow-sm"
                   }`}
-                  style={{ animationDuration: '3s' }}
+                  style={!isGift ? {
+                    animation: "giftBoxGlowBlink 2s ease-in-out infinite"
+                  } : undefined}
                 >
+                  <style>{`
+                    @keyframes giftBoxGlowBlink {
+                      0%, 100% {
+                        border-color: #f59e0b;
+                        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.45);
+                        background-color: #FFFDF8;
+                      }
+                      50% {
+                        border-color: #d97706;
+                        box-shadow: 0 0 16px 3px rgba(245, 158, 11, 0.35);
+                        background-color: #FFFBEB;
+                      }
+                    }
+                  `}</style>
                   {/* Subtle Golden Shimmer Accent Bar */}
                   <div className="h-1 w-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500" />
 
@@ -926,33 +942,25 @@ const Hero = () => {
                     </div>
 
                     <div className="flex-1 min-w-0 pointer-events-none">
-                      <div className="flex items-center justify-between gap-1">
-                        <div className="flex items-center gap-1 min-w-0">
-                          <span className="text-base sm:text-xl flex-shrink-0 inline-block animate-bounce" style={{ animationDuration: '2.5s' }}>🎁</span>
-                          <span className="text-xs sm:text-[13px] font-black text-amber-950 tracking-tight">
-                            প্রিয়জনকে গিফট পাঠাতে চান?
+                      <div className="flex items-center justify-between gap-1.5">
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <span className="text-lg sm:text-xl flex-shrink-0 inline-block animate-bounce" style={{ animationDuration: '2.5s' }}>🎁</span>
+                          <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight">
+                            প্রিয়জনকে গিফট কার্ড পাঠাতে চান?
                           </span>
                         </div>
 
-                        {/* Smart Eye-catching Blinking Badge */}
-                        {isGift ? (
-                          <span className="flex-shrink-0 flex items-center gap-1 text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-xs">
+                        {/* When checked, show subtle verified pill */}
+                        {isGift && (
+                          <span className="flex-shrink-0 flex items-center gap-1 text-[10px] sm:text-[11px] font-black px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-xs">
                             ✓ যুক্ত হয়েছে
-                          </span>
-                        ) : (
-                          <span className="flex-shrink-0 flex items-center gap-1 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full shadow-xs border border-amber-400">
-                            <span className="relative flex h-1.5 w-1.5">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-85"></span>
-                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white"></span>
-                            </span>
-                            <span>ফ্রি গিফট</span>
                           </span>
                         )}
                       </div>
 
                       {/* Sleek Emotional Subtitle */}
                       <p className="text-[11px] sm:text-[11.5px] text-amber-900/80 font-medium mt-1 leading-snug">
-                        আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ বিনামূল্যে পৌঁছে দেব।
+                        আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব।
                       </p>
                     </div>
                   </button>
