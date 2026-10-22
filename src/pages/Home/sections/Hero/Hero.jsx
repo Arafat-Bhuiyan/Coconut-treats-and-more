@@ -133,7 +133,7 @@ const Hero = () => {
   const unitPrice = selectedPkg >= 2 ? offerPrice : basePrice;
   const isFreeDelivery = selectedPkg >= 5;
   const deliveryCharge = isFreeDelivery ? 0 : 100;
-  const giftCharge = isGift ? 100 : 0;
+  const giftCharge = 0; // Free Gift Card promotion
   const totalProductPrice = selectedPkg * unitPrice;
   const regularTotal = selectedPkg * basePrice;
   const discountAmount = regularTotal - totalProductPrice;
@@ -372,12 +372,12 @@ const Hero = () => {
       : `[bKash] TrxID/No: ${bkashTrx.trim() || "Not provided"}${rawNote ? ` | ${rawNote}` : ""}`;
 
     const giftNote = isGift
-      ? ` | [🎁 GIFT ORDER (+৳100) - Card Note: "${giftMessage.trim() || "শুভেচ্ছা রইলো"}"]`
+      ? ` | [🎁 FREE GIFT CARD - Card Note: "${giftMessage.trim() || "শুভেচ্ছা রইলো"}"]`
       : "";
     const combinedNote = `${formattedPaymentNote}${giftNote}`;
 
     const emailPayload = {
-      subject: `New Order${isGift ? " 🎁 [GIFT +৳100]" : ""}: ${customerName}`,
+      subject: `New Order${isGift ? " 🎁 [FREE GIFT CARD]" : ""}: ${customerName}`,
       from_name: customerName,
       Customer: customerName,
       Phone: capturedPhone,
@@ -385,12 +385,12 @@ const Hero = () => {
       Address: fullAddress,
       Payment_Method: paymentMethod === "cod" ? "Cash on Delivery" : "bKash",
       Note: combinedNote,
-      Product: `Premium Coconut Pudding (6pc Box)${isGift ? " 🎁 [GIFT PACK +৳100]" : ""} - ${boxCountLabel}`,
+      Product: `Premium Coconut Pudding (6pc Box)${isGift ? " 🎁 [ফ্রি গিফট কার্ড সহ]" : ""} - ${boxCountLabel}`,
       Quantity: `${selectedPkg} Box(es)`,
       Unit_Price: `৳${unitPrice}`,
       Product_Total: `৳${totalProductPrice}`,
       Delivery_Charge: `৳${deliveryCharge}`,
-      Gift_Charge: isGift ? "৳100" : "৳0",
+      Gift_Charge: isGift ? "Free (৳০)" : "৳০",
       Total_Amount: `৳${grandTotalNumber}`
     };
 
@@ -870,11 +870,13 @@ const Hero = () => {
                     )}
 
                     {isGift && (
-                      <div className="flex justify-between items-center text-xs sm:text-sm font-bold text-amber-900 uppercase bg-amber-50 px-2.5 py-1.5 rounded-xl border border-amber-300">
+                      <div className="flex justify-between items-center text-xs sm:text-sm font-bold text-amber-900 uppercase bg-amber-50/90 px-2.5 py-1.5 rounded-xl border border-amber-300">
                         <span className="flex items-center gap-1.5">
-                          <span>🎁</span> গিফট কার্ড
+                          <span>🎁</span> স্পেশাল গিফট কার্ড
                         </span>
-                        <span className="font-black text-amber-950">+ ৳১০০</span>
+                        <span className="font-black text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-300 text-xs shadow-xs">
+                          সম্পূর্ণ ফ্রি
+                        </span>
                       </div>
                     )}
 
@@ -887,15 +889,19 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* 2. SEND AS A GIFT OPTION (Placed right between Order Summary and Payment Method) */}
+                {/* 2. SEND AS A GIFT OPTION (Smart, Eye-catching, Subtle Blinking Glow Box) */}
                 <div 
                   id="gift-card-box-container"
                   className={`relative z-10 rounded-2xl transition-all border-2 w-full overflow-hidden ${
                     isGift 
-                      ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/70 to-[#FFF9ED] border-amber-500 shadow-md ring-2 ring-amber-400/20" 
-                      : "bg-gradient-to-br from-[#FFFDF9] via-amber-50/40 to-[#FFFDF5] border-amber-300 hover:border-amber-400 hover:shadow-xs"
+                      ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/80 to-[#FFF9ED] border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20" 
+                      : "bg-gradient-to-br from-[#FFFDF8] via-amber-50/50 to-[#FFF9EE] border-amber-400 hover:border-amber-500 shadow-xs hover:shadow-md animate-pulse"
                   }`}
+                  style={{ animationDuration: '3s' }}
                 >
+                  {/* Subtle Golden Shimmer Accent Bar */}
+                  <div className="h-1 w-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500" />
+
                   {/* Semantic Native Button - 100% Guaranteed cross-browser click & tap trigger */}
                   <button
                     type="button"
@@ -913,7 +919,7 @@ const Hero = () => {
                       className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all flex-shrink-0 mt-0.5 pointer-events-none ${
                         isGift 
                           ? "bg-[#4A6741] border-[#4A6741] text-white shadow-xs" 
-                          : "bg-white border-amber-400 hover:border-amber-500"
+                          : "bg-white border-amber-400 hover:border-amber-500 shadow-xs"
                       }`}
                     >
                       {isGift && <Check size={14} strokeWidth={3.5} className="text-white" />}
@@ -922,23 +928,31 @@ const Hero = () => {
                     <div className="flex-1 min-w-0 pointer-events-none">
                       <div className="flex items-center justify-between gap-1.5 flex-wrap">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="text-lg flex-shrink-0">🎁</span>
-                          <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight">
+                          <span className="text-lg sm:text-xl flex-shrink-0 inline-block animate-bounce" style={{ animationDuration: '2.5s' }}>🎁</span>
+                          <span className="text-xs sm:text-[13.5px] font-black text-amber-950 tracking-tight">
                             প্রিয়জনকে গিফট কার্ড পাঠাতে চান?
                           </span>
                         </div>
-                        <span className={`text-[10.5px] sm:text-[11px] font-black px-2 py-0.5 rounded-full border transition-all ${
-                          isGift 
-                            ? "bg-emerald-100 text-emerald-800 border-emerald-300" 
-                            : "bg-amber-100/80 text-amber-900 border-amber-300"
-                        }`}>
-                          {isGift ? "✓ সিলেক্ট করা হয়েছে" : "+ ৳১০০"}
-                        </span>
+
+                        {/* Smart Eye-catching Blinking Badge */}
+                        {isGift ? (
+                          <span className="flex items-center gap-1 text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-xs">
+                            ✓ যুক্ত করা হয়েছে
+                          </span>
+                        ) : (
+                          <span className="flex items-center gap-1.5 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 text-white text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full shadow-xs border border-amber-400">
+                            <span className="relative flex h-2 w-2">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-85"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                            </span>
+                            <span>ফ্রি গিফট কার্ড</span>
+                          </span>
+                        )}
                       </div>
 
                       {/* Sleek Emotional Subtitle */}
                       <p className="text-[11px] sm:text-[11.5px] text-amber-900/80 font-medium mt-1 leading-snug">
-                        আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব।
+                        আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ বিনামূল্যে পৌঁছে দেব।
                       </p>
                     </div>
                   </button>
