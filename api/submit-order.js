@@ -100,6 +100,14 @@ export default async function handler(req, res) {
       "narsingdi", "নরসিংদী", "belabo", "বেলাবো", "monohardi", "মনোহরদী", "palash", "পলাশ", "raipura", "রায়পুরা", "রায়পুরা", "shibpur", "শিবপুর",
       "savar", "সাভার", "ashulia", "আশুলিয়া", "আশুলিয়া", "keraniganj", "keranigonj", "কেরানীগঞ্জ", "কেরানিগঞ্জ",
 
+      // যাত্রাবাড়ী, ধোলাইপাড়, পোস্তগোলা, জুরাইন, শ্যামপুর, ডেমরা
+      "jatrabari", "jattrabari", "যাত্রাবাড়ী", "যাত্রাবাড়ি",
+      "dholaipar", "dholaypar", "dholaiphar", "ধোলাইপাড়", "ধোলাইপাড়",
+      "postogola", "postagola", "পোস্তগোলা",
+      "jurain", "juraine", "জুরাইন",
+      "shyampur", "shampur", "শ্যামপুর",
+      "demra", "ডেমরা",
+
       // উত্তরাঞ্চল
       "tangail", "টাঙ্গাইল", "mirzapur", "মির্জাপুর", "delduar", "দেলদুয়ার", "দেলদুয়ার", "ghatail", "ঘাটাইল", "madhupur", "মধুপুর", "sakhipur", "সখিপুর", "kalihati", "কালিহাতী", "gopalpur", "গোপালপুর", "bhuapur", "ভূঞাপুর", "nagarpur", "নাগরপুর", "dhanbari", "ধনবাড়ী",
       "kishoreganj", "kishoregonj", "কিশোরগঞ্জ", "bhairab", "ভৈরব", "bajitpur", "বাজিতপুর", "hosenpur", "হোসেনপুর", "karimganj", "করিমগঞ্জ", "tarail", "তাড়াইল", "তাড়াইল", "katiadi", "কটিয়াদী", "কটিয়াদী", "kuliarchar", "কুলিয়ারচর", "pakundia", "পাকুন্দিয়া", "nikli", "নিকলী", "astagram", "অষ্টগ্রাম", "itna", "ইটনা", "mithamain", "মিঠামইন",
