@@ -175,7 +175,11 @@ export default async function handler(req, res) {
       }
     }
 
-    const matchedRestrictedKey = OUTSIDE_DHAKA_AREAS.find((k) => checkText.includes(k.toLowerCase()));
+    const matchedRestrictedKey = OUTSIDE_DHAKA_AREAS.find((k) => {
+      const escaped = k.replace(/[.*+?^${}()|[\]\\\/]/g, '\\$&');
+      const rx = new RegExp('(?<![\\p{L}\\p{M}\\p{N}])' + escaped + '(?![\\p{L}\\p{M}\\p{N}])', 'iu');
+      return rx.test(checkText);
+    });
     if (matchedRestrictedKey) {
       return res.status(400).json({
         success: false,
