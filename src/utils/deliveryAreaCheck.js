@@ -213,7 +213,7 @@ export function checkRestrictedDeliveryArea(rawText) {
 
   for (const div of OUTSIDE_DHAKA_DIVISIONS) {
     for (const kw of div.keywords) {
-      const escaped = kw.replace(/[.*+?^${}()|[\]\\\/]/g, '\\$&');
+      const escaped = kw.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
       // Accurate Unicode word boundary: prevents false positives (e.g. 'কালাচাঁদপুর' won't trigger 'চাঁদপুর', 'Manikdi' won't trigger 'Manikganj')
       const rx = new RegExp('(?<![\\p{L}\\p{M}\\p{N}])' + escaped + '(?![\\p{L}\\p{M}\\p{N}])', 'iu');
       if (rx.test(text)) {
