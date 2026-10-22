@@ -926,21 +926,21 @@ const Hero = () => {
                     </div>
 
                     <div className="flex-1 min-w-0 pointer-events-none">
-                      <div className="flex items-center justify-between gap-1.5 flex-wrap">
-                        <div className="flex items-center gap-1.5 flex-wrap">
+                      <div className="flex items-center justify-between gap-1.5">
+                        <div className="flex items-center gap-1.5 min-w-0">
                           <span className="text-lg sm:text-xl flex-shrink-0 inline-block animate-bounce" style={{ animationDuration: '2.5s' }}>🎁</span>
-                          <span className="text-xs sm:text-[13.5px] font-black text-amber-950 tracking-tight">
-                            প্রিয়জনকে গিফট কার্ড পাঠাতে চান?
+                          <span className="text-xs sm:text-[13.5px] font-black text-amber-950 tracking-tight truncate">
+                            প্রিয়জনকে গিফট পাঠাতে চান?
                           </span>
                         </div>
 
                         {/* Smart Eye-catching Blinking Badge */}
                         {isGift ? (
-                          <span className="flex items-center gap-1 text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-xs">
-                            ✓ যুক্ত করা হয়েছে
+                          <span className="flex-shrink-0 flex items-center gap-1 text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-xs">
+                            ✓ যুক্ত হয়েছে
                           </span>
                         ) : (
-                          <span className="flex items-center gap-1.5 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 text-white text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full shadow-xs border border-amber-400">
+                          <span className="flex-shrink-0 flex items-center gap-1.5 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 text-white text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full shadow-xs border border-amber-400">
                             <span className="relative flex h-2 w-2">
                               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-85"></span>
                               <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
@@ -1013,7 +1013,7 @@ const Hero = () => {
                       <div className="bg-amber-100/60 border border-amber-300/70 rounded-xl p-2 flex items-center gap-2">
                         <span className="text-sm flex-shrink-0">💌</span>
                         <p className="text-[10.5px] font-bold text-amber-950 leading-snug">
-                          আপনার মনের কথাটি প্রিমিয়াম শুভেচ্ছা কার্ডে লিখে উপহার বক্সের সাথে পৌঁছে দেওয়া হবে। (চার্জ: ৳১০০)
+                          আপনার মনের কথাটি প্রিমিয়াম শুভেচ্ছা কার্ডে লিখে উপহার বক্সের সাথে সম্পূর্ণ বিনামূল্যে পৌঁছে দেওয়া হবে।
                         </p>
                       </div>
                     </div>
