@@ -218,16 +218,18 @@ export default async function handler(req, res) {
     orderData.Phone = phone;
     orderData.Address = address;
 
-    // Primary & Dual-Account Apps Script endpoints
-    // Rehab Script (rehabbhuiyian1@gmail.com) - fresh 100 quota, sends order notification to both coconuttreatsmore@gmail.com and rehabbhuiyian1@gmail.com
+    // Primary & Multi-Account Apps Script endpoints
+    // 1. Ongon Script (ongon51@gmail.com) - fresh 100 daily quota, notifies all accounts
+    const ONGON_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuVfOKjWHGjhJm4QK3vIshvLtLF8j9_U-1OM44RNsndXo7sj4Gasa_Ta1lDvALQVCm/exec";
+    // 2. Rehab Script (rehabbhuiyian1@gmail.com)
     const REHAB_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFcI1b96QTUub4Nt3T0cDu4bRM7b6nU7vy5VhcaHr-DfrCWAEufiLH-99QmbKbvJZ8_A/exec";
-    // Legacy Script (coconuttreatsmore@gmail.com)
+    // 3. Legacy Script (coconuttreatsmore@gmail.com)
     const COCONUT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbygtsftenbteNaL_IUxy1a82Yy8Jy__jAHeK26NRG0HUrH_jVnCMkAeOyITvQ-lzW9f/exec";
 
-    const primaryScriptUrl = process.env.GOOGLE_SCRIPT_URL || REHAB_SCRIPT_URL;
-    const backupScriptUrl = process.env.BACKUP_GOOGLE_SCRIPT_URL || COCONUT_SCRIPT_URL;
+    const primaryScriptUrl = process.env.GOOGLE_SCRIPT_URL || ONGON_SCRIPT_URL;
+    const backupScriptUrl = process.env.BACKUP_GOOGLE_SCRIPT_URL || REHAB_SCRIPT_URL;
 
-    // Forward request to primary Google Apps Script (Rehab script with fresh quota)
+    // Forward request to primary Google Apps Script (Ongon script with fresh 100 quota)
     let forwardRes = await postToGoogleScriptWithRetry(primaryScriptUrl, orderData, 3);
 
     // If primary fails, failover to backup
@@ -235,8 +237,9 @@ export default async function handler(req, res) {
       console.warn("Primary script failed, failing over to backup script:", backupScriptUrl);
       forwardRes = await postToGoogleScriptWithRetry(backupScriptUrl, orderData, 3);
     } else {
-      // In background, also record row in the coconut script sheet (dual recording)
+      // In background, also record row in the other sheets (multi-sheet recording)
       postToGoogleScriptWithRetry(backupScriptUrl, orderData, 2).catch(() => {});
+      postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, orderData, 2).catch(() => {});
     }
 
     if (!forwardRes.ok) {
