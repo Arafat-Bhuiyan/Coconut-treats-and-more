@@ -133,7 +133,7 @@ const Hero = () => {
   const unitPrice = selectedPkg >= 2 ? offerPrice : basePrice;
   const isFreeDelivery = selectedPkg >= 5;
   const deliveryCharge = isFreeDelivery ? 0 : 100;
-  const giftCharge = 0; // Free Gift Card promotion
+  const giftCharge = isGift ? 100 : 0;
   const totalProductPrice = selectedPkg * unitPrice;
   const regularTotal = selectedPkg * basePrice;
   const discountAmount = regularTotal - totalProductPrice;
@@ -372,12 +372,12 @@ const Hero = () => {
       : `[bKash] TrxID/No: ${bkashTrx.trim() || "Not provided"}${rawNote ? ` | ${rawNote}` : ""}`;
 
     const giftNote = isGift
-      ? ` | [🎁 FREE GIFT CARD - Card Note: "${giftMessage.trim() || "শুভেচ্ছা রইলো"}"]`
+      ? ` | [🎁 GIFT CARD (+৳100) - Card Note: "${giftMessage.trim() || "শুভেচ্ছা রইলো"}"]`
       : "";
     const combinedNote = `${formattedPaymentNote}${giftNote}`;
 
     const emailPayload = {
-      subject: `New Order${isGift ? " 🎁 [FREE GIFT CARD]" : ""}: ${customerName}`,
+      subject: `New Order${isGift ? " 🎁 [GIFT CARD +৳100]" : ""}: ${customerName}`,
       from_name: customerName,
       Customer: customerName,
       Phone: capturedPhone,
@@ -385,12 +385,12 @@ const Hero = () => {
       Address: fullAddress,
       Payment_Method: paymentMethod === "cod" ? "Cash on Delivery" : "bKash",
       Note: combinedNote,
-      Product: `Premium Coconut Pudding (6pc Box)${isGift ? " 🎁 [ফ্রি গিফট কার্ড সহ]" : ""} - ${boxCountLabel}`,
+      Product: `Premium Coconut Pudding (6pc Box)${isGift ? " 🎁 [গিফট কার্ড সহ (+৳100)]" : ""} - ${boxCountLabel}`,
       Quantity: `${selectedPkg} Box(es)`,
       Unit_Price: `৳${unitPrice}`,
       Product_Total: `৳${totalProductPrice}`,
       Delivery_Charge: `৳${deliveryCharge}`,
-      Gift_Charge: isGift ? "Free (৳০)" : "৳০",
+      Gift_Charge: isGift ? "৳100" : "৳0",
       Total_Amount: `৳${grandTotalNumber}`
     };
 
@@ -874,8 +874,8 @@ const Hero = () => {
                         <span className="flex items-center gap-1.5">
                           <span>🎁</span> স্পেশাল গিফট কার্ড
                         </span>
-                        <span className="font-black text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-300 text-xs shadow-xs">
-                          সম্পূর্ণ ফ্রি
+                        <span className="font-black text-amber-950 bg-amber-100/90 px-2.5 py-0.5 rounded-lg border border-amber-300 text-xs shadow-xs">
+                          + ৳১০০
                         </span>
                       </div>
                     )}
@@ -1021,7 +1021,7 @@ const Hero = () => {
                       <div className="bg-amber-100/60 border border-amber-300/70 rounded-xl p-2 flex items-center gap-2">
                         <span className="text-sm flex-shrink-0">💌</span>
                         <p className="text-[10.5px] font-bold text-amber-950 leading-snug">
-                          আপনার মনের কথাটি প্রিমিয়াম শুভেচ্ছা কার্ডে লিখে উপহার বক্সের সাথে সম্পূর্ণ বিনামূল্যে পৌঁছে দেওয়া হবে।
+                          আপনার মনের কথাটি প্রিমিয়াম শুভেচ্ছা কার্ডে লিখে উপহার বক্সের সাথে পৌঁছে দেওয়া হবে (চার্জ: ৳১০০)।
                         </p>
                       </div>
                     </div>
