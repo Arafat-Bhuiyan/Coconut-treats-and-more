@@ -926,26 +926,26 @@ const Hero = () => {
                     </div>
 
                     <div className="flex-1 min-w-0 pointer-events-none">
-                      <div className="flex items-center justify-between gap-1.5">
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <span className="text-lg sm:text-xl flex-shrink-0 inline-block animate-bounce" style={{ animationDuration: '2.5s' }}>🎁</span>
-                          <span className="text-xs sm:text-[13.5px] font-black text-amber-950 tracking-tight truncate">
+                      <div className="flex items-center justify-between gap-1">
+                        <div className="flex items-center gap-1 min-w-0">
+                          <span className="text-base sm:text-xl flex-shrink-0 inline-block animate-bounce" style={{ animationDuration: '2.5s' }}>🎁</span>
+                          <span className="text-xs sm:text-[13px] font-black text-amber-950 tracking-tight">
                             প্রিয়জনকে গিফট পাঠাতে চান?
                           </span>
                         </div>
 
                         {/* Smart Eye-catching Blinking Badge */}
                         {isGift ? (
-                          <span className="flex-shrink-0 flex items-center gap-1 text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-xs">
+                          <span className="flex-shrink-0 flex items-center gap-1 text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-xs">
                             ✓ যুক্ত হয়েছে
                           </span>
                         ) : (
-                          <span className="flex-shrink-0 flex items-center gap-1.5 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 text-white text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full shadow-xs border border-amber-400">
-                            <span className="relative flex h-2 w-2">
+                          <span className="flex-shrink-0 flex items-center gap-1 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full shadow-xs border border-amber-400">
+                            <span className="relative flex h-1.5 w-1.5">
                               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-85"></span>
-                              <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white"></span>
                             </span>
-                            <span>ফ্রি গিফট কার্ড</span>
+                            <span>ফ্রি গিফট</span>
                           </span>
                         )}
                       </div>
