@@ -90,8 +90,27 @@ export default async function handler(req, res) {
       });
     }
 
-    // Server-side outside-Dhaka delivery restriction check (7 Divisions & surrounding restricted areas)
+    // Server-side outside-Dhaka delivery restriction check
     const OUTSIDE_DHAKA_AREAS = [
+      // ঢাকা সংলগ্ন (কাছাকাছি) জেলা ও শহর
+      "narayanganj", "narayangonj", "নারায়ণগঞ্জ", "নারায়ণগঞ্জ", "fatullah", "ফতুল্লা", "chasara", "চাষাড়া", "চাষাড়া", "siddhirganj", "সিদ্ধিরগঞ্জ", "sonargaon", "সোনারগাঁও", "kanchpur", "কাঁচপুর", "araihazar", "আড়াইহাজার", "রূপগঞ্জ", "rupganj",
+      "munshiganj", "munshigonj", "মুন্সিগঞ্জ", "মুন্সীগঞ্জ", "sreenagar", "শ্রীনগর", "sirajdikhan", "সিরাজদিখান", "gajaria", "গজারিয়া", "গজারিয়া", "louhajang", "লৌহজং", "tongibari", "টঙ্গীবাড়ি", "টঙ্গীবাড়ি",
+      "gazipur", "গাজীপুর", "chourasta", "চৌরাস্তা", "joydebpur", "জয়দেবপুর", "জয়দেবপুর", "kaliakair", "কালিয়াকৈর", "কালিয়াকৈর", "sreepur", "শ্রীপুর", "kapasia", "কাপাসিয়া", "কাপাসিয়া", "konabari", "কোনাবাড়ী", "কোনাবাড়ী", "boardbazar", "বোর্ডবাজার", "tongi", "টঙ্গী", "টঙ্গি",
+      "manikganj", "manikgonj", "মানিকগঞ্জ", "singair", "সিংগাইর", "saturia", "সাটুরিয়া", "সাটুরিয়া", "shibalaya", "শিবালয়", "shibaloy", "harirampur", "হরিরামপুর", "ghior", "ঘিওর", "daulatpur", "দৌলতপুর",
+      "narsingdi", "নরসিংদী", "belabo", "বেলাবো", "monohardi", "মনোহরদী", "palash", "পলাশ", "raipura", "রায়পুরা", "রায়পুরা", "shibpur", "শিবপুর",
+      "savar", "সাভার", "ashulia", "আশুলিয়া", "আশুলিয়া", "keraniganj", "keranigonj", "কেরানীগঞ্জ", "কেরানিগঞ্জ",
+
+      // উত্তরাঞ্চল
+      "tangail", "টাঙ্গাইল", "mirzapur", "মির্জাপুর", "delduar", "দেলদুয়ার", "দেলদুয়ার", "ghatail", "ঘাটাইল", "madhupur", "মধুপুর", "sakhipur", "সখিপুর", "kalihati", "কালিহাতী", "gopalpur", "গোপালপুর", "bhuapur", "ভূঞাপুর", "nagarpur", "নাগরপুর", "dhanbari", "ধনবাড়ী",
+      "kishoreganj", "kishoregonj", "কিশোরগঞ্জ", "bhairab", "ভৈরব", "bajitpur", "বাজিতপুর", "hosenpur", "হোসেনপুর", "karimganj", "করিমগঞ্জ", "tarail", "তাড়াইল", "তাড়াইল", "katiadi", "কটিয়াদী", "কটিয়াদী", "kuliarchar", "কুলিয়ারচর", "pakundia", "পাকুন্দিয়া", "nikli", "নিকলী", "astagram", "অষ্টগ্রাম", "itna", "ইটনা", "mithamain", "মিঠামইন",
+
+      // দক্ষিণাঞ্চল (পদ্মার ওপারে)
+      "faridpur", "ফরিদপুর", "bhanga", "ভাঙ্গা", "boalmari", "বোয়ালমারী", "বোয়ালমারী", "modhukhali", "মধুখালী", "nagarkanda", "নগরকান্দা", "alfadanga", "আলফাডাঙ্গা", "sadorpur", "সদরপুর", "charbhadrasan", "চরভদ্রাসন", "saltha", "সালথা",
+      "madaripur", "মাদারীপুর", "মাদারিপুর", "shibchar", "শিবচর", "kalkini", "কালকিনি", "rajoir", "রাজৈর", "dashar", "ডাসার",
+      "shariatpur", "শরীয়তপুর", "শরীয়তপুর", "naria", "নড়িয়া", "নড়িয়া", "zajira", "jajira", "জাজিরা", "bhedarganj", "ভেদরগঞ্জ", "damudya", "ডামুড্যা", "gosairhat", "গোসাইরহাট",
+      "gopalganj", "gopalgonj", "গোপালগঞ্জ", "tungipara", "টুঙ্গিপাড়া", "টুঙ্গিপাড়া", "kotalipara", "কোটালীপাড়া", "কোটালীপাড়া", "kashiani", "কাশিয়ানী", "কাশিয়ানী", "muksudpur", "মুকসুদপুর",
+      "rajbari", "রাজবাড়ী", "রাজবাড়ী", "pangsha", "পাংশা", "baliakandi", "বালিয়াকান্দি", "বালিয়াকান্দি", "goalanda", "গোয়ালন্দ", "গোয়ালন্দ", "kalukhali", "কালুখালী",
+
       // চট্টগ্রাম বিভাগ (Chittagong Division)
       "chittagong", "chattogram", "ctg", "চট্টগ্রাম", "চট্টগ্রাাম", "চাটগাঁ",
       "cox's bazar", "coxs bazar", "coxsbazar", "কক্সবাজার", "কক্স বাজার",
@@ -137,7 +156,8 @@ export default async function handler(req, res) {
       "comilla para", "কুমিল্লা পাড়া", "কুমিল্লা পাড়া",
       "noakhali tower", "নোয়াখালী টাওয়ার", "নোয়াখালী টাওয়ার",
       "barisal plaza", "বরিশাল প্লাজা", "sylhet tower", "সিলেট টাওয়ার", "সিলেট টাওয়ার",
-      "bogura bhaban", "বগুড়া ভবন", "বগুড়া ভবন", "rajshahi market", "রাজশাহী মার্কেট", "rangpur house", "রংপুর হাউস"
+      "bogura bhaban", "বগুড়া ভবন", "বগুড়া ভবন", "rajshahi market", "রাজশাহী মার্কেট", "rangpur house", "রংপুর হাউস",
+      "faridpur mansion", "ফরিদপুর ভবন"
     ];
 
     let checkText = `${String(address).toLowerCase()} ${String(orderData?.Customer || '').toLowerCase()}`;
@@ -151,7 +171,7 @@ export default async function handler(req, res) {
     if (matchedRestrictedKey) {
       return res.status(400).json({
         success: false,
-        message: `দুঃখিত! এই অর্ডার আপনার ঠিকানায় (${matchedRestrictedKey}) ডেলিভারি করা সম্ভব নয়। ফ্রেশ ডাবের পুডিং ডেলিভারি শুধুমাত্র ঢাকা বিভাগে (Dhaka Division) সীমাবদ্ধ (ঢাকা বিভাগের বাইরের অন্য ৭টি বিভাগে ডেলিভারি নেই)।`
+        message: `দুঃখিত! এই অর্ডার আপনার ঠিকানায় (${matchedRestrictedKey}) ডেলিভারি করা সম্ভব নয়। ফ্রেশ ডাবের পুডিং ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে (Dhaka City) সীমাবদ্ধ।`
       });
     }
 

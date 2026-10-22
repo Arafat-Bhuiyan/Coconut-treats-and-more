@@ -3,11 +3,18 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/coconuts-treats-more-logo.png" />
-  <link rel="apple-touch-icon" href="/coconuts-treats-more-logo.png" />
+  <link rel="icon" type="image/webp" href="/logo.webp" />
+  <link rel="apple-touch-icon" href="/logo.webp" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <meta name="theme-color" content="#4A6741" />
   <style>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400 800;
+      font-display: swap;
+      src: url('/fonts/inter-latin.woff2') format('woff2');
+    }
     html, body {
       background-color: #F6F8F5;
       margin: 0;
@@ -36,37 +43,33 @@
   <meta property="og:site_name" content="Coconut Treats &amp; More" />
   <meta property="og:locale" content="bn_BD" />
 
-  <!-- High-Performance Preconnect and Resource Hints -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- High-Performance Resource Hints -->
   <link rel="dns-prefetch" href="https://connect.facebook.net" />
   <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
   
-  <!-- Google tag (gtag.js) - Google Analytics 4 Realtime Tracking -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D10ED1Y2Z0"></script>
+  <!-- Non-blocking Google Analytics 4 post-load injection -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
-    gtag('config', 'G-D10ED1Y2Z0', {
-      send_page_view: true
-    });
+    gtag('config', 'G-D10ED1Y2Z0', { send_page_view: true });
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-D10ED1Y2Z0';
+        document.head.appendChild(s);
+      }, 1500);
+    }, { once: true });
   </script>
 
-  <!-- Optimized Font Loading (Non-Render-Blocking) -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
-  <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  </noscript>
-
-  <!-- Preload LCP Logo & Video Poster Asset — Stable public/ path (not hashed by Vite) -->
+  <!-- Preload Self-Hosted Inter Font, LCP Logo & Video Poster Asset -->
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high" />
   <link rel="preload" href="/logo.webp" as="image" fetchpriority="high" type="image/webp" imagesizes="128px" />
   <link rel="preload" href="/video-poster-0924.webp" as="image" fetchpriority="high" type="image/webp" />
-  <script type="module" crossorigin src="/assets/index-VZZiKAym.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/vendor-libs-D6fkXHED.js">
-  <link rel="modulepreload" crossorigin href="/assets/vendor-react-ClToJqLT.js">
-  <link rel="stylesheet" crossorigin href="/assets/style-B6-e2-Ea.css">
+  <script type="module" crossorigin src="/assets/index-DNRpn87U.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/vendor-EymUOJzq.js">
+  <link rel="stylesheet" crossorigin href="/assets/style--ESocD6r.css">
 </head>
 
 <body>

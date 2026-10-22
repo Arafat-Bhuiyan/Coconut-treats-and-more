@@ -1,10 +1,65 @@
 /**
  * Comprehensive Outside-Dhaka Delivery Restriction Checker
- * Covers the 7 divisions outside Dhaka (Chittagong, Rajshahi, Khulna, Barisal, Sylhet, Rangpur, Mymensingh)
- * plus outside-Dhaka areas like Savar, Gazipur, Narayanganj, Keraniganj, Munshiganj, Jatrabari.
+ * 
+ * Blocked Areas:
+ * 1. ঢাকা সংলগ্ন (কাছাকাছি): নারায়ণগঞ্জ, মুন্সিগঞ্জ, গাজীপুর, মানিকগঞ্জ, নরসিংদী, সাভার, আশুলিয়া, কেরানীগঞ্জ
+ * 2. উত্তরাঞ্চল: টাঙ্গাইল, কিশোরগঞ্জ
+ * 3. দক্ষিণাঞ্চল (পদ্মার ওপারে): ফরিদপুর, মাদারীপুর, শরীয়তপুর, গোপালগঞ্জ, রাজবাড়ী
+ * 4. ঢাকা বিভাগের বাইরের ৭টি বিভাগ: চট্টগ্রাম, রাজশাহী, খুলনা, বরিশাল, সিলেট, রংপুর, ময়মনসিংহ
+ *
+ * Allowed / Open Area:
+ * - ঢাকা সিটি / মেট্রোপলিটন (Dhaka City) - ধানমন্ডি, গুলশান, বনানী, উত্তরা, মিরপুর, মোহাম্মদপুর, বাড্ডা, তেজগাঁও ইত্যাদি ঢাকা সিটির সকল এলাকা।
  */
 
 export const OUTSIDE_DHAKA_DIVISIONS = [
+  // ১. ঢাকা সংলগ্ন (কাছাকাছি) জেলা ও শহর
+  {
+    divisionBn: "ঢাকা সংলগ্ন জেলা",
+    divisionEn: "Dhaka Adjacent Districts",
+    keywords: [
+      // নারায়ণগঞ্জ
+      "narayanganj", "narayangonj", "নারায়ণগঞ্জ", "নারায়ণগঞ্জ", "fatullah", "ফতুল্লা", "chasara", "চাষাড়া", "চাষাড়া", "siddhirganj", "সিদ্ধিরগঞ্জ", "sonargaon", "সোনারগাঁও", "kanchpur", "কাঁচপুর", "araihazar", "আড়াইহাজার", "রূপগঞ্জ", "rupganj",
+      // মুন্সিগঞ্জ
+      "munshiganj", "munshigonj", "মুন্সিগঞ্জ", "মুন্সীগঞ্জ", "sreenagar", "শ্রীনগর", "sirajdikhan", "সিরাজদিখান", "gajaria", "গজারিয়া", "গজারিয়া", "louhajang", "লৌহজং", "tongibari", "টঙ্গীবাড়ি", "টঙ্গীবাড়ি",
+      // গাজীপুর ও টঙ্গী
+      "gazipur", "গাজীপুর", "chourasta", "চৌরাস্তা", "joydebpur", "জয়দেবপুর", "জয়দেবপুর", "kaliakair", "কালিয়াকৈর", "কালিয়াকৈর", "sreepur", "শ্রীপুর", "kapasia", "কাপাসিয়া", "কাপাসিয়া", "konabari", "কোনাবাড়ী", "কোনাবাড়ী", "boardbazar", "বোর্ডবাজার", "tongi", "টঙ্গী", "টঙ্গি",
+      // মানিকগঞ্জ
+      "manikganj", "manikgonj", "মানিকগঞ্জ", "singair", "সিংগাইর", "saturia", "সাটুরিয়া", "সাটুরিয়া", "shibalaya", "শিবালয়", "shibaloy", "harirampur", "হরিরামপুর", "ghior", "ঘিওর", "daulatpur", "দৌলতপুর",
+      // নরসিংদী
+      "narsingdi", "নরসিংদী", "belabo", "বেলাবো", "monohardi", "মনোহরদী", "palash", "পলাশ", "raipura", "রায়পুরা", "রায়পুরা", "shibpur", "শিবপুর",
+      // সাভার, আশুলিয়া, কেরানীগঞ্জ
+      "savar", "সাভার", "ashulia", "আশুলিয়া", "আশুলিয়া", "keraniganj", "keranigonj", "কেরানীগঞ্জ", "কেরানিগঞ্জ"
+    ]
+  },
+  // ২. উত্তরাঞ্চল
+  {
+    divisionBn: "উত্তরাঞ্চল জেলা",
+    divisionEn: "Northern Districts",
+    keywords: [
+      // টাঙ্গাইল
+      "tangail", "টাঙ্গাইল", "টাঙ্গাইল", "mirzapur", "মির্জাপুর", "delduar", "দেলদুয়ার", "দেলদুয়ার", "ghatail", "ঘাটাইল", "madhupur", "মধুপুর", "sakhipur", "সখিপুর", "kalihati", "কালিহাতী", "gopalpur", "গোপালপুর", "bhuapur", "ভূঞাপুর", "nagarpur", "নাগরপুর", "dhanbari", "ধনবাড়ী",
+      // কিশোরগঞ্জ
+      "kishoreganj", "kishoregonj", "কিশোরগঞ্জ", "bhairab", "ভৈরব", "bajitpur", "বাজিতপুর", "hosenpur", "হোসেনপুর", "karimganj", "করিমগঞ্জ", "tarail", "তাড়াইল", "তাড়াইল", "katiadi", "কটিয়াদী", "কটিয়াদী", "kuliarchar", "কুলিয়ারচর", "pakundia", "পাকুন্দিয়া", "nikli", "নিকলী", "astagram", "অষ্টগ্রাম", "itna", "ইটনা", "mithamain", "মিঠামইন"
+    ]
+  },
+  // ৩. দক্ষিণাঞ্চল (পদ্মার ওপারে)
+  {
+    divisionBn: "দক্ষিণাঞ্চল (পদ্মার ওপারে)",
+    divisionEn: "Southern Districts (Across Padma)",
+    keywords: [
+      // ফরিদপুর
+      "faridpur", "ফরিদপুর", "bhanga", "ভাঙ্গা", "boalmari", "বোয়ালমারী", "বোয়ালমারী", "modhukhali", "মধুখালী", "nagarkanda", "nagar kanda", "নগরকান্দা", "alfadanga", "আলফাডাঙ্গা", "sadorpur", "সদরপুর", "charbhadrasan", "চরভদ্রাসন", "saltha", "সালথা",
+      // মাদারীপুর
+      "madaripur", "মাদারীপুর", "মাদারিপুর", "shibchar", "শিবচর", "kalkini", "কালকিনি", "rajoir", "রাজৈর", "dashar", "ডাসার",
+      // শরীয়তপুর
+      "shariatpur", "শরীয়তপুর", "শরীয়তপুর", "naria", "নড়িয়া", "নড়িয়া", "zajira", "jajira", "জাজিরা", "bhedarganj", "ভেদরগঞ্জ", "damudya", "ডামুড্যা", "gosairhat", "গোসাইরহাট",
+      // গোপালগঞ্জ
+      "gopalganj", "gopalgonj", "গোপালগঞ্জ", "tungipara", "টুঙ্গিপাড়া", "টুঙ্গিপাড়া", "kotalipara", "কোটালীপাড়া", "কোটালীপাড়া", "kashiani", "কাশিয়ানী", "কাশিয়ানী", "muksudpur", "মুকসুদপুর",
+      // রাজবাড়ী
+      "rajbari", "রাজবাড়ী", "রাজবাড়ী", "pangsha", "পাংশা", "baliakandi", "বালিয়াকান্দি", "বালিয়াকান্দি", "goalanda", "গোয়ালন্দ", "গোয়ালন্দ", "kalukhali", "কালুখালী"
+    ]
+  },
+  // ৪. চট্টগ্রাম বিভাগ
   {
     divisionBn: "চট্টগ্রাম বিভাগ",
     divisionEn: "Chittagong Division",
@@ -23,6 +78,7 @@ export const OUTSIDE_DHAKA_DIVISIONS = [
       "sitakunda", "সীতাকুণ্ড", "mirsharai", "মিরসরাই", "hathazari", "হাটহাজারী", "teknaf", "টেকনাফ"
     ]
   },
+  // ৫. রাজশাহী বিভাগ
   {
     divisionBn: "রাজশাহী বিভাগ",
     divisionEn: "Rajshahi Division",
@@ -38,6 +94,7 @@ export const OUTSIDE_DHAKA_DIVISIONS = [
       "iswardi", "ishwardi", "ঈশ্বরদী"
     ]
   },
+  // ৬. খুলনা বিভাগ
   {
     divisionBn: "খুলনা বিভাগ",
     divisionEn: "Khulna Division",
@@ -55,6 +112,7 @@ export const OUTSIDE_DHAKA_DIVISIONS = [
       "benapole", "বেনাপোল", "mongla", "মংলা"
     ]
   },
+  // ৭. বরিশাল বিভাগ
   {
     divisionBn: "বরিশাল বিভাগ",
     divisionEn: "Barisal Division",
@@ -68,6 +126,7 @@ export const OUTSIDE_DHAKA_DIVISIONS = [
       "kuakata", "কুয়াকাটা", "কুয়াকাটা"
     ]
   },
+  // ৮. সিলেট বিভাগ
   {
     divisionBn: "সিলেট বিভাগ",
     divisionEn: "Sylhet Division",
@@ -79,6 +138,7 @@ export const OUTSIDE_DHAKA_DIVISIONS = [
       "sreemangal", "srimangal", "শ্রীমঙ্গল", "beanibazar", "বিয়ানীবাজার", "বিয়ানীবাজার"
     ]
   },
+  // ৯. রংপুর বিভাগ
   {
     divisionBn: "রংপুর বিভাগ",
     divisionEn: "Rangpur Division",
@@ -94,6 +154,7 @@ export const OUTSIDE_DHAKA_DIVISIONS = [
       "saidpur", "syedpur", "সৈয়দপুর", "সৈয়দপুর"
     ]
   },
+  // ১০. ময়মনসিংহ বিভাগ
   {
     divisionBn: "ময়মনসিংহ বিভাগ",
     divisionEn: "Mymensingh Division",
@@ -116,7 +177,8 @@ export const DHAKA_SAFE_PHRASES = [
   "sylhet tower", "সিলেট টাওয়ার", "সিলেট টাওয়ার",
   "bogura bhaban", "বগুড়া ভবন", "বগুড়া ভবন",
   "rajshahi market", "রাজশাহী মার্কেট",
-  "rangpur house", "রংপুর হাউস"
+  "rangpur house", "রংপুর হাউস",
+  "faridpur mansion", "ফরিদপুর ভবন"
 ];
 
 /**
@@ -139,7 +201,7 @@ export function checkRestrictedDeliveryArea(rawText) {
   for (const div of OUTSIDE_DHAKA_DIVISIONS) {
     for (const kw of div.keywords) {
       const lowerKw = kw.toLowerCase();
-      // Match keyword as substring or word boundary
+      // Match keyword as substring
       if (text.includes(lowerKw)) {
         return {
           isRestricted: true,

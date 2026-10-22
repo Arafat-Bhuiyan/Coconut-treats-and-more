@@ -329,7 +329,7 @@ const Hero = () => {
     const restrictedMatch = checkRestrictedDeliveryArea(`${rawAddress} ${rawName}`);
     if (restrictedMatch) {
       submittingRef.current = false;
-      setFormError(`🚫 দুঃখিত! এই অর্ডার আপনার ঠিকানায় (${restrictedMatch.displayText}) ডেলিভারি করা সম্ভব নয়। আমাদের ডেলিভারি শুধুমাত্র ঢাকা বিভাগে (Dhaka Division) সীমাবদ্ধ (অন্য ৭টি বিভাগে ডেলিভারি বন্ধ)।`);
+      setFormError(`🚫 দুঃখিত! এই অর্ডার আপনার ঠিকানায় (${restrictedMatch.displayText}) ডেলিভারি করা সম্ভব নয়। ফ্রেশ ডাবের পুডিং ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে (Dhaka City) সীমাবদ্ধ।`);
       const addressInput = document.getElementById("customer-address");
       if (addressInput) {
         addressInput.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -1235,7 +1235,7 @@ const Hero = () => {
                         সম্পূর্ণ ঠিকানা (Full Address) <span className="text-red-500">*</span>
                       </label>
                       <span className="text-[10px] font-bold text-[#4A6741] bg-emerald-50 px-2 py-0.5 rounded-full border border-[#4A6741]/20">
-                        ঢাকা বিভাগ (Dhaka Division)
+                        ঢাকা সিটি (Dhaka City Only)
                       </span>
                     </div>
                     <textarea
@@ -1262,10 +1262,10 @@ const Hero = () => {
                           <span className="text-xl sm:text-2xl flex-shrink-0 animate-bounce">🚫</span>
                           <div className="flex-1 min-w-0">
                             <span className="font-black text-red-700 text-xs sm:text-sm block tracking-tight">
-                              এই ঠিকানায় ডেলিভারি সেবা উপলব্ধ নেই!
+                              এই এলাকায় ডেলিভারি সেবা উপলব্ধ নেই!
                             </span>
                             <span className="text-[10px] sm:text-[11px] font-bold text-red-600 block">
-                              Delivery Not Available to this Location
+                              Delivery Not Available to this Area
                             </span>
                           </div>
                           <span className="text-[9.5px] sm:text-[11px] font-black bg-red-600 text-white px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full shadow-xs flex-shrink-0">
@@ -1275,13 +1275,13 @@ const Hero = () => {
 
                         <div className="space-y-1.5 pt-0.5">
                           <p className="font-extrabold text-[#7A1C1C] text-xs sm:text-[13px] leading-snug">
-                            দুঃখিত! <strong>"{detectedRestrictedArea.matchedWord}"</strong> ({detectedRestrictedArea.divisionBn}) ঠিকানায় এই অর্ডারটি ডেলিভারি করা সম্ভব নয়।
+                            দুঃখিত! <strong>"{detectedRestrictedArea.matchedWord}"</strong> ({detectedRestrictedArea.divisionBn}) এলাকায় আমাদের ডেলিভারি দেওয়া সম্ভব নয়।
                           </p>
                           <p className="text-[11px] sm:text-xs text-gray-800 font-semibold leading-relaxed">
-                            ১০০% প্রিমিয়াম ডাবের পুডিংয়ের সর্বোচ্চ স্বাদ ও তাজা গুণমান বজায় রাখতে আমাদের হোম ডেলিভারি সেবা <strong>শুধুমাত্র ঢাকা বিভাগের (Dhaka Division) ভেতরেই সীমাবদ্ধ</strong> (ঢাকা বিভাগের বাইরের অন্য ৭টি বিভাগে ডেলিভারি নেই)।
+                            ১০০% অর্গানিক তাজা ডাবের পুডিংয়ের সর্বোচ্চ স্বাদ ও তাজা গুণমান বজায় রাখতে ডেলিভারি সেবা <strong>শুধুমাত্র ঢাকা সিটির ভেতরে চালু আছে</strong> (ঢাকা সিটির বাইরে বা দূরবর্তী জেলাসমূহে ডেলিভারি নেই)।
                           </p>
                           <div className="bg-white/85 border border-red-200 rounded-xl px-2.5 py-1.5 text-[10px] sm:text-[11px] text-red-900 font-medium italic">
-                            Sorry! Delivery is available strictly inside Dhaka Division only. We currently do not offer delivery to {detectedRestrictedArea.displayText}.
+                            Sorry! Delivery is available inside Dhaka City only. We currently do not offer delivery to {detectedRestrictedArea.displayText}.
                           </div>
                         </div>
                       </div>
