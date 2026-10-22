@@ -218,11 +218,18 @@ export default async function handler(req, res) {
     orderData.Phone = phone;
     orderData.Address = address;
 
-    // New Apps Script deployed from coconuttreatsmore@gmail.com
+    // Primary Apps Script (coconuttreatsmore@gmail.com)
     const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbygtsftenbteNaL_IUxy1a82Yy8Jy__jAHeK26NRG0HUrH_jVnCMkAeOyITvQ-lzW9f/exec";
+    const backupScriptUrl = process.env.BACKUP_GOOGLE_SCRIPT_URL || "";
 
-    // Forward the request to Google Apps Script with 5-attempt automatic concurrency retry & jittered backoff
-    const forwardRes = await postToGoogleScriptWithRetry(googleScriptUrl, orderData, 5);
+    // Forward request to primary Google Apps Script
+    let forwardRes = await postToGoogleScriptWithRetry(googleScriptUrl, orderData, 5);
+
+    // If primary script fails/quota exhausted and backup script exists, automatically failover to backup
+    if (!forwardRes.ok && backupScriptUrl) {
+      console.warn("Primary script failed, failing over to backup Google Apps Script:", backupScriptUrl);
+      forwardRes = await postToGoogleScriptWithRetry(backupScriptUrl, orderData, 3);
+    }
 
     if (!forwardRes.ok) {
       console.error("Google Apps Script failed after retries:", forwardRes.error);
