@@ -35,7 +35,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8 animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3.5 sm:p-6 animate-fade-in">
       {/* Backdrop blur with fade-in */}
       <div
         onClick={onClose}
@@ -44,128 +44,177 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
 
       {/* Modal Container */}
       <div
-        className="relative w-full max-w-md bg-white rounded-[2.2rem] sm:rounded-[2.5rem] max-h-[92vh] overflow-y-auto no-scrollbar shadow-[0_30px_70px_rgba(74,103,65,0.3)] border border-secondary/10 z-10"
+        className="relative w-full max-w-[395px] bg-white rounded-[2rem] sm:rounded-[2.2rem] max-h-[94vh] overflow-y-auto no-scrollbar shadow-[0_30px_70px_rgba(0,0,0,0.45)] border-2 border-amber-300/40 z-10"
       >
         {/* Top Glowing Accent Bar */}
-        <div className="bg-gradient-to-r from-primary via-primary-dark to-primary h-2 w-full" />
+        <div className="bg-gradient-to-r from-amber-400 via-[#4A6741] to-amber-400 h-2 w-full" />
 
         {/* Top Close Button - Bold & Easy to Tap */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 p-2 rounded-full bg-slate-200 text-slate-700 hover:bg-red-100 hover:text-red-600 transition-all z-20 shadow-md border-2 border-slate-300 hover:border-red-300 cursor-pointer flex items-center justify-center"
+          className="absolute top-3 right-3 p-2 rounded-full bg-slate-100 text-slate-700 hover:bg-red-100 hover:text-red-600 transition-all z-20 shadow-sm border border-slate-300 hover:border-red-300 cursor-pointer flex items-center justify-center"
           aria-label="Close promotion dialog"
         >
-          <X size={18} strokeWidth={3} />
+          <X size={17} strokeWidth={3} />
         </button>
 
         {/* Top Branding Section (Upper Ticket Stub) */}
-        <div className="px-5 pt-6 pb-2.5 text-center">
-          <span className="bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-black px-2.5 py-1 rounded-xl uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm mb-2">
+        <div className="px-5 pt-4 pb-2 text-center">
+          <span className="bg-amber-50 text-amber-800 border border-amber-300 text-[10px] font-black px-3 py-0.5 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 shadow-2xs mb-1.5">
             <Sparkles size={11} fill="currentColor" className="animate-pulse text-amber-500" />
             LIMITED TIME DEAL
           </span>
-          <h3 className="text-xl sm:text-2xl font-black text-husk leading-tight tracking-tight px-4">
+          <h3 className="text-xl sm:text-2xl font-black text-husk leading-tight tracking-tight px-2">
             Super Saver Bulk Offer!
           </h3>
-          <p className="text-[11px] text-husk/50 font-bold mt-0.5">Don't miss out on these premium savings</p>
+          <p className="text-[11px] text-husk/60 font-bold mt-0.5">Don't miss out on these premium savings</p>
         </div>
 
         {/* Horizontal Coupon Tear Line with cutouts */}
-        <div className="relative my-2">
+        <div className="relative my-1.5">
           <div className="border-t-2 border-dashed border-gray-200 mx-5" />
-          <div className="absolute top-1/2 -left-3.5 -translate-y-1/2 w-7 h-7 rounded-full bg-[#161a14] z-10 shadow-[inset_-3px_0_5px_rgba(0,0,0,0.15)]" />
-          <div className="absolute top-1/2 -right-3.5 -translate-y-1/2 w-7 h-7 rounded-full bg-[#161a14] z-10 shadow-[inset_3px_0_5px_rgba(0,0,0,0.15)]" />
+          <div className="absolute top-1/2 -left-3.5 -translate-y-1/2 w-6 h-6 rounded-full bg-[#161a14] z-10 shadow-[inset_-3px_0_5px_rgba(0,0,0,0.15)]" />
+          <div className="absolute top-1/2 -right-3.5 -translate-y-1/2 w-6 h-6 rounded-full bg-[#161a14] z-10 shadow-[inset_3px_0_5px_rgba(0,0,0,0.15)]" />
         </div>
 
         {/* Lower Content Area (Main Ticket Body) */}
-        <div className="p-5 pt-1.5 space-y-3.5">
+        <div className="px-4 sm:px-5 pb-4 pt-1 space-y-2.5">
           {/* Product Badge Indicator */}
-          <div className="flex items-center justify-center gap-2 bg-primary/5 border border-primary/10 py-1.5 px-3 rounded-xl max-w-[260px] mx-auto shadow-inner">
+          <div className="flex items-center justify-center gap-2 bg-primary/5 border border-primary/15 py-1.5 px-3 rounded-xl max-w-[260px] mx-auto shadow-inner">
             <span className="text-base">🥥</span>
             <div className="text-left">
-              <p className="text-[8px] text-husk/50 uppercase font-black tracking-wider leading-none">Premium Coconut Pudding</p>
-              <p className="font-extrabold text-husk text-[10px] sm:text-xs">Homemade & 100% Fresh Daily</p>
+              <p className="text-[8px] text-husk/55 uppercase font-black tracking-wider leading-none">Premium Coconut Pudding</p>
+              <p className="font-extrabold text-husk text-[10.5px] sm:text-xs">Homemade & 100% Fresh Daily</p>
             </div>
           </div>
 
           {/* Pricing Comparison Grid */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2.5">
             {/* Regular Price Card */}
-            <div className="bg-slate-50/50 p-2.5 rounded-2xl border border-slate-200 text-center shadow-sm flex flex-col justify-center">
-              <p className="text-[9px] text-husk/50 font-black uppercase tracking-wider mb-0.5">Regular Price</p>
-              <p className="text-lg font-extrabold text-husk/60 line-through">৳750</p>
-              <p className="text-[8px] text-husk/40 font-bold">per box</p>
+            <div className="bg-slate-50 p-2 rounded-2xl border border-slate-200 text-center shadow-2xs flex flex-col justify-center">
+              <p className="text-[9px] text-husk/55 font-black uppercase tracking-wider">Regular Price</p>
+              <p className="text-base sm:text-lg font-extrabold text-rose-500/80 line-through leading-tight">৳750</p>
+              <p className="text-[8px] text-husk/45 font-bold">per box</p>
             </div>
 
             {/* Offer Price Card */}
-            <div className="bg-accent/15 p-2.5 rounded-2xl border-2 border-accent/60 text-center relative overflow-hidden shadow-sm flex flex-col justify-center">
-              <div className="absolute top-0 right-0 bg-accent text-husk text-[8px] font-black px-1.5 py-0.5 rounded-bl-lg uppercase tracking-wider">
+            <div className="bg-emerald-50/90 p-2 rounded-2xl border-2 border-[#4A6741] text-center relative overflow-hidden shadow-xs flex flex-col justify-center">
+              <div className="absolute top-0 right-0 bg-[#4A6741] text-white text-[8px] font-black px-2 py-0.5 rounded-bl-lg uppercase tracking-wider">
                 DEAL
               </div>
-              <p className="text-[9px] text-primary font-black uppercase tracking-wider mb-0.5">Bulk Offer</p>
-              <p className="text-xl font-black text-primary">৳700</p>
-              <p className="text-[8px] text-primary/75 font-black">per box</p>
+              <p className="text-[9px] text-[#4A6741] font-black uppercase tracking-wider">Bulk Offer</p>
+              <p className="text-lg sm:text-xl font-black text-[#4A6741] leading-tight">৳700</p>
+              <p className="text-[8px] text-[#4A6741]/80 font-black">per box</p>
             </div>
-          </div>
-
-          {/* Crimson Savings Highlight Banner */}
-          <div className="rounded-2xl py-4 px-3 flex flex-col items-center justify-center gap-2 transform hover:scale-[1.01] transition-transform duration-300 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #4A6741 0%, #5A7336 100%)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(255,255,255,0.38)', boxShadow: '0 8px 28px rgba(74, 103, 65, 0.35), inset 0 1px 0 rgba(255,255,255,0.5)'}}>
-            <span className="absolute inset-0 rounded-2xl" style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 55%)', pointerEvents: 'none'}} />
-            <div className="flex items-center gap-1.5 relative z-10">
-              <span className="text-xl animate-bounce">🎁</span>
-              <span className="text-sm sm:text-base font-black uppercase tracking-wider leading-none text-white/95" style={{textShadow: '0 1px 2.5px rgba(0,0,0,0.45)'}}>Instant Discount</span>
-            </div>
-            <p className="font-black text-xl sm:text-2xl text-center text-white relative z-10" style={{textShadow: '0 2px 5px rgba(0,0,0,0.55)'}}>🎉 ২ টি বাক্স একসাথে কিনলেই ১০০ টাকা ছাড়!</p>
           </div>
 
           <style>{`
-            @keyframes greenOrderBlink {
+            @keyframes discountCardPulse {
               0%, 100% {
-                box-shadow: 0 0 0 0 rgba(74, 103, 65, 0.6), 0 8px 20px -4px rgba(74, 103, 65, 0.4);
+                box-shadow: 0 8px 25px -4px rgba(220, 38, 38, 0.45), 0 0 0 0 rgba(245, 158, 11, 0.6);
+                transform: scale(1);
               }
               50% {
-                box-shadow: 0 0 24px 8px rgba(52, 211, 153, 0.8), 0 12px 28px -3px rgba(74, 103, 65, 0.5);
+                box-shadow: 0 12px 32px -2px rgba(220, 38, 38, 0.65), 0 0 0 5px rgba(251, 191, 36, 0.35);
+                transform: scale(1.015);
               }
             }
+            @keyframes shimmerSweep {
+              0% { transform: translateX(-120%) skewX(-15deg); }
+              100% { transform: translateX(220%) skewX(-15deg); }
+            }
+            @keyframes greenOrderBlink {
+              0%, 100% {
+                box-shadow: 0 0 0 0 rgba(74, 103, 65, 0.6), 0 6px 18px -3px rgba(74, 103, 65, 0.4);
+              }
+              50% {
+                box-shadow: 0 0 18px 5px rgba(52, 211, 153, 0.65), 0 10px 24px -2px rgba(74, 103, 65, 0.5);
+              }
+            }
+            .popup-discount-highlight {
+              animation: discountCardPulse 2s ease-in-out infinite;
+            }
+            .popup-shimmer-bar {
+              animation: shimmerSweep 2.8s infinite;
+            }
             .popup-green-blink-btn {
-              animation: greenOrderBlink 1.4s ease-in-out infinite;
+              animation: greenOrderBlink 1.5s ease-in-out infinite;
             }
           `}</style>
 
-          {/* Green Blinking Order Now Button in circled spot */}
-          <div className="pt-1 space-y-2">
+          {/* Eye-Catching Smart Instant Discount Banner */}
+          <div
+            onClick={handleClaim}
+            className="popup-discount-highlight rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center gap-1.5 relative overflow-hidden cursor-pointer select-none border-2 border-amber-300"
+            style={{
+              background: 'linear-gradient(135deg, #b91c1c 0%, #dc2626 50%, #ea580c 100%)',
+            }}
+          >
+            {/* Animated Shimmer Light Sweep */}
+            <span
+              className="popup-shimmer-bar pointer-events-none absolute inset-0 w-1/2 h-full"
+              style={{
+                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent)',
+              }}
+            />
+
+            {/* Top Golden Pill Badge */}
+            <div className="inline-flex items-center gap-1.5 bg-amber-300 text-red-950 px-3 py-0.5 rounded-full shadow-sm relative z-10 border border-white/60">
+              <span className="text-sm leading-none animate-bounce">🎁</span>
+              <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider leading-none">
+                INSTANT DISCOUNT
+              </span>
+            </div>
+
+            {/* Main Bengali Offer Text */}
+            <p
+              className="font-black text-base sm:text-lg text-center text-white relative z-10 leading-snug mt-0.5"
+              style={{ textShadow: '0 2px 4px rgba(0,0,0,0.35)' }}
+            >
+              🎉 ২ টি বক্স একসাথে কিনলেই
+            </p>
+
+            {/* Ultra-Visible 100 Taka Off Callout Badge */}
+            <div className="bg-white text-red-700 font-black text-lg sm:text-xl px-4 py-1 rounded-xl shadow-md border-2 border-amber-300 relative z-10 flex items-center gap-1.5 tracking-tight">
+              <span>🔥</span>
+              <span>নগদ ১০০ টাকা ছাড়!</span>
+            </div>
+          </div>
+
+          {/* Green Blinking Order Now Button */}
+          <div className="pt-0.5 space-y-1.5">
             <button
               type="button"
               onClick={handleClaim}
               style={{ touchAction: 'manipulation' }}
-              className="popup-green-blink-btn w-full bg-primary hover:bg-primary-dark active:bg-primary-dark text-white font-black text-base sm:text-lg py-4 px-6 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-xl cursor-pointer select-none group relative overflow-hidden text-center border-0 outline-none"
+              className="popup-green-blink-btn w-full bg-gradient-to-r from-[#4A6741] via-[#3B5932] to-[#2F4827] hover:brightness-110 active:scale-[0.99] text-white font-black text-base sm:text-lg py-3.5 px-6 rounded-2xl flex items-center justify-center gap-2.5 transition-all shadow-xl cursor-pointer select-none group relative overflow-hidden text-center border-0 outline-none"
             >
               <span className="pointer-events-none absolute inset-0 bg-white/20 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
               <span className="pointer-events-none relative flex h-3 w-3 flex-shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
               </span>
-              <ShoppingBag size={20} className="pointer-events-none animate-bounce" />
+              <ShoppingBag size={19} className="pointer-events-none animate-bounce" />
               <span className="pointer-events-none">Quick Order (কুইক অর্ডার)</span>
             </button>
 
-            <div className="flex items-center justify-center gap-1.5 text-primary text-[11px] font-bold">
+            <div className="flex items-center justify-center gap-1.5 text-primary text-[10.5px] font-bold">
               <CheckCircle size={12} className="text-primary flex-shrink-0" />
               <span>Minimum 2 boxes order required for ৳100 discount</span>
             </div>
           </div>
 
           {/* Countdown Timer */}
-          <div className="pt-2 border-t border-dashed border-gray-200 flex items-center justify-center w-full">
+          <div className="pt-1.5 border-t border-dashed border-gray-200 flex items-center justify-center w-full">
             <CountdownTimer />
           </div>
 
           {/* Close CTA */}
-          <div className="pt-0.5">
+          <div>
             <button
               type="button"
               onClick={onClose}
-              className="w-full hover:bg-slate-50 text-husk/50 hover:text-husk font-bold text-xs py-1.5 rounded-lg transition-all cursor-pointer text-center"
+              className="w-full hover:bg-slate-50 text-husk/50 hover:text-husk font-bold text-[11px] py-1 rounded-lg transition-all cursor-pointer text-center"
             >
               Maybe Later
             </button>

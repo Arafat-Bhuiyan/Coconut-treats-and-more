@@ -70,7 +70,7 @@ export const Home = () => {
             setShowPromo(true);
             sessionStorage.setItem("hasShownPromo", "true");
           }
-        }, 5000);
+        }, 3000);
       };
 
       const events = ['scroll', 'touchstart', 'mousemove', 'pointerdown'];
