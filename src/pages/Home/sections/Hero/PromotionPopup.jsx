@@ -93,7 +93,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
             {/* Regular Price Card */}
             <div className="bg-slate-50 p-2 rounded-2xl border border-slate-200 text-center shadow-2xs flex flex-col justify-center">
               <p className="text-[9px] text-husk/55 font-black uppercase tracking-wider">Regular Price</p>
-              <p className="text-base sm:text-lg font-extrabold text-rose-500/80 line-through leading-tight">৳750</p>
+              <p className="text-base sm:text-lg font-extrabold text-husk/50 line-through leading-tight">৳750</p>
               <p className="text-[8px] text-husk/45 font-bold">per box</p>
             </div>
 
@@ -111,12 +111,14 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
           <style>{`
             @keyframes discountCardPulse {
               0%, 100% {
-                box-shadow: 0 8px 25px -4px rgba(220, 38, 38, 0.45), 0 0 0 0 rgba(245, 158, 11, 0.6);
+                box-shadow: 0 6px 20px -4px rgba(245, 158, 11, 0.35), 0 0 0 0 rgba(245, 158, 11, 0.45);
+                border-color: #f59e0b;
                 transform: scale(1);
               }
               50% {
-                box-shadow: 0 12px 32px -2px rgba(220, 38, 38, 0.65), 0 0 0 5px rgba(251, 191, 36, 0.35);
-                transform: scale(1.015);
+                box-shadow: 0 10px 26px -2px rgba(245, 158, 11, 0.5), 0 0 0 4px rgba(251, 191, 36, 0.28);
+                border-color: #d97706;
+                transform: scale(1.012);
               }
             }
             @keyframes shimmerSweep {
@@ -132,51 +134,50 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
               }
             }
             .popup-discount-highlight {
-              animation: discountCardPulse 2s ease-in-out infinite;
+              animation: discountCardPulse 2.2s ease-in-out infinite;
             }
             .popup-shimmer-bar {
-              animation: shimmerSweep 2.8s infinite;
+              animation: shimmerSweep 3s infinite;
             }
             .popup-green-blink-btn {
               animation: greenOrderBlink 1.5s ease-in-out infinite;
             }
           `}</style>
 
-          {/* Eye-Catching Smart Instant Discount Banner */}
+          {/* Eye-Catching Smart Luxury Cream-Gold & Emerald Instant Discount Banner */}
           <div
             onClick={handleClaim}
-            className="popup-discount-highlight rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center gap-1.5 relative overflow-hidden cursor-pointer select-none border-2 border-amber-300"
+            className="popup-discount-highlight rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center gap-1.5 relative overflow-hidden cursor-pointer select-none border-2 border-amber-400"
             style={{
-              background: 'linear-gradient(135deg, #b91c1c 0%, #dc2626 50%, #ea580c 100%)',
+              background: 'linear-gradient(135deg, #FFFDF5 0%, #FEF3C7 55%, #FDE68A 100%)',
             }}
           >
             {/* Animated Shimmer Light Sweep */}
             <span
               className="popup-shimmer-bar pointer-events-none absolute inset-0 w-1/2 h-full"
               style={{
-                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent)',
+                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent)',
               }}
             />
 
-            {/* Top Golden Pill Badge */}
-            <div className="inline-flex items-center gap-1.5 bg-amber-300 text-red-950 px-3 py-0.5 rounded-full shadow-sm relative z-10 border border-white/60">
-              <span className="text-sm leading-none animate-bounce">🎁</span>
-              <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider leading-none">
+            {/* Top Pill Badge */}
+            <div className="inline-flex items-center gap-1.5 bg-[#4A6741] text-white px-3 py-0.5 rounded-full shadow-xs relative z-10">
+              <span className="text-xs leading-none animate-bounce">🎁</span>
+              <span className="text-[10px] sm:text-[10.5px] font-black uppercase tracking-wider leading-none">
                 INSTANT DISCOUNT
               </span>
             </div>
 
             {/* Main Bengali Offer Text */}
             <p
-              className="font-black text-base sm:text-lg text-center text-white relative z-10 leading-snug mt-0.5"
-              style={{ textShadow: '0 2px 4px rgba(0,0,0,0.35)' }}
+              className="font-black text-base sm:text-lg text-center text-[#1F291E] relative z-10 leading-snug mt-0.5"
             >
               🎉 ২ টি বক্স একসাথে কিনলেই
             </p>
 
-            {/* Ultra-Visible 100 Taka Off Callout Badge */}
-            <div className="bg-white text-red-700 font-black text-lg sm:text-xl px-4 py-1 rounded-xl shadow-md border-2 border-amber-300 relative z-10 flex items-center gap-1.5 tracking-tight">
-              <span>🔥</span>
+            {/* Clean Highlighted 100 Taka Off Callout Badge */}
+            <div className="bg-white text-[#2F4827] font-black text-lg sm:text-xl px-4 py-1 rounded-xl shadow-sm border-2 border-[#4A6741]/40 relative z-10 flex items-center gap-1.5 tracking-tight">
+              <span>✨</span>
               <span>নগদ ১০০ টাকা ছাড়!</span>
             </div>
           </div>
