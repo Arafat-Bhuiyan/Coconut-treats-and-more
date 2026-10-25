@@ -51,8 +51,10 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
 
         {/* Top Close Button - Bold & Easy to Tap */}
         <button
+          type="button"
           onClick={onClose}
-          className="absolute top-3 right-3 p-2 rounded-full bg-slate-100 text-slate-700 hover:bg-red-100 hover:text-red-600 transition-all z-20 shadow-sm border border-slate-300 hover:border-red-300 cursor-pointer flex items-center justify-center"
+          style={{ touchAction: 'manipulation' }}
+          className="absolute top-3 right-3 p-2 rounded-full bg-slate-100 text-slate-700 hover:bg-red-100 hover:text-red-600 active:scale-95 transition-all z-20 shadow-sm border border-slate-300 hover:border-red-300 cursor-pointer flex items-center justify-center"
           aria-label="Close promotion dialog"
         >
           <X size={17} strokeWidth={3} />
@@ -147,10 +149,11 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
           {/* Eye-Catching Bold 24K Golden Instant Discount Banner with Strong Golden Glow Border */}
           <div
             onClick={handleClaim}
-            className="popup-discount-highlight rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center gap-1.5 relative overflow-hidden cursor-pointer select-none border-[3px] border-amber-300"
             style={{
+              touchAction: 'manipulation',
               background: 'linear-gradient(135deg, #92400E 0%, #B45309 25%, #D97706 60%, #B45309 100%)',
             }}
+            className="popup-discount-highlight rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center gap-1.5 relative overflow-hidden cursor-pointer select-none border-[3px] border-amber-300"
           >
             {/* Animated Shimmer Light Sweep */}
             <span
@@ -216,7 +219,8 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
             <button
               type="button"
               onClick={onClose}
-              className="w-full hover:bg-slate-50 text-husk/50 hover:text-husk font-bold text-[11px] py-1 rounded-lg transition-all cursor-pointer text-center"
+              style={{ touchAction: 'manipulation' }}
+              className="w-full hover:bg-slate-50 active:scale-98 text-husk/50 hover:text-husk font-bold text-[11px] py-1 rounded-lg transition-all cursor-pointer text-center"
             >
               Maybe Later
             </button>
