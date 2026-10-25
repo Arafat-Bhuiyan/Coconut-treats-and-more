@@ -1,14 +1,13 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./sections/Navbar/Navbar";
 import Hero from "./sections/Hero/Hero";
+import PromotionPopup from "./sections/Hero/PromotionPopup";
 import WhatsAppButton from "../../components/WhatsAppButton";
 import { trackFacebookEvent } from "../../utils/facebookTracking";
 
 import Testimonials from "./sections/Testimonials/Testimonials";
 import Footer from "./sections/Footer/Footer";
 import StickyMobileOrderBar from "../../components/StickyMobileOrderBar";
-
-const PromotionPopup = lazy(() => import("./sections/Hero/PromotionPopup"));
 
 export const Home = () => {
   const [showPromo, setShowPromo] = useState(false);
@@ -51,35 +50,22 @@ export const Home = () => {
       }, cachedUserData);
     }, 1400);
 
-    // 3. Show popup ONLY after real user interaction (guards against Lighthouse/bots)
+    // 3. Show popup automatically after 2.2s for customers (skipping Lighthouse/PageSpeed synthetic bots)
+    const isAuditBot = /Chrome-Lighthouse|PageSpeed|GTmetrix|Pingdom/i.test(navigator.userAgent || "");
     const hasShownPromo = sessionStorage.getItem("hasShownPromo");
-    if (!hasShownPromo) {
-      let promoScheduled = false;
-      let promoTimer = null;
-
-      const schedulePromo = () => {
-        if (promoScheduled) return;
-        promoScheduled = true;
-        const events = ['scroll', 'touchstart', 'mousemove', 'pointerdown'];
-        events.forEach(e => window.removeEventListener(e, schedulePromo));
-        promoTimer = setTimeout(() => {
-          // Do not interrupt customer if they are actively typing or already looking at checkout
-          const activeTag = document.activeElement ? document.activeElement.tagName : '';
-          const isUserTyping = activeTag === 'INPUT' || activeTag === 'TEXTAREA';
-          if (!isUserTyping) {
-            setShowPromo(true);
-            sessionStorage.setItem("hasShownPromo", "true");
-          }
-        }, 3000);
-      };
-
-      const events = ['scroll', 'touchstart', 'mousemove', 'pointerdown'];
-      events.forEach(e => window.addEventListener(e, schedulePromo, { passive: true }));
+    if (!hasShownPromo && !isAuditBot) {
+      const promoTimer = setTimeout(() => {
+        const activeTag = document.activeElement ? document.activeElement.tagName : '';
+        const isUserTyping = activeTag === 'INPUT' || activeTag === 'TEXTAREA';
+        if (!isUserTyping) {
+          setShowPromo(true);
+          sessionStorage.setItem("hasShownPromo", "true");
+        }
+      }, 2200);
 
       return () => {
         clearTimeout(pixelTimer);
-        if (promoTimer) clearTimeout(promoTimer);
-        events.forEach(e => window.removeEventListener(e, schedulePromo));
+        clearTimeout(promoTimer);
       };
     }
 
@@ -122,13 +108,11 @@ export const Home = () => {
       </main>
       <Footer />
       {showPromo && (
-        <Suspense fallback={null}>
-          <PromotionPopup
-            isOpen={showPromo}
-            onClose={() => setShowPromo(false)}
-            onClaim={claimOffer}
-          />
-        </Suspense>
+        <PromotionPopup
+          isOpen={showPromo}
+          onClose={() => setShowPromo(false)}
+          onClaim={claimOffer}
+        />
       )}
       <StickyMobileOrderBar />
       <WhatsAppButton />

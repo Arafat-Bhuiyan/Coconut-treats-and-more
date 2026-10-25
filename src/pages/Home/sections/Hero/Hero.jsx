@@ -971,7 +971,7 @@ const Hero = () => {
                     id="gift-option-checkbox"
                     name="gift-option-checkbox"
                     checked={isGift}
-                    readOnly
+                    onChange={() => setIsGift((prev) => !prev)}
                     className="sr-only"
                     tabIndex={-1}
                   />
@@ -1011,6 +1011,7 @@ const Hero = () => {
                               e.stopPropagation();
                               setGiftMessage(preset);
                             }}
+                            style={{ touchAction: 'manipulation' }}
                             className="text-[10px] sm:text-[11px] font-bold bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-lg transition-all cursor-pointer active:scale-95 shadow-2xs"
                           >
                             {preset}

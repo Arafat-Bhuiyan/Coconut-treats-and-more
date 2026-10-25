@@ -37,6 +37,7 @@ const Navbar = () => {
                             e.preventDefault();
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                         }}
+                        style={{ touchAction: 'manipulation' }}
                         className="text-base sm:text-xl md:text-2xl font-extrabold text-primary tracking-tight cursor-pointer no-underline select-none whitespace-nowrap"
                     >
                         Coconut <span className="text-secondary font-extrabold">Treats &amp; More</span>
@@ -58,7 +59,8 @@ const Navbar = () => {
                                     document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                                 }
                             }}
-                            className="hover:text-primary transition-colors cursor-pointer"
+                            style={{ touchAction: 'manipulation' }}
+                            className="hover:text-primary transition-colors cursor-pointer select-none"
                         >
                             {link.name}
                         </a>
