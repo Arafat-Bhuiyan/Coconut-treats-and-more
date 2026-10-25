@@ -53,11 +53,22 @@ export const Home = () => {
     // 3. Show popup automatically after 2.2s for customers (skipping Lighthouse/PageSpeed synthetic bots)
     const isAuditBot = /Chrome-Lighthouse|PageSpeed|GTmetrix|Pingdom/i.test(navigator.userAgent || "");
     const hasShownPromo = sessionStorage.getItem("hasShownPromo");
+    const handleClosePromo = () => setShowPromo(false);
+    window.addEventListener("close-promo-popup", handleClosePromo);
+
     if (!hasShownPromo && !isAuditBot) {
       const promoTimer = setTimeout(() => {
         const activeTag = document.activeElement ? document.activeElement.tagName : '';
         const isUserTyping = activeTag === 'INPUT' || activeTag === 'TEXTAREA';
-        if (!isUserTyping) {
+        const checkoutEl = document.getElementById("order-form-details");
+        const isAtCheckout = checkoutEl
+          ? checkoutEl.getBoundingClientRect().top < window.innerHeight * 0.55
+          : false;
+        const isInteractWithCheckout = checkoutEl && document.activeElement
+          ? checkoutEl.contains(document.activeElement)
+          : false;
+
+        if (!isUserTyping && !isAtCheckout && !isInteractWithCheckout) {
           setShowPromo(true);
           sessionStorage.setItem("hasShownPromo", "true");
         }
@@ -66,10 +77,14 @@ export const Home = () => {
       return () => {
         clearTimeout(pixelTimer);
         clearTimeout(promoTimer);
+        window.removeEventListener("close-promo-popup", handleClosePromo);
       };
     }
 
-    return () => clearTimeout(pixelTimer);
+    return () => {
+      clearTimeout(pixelTimer);
+      window.removeEventListener("close-promo-popup", handleClosePromo);
+    };
   }, []);
 
   const claimOffer = (e) => {

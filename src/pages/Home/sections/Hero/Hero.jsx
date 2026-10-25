@@ -263,6 +263,7 @@ const Hero = () => {
     if (e && typeof e.preventDefault === 'function') {
       e.preventDefault();
     }
+    window.dispatchEvent(new CustomEvent("close-promo-popup"));
     if (submittingRef.current) return;
     submittingRef.current = true;
 
