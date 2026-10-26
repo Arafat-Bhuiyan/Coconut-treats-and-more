@@ -280,15 +280,27 @@ const Hero = () => {
     const rawEmail = (formData.email || domEmail).trim();
     const rawNote = (formData.note || domNote).trim();
 
+    const scrollAndFocusField = (fieldId) => {
+      const el = document.getElementById(fieldId);
+      if (el) {
+        const navOffset = 110;
+        const targetY = el.getBoundingClientRect().top + window.pageYOffset - navOffset;
+        window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+        setTimeout(() => {
+          try {
+            el.focus({ preventScroll: true });
+          } catch {
+            el.focus();
+          }
+        }, 250);
+      }
+    };
+
     // Phone validation
     if (!rawPhone) {
       submittingRef.current = false;
       setFormError("দয়া করে আপনার মোবাইল নম্বর লিখুন।");
-      const phoneInput = document.getElementById("customer-phone");
-      if (phoneInput) {
-        phoneInput.scrollIntoView({ behavior: "smooth", block: "center" });
-        phoneInput.focus();
-      }
+      scrollAndFocusField("customer-phone");
       return;
     }
 
@@ -306,11 +318,7 @@ const Hero = () => {
     if (!isValidBDPhone) {
       submittingRef.current = false;
       setFormError("দয়া করে একটি সঠিক ১১ ডিজিটের মোবাইল নম্বর লিখুন (যেমন: 01XXXXXXXXX)।");
-      const phoneInput = document.getElementById("customer-phone");
-      if (phoneInput) {
-        phoneInput.scrollIntoView({ behavior: "smooth", block: "center" });
-        phoneInput.focus();
-      }
+      scrollAndFocusField("customer-phone");
       return;
     }
 
@@ -318,11 +326,7 @@ const Hero = () => {
     if (!rawAddress) {
       submittingRef.current = false;
       setFormError("দয়া করে আপনার সম্পূর্ণ ঠিকানা (রোড, বাড়ি, ফ্ল্যাট নম্বর) লিখুন।");
-      const addressInput = document.getElementById("customer-address");
-      if (addressInput) {
-        addressInput.scrollIntoView({ behavior: "smooth", block: "center" });
-        addressInput.focus();
-      }
+      scrollAndFocusField("customer-address");
       return;
     }
 
@@ -331,18 +335,7 @@ const Hero = () => {
     if (restrictedMatch) {
       submittingRef.current = false;
       setFormError(`🚫 দুঃখিত! এই অর্ডার আপনার ঠিকানায় (${restrictedMatch.displayText}) ডেলিভারি করা সম্ভব নয়। ফ্রেশ ডাবের পুডিং ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে (Dhaka City) সীমাবদ্ধ।`);
-      const addressInput = document.getElementById("customer-address");
-      if (addressInput) {
-        addressInput.scrollIntoView({ behavior: "smooth", block: "center" });
-        addressInput.focus();
-      }
-      return;
-    }
-
-    // Agreement validation
-    if (!formData.agree) {
-      submittingRef.current = false;
-      setFormError("অর্ডার নিশ্চিত করতে শর্তাবলীতে টিক চিহ্ন দিন।");
+      scrollAndFocusField("customer-address");
       return;
     }
 
@@ -890,32 +883,15 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* 2. SEND AS A GIFT OPTION (Smart, Eye-catching, Blinking Glow Box) */}
+                {/* 2. SEND AS A GIFT OPTION (100% Optional — Clearly Badged so Customers Never Think It Is Mandatory) */}
                 <div 
                   id="gift-card-box-container"
                   className={`relative z-10 rounded-2xl transition-all border-2 w-full overflow-hidden ${
                     isGift 
                       ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/80 to-[#FFF9ED] border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20" 
-                      : "bg-gradient-to-br from-[#FFFDF8] via-amber-50/60 to-[#FFF9EE] border-amber-400 hover:border-amber-500 shadow-sm"
+                      : "bg-[#FFFDF9] border-amber-300/90 hover:border-amber-400 shadow-xs"
                   }`}
-                  style={!isGift ? {
-                    animation: "giftBoxGlowBlink 2s ease-in-out infinite"
-                  } : undefined}
                 >
-                  <style>{`
-                    @keyframes giftBoxGlowBlink {
-                      0%, 100% {
-                        border-color: #f59e0b;
-                        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.45);
-                        background-color: #FFFDF8;
-                      }
-                      50% {
-                        border-color: #d97706;
-                        box-shadow: 0 0 16px 3px rgba(245, 158, 11, 0.35);
-                        background-color: #FFFBEB;
-                      }
-                    }
-                  `}</style>
                   {/* Subtle Golden Shimmer Accent Bar */}
                   <div className="h-1 w-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500" />
 
@@ -936,46 +912,39 @@ const Hero = () => {
                       className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all flex-shrink-0 mt-0.5 pointer-events-none ${
                         isGift 
                           ? "bg-[#4A6741] border-[#4A6741] text-white shadow-xs" 
-                          : "bg-white border-amber-400 hover:border-amber-500 shadow-xs"
+                          : "bg-white border-amber-400 shadow-xs"
                       }`}
                     >
                       {isGift && <Check size={14} strokeWidth={3.5} className="text-white" />}
                     </div>
 
                     <div className="flex-1 min-w-0 pointer-events-none">
-                      <div className="flex items-center justify-between gap-1.5">
+                      <div className="flex flex-wrap items-center justify-between gap-1.5">
                         <div className="flex items-center gap-1.5 min-w-0">
-                          <span className="text-lg sm:text-xl flex-shrink-0 inline-block animate-bounce" style={{ animationDuration: '2.5s' }}>🎁</span>
+                          <span className="text-lg sm:text-xl flex-shrink-0 inline-block">🎁</span>
                           <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight">
                             প্রিয়জনকে গিফট কার্ড পাঠাতে চান?
                           </span>
                         </div>
 
-                        {/* When checked, show subtle verified pill */}
-                        {isGift && (
-                          <span className="flex-shrink-0 flex items-center gap-1 text-[10px] sm:text-[11px] font-black px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-xs">
-                            ✓ যুক্ত হয়েছে
+                        {/* Clear Optional / Added Pill Badge so customers know it is 100% optional */}
+                        {isGift ? (
+                          <span className="flex-shrink-0 flex items-center gap-1 text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-xs">
+                            ✓ যুক্ত হয়েছে (+৳১০০)
+                          </span>
+                        ) : (
+                          <span className="flex-shrink-0 text-[10px] sm:text-[10.5px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100/80 text-amber-900 border border-amber-300/80">
+                            ঐচ্ছিক (Optional) • +৳১০০
                           </span>
                         )}
                       </div>
 
-                      {/* Sleek Emotional Subtitle */}
-                      <p className="text-[11px] sm:text-[11.5px] text-amber-900/80 font-medium mt-1 leading-snug">
-                        আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব।
+                      {/* Sleek Emotional Subtitle with explicit skip reassurance */}
+                      <p className="text-[11px] sm:text-[11.5px] text-amber-900/85 font-medium mt-1 leading-snug">
+                        আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব। <span className="font-bold text-[#4A6741]">(গিফট কার্ড না চাইলে এটিতে ক্লিক করার প্রয়োজন নেই)</span>
                       </p>
                     </div>
                   </button>
-
-                  {/* Hidden accessibility input keeping compatibility with automated checks */}
-                  <input
-                    type="checkbox"
-                    id="gift-option-checkbox"
-                    name="gift-option-checkbox"
-                    checked={isGift}
-                    onChange={() => setIsGift((prev) => !prev)}
-                    className="sr-only"
-                    tabIndex={-1}
-                  />
 
                   {/* Expanded Section: completely outside the button, so inputs and buttons never interfere! */}
                   {isGift && (
@@ -1353,19 +1322,12 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* Terms Agreement Checkbox */}
-                <div className="flex items-start gap-2.5 pt-0.5">
-                  <input
-                    type="checkbox"
-                    id="terms-agree"
-                    name="agree"
-                    checked={formData.agree}
-                    onChange={handleInputChange}
-                    className="w-4 h-4 mt-0.5 accent-[#4A6741] rounded cursor-pointer"
-                  />
-                  <label htmlFor="terms-agree" className="text-xs font-bold text-gray-700 cursor-pointer select-none leading-snug">
-                    I confirm that my information is correct and I agree to the <span className="text-[#4A6741] underline">Terms</span>.
-                  </label>
+                {/* Reassurance Confirmation Line (Always Active — Never Blocks Customer Orders) */}
+                <div className="flex items-center gap-2 pt-0.5 px-1">
+                  <CheckCircle size={15} className="text-[#4A6741] flex-shrink-0" />
+                  <span className="text-xs font-bold text-gray-700 select-none leading-snug">
+                    ১০০% ফ্রেশ হোমমেইড পুডিং • ক্যাশ অন ডেলিভারি সুবিধা <span className="text-[#4A6741] font-extrabold">(ঢাকা সিটি)</span>
+                  </span>
                 </div>
 
                 {/* Form Error Banner */}
