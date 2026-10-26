@@ -22,11 +22,11 @@ export const OUTSIDE_DHAKA_DIVISIONS = [
       // মুন্সিগঞ্জ
       "munshiganj", "munshigonj", "মুন্সিগঞ্জ", "মুন্সীগঞ্জ", "sreenagar", "শ্রীনগর", "sirajdikhan", "সিরাজদিখান", "gajaria", "গজারিয়া", "গজারিয়া", "louhajang", "লৌহজং", "tongibari", "টঙ্গীবাড়ি", "টঙ্গীবাড়ি",
       // গাজীপুর ও টঙ্গী
-      "gazipur", "গাজীপুর", "chourasta", "চৌরাস্তা", "joydebpur", "জয়দেবপুর", "জয়দেবপুর", "kaliakair", "কালিয়াকৈর", "কালিয়াকৈর", "sreepur", "শ্রীপুর", "kapasia", "কাপাসিয়া", "কাপাসিয়া", "konabari", "কোনাবাড়ী", "কোনাবাড়ী", "boardbazar", "বোর্ডবাজার", "tongi", "টঙ্গী", "টঙ্গি",
+      "gazipur", "গাজীপুর", "joydebpur", "জয়দেবপুর", "জয়দেবপুর", "kaliakair", "কালিয়াকৈর", "কালিয়াকৈর", "sreepur", "শ্রীপুর", "kapasia", "কাপাসিয়া", "কাপাসিয়া", "konabari", "কোনাবাড়ী", "কোনাবাড়ী", "boardbazar", "বোর্ডবাজার", "tongi", "টঙ্গী", "টঙ্গি",
       // মানিকগঞ্জ
       "manikganj", "manikgonj", "মানিকগঞ্জ", "singair", "সিংগাইর", "saturia", "সাটুরিয়া", "সাটুরিয়া", "shibalaya", "শিবালয়", "shibaloy", "harirampur", "হরিরামপুর", "ghior", "ঘিওর", "daulatpur", "দৌলতপুর",
       // নরসিংদী
-      "narsingdi", "নরসিংদী", "belabo", "বেলাবো", "monohardi", "মনোহরদী", "palash", "পলাশ", "raipura", "রায়পুরা", "রায়পুরা", "shibpur", "শিবপুর",
+      "narsingdi", "নরসিংদী", "belabo", "বেলাবো", "monohardi", "মনোহরদী", "raipura", "রায়পুরা", "রায়পুরা", "shibpur", "শিবপুর",
       // সাভার, আশুলিয়া, কেরানীগঞ্জ
       "savar", "সাভার", "ashulia", "আশুলিয়া", "আশুলিয়া", "keraniganj", "keranigonj", "কেরানীগঞ্জ", "কেরানিগঞ্জ"
     ]
@@ -183,6 +183,8 @@ export const OUTSIDE_DHAKA_DIVISIONS = [
 
 export const DHAKA_SAFE_PHRASES = [
   "tongi diversion", "টঙ্গী ডাইভারশন", "টঙ্গি ডাইভারশন",
+  "sonargaon janapath", "sonargaon road", "hotel sonargaon", "pan pacific sonargaon", "সোনারগাঁও জনপথ", "সোনারগাঁও রোড", "হোটেল সোনারগাঁও",
+  "nawabganj road", "nawabganj lane", "nawabganj park", "নবাবগঞ্জ রোড", "নবাবগঞ্জ লেন", "লালবাগ নবাবগঞ্জ",
   "mymensingh road", "mymensingh lane", "ময়মনসিংহ রোড", "ময়মনসিংহ রোড",
   "comilla para", "কুমিল্লা পাড়া", "কুমিল্লা পাড়া",
   "noakhali tower", "নোয়াখালী টাওয়ার", "নোয়াখালী টাওয়ার",

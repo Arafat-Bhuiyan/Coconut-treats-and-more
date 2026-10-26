@@ -10,7 +10,6 @@
 // Server-side in-memory cache to prevent accidental double-tap order submissions within 3 seconds
 const recentOrdersCache = new Map();
 const DEDUPLICATION_WINDOW_MS = 3000; // 3 seconds double-tap guard (allows consecutive/concurrent orders freely)
-let quotaCache = { datePrefix: "", coconutEmailsUsed: 0, totalOrders: 0, fetchedAt: 0 };
 
 function cleanupExpiredOrders() {
   const now = Date.now();
@@ -96,9 +95,9 @@ export default async function handler(req, res) {
       // ঢাকা সংলগ্ন (কাছাকাছি) জেলা ও শহর
       "narayanganj", "narayangonj", "নারায়ণগঞ্জ", "নারায়ণগঞ্জ", "fatullah", "ফতুল্লা", "chasara", "চাষাড়া", "চাষাড়া", "siddhirganj", "সিদ্ধিরগঞ্জ", "sonargaon", "সোনারগাঁও", "kanchpur", "কাঁচপুর", "araihazar", "আড়াইহাজার", "রূপগঞ্জ", "rupganj",
       "munshiganj", "munshigonj", "মুন্সিগঞ্জ", "মুন্সীগঞ্জ", "sreenagar", "শ্রীনগর", "sirajdikhan", "সিরাজদিখান", "gajaria", "গজারিয়া", "গজারিয়া", "louhajang", "লৌহজং", "tongibari", "টঙ্গীবাড়ি", "টঙ্গীবাড়ি",
-      "gazipur", "গাজীপুর", "chourasta", "চৌরাস্তা", "joydebpur", "জয়দেবপুর", "জয়দেবপুর", "kaliakair", "কালিয়াকৈর", "কালিয়াকৈর", "sreepur", "শ্রীপুর", "kapasia", "কাপাসিয়া", "কাপাসিয়া", "konabari", "কোনাবাড়ী", "কোনাবাড়ী", "boardbazar", "বোর্ডবাজার", "tongi", "টঙ্গী", "টঙ্গি",
+      "gazipur", "গাজীপুর", "joydebpur", "জয়দেবপুর", "জয়দেবপুর", "kaliakair", "কালিয়াকৈর", "কালিয়াকৈর", "sreepur", "শ্রীপুর", "kapasia", "কাপাসিয়া", "কাপাসিয়া", "konabari", "কোনাবাড়ী", "কোনাবাড়ী", "boardbazar", "বোর্ডবাজার", "tongi", "টঙ্গী", "টঙ্গি",
       "manikganj", "manikgonj", "মানিকগঞ্জ", "singair", "সিংগাইর", "saturia", "সাটুরিয়া", "সাটুরিয়া", "shibalaya", "শিবালয়", "shibaloy", "harirampur", "হরিরামপুর", "ghior", "ঘিওর", "daulatpur", "দৌলতপুর",
-      "narsingdi", "নরসিংদী", "belabo", "বেলাবো", "monohardi", "মনোহরদী", "palash", "পলাশ", "raipura", "রায়পুরা", "রায়পুরা", "shibpur", "শিবপুর",
+      "narsingdi", "নরসিংদী", "belabo", "বেলাবো", "monohardi", "মনোহরদী", "raipura", "রায়পুরা", "রায়পুরা", "shibpur", "শিবপুর",
       "savar", "সাভার", "ashulia", "আশুলিয়া", "আশুলিয়া", "keraniganj", "keranigonj", "কেরানীগঞ্জ", "কেরানিগঞ্জ",
 
       // যাত্রাবাড়ী, ধোলাইপাড়, পোস্তগোলা, জুরাইন, শ্যামপুর, ডেমরা
@@ -161,6 +160,8 @@ export default async function handler(req, res) {
 
     const SAFE_DHAKA_ROADS = [
       "tongi diversion", "টঙ্গী ডাইভারশন", "টঙ্গি ডাইভারশন",
+      "sonargaon janapath", "sonargaon road", "hotel sonargaon", "pan pacific sonargaon", "সোনারগাঁও জনপথ", "সোনারগাঁও রোড", "হোটেল সোনারগাঁও",
+      "nawabganj road", "nawabganj lane", "nawabganj park", "নবাবগঞ্জ রোড", "নবাবগঞ্জ লেন", "লালবাগ নবাবগঞ্জ",
       "mymensingh road", "mymensingh lane", "ময়মনসিংহ রোড", "ময়মনসিংহ রোড",
       "comilla para", "কুমিল্লা পাড়া", "কুমিল্লা পাড়া",
       "noakhali tower", "নোয়াখালী টাওয়ার", "নোয়াখালী টাওয়ার",
@@ -169,7 +170,7 @@ export default async function handler(req, res) {
       "faridpur mansion", "ফরিদপুর ভবন"
     ];
 
-    let checkText = `${String(address).toLowerCase()} ${String(orderData?.Customer || '').toLowerCase()}`;
+    let checkText = String(address).toLowerCase();
     for (const safeRoad of SAFE_DHAKA_ROADS) {
       if (checkText.includes(safeRoad.toLowerCase())) {
         checkText = checkText.replace(new RegExp(safeRoad.toLowerCase(), "g"), " ");
@@ -219,109 +220,43 @@ export default async function handler(req, res) {
     orderData.Phone = phone;
     orderData.Address = address;
 
-    // 3-Tier Cascading Email Quota System (as requested by owner):
-    // Step 1: coconuttreatsmore@gmail.com (First 100 free emails/day + Main Google Sheet)
-    // Step 2: ongon51@gmail.com (Only when coconuttreatsmore@gmail.com quota is finished)
-    // Step 3: rehabbhuiyian1@gmail.com (Only when BOTH coconuttreatsmore & ongon51 quotas are finished)
+    // Multi-Account Apps Script endpoints:
+    // 1. Coconut Script (coconuttreatsmore@gmail.com) - Writes to Main Google Sheet (1N_ZIAnGtN9Zx-NL0ncPqH1GOCAKZBWhc7_j94y0-5rY) + sends email if quota available
+    // 2. Ongon Script (ongon51@gmail.com) - Sends instant order email to coconuttreatsmore@gmail.com, ongon51@gmail.com, rehabbhuiyian1@gmail.com
+    // 3. Rehab Script (rehabbhuiyian1@gmail.com) - Automatic backup email sender
     const COCONUT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbygtsftenbteNaL_IUxy1a82Yy8Jy__jAHeK26NRG0HUrH_jVnCMkAeOyITvQ-lzW9f/exec";
     const ONGON_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuVfOKjWHGjhJm4QK3vIshvLtLF8j9_U-1OM44RNsndXo7sj4Gasa_Ta1lDvALQVCm/exec";
     const REHAB_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFcI1b96QTUub4Nt3T0cDu4bRM7b6nU7vy5VhcaHr-DfrCWAEufiLH-99QmbKbvJZ8_A/exec";
-    const MAIN_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1N_ZIAnGtN9Zx-NL0ncPqH1GOCAKZBWhc7_j94y0-5rY/gviz/tq?tqx=out:csv";
 
-    // Check today's email usage from the main sheet (with 45s in-memory cache + 1.5s fast timeout so orders are ultra-fast)
-    let coconutEmailsUsedToday = 0;
-    let totalOrdersToday = 0;
-    try {
-      const nowBD = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Dhaka" }));
-      const dd = String(nowBD.getDate()).padStart(2, "0");
-      const mm = String(nowBD.getMonth() + 1).padStart(2, "0");
-      const yyyy = nowBD.getFullYear();
-      const todayPrefix = `"${dd}/${mm}/${yyyy}`;
+    const primaryScriptUrl = process.env.GOOGLE_SCRIPT_URL || ONGON_SCRIPT_URL;
+    const backupScriptUrl = process.env.BACKUP_GOOGLE_SCRIPT_URL || REHAB_SCRIPT_URL;
 
-      if (quotaCache.datePrefix === todayPrefix && Date.now() - quotaCache.fetchedAt < 45000) {
-        coconutEmailsUsedToday = quotaCache.coconutEmailsUsed;
-        totalOrdersToday = quotaCache.totalOrders;
-      } else {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 1500);
-        const sheetRes = await fetch(MAIN_SHEET_CSV_URL, { method: 'GET', signal: controller.signal });
-        clearTimeout(timeoutId);
-        if (sheetRes.ok) {
-          const csvText = await sheetRes.text();
-          const todayRows = csvText.split("\n").filter((line) => line.startsWith(todayPrefix));
-          totalOrdersToday = todayRows.length;
-          for (const row of todayRows) {
-            const cols = row.split('","');
-            const rowCustEmail = cols[3] || "";
-            coconutEmailsUsedToday += rowCustEmail.includes("@") ? 2 : 1;
-          }
-          quotaCache = {
-            datePrefix: todayPrefix,
-            coconutEmailsUsed: coconutEmailsUsedToday,
-            totalOrders: totalOrdersToday,
-            fetchedAt: Date.now()
-          };
-        }
-      }
-    } catch (quotaCheckErr) {
-      console.warn("Quota check fallback to default tier 1:", quotaCheckErr.message);
+    // Run both Coconut Script (Main Google Sheet + Tier 1 email) and Ongon Script (Multi-inbox guaranteed email) concurrently
+    const [primarySettled, coconutSettled] = await Promise.allSettled([
+      postToGoogleScriptWithRetry(primaryScriptUrl, orderData, 3),
+      postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, orderData, 3)
+    ]);
+
+    let forwardRes = primarySettled.status === 'fulfilled' ? primarySettled.value : { ok: false };
+    const coconutRes = coconutSettled.status === 'fulfilled' ? coconutSettled.value : { ok: false };
+
+    // If primary failed, failover to Rehab backup script
+    if (!forwardRes.ok && backupScriptUrl && backupScriptUrl !== primaryScriptUrl) {
+      console.warn("Primary script failed, failing over to backup script:", backupScriptUrl);
+      forwardRes = await postToGoogleScriptWithRetry(backupScriptUrl, orderData, 3);
     }
 
-    const thisOrderEmailCost = String(orderData.Email || "").includes("@") ? 2 : 1;
-    quotaCache.coconutEmailsUsed += thisOrderEmailCost;
-    quotaCache.totalOrders += 1;
-
-    // STEP 1: Always call coconuttreatsmore@gmail.com first (writes to Main Google Sheet + sends email if free quota < 98)
-    const coconutRes = await postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, orderData, 3);
-    const coconutHasFreeQuota =
-      coconutRes.ok &&
-      coconutRes.result?.emailSent !== false &&
-      coconutRes.result?.quotaExceeded !== true &&
-      coconutEmailsUsedToday + thisOrderEmailCost <= 98;
-
-    let activeEmailSender = "coconuttreatsmore@gmail.com";
-    let finalRes = coconutRes;
-
-    // STEP 2: Only if coconuttreatsmore@gmail.com has NO free email left (or failed), send via ongon51@gmail.com
-    if (!coconutHasFreeQuota) {
-      const ongonHasFreeQuota = totalOrdersToday <= 190;
-      if (ongonHasFreeQuota) {
-        console.log("coconuttreatsmore@gmail.com quota full/unavailable -> failing over to ongon51@gmail.com");
-        const ongonRes = await postToGoogleScriptWithRetry(ONGON_SCRIPT_URL, orderData, 3);
-        const ongonSentOk =
-          ongonRes.ok &&
-          ongonRes.result?.emailSent !== false &&
-          ongonRes.result?.quotaExceeded !== true;
-
-        if (ongonSentOk) {
-          activeEmailSender = "ongon51@gmail.com";
-          finalRes = ongonRes;
-        } else {
-          // STEP 3: Only if ongon51@gmail.com also has NO free email left (or failed), send via rehabbhuiyian1@gmail.com
-          console.log("ongon51@gmail.com quota full/unavailable -> failing over to rehabbhuiyian1@gmail.com");
-          activeEmailSender = "rehabbhuiyian1@gmail.com";
-          finalRes = await postToGoogleScriptWithRetry(REHAB_SCRIPT_URL, orderData, 3);
-        }
-      } else {
-        // STEP 3: Both coconuttreatsmore & ongon51 daily quotas reached -> send via rehabbhuiyian1@gmail.com
-        console.log("Tier 1 & Tier 2 quotas reached -> sending via rehabbhuiyian1@gmail.com");
-        activeEmailSender = "rehabbhuiyian1@gmail.com";
-        finalRes = await postToGoogleScriptWithRetry(REHAB_SCRIPT_URL, orderData, 3);
-      }
-    }
-
-    if (!finalRes.ok && !coconutRes.ok) {
-      console.error("All Google Apps Script endpoints failed:", finalRes.error || coconutRes.error);
+    if (!forwardRes.ok && !coconutRes.ok) {
+      console.error("All Google Apps Script endpoints failed:", forwardRes.error || coconutRes.error);
       return res.status(200).json({
         success: false,
-        message: finalRes.error || coconutRes.error
+        message: forwardRes.error || coconutRes.error
       });
     }
 
     return res.status(200).json({
       success: true,
-      emailSenderTier: activeEmailSender,
-      result: finalRes.result || coconutRes.result || { success: true }
+      result: forwardRes.result || coconutRes.result || { success: true }
     });
 
   } catch (error) {

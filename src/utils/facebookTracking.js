@@ -113,9 +113,30 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
   userData.zp = await sha256("1000");           // zip: Dhaka central postal code
   userData.country = await sha256("bd");        // country: bangladesh
 
-  // Retrieve Browser ID (_fbp) and Click ID (_fbc) cookies for perfect event matching
-  const fbp = getCookie('_fbp');
-  const fbc = getCookie('_fbc');
+  // Retrieve Browser ID (_fbp) and Click ID (_fbc) cookies (with URL ?fbclid= fallback for 100% Facebook Ad attribution)
+  let fbp = getCookie('_fbp');
+  let fbc = getCookie('_fbc');
+  if (typeof window !== "undefined") {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const fbclid = urlParams.get('fbclid');
+      if (fbclid && !fbc) {
+        fbc = `fb.1.${Date.now()}.${fbclid}`;
+        localStorage.setItem("cc_fbc", fbc);
+      } else if (!fbc) {
+        fbc = localStorage.getItem("cc_fbc") || null;
+      }
+      if (!fbp) {
+        fbp = localStorage.getItem("cc_fbp");
+        if (!fbp) {
+          fbp = `fb.1.${Date.now()}.${Math.floor(1000000000 + Math.random() * 9000000000)}`;
+          localStorage.setItem("cc_fbp", fbp);
+        }
+      }
+    } catch {
+      // Ignore storage/URL parsing errors
+    }
+  }
   if (fbp) userData.fbp = fbp;
   if (fbc) userData.fbc = fbc;
 

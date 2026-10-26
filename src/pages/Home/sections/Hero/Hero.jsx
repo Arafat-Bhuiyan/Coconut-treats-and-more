@@ -45,7 +45,7 @@ const Hero = () => {
   });
 
   const [hasSavedInfo, setHasSavedInfo] = useState(false);
-  const detectedRestrictedArea = checkRestrictedDeliveryArea(`${formData.address} ${formData.name}`);
+  const detectedRestrictedArea = checkRestrictedDeliveryArea(formData.address);
 
   // Detect saved customer info in localStorage so user can 1-tap "⚡ অটো ফিল" if desired without pre-dirtying inputs
   useEffect(() => {
@@ -331,7 +331,7 @@ const Hero = () => {
     }
 
     // Restricted delivery area validation (outside Dhaka divisions & areas)
-    const restrictedMatch = checkRestrictedDeliveryArea(`${rawAddress} ${rawName}`);
+    const restrictedMatch = checkRestrictedDeliveryArea(rawAddress);
     if (restrictedMatch) {
       submittingRef.current = false;
       setFormError(`🚫 দুঃখিত! এই অর্ডার আপনার ঠিকানায় (${restrictedMatch.displayText}) ডেলিভারি করা সম্ভব নয়। ফ্রেশ ডাবের পুডিং ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে (Dhaka City) সীমাবদ্ধ।`);
