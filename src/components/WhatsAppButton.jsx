@@ -35,8 +35,10 @@ const WhatsAppButton = () => {
         <div className="relative bg-white rounded-2xl shadow-2xl p-4 max-w-[230px] border border-gray-100 transition-all duration-300 transform origin-bottom-left pointer-events-auto opacity-100 translate-y-0 scale-100">
           {/* Close button */}
           <button
+            type="button"
             onClick={() => setShowTooltip(false)}
-            className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition-colors"
+            style={{ touchAction: 'manipulation' }}
+            className="absolute top-2 right-2 p-1 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
             aria-label="Close chat invitation"
           >
             <X size={14} />
@@ -73,7 +75,8 @@ const WhatsAppButton = () => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleContactClick}
-            className="block w-full bg-[#25D366] hover:bg-[#1ebe5d] text-white text-center font-bold text-sm py-2.5 rounded-xl transition-all"
+            style={{ touchAction: 'manipulation' }}
+            className="block w-full bg-[#25D366] hover:bg-[#1ebe5d] active:scale-98 text-white text-center font-bold text-sm py-2.5 rounded-xl transition-all select-none"
           >
             Start Chat →
           </a>

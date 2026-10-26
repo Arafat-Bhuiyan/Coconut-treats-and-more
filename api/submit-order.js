@@ -10,6 +10,7 @@
 // Server-side in-memory cache to prevent accidental double-tap order submissions within 3 seconds
 const recentOrdersCache = new Map();
 const DEDUPLICATION_WINDOW_MS = 3000; // 3 seconds double-tap guard (allows consecutive/concurrent orders freely)
+let quotaCache = { datePrefix: "", coconutEmailsUsed: 0, totalOrders: 0, fetchedAt: 0 };
 
 function cleanupExpiredOrders() {
   const now = Date.now();
@@ -227,25 +228,39 @@ export default async function handler(req, res) {
     const REHAB_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFcI1b96QTUub4Nt3T0cDu4bRM7b6nU7vy5VhcaHr-DfrCWAEufiLH-99QmbKbvJZ8_A/exec";
     const MAIN_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1N_ZIAnGtN9Zx-NL0ncPqH1GOCAKZBWhc7_j94y0-5rY/gviz/tq?tqx=out:csv";
 
-    // Check today's email usage from the main sheet so we know if coconuttreatsmore@gmail.com or ongon51@gmail.com quota is exhausted
+    // Check today's email usage from the main sheet (with 45s in-memory cache + 1.5s fast timeout so orders are ultra-fast)
     let coconutEmailsUsedToday = 0;
     let totalOrdersToday = 0;
     try {
-      const sheetRes = await fetch(MAIN_SHEET_CSV_URL, { method: 'GET' });
-      if (sheetRes.ok) {
-        const csvText = await sheetRes.text();
-        const nowBD = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Dhaka" }));
-        const dd = String(nowBD.getDate()).padStart(2, "0");
-        const mm = String(nowBD.getMonth() + 1).padStart(2, "0");
-        const yyyy = nowBD.getFullYear();
-        const todayPrefix = `"${dd}/${mm}/${yyyy}`;
-        const todayRows = csvText.split("\n").filter((line) => line.startsWith(todayPrefix));
-        totalOrdersToday = todayRows.length;
-        for (const row of todayRows) {
-          const cols = row.split('","');
-          const rowCustEmail = cols[3] || "";
-          // Each order uses 1 email for owner + 1 email if customer entered their email
-          coconutEmailsUsedToday += rowCustEmail.includes("@") ? 2 : 1;
+      const nowBD = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Dhaka" }));
+      const dd = String(nowBD.getDate()).padStart(2, "0");
+      const mm = String(nowBD.getMonth() + 1).padStart(2, "0");
+      const yyyy = nowBD.getFullYear();
+      const todayPrefix = `"${dd}/${mm}/${yyyy}`;
+
+      if (quotaCache.datePrefix === todayPrefix && Date.now() - quotaCache.fetchedAt < 45000) {
+        coconutEmailsUsedToday = quotaCache.coconutEmailsUsed;
+        totalOrdersToday = quotaCache.totalOrders;
+      } else {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1500);
+        const sheetRes = await fetch(MAIN_SHEET_CSV_URL, { method: 'GET', signal: controller.signal });
+        clearTimeout(timeoutId);
+        if (sheetRes.ok) {
+          const csvText = await sheetRes.text();
+          const todayRows = csvText.split("\n").filter((line) => line.startsWith(todayPrefix));
+          totalOrdersToday = todayRows.length;
+          for (const row of todayRows) {
+            const cols = row.split('","');
+            const rowCustEmail = cols[3] || "";
+            coconutEmailsUsedToday += rowCustEmail.includes("@") ? 2 : 1;
+          }
+          quotaCache = {
+            datePrefix: todayPrefix,
+            coconutEmailsUsed: coconutEmailsUsedToday,
+            totalOrders: totalOrdersToday,
+            fetchedAt: Date.now()
+          };
         }
       }
     } catch (quotaCheckErr) {
@@ -253,6 +268,8 @@ export default async function handler(req, res) {
     }
 
     const thisOrderEmailCost = String(orderData.Email || "").includes("@") ? 2 : 1;
+    quotaCache.coconutEmailsUsed += thisOrderEmailCost;
+    quotaCache.totalOrders += 1;
 
     // STEP 1: Always call coconuttreatsmore@gmail.com first (writes to Main Google Sheet + sends email if free quota < 98)
     const coconutRes = await postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, orderData, 3);
