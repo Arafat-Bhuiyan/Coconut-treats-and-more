@@ -218,43 +218,94 @@ export default async function handler(req, res) {
     orderData.Phone = phone;
     orderData.Address = address;
 
-    // Primary & Multi-Account Apps Script endpoints
-    // 1. Ongon Script (ongon51@gmail.com) - fresh 100 daily quota, notifies all accounts
-    const ONGON_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuVfOKjWHGjhJm4QK3vIshvLtLF8j9_U-1OM44RNsndXo7sj4Gasa_Ta1lDvALQVCm/exec";
-    // 2. Rehab Script (rehabbhuiyian1@gmail.com)
-    const REHAB_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFcI1b96QTUub4Nt3T0cDu4bRM7b6nU7vy5VhcaHr-DfrCWAEufiLH-99QmbKbvJZ8_A/exec";
-    // 3. Legacy Script (coconuttreatsmore@gmail.com)
+    // 3-Tier Cascading Email Quota System (as requested by owner):
+    // Step 1: coconuttreatsmore@gmail.com (First 100 free emails/day + Main Google Sheet)
+    // Step 2: ongon51@gmail.com (Only when coconuttreatsmore@gmail.com quota is finished)
+    // Step 3: rehabbhuiyian1@gmail.com (Only when BOTH coconuttreatsmore & ongon51 quotas are finished)
     const COCONUT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbygtsftenbteNaL_IUxy1a82Yy8Jy__jAHeK26NRG0HUrH_jVnCMkAeOyITvQ-lzW9f/exec";
+    const ONGON_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuVfOKjWHGjhJm4QK3vIshvLtLF8j9_U-1OM44RNsndXo7sj4Gasa_Ta1lDvALQVCm/exec";
+    const REHAB_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFcI1b96QTUub4Nt3T0cDu4bRM7b6nU7vy5VhcaHr-DfrCWAEufiLH-99QmbKbvJZ8_A/exec";
+    const MAIN_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1N_ZIAnGtN9Zx-NL0ncPqH1GOCAKZBWhc7_j94y0-5rY/gviz/tq?tqx=out:csv";
 
-    const primaryScriptUrl = process.env.GOOGLE_SCRIPT_URL || ONGON_SCRIPT_URL;
-    const backupScriptUrl = process.env.BACKUP_GOOGLE_SCRIPT_URL || REHAB_SCRIPT_URL;
-
-    // Run Primary Script (Ongon: sends fresh emails) and Main Sheet Script (Coconut: saves to 1N_ZIAnGtN9Zx-NL0ncPqH1GOCAKZBWhc7_j94y0-5rY) simultaneously via Promise.allSettled
-    // Awaiting both ensures Vercel never freezes before the main spreadsheet row is written!
-    const [primarySettled, coconutSettled] = await Promise.allSettled([
-      postToGoogleScriptWithRetry(primaryScriptUrl, orderData, 3),
-      postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, orderData, 3)
-    ]);
-
-    let forwardRes = primarySettled.status === 'fulfilled' ? primarySettled.value : { ok: false };
-    const coconutRes = coconutSettled.status === 'fulfilled' ? coconutSettled.value : { ok: false };
-
-    // If primary failed, try backup (Rehab script)
-    if (!forwardRes.ok && backupScriptUrl && backupScriptUrl !== primaryScriptUrl) {
-      console.warn("Primary script failed, failing over to backup script:", backupScriptUrl);
-      forwardRes = await postToGoogleScriptWithRetry(backupScriptUrl, orderData, 3);
+    // Check today's email usage from the main sheet so we know if coconuttreatsmore@gmail.com or ongon51@gmail.com quota is exhausted
+    let coconutEmailsUsedToday = 0;
+    let totalOrdersToday = 0;
+    try {
+      const sheetRes = await fetch(MAIN_SHEET_CSV_URL, { method: 'GET' });
+      if (sheetRes.ok) {
+        const csvText = await sheetRes.text();
+        const nowBD = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Dhaka" }));
+        const dd = String(nowBD.getDate()).padStart(2, "0");
+        const mm = String(nowBD.getMonth() + 1).padStart(2, "0");
+        const yyyy = nowBD.getFullYear();
+        const todayPrefix = `"${dd}/${mm}/${yyyy}`;
+        const todayRows = csvText.split("\n").filter((line) => line.startsWith(todayPrefix));
+        totalOrdersToday = todayRows.length;
+        for (const row of todayRows) {
+          const cols = row.split('","');
+          const rowCustEmail = cols[3] || "";
+          // Each order uses 1 email for owner + 1 email if customer entered their email
+          coconutEmailsUsedToday += rowCustEmail.includes("@") ? 2 : 1;
+        }
+      }
+    } catch (quotaCheckErr) {
+      console.warn("Quota check fallback to default tier 1:", quotaCheckErr.message);
     }
 
-    // Success if either primary (email) or coconut (sheet) succeeded
-    if (!forwardRes.ok && !coconutRes.ok) {
-      console.error("All Google Apps Script endpoints failed:", forwardRes.error || coconutRes.error);
+    const thisOrderEmailCost = String(orderData.Email || "").includes("@") ? 2 : 1;
+
+    // STEP 1: Always call coconuttreatsmore@gmail.com first (writes to Main Google Sheet + sends email if free quota < 98)
+    const coconutRes = await postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, orderData, 3);
+    const coconutHasFreeQuota =
+      coconutRes.ok &&
+      coconutRes.result?.emailSent !== false &&
+      coconutRes.result?.quotaExceeded !== true &&
+      coconutEmailsUsedToday + thisOrderEmailCost <= 98;
+
+    let activeEmailSender = "coconuttreatsmore@gmail.com";
+    let finalRes = coconutRes;
+
+    // STEP 2: Only if coconuttreatsmore@gmail.com has NO free email left (or failed), send via ongon51@gmail.com
+    if (!coconutHasFreeQuota) {
+      const ongonHasFreeQuota = totalOrdersToday <= 190;
+      if (ongonHasFreeQuota) {
+        console.log("coconuttreatsmore@gmail.com quota full/unavailable -> failing over to ongon51@gmail.com");
+        const ongonRes = await postToGoogleScriptWithRetry(ONGON_SCRIPT_URL, orderData, 3);
+        const ongonSentOk =
+          ongonRes.ok &&
+          ongonRes.result?.emailSent !== false &&
+          ongonRes.result?.quotaExceeded !== true;
+
+        if (ongonSentOk) {
+          activeEmailSender = "ongon51@gmail.com";
+          finalRes = ongonRes;
+        } else {
+          // STEP 3: Only if ongon51@gmail.com also has NO free email left (or failed), send via rehabbhuiyian1@gmail.com
+          console.log("ongon51@gmail.com quota full/unavailable -> failing over to rehabbhuiyian1@gmail.com");
+          activeEmailSender = "rehabbhuiyian1@gmail.com";
+          finalRes = await postToGoogleScriptWithRetry(REHAB_SCRIPT_URL, orderData, 3);
+        }
+      } else {
+        // STEP 3: Both coconuttreatsmore & ongon51 daily quotas reached -> send via rehabbhuiyian1@gmail.com
+        console.log("Tier 1 & Tier 2 quotas reached -> sending via rehabbhuiyian1@gmail.com");
+        activeEmailSender = "rehabbhuiyian1@gmail.com";
+        finalRes = await postToGoogleScriptWithRetry(REHAB_SCRIPT_URL, orderData, 3);
+      }
+    }
+
+    if (!finalRes.ok && !coconutRes.ok) {
+      console.error("All Google Apps Script endpoints failed:", finalRes.error || coconutRes.error);
       return res.status(200).json({
         success: false,
-        message: forwardRes.error || coconutRes.error
+        message: finalRes.error || coconutRes.error
       });
     }
 
-    return res.status(200).json({ success: true, result: forwardRes.result || coconutRes.result || { success: true } });
+    return res.status(200).json({
+      success: true,
+      emailSenderTier: activeEmailSender,
+      result: finalRes.result || coconutRes.result || { success: true }
+    });
 
   } catch (error) {
     console.error("Google Apps Script serverless proxy failed:", error);
