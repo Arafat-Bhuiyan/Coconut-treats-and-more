@@ -12,6 +12,12 @@ const Navbar = () => {
     const scrollToOrder = (e) => {
         if (e && typeof e.preventDefault === 'function') e.preventDefault();
         setIsOpen(false);
+        window.dispatchEvent(new CustomEvent("close-promo-popup"));
+        try {
+            sessionStorage.setItem("hasShownPromo", "true");
+        } catch {
+            // ignore
+        }
         const orderEl = document.getElementById('order-form-details') || document.getElementById('order');
         if (orderEl) {
             const navOffset = 90;

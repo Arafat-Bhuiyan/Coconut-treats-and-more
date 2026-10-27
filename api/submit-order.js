@@ -167,7 +167,17 @@ export default async function handler(req, res) {
       "noakhali tower", "নোয়াখালী টাওয়ার", "নোয়াখালী টাওয়ার",
       "barisal plaza", "বরিশাল প্লাজা", "sylhet tower", "সিলেট টাওয়ার", "সিলেট টাওয়ার",
       "bogura bhaban", "বগুড়া ভবন", "বগুড়া ভবন", "rajshahi market", "রাজশাহী মার্কেট", "rangpur house", "রংপুর হাউস",
-      "faridpur mansion", "ফরিদপুর ভবন"
+      "faridpur mansion", "ফরিদপুর ভবন",
+      // Common building, colony, hotel and store names inside Dhaka
+      "chittagong colony", "chittagong building", "chittagong hotel", "chittagong store", "chittagong house",
+      "chattogram building", "chattogram store", "chattogram house",
+      "comilla building", "comilla store", "comilla hotel", "comilla house", "comilla bhaban",
+      "noakhali building", "noakhali store", "noakhali hotel", "noakhali house", "noakhali bhaban",
+      "barisal building", "barisal hotel", "barisal store", "barisal house", "barisal bhaban",
+      "sylhet building", "sylhet store", "sylhet hotel", "sylhet house",
+      "rajshahi building", "rajshahi house", "rajshahi store",
+      "bogura building", "bogra building", "bogura store", "bogra store",
+      "ময়মনসিংহ ভবন", "ময়মনসিংহ ভবন", "কুমিল্লা ভবন", "কুমিল্লা হোটেল", "নোয়াখালী ভবন", "বরিশাল ভবন", "সিলেট ভবন", "চট্টগ্রাম ভবন", "চট্টগ্রাম কলোনি"
     ];
 
     let checkText = String(address).toLowerCase();

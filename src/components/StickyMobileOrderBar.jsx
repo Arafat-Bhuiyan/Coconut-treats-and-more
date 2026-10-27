@@ -40,6 +40,12 @@ const StickyMobileOrderBar = ({ initialPkg = 2, initialTotal = "৳1,500" }) => 
   }, []);
 
   const handleScrollToForm = () => {
+    window.dispatchEvent(new CustomEvent("close-promo-popup"));
+    try {
+      sessionStorage.setItem("hasShownPromo", "true");
+    } catch {
+      // ignore
+    }
     const formSection = document.getElementById("order-form-details");
     if (formSection) {
       const navOffset = 90;

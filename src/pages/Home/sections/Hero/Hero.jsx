@@ -170,6 +170,13 @@ const Hero = () => {
     if (e && typeof e.preventDefault === 'function') {
       e.preventDefault();
     }
+    // Dismiss and prevent promo popup if customer explicitly clicks Order Now
+    window.dispatchEvent(new CustomEvent("close-promo-popup"));
+    try {
+      sessionStorage.setItem("hasShownPromo", "true");
+    } catch {
+      // ignore
+    }
     triggerInitiateCheckoutOnce();
     const formSection = document.getElementById("order-form-details");
     if (formSection) {
