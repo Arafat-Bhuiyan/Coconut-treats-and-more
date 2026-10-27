@@ -221,42 +221,52 @@ export default async function handler(req, res) {
     orderData.Address = address;
 
     // Multi-Account Apps Script endpoints:
-    // 1. Coconut Script (coconuttreatsmore@gmail.com) - Writes to Main Google Sheet (1N_ZIAnGtN9Zx-NL0ncPqH1GOCAKZBWhc7_j94y0-5rY) + sends email if quota available
-    // 2. Ongon Script (ongon51@gmail.com) - Sends instant order email to coconuttreatsmore@gmail.com, ongon51@gmail.com, rehabbhuiyian1@gmail.com
-    // 3. Rehab Script (rehabbhuiyian1@gmail.com) - Automatic backup email sender
+    // 1. Coconut Script (coconuttreatsmore@gmail.com) - Writes to Main Google Sheet (1N_ZIAnGtN9Zx-NL0ncPqH1GOCAKZBWhc7_j94y0-5rY) + sends primary email
+    // 2. Ongon Script (ongon51@gmail.com) - Backup email sender (only activates when Coconut quota runs out or fails)
+    // 3. Rehab Script (rehabbhuiyian1@gmail.com) - 3rd-tier backup email sender (activates if both Coconut and Ongon fail)
     const COCONUT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbygtsftenbteNaL_IUxy1a82Yy8Jy__jAHeK26NRG0HUrH_jVnCMkAeOyITvQ-lzW9f/exec";
     const ONGON_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuVfOKjWHGjhJm4QK3vIshvLtLF8j9_U-1OM44RNsndXo7sj4Gasa_Ta1lDvALQVCm/exec";
     const REHAB_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFcI1b96QTUub4Nt3T0cDu4bRM7b6nU7vy5VhcaHr-DfrCWAEufiLH-99QmbKbvJZ8_A/exec";
 
-    const primaryScriptUrl = process.env.GOOGLE_SCRIPT_URL || ONGON_SCRIPT_URL;
-    const backupScriptUrl = process.env.BACKUP_GOOGLE_SCRIPT_URL || REHAB_SCRIPT_URL;
+    // STEP 1: Always call main Coconut script first (writes to Google Sheet & sends primary email)
+    const coconutRes = await postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, orderData, 3);
 
-    // Run both Coconut Script (Main Google Sheet + Tier 1 email) and Ongon Script (Multi-inbox guaranteed email) concurrently
-    const [primarySettled, coconutSettled] = await Promise.allSettled([
-      postToGoogleScriptWithRetry(primaryScriptUrl, orderData, 3),
-      postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, orderData, 3)
-    ]);
+    const coconutEmailSucceeded =
+      coconutRes.ok &&
+      coconutRes.result?.emailSent !== false &&
+      coconutRes.result?.quotaExceeded !== true &&
+      !String(coconutRes.result?.error || '').toLowerCase().includes('quota') &&
+      !String(coconutRes.result?.message || '').toLowerCase().includes('quota');
 
-    let forwardRes = primarySettled.status === 'fulfilled' ? primarySettled.value : { ok: false };
-    const coconutRes = coconutSettled.status === 'fulfilled' ? coconutSettled.value : { ok: false };
+    let finalRes = coconutRes;
 
-    // If primary failed, failover to Rehab backup script
-    if (!forwardRes.ok && backupScriptUrl && backupScriptUrl !== primaryScriptUrl) {
-      console.warn("Primary script failed, failing over to backup script:", backupScriptUrl);
-      forwardRes = await postToGoogleScriptWithRetry(backupScriptUrl, orderData, 3);
+    // STEP 2: ONLY if main Coconut script email failed or quota exhausted, trigger Ongon backup script!
+    if (!coconutEmailSucceeded) {
+      console.warn("[Backup Triggered] coconuttreatsmore@gmail.com quota full/failed -> sending via ongon51@gmail.com");
+      const ongonRes = await postToGoogleScriptWithRetry(ONGON_SCRIPT_URL, orderData, 3);
+      if (ongonRes.ok) {
+        finalRes = ongonRes;
+      } else {
+        // STEP 3: If Ongon also fails or quota runs out, trigger Rehab backup script!
+        console.warn("[3rd-Tier Backup Triggered] ongon51@gmail.com failed -> sending via rehabbhuiyian1@gmail.com");
+        const rehabRes = await postToGoogleScriptWithRetry(REHAB_SCRIPT_URL, orderData, 3);
+        if (rehabRes.ok) {
+          finalRes = rehabRes;
+        }
+      }
     }
 
-    if (!forwardRes.ok && !coconutRes.ok) {
-      console.error("All Google Apps Script endpoints failed:", forwardRes.error || coconutRes.error);
+    if (!finalRes.ok && !coconutRes.ok) {
+      console.error("All Google Apps Script endpoints failed:", finalRes.error || coconutRes.error);
       return res.status(200).json({
         success: false,
-        message: forwardRes.error || coconutRes.error
+        message: finalRes.error || coconutRes.error
       });
     }
 
     return res.status(200).json({
       success: true,
-      result: forwardRes.result || coconutRes.result || { success: true }
+      result: finalRes.result || coconutRes.result || { success: true }
     });
 
   } catch (error) {
