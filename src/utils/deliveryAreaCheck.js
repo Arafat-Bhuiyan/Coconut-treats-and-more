@@ -31,7 +31,20 @@ export const OUTSIDE_DHAKA_DIVISIONS = [
       "savar", "সাভার", "ashulia", "আশুলিয়া", "আশুলিয়া", "keraniganj", "keranigonj", "কেরানীগঞ্জ", "কেরানিগঞ্জ"
     ]
   },
-  // ২. উত্তরাঞ্চল
+  // ২. যাত্রাবাড়ী, ডেমরা, জুরাইন, পোস্তগোলা, শ্যামপুর (যেখানে ডেলিভারি হয় না)
+  {
+    divisionBn: "যাত্রাবাড়ী-ডেমরা এলাকা (ডেলিভারি বন্ধ)",
+    divisionEn: "Jatrabari, Demra & Adjacent Areas (No Delivery)",
+    keywords: [
+      "jatrabari", "jattrabari", "যাত্রাবাড়ী", "যাত্রাবাড়ি",
+      "demra", "ডেমরা",
+      "jurain", "juraine", "জুরাইন",
+      "postogola", "postagola", "পোস্তগোলা",
+      "shyampur", "shampur", "শ্যামপুর",
+      "dholaipar", "dholaypar", "dholaiphar", "ধোলাইপাড়", "ধোলাইপাড়"
+    ]
+  },
+  // ৩. উত্তরাঞ্চল
   {
     divisionBn: "উত্তরাঞ্চল জেলা",
     divisionEn: "Northern Districts",
