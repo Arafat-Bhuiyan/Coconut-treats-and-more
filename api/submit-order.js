@@ -100,20 +100,12 @@ export default async function handler(req, res) {
       "narsingdi", "নরসিংদী", "belabo", "বেলাবো", "monohardi", "মনোহরদী", "raipura", "রায়পুরা", "রায়পুরা", "shibpur", "শিবপুর",
       "savar", "সাভার", "ashulia", "আশুলিয়া", "আশুলিয়া", "keraniganj", "keranigonj", "কেরানীগঞ্জ", "কেরানিগঞ্জ",
 
-      // যাত্রাবাড়ী, ধোলাইপাড়, পোস্তগোলা, জুরাইন, শ্যামপুর, ডেমরা
-      "jatrabari", "jattrabari", "যাত্রাবাড়ী", "যাত্রাবাড়ি",
-      "dholaipar", "dholaypar", "dholaiphar", "ধোলাইপাড়", "ধোলাইপাড়",
-      "postogola", "postagola", "পোস্তগোলা",
-      "jurain", "juraine", "জুরাইন",
-      "shyampur", "shampur", "শ্যামপুর",
-      "demra", "ডেমরা",
-
       // উত্তরাঞ্চল
       "tangail", "টাঙ্গাইল", "mirzapur", "মির্জাপুর", "delduar", "দেলদুয়ার", "দেলদুয়ার", "ghatail", "ঘাটাইল", "madhupur", "মধুপুর", "sakhipur", "সখিপুর", "kalihati", "কালিহাতী", "gopalpur", "গোপালপুর", "bhuapur", "ভূঞাপুর", "nagarpur", "নাগরপুর", "dhanbari", "ধনবাড়ী",
       "kishoreganj", "kishoregonj", "কিশোরগঞ্জ", "bhairab", "ভৈরব", "bajitpur", "বাজিতপুর", "hosenpur", "হোসেনপুর", "karimganj", "করিমগঞ্জ", "tarail", "তাড়াইল", "তাড়াইল", "katiadi", "কটিয়াদী", "কটিয়াদী", "kuliarchar", "কুলিয়ারচর", "pakundia", "পাকুন্দিয়া", "nikli", "নিকলী", "astagram", "অষ্টগ্রাম", "itna", "ইটনা", "mithamain", "মিঠামইন",
 
       // দক্ষিণাঞ্চল (পদ্মার ওপারে)
-      "faridpur", "ফরিদপুর", "bhanga", "ভাঙ্গা", "boalmari", "বোয়ালমারী", "বোয়ালমারী", "modhukhali", "মধুখালী", "nagarkanda", "নগরকান্দা", "alfadanga", "আলফাডাঙ্গা", "sadorpur", "সদরপুর", "charbhadrasan", "চরভদ্রাসন", "saltha", "সালথা",
+      "faridpur", "ফরিদপুর", "boalmari", "বোয়ালমারী", "বোয়ালমারী", "modhukhali", "মধুখালী", "nagarkanda", "নগরকান্দা", "alfadanga", "আলফাডাঙ্গা", "sadorpur", "সদরপুর", "charbhadrasan", "চরভদ্রাসন", "saltha", "সালথা",
       "madaripur", "মাদারীপুর", "মাদারিপুর", "shibchar", "শিবচর", "kalkini", "কালকিনি", "rajoir", "রাজৈর", "dashar", "ডাসার",
       "shariatpur", "শরীয়তপুর", "শরীয়তপুর", "naria", "নড়িয়া", "নড়িয়া", "zajira", "jajira", "জাজিরা", "bhedarganj", "ভেদরগঞ্জ", "damudya", "ডামুড্যা", "gosairhat", "গোসাইরহাট",
       "gopalganj", "gopalgonj", "গোপালগঞ্জ", "tungipara", "টুঙ্গিপাড়া", "টুঙ্গিপাড়া", "kotalipara", "কোটালীপাড়া", "কোটালীপাড়া", "kashiani", "কাশিয়ানী", "কাশিয়ানী", "muksudpur", "মুকসুদপুর",
@@ -130,7 +122,7 @@ export default async function handler(req, res) {
 
       // রাজশাহী বিভাগ (Rajshahi Division)
       "rajshahi", "রাজশাহী", "bogura", "bogra", "বগুড়া", "বগুড়া", "joypurhat", "জয়পুরহাট", "জয়পুরহাট",
-      "naogaon", "নওগাঁ", "natore", "নাটোর", "chapainawabganj", "nawabganj", "চাঁপাইনবাবগঞ্জ", "নবাবগঞ্জ",
+      "naogaon", "নওগাঁ", "natore", "নাটোর", "chapainawabganj", "চাঁপাইনবাবগঞ্জ",
       "pabna", "পাবনা", "sirajganj", "সিরাজগঞ্জ", "iswardi", "ishwardi", "ঈশ্বরদী",
 
       // খুলনা বিভাগ (Khulna Division)
@@ -193,10 +185,7 @@ export default async function handler(req, res) {
       return rx.test(checkText);
     });
     if (matchedRestrictedKey) {
-      return res.status(400).json({
-        success: false,
-        message: `দুঃখিত! এই অর্ডার আপনার ঠিকানায় (${matchedRestrictedKey}) ডেলিভারি করা সম্ভব নয়। ফ্রেশ ডাবের পুডিং ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে (Dhaka City) সীমাবদ্ধ।`
-      });
+      orderData.Note = (orderData.Note ? `${orderData.Note} | ` : '') + `[⚠️ এলাকা ঢাকা সিটির বাইরে/যাচাই প্রয়োজন: ${matchedRestrictedKey}]`;
     }
 
     // Clean phone number and build full order fingerprint (only blocks accidental double-taps of the exact same order within 3s)

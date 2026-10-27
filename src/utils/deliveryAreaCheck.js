@@ -31,20 +31,7 @@ export const OUTSIDE_DHAKA_DIVISIONS = [
       "savar", "সাভার", "ashulia", "আশুলিয়া", "আশুলিয়া", "keraniganj", "keranigonj", "কেরানীগঞ্জ", "কেরানিগঞ্জ"
     ]
   },
-  // ২. যাত্রাবাড়ী, ধোলাইপাড়, পোস্তগোলা, জুরাইন, শ্যামপুর, ডেমরা এলাকা
-  {
-    divisionBn: "যাত্রাবাড়ী-ডেমরা এলাকা",
-    divisionEn: "Jatrabari & Demra Area",
-    keywords: [
-      "jatrabari", "jattrabari", "যাত্রাবাড়ী", "যাত্রাবাড়ি",
-      "dholaipar", "dholaypar", "dholaiphar", "ধোলাইপাড়", "ধোলাইপাড়",
-      "postogola", "postagola", "পোস্তগোলা",
-      "jurain", "juraine", "জুরাইন",
-      "shyampur", "shampur", "শ্যামপুর",
-      "demra", "ডেমরা"
-    ]
-  },
-  // ৩. উত্তরাঞ্চল
+  // ২. উত্তরাঞ্চল
   {
     divisionBn: "উত্তরাঞ্চল জেলা",
     divisionEn: "Northern Districts",
@@ -61,7 +48,7 @@ export const OUTSIDE_DHAKA_DIVISIONS = [
     divisionEn: "Southern Districts (Across Padma)",
     keywords: [
       // ফরিদপুর
-      "faridpur", "ফরিদপুর", "bhanga", "ভাঙ্গা", "boalmari", "বোয়ালমারী", "বোয়ালমারী", "modhukhali", "মধুখালী", "nagarkanda", "nagar kanda", "নগরকান্দা", "alfadanga", "আলফাডাঙ্গা", "sadorpur", "সদরপুর", "charbhadrasan", "চরভদ্রাসন", "saltha", "সালথা",
+      "faridpur", "ফরিদপুর", "boalmari", "বোয়ালমারী", "বোয়ালমারী", "modhukhali", "মধুখালী", "nagarkanda", "nagar kanda", "নগরকান্দা", "alfadanga", "আলফাডাঙ্গা", "sadorpur", "সদরপুর", "charbhadrasan", "চরভদ্রাসন", "saltha", "সালথা",
       // মাদারীপুর
       "madaripur", "মাদারীপুর", "মাদারিপুর", "shibchar", "শিবচর", "kalkini", "কালকিনি", "rajoir", "রাজৈর", "dashar", "ডাসার",
       // শরীয়তপুর
@@ -101,7 +88,7 @@ export const OUTSIDE_DHAKA_DIVISIONS = [
       "joypurhat", "জয়পুরহাট", "জয়পুরহাট",
       "naogaon", "নওগাঁ",
       "natore", "নাটোর",
-      "chapainawabganj", "nawabganj", "চাঁপাইনবাবগঞ্জ", "নবাবগঞ্জ",
+      "chapainawabganj", "চাঁপাইনবাবগঞ্জ",
       "pabna", "পাবনা",
       "sirajganj", "সিরাজগঞ্জ",
       "iswardi", "ishwardi", "ঈশ্বরদী"

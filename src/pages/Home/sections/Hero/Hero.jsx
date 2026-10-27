@@ -337,14 +337,11 @@ const Hero = () => {
       return;
     }
 
-    // Restricted delivery area validation (outside Dhaka divisions & areas)
+    // Check delivery area: if outside Dhaka, record it for admin verification without blocking customer orders
     const restrictedMatch = checkRestrictedDeliveryArea(rawAddress);
-    if (restrictedMatch) {
-      submittingRef.current = false;
-      setFormError(`🚫 দুঃখিত! এই অর্ডার আপনার ঠিকানায় (${restrictedMatch.displayText}) ডেলিভারি করা সম্ভব নয়। ফ্রেশ ডাবের পুডিং ডেলিভারি শুধুমাত্র ঢাকা সিটির ভেতরে (Dhaka City) সীমাবদ্ধ।`);
-      scrollAndFocusField("customer-address");
-      return;
-    }
+    const outsideDhakaNote = restrictedMatch
+      ? ` | [⚠️ এলাকা ঢাকা সিটির বাইরে/যাচাই প্রয়োজন: ${restrictedMatch.displayText}]`
+      : "";
 
     // Client-side double-tap guard (only blocks accidental double-tap within 2.5s for exact same order)
     const now = Date.now();
@@ -375,7 +372,7 @@ const Hero = () => {
     const giftNote = isGift
       ? ` | [🎁 GIFT CARD (+৳100) - Card Note: "${giftMessage.trim() || "শুভেচ্ছা রইলো"}"]`
       : "";
-    const combinedNote = `${formattedPaymentNote}${giftNote}`;
+    const combinedNote = `${formattedPaymentNote}${giftNote}${outsideDhakaNote}`;
 
     const emailPayload = {
       subject: `New Order${isGift ? " 🎁 [GIFT CARD +৳100]" : ""}: ${customerName}`,
@@ -1248,42 +1245,21 @@ const Hero = () => {
                       onChange={handleInputChange}
                       placeholder="বাসা নম্বর, রোড নম্বর, ফ্ল্যাট নম্বর ও এলাকার নাম বিস্তারিত লিখুন"
                       style={{ touchAction: 'manipulation' }}
-                      className={`w-full bg-white border-2 rounded-xl px-3.5 py-2.5 text-base sm:text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-400 resize-none ${
-                        detectedRestrictedArea
-                          ? "border-red-500 focus:border-red-600 focus:ring-2 focus:ring-red-500/20 bg-red-50/20"
-                          : "border-gray-300 focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20"
-                      }`}
+                      className="w-full bg-white border-2 border-gray-300 focus:border-[#4A6741] focus:ring-2 focus:ring-[#4A6741]/20 rounded-xl px-3.5 py-2.5 text-base sm:text-sm font-bold text-gray-900 outline-none transition-all placeholder:text-gray-400 resize-none"
                     />
 
-                    {/* Real-time Restricted Delivery Area Alert (Shows instantly when outside Dhaka division/city entered) */}
+                    {/* Helpful Delivery Advisory (Non-blocking: customer can always submit!) */}
                     {detectedRestrictedArea && (
-                      <div className="bg-gradient-to-br from-red-50 via-rose-50 to-red-100/70 border-2 border-red-500 text-red-950 p-3 sm:p-4 rounded-2xl text-xs shadow-md mt-2 space-y-2 animate-fadeIn ring-2 ring-red-400/20">
-                        <div className="flex items-center gap-2 border-b border-red-200 pb-2">
-                          <span className="text-xl sm:text-2xl flex-shrink-0 animate-bounce">🚫</span>
-                          <div className="flex-1 min-w-0">
-                            <span className="font-black text-red-700 text-xs sm:text-sm block tracking-tight">
-                              এই এলাকায় ডেলিভারি সেবা উপলব্ধ নেই!
-                            </span>
-                            <span className="text-[10px] sm:text-[11px] font-bold text-red-600 block">
-                              Delivery Not Available to this Area
-                            </span>
-                          </div>
-                          <span className="text-[9.5px] sm:text-[11px] font-black bg-red-600 text-white px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full shadow-xs flex-shrink-0">
-                            {detectedRestrictedArea.divisionBn}
+                      <div className="bg-amber-50/90 border border-amber-300 text-amber-950 p-2.5 rounded-xl text-xs shadow-2xs mt-1.5 space-y-1 animate-fadeIn">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-sm">📍</span>
+                          <span className="font-bold text-amber-900 text-xs">
+                            এলাকা সংক্রান্ত তথ্য ({detectedRestrictedArea.divisionBn})
                           </span>
                         </div>
-
-                        <div className="space-y-1.5 pt-0.5">
-                          <p className="font-extrabold text-[#7A1C1C] text-xs sm:text-[13px] leading-snug">
-                            দুঃখিত! <strong>"{detectedRestrictedArea.matchedWord}"</strong> ({detectedRestrictedArea.divisionBn}) এলাকায় আমাদের ডেলিভারি দেওয়া সম্ভব নয়।
-                          </p>
-                          <p className="text-[11px] sm:text-xs text-gray-800 font-semibold leading-relaxed">
-                            ১০০% অর্গানিক তাজা ডাবের পুডিংয়ের সর্বোচ্চ স্বাদ ও তাজা গুণমান বজায় রাখতে ডেলিভারি সেবা <strong>শুধুমাত্র ঢাকা সিটির ভেতরে চালু আছে</strong> (ঢাকা সিটির বাইরে বা দূরবর্তী জেলাসমূহে ডেলিভারি নেই)।
-                          </p>
-                          <div className="bg-white/85 border border-red-200 rounded-xl px-2.5 py-1.5 text-[10px] sm:text-[11px] text-red-900 font-medium italic">
-                            Sorry! Delivery is available inside Dhaka City only. We currently do not offer delivery to {detectedRestrictedArea.displayText}.
-                          </div>
-                        </div>
+                        <p className="text-[11px] text-amber-900/85 leading-snug font-medium">
+                          আমাদের নিয়মিত ডেলিভারি সাধারণত ঢাকা সিটির ভেতরে চালু থাকে। আপনার ঠিকানায় সরাসরি ডেলিভারি বা কুরিয়ারে পৌঁছানো সম্ভব কিনা তা অর্ডার সাবমিটের পর আমাদের প্রতিনিধি ফোনে আপনাকে নিশ্চিত করবেন।
+                        </p>
                       </div>
                     )}
 
