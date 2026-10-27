@@ -883,123 +883,7 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* 2. SEND AS A GIFT OPTION (100% Optional — Clearly Badged so Customers Never Think It Is Mandatory) */}
-                <div 
-                  id="gift-card-box-container"
-                  className={`relative z-10 rounded-2xl transition-all border-2 w-full overflow-hidden ${
-                    isGift 
-                      ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/80 to-[#FFF9ED] border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20" 
-                      : "bg-[#FFFDF9] border-amber-300/90 hover:border-amber-400 shadow-xs"
-                  }`}
-                >
-                  {/* Subtle Golden Shimmer Accent Bar */}
-                  <div className="h-1 w-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500" />
-
-                  {/* Semantic Native Button - 100% Guaranteed cross-browser click & tap trigger */}
-                  <button
-                    type="button"
-                    id="gift-card-toggle-btn"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setIsGift((prev) => !prev);
-                    }}
-                    style={{ touchAction: 'manipulation' }}
-                    className="w-full p-3.5 sm:p-4 text-left flex items-start gap-3 cursor-pointer select-none bg-transparent border-0 outline-none transition-all active:scale-[0.99]"
-                    aria-pressed={isGift}
-                  >
-                    {/* Visual Checkbox Indicator */}
-                    <div 
-                      className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all flex-shrink-0 mt-0.5 pointer-events-none ${
-                        isGift 
-                          ? "bg-[#4A6741] border-[#4A6741] text-white shadow-xs" 
-                          : "bg-white border-amber-400 shadow-xs"
-                      }`}
-                    >
-                      {isGift && <Check size={14} strokeWidth={3.5} className="text-white" />}
-                    </div>
-
-                    <div className="flex-1 min-w-0 pointer-events-none">
-                      <div className="flex flex-wrap items-center justify-between gap-1.5">
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <span className="text-lg sm:text-xl flex-shrink-0 inline-block">🎁</span>
-                          <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight">
-                            প্রিয়জনকে গিফট কার্ড পাঠাতে চান?
-                          </span>
-                        </div>
-
-                        {/* Clear Optional / Added Pill Badge so customers know it is 100% optional */}
-                        {isGift ? (
-                          <span className="flex-shrink-0 flex items-center gap-1 text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-xs">
-                            ✓ যুক্ত হয়েছে (+৳১০০)
-                          </span>
-                        ) : (
-                          <span className="flex-shrink-0 text-[10px] sm:text-[10.5px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100/80 text-amber-900 border border-amber-300/80">
-                            ঐচ্ছিক (Optional) • +৳১০০
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Sleek Emotional Subtitle with explicit skip reassurance */}
-                      <p className="text-[11px] sm:text-[11.5px] text-amber-900/85 font-medium mt-1 leading-snug">
-                        আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব। <span className="font-bold text-[#4A6741]">(গিফট কার্ড না চাইলে এটিতে ক্লিক করার প্রয়োজন নেই)</span>
-                      </p>
-                    </div>
-                  </button>
-
-                  {/* Expanded Section: completely outside the button, so inputs and buttons never interfere! */}
-                  {isGift && (
-                    <div className="px-3.5 pb-3.5 sm:px-4 sm:pb-4 space-y-2.5 pt-2 border-t border-amber-200/80 animate-fade-in">
-                      <div className="space-y-1">
-                        <label htmlFor="gift-message-input" className="text-[11px] sm:text-xs font-black text-amber-950 flex items-center gap-1.5">
-                          <span>✍️</span>
-                          <span>কার্ডে আপনার শুভেচ্ছা বার্তা (Wish Note):</span>
-                        </label>
-                        <input
-                          id="gift-message-input"
-                          type="text"
-                          value={giftMessage}
-                          onChange={(e) => setGiftMessage(e.target.value)}
-                          placeholder="e.g. শুভ জন্মদিন প্রিয়! / সুস্থ থাকুন / অনেক ভালোবাসা রইলো..."
-                          className="w-full bg-white border border-amber-300 rounded-xl px-3 py-2 text-base sm:text-xs font-bold text-gray-900 outline-none focus:border-[#4A6741] placeholder:text-gray-400 shadow-inner"
-                          style={{ touchAction: 'manipulation' }}
-                        />
-                      </div>
-
-                      <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-                        <span className="text-[10px] sm:text-[11px] font-bold text-amber-900">কুইক উইশ:</span>
-                        {[
-                          "শুভ জন্মদিন! 🎂", 
-                          "দ্রুত সুস্থ হয়ে উঠুন 🌸", 
-                          "অনেক ভালোবাসা রইলো ❤️", 
-                          "উপহারটি গ্রহণ করুন 🎁"
-                        ].map((preset) => (
-                          <button
-                            key={preset}
-                            type="button"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setGiftMessage(preset);
-                            }}
-                            style={{ touchAction: 'manipulation' }}
-                            className="text-[10px] sm:text-[11px] font-bold bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-lg transition-all cursor-pointer active:scale-95 shadow-2xs"
-                          >
-                            {preset}
-                          </button>
-                        ))}
-                      </div>
-
-                      <div className="bg-amber-100/60 border border-amber-300/70 rounded-xl p-2 flex items-center gap-2">
-                        <span className="text-sm flex-shrink-0">💌</span>
-                        <p className="text-[10.5px] font-bold text-amber-950 leading-snug">
-                          আপনার মনের কথাটি প্রিমিয়াম শুভেচ্ছা কার্ডে লিখে উপহার বক্সের সাথে পৌঁছে দেওয়া হবে (চার্জ: ৳১০০)।
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* 3. PAYMENT METHOD SELECTOR */}
+                {/* 2. PAYMENT METHOD SELECTOR */}
                 <div className="space-y-2">
                   <span className="text-xs font-black uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
                     <Banknote size={15} className="text-[#4A6741]" />
@@ -1328,6 +1212,122 @@ const Hero = () => {
                   <span className="text-xs font-bold text-gray-700 select-none leading-snug">
                     ১০০% ফ্রেশ হোমমেইড পুডিং • ক্যাশ অন ডেলিভারি সুবিধা <span className="text-[#4A6741] font-extrabold">(ঢাকা সিটি)</span>
                   </span>
+                </div>
+
+                {/* SEND AS A GIFT OPTION (Placed right above CONFIRM ORDER button as requested in 2nd screenshot) */}
+                <div 
+                  id="gift-card-box-container"
+                  className={`relative z-10 rounded-2xl transition-all border-2 w-full overflow-hidden ${
+                    isGift 
+                      ? "bg-gradient-to-br from-[#FFFDF5] via-amber-50/80 to-[#FFF9ED] border-[#4A6741] shadow-md ring-2 ring-[#4A6741]/20" 
+                      : "bg-[#FFFDF9] border-amber-300/90 hover:border-amber-400 shadow-xs"
+                  }`}
+                >
+                  {/* Subtle Golden Shimmer Accent Bar */}
+                  <div className="h-1 w-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500" />
+
+                  {/* Semantic Native Button - 100% Guaranteed cross-browser click & tap trigger */}
+                  <button
+                    type="button"
+                    id="gift-card-toggle-btn"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsGift((prev) => !prev);
+                    }}
+                    style={{ touchAction: 'manipulation' }}
+                    className="w-full p-3.5 sm:p-4 text-left flex items-start gap-3 cursor-pointer select-none bg-transparent border-0 outline-none transition-all active:scale-[0.99]"
+                    aria-pressed={isGift}
+                  >
+                    {/* Visual Checkbox Indicator */}
+                    <div 
+                      className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all flex-shrink-0 mt-0.5 pointer-events-none ${
+                        isGift 
+                          ? "bg-[#4A6741] border-[#4A6741] text-white shadow-xs" 
+                          : "bg-white border-amber-400 shadow-xs"
+                      }`}
+                    >
+                      {isGift && <Check size={14} strokeWidth={3.5} className="text-white" />}
+                    </div>
+
+                    <div className="flex-1 min-w-0 pointer-events-none">
+                      <div className="flex flex-wrap items-center justify-between gap-1.5">
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <span className="text-lg sm:text-xl flex-shrink-0 inline-block">🎁</span>
+                          <span className="text-xs sm:text-sm font-black text-amber-950 tracking-tight">
+                            প্রিয়জনকে গিফট কার্ড পাঠাতে চান?
+                          </span>
+                        </div>
+
+                        {/* Clear Optional / Added Pill Badge so customers know it is 100% optional */}
+                        {isGift ? (
+                          <span className="flex-shrink-0 flex items-center gap-1 text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-xs">
+                            ✓ যুক্ত হয়েছে (+৳১০০)
+                          </span>
+                        ) : (
+                          <span className="flex-shrink-0 text-[10px] sm:text-[10.5px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100/80 text-amber-900 border border-amber-300/80">
+                            ঐচ্ছিক (Optional) • +৳১০০
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Sleek Emotional Subtitle with explicit skip reassurance */}
+                      <p className="text-[11px] sm:text-[11.5px] text-amber-900/85 font-medium mt-1 leading-snug">
+                        আপনার মনের কথা বা wish লিখে দিন — আমরা তা প্রিমিয়াম কার্ডে লিখে উপহার বক্স সহ পৌঁছে দেব। <span className="font-bold text-[#4A6741]">(গিফট কার্ড না চাইলে এটিতে ক্লিক করার প্রয়োজন নেই)</span>
+                      </p>
+                    </div>
+                  </button>
+
+                  {/* Expanded Section: completely outside the button, so inputs and buttons never interfere! */}
+                  {isGift && (
+                    <div className="px-3.5 pb-3.5 sm:px-4 sm:pb-4 space-y-2.5 pt-2 border-t border-amber-200/80 animate-fade-in">
+                      <div className="space-y-1">
+                        <label htmlFor="gift-message-input" className="text-[11px] sm:text-xs font-black text-amber-950 flex items-center gap-1.5">
+                          <span>✍️</span>
+                          <span>কার্ডে আপনার শুভেচ্ছা বার্তা (Wish Note):</span>
+                        </label>
+                        <input
+                          id="gift-message-input"
+                          type="text"
+                          value={giftMessage}
+                          onChange={(e) => setGiftMessage(e.target.value)}
+                          placeholder="e.g. শুভ জন্মদিন প্রিয়! / সুস্থ থাকুন / অনেক ভালোবাসা রইলো..."
+                          className="w-full bg-white border border-amber-300 rounded-xl px-3 py-2 text-base sm:text-xs font-bold text-gray-900 outline-none focus:border-[#4A6741] placeholder:text-gray-400 shadow-inner"
+                          style={{ touchAction: 'manipulation' }}
+                        />
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                        <span className="text-[10px] sm:text-[11px] font-bold text-amber-900">কুইক উইশ:</span>
+                        {[
+                          "শুভ জন্মদিন! 🎂", 
+                          "দ্রুত সুস্থ হয়ে উঠুন 🌸", 
+                          "অনেক ভালোবাসা রইলো ❤️", 
+                          "উপহারটি গ্রহণ করুন 🎁"
+                        ].map((preset) => (
+                          <button
+                            key={preset}
+                            type="button"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setGiftMessage(preset);
+                            }}
+                            style={{ touchAction: 'manipulation' }}
+                            className="text-[10px] sm:text-[11px] font-bold bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-lg transition-all cursor-pointer active:scale-95 shadow-2xs"
+                          >
+                            {preset}
+                          </button>
+                        ))}
+                      </div>
+
+                      <div className="bg-amber-100/60 border border-amber-300/70 rounded-xl p-2 flex items-center gap-2">
+                        <span className="text-sm flex-shrink-0">💌</span>
+                        <p className="text-[10.5px] font-bold text-amber-950 leading-snug">
+                          আপনার মনের কথাটি প্রিমিয়াম শুভেচ্ছা কার্ডে লিখে উপহার বক্সের সাথে পৌঁছে দেওয়া হবে (চার্জ: ৳১০০)।
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Form Error Banner */}
