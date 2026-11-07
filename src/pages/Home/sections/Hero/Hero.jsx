@@ -341,7 +341,7 @@ const Hero = () => {
     const restrictedMatch = checkRestrictedDeliveryArea(rawAddress);
     if (restrictedMatch) {
       submittingRef.current = false;
-      setFormError(`🚫 দুঃখিত! ${restrictedMatch.matchedWord} (${restrictedMatch.displayText}) এলাকায় আমাদের ডেলিভারি সেবা উপলব্ধ নেই। আমাদের ডেলিভারি শুধুমাত্র ধানমন্ডি, গুলশান, বনানী, উত্তরা, মিরপুর, মোহাম্মদপুরসহ ঢাকা সিটির মূল এলাকায় সীমাবদ্ধ।`);
+      setFormError(`🚫 দুঃখিত! ${restrictedMatch.matchedWord} (${restrictedMatch.displayText}) এলাকায় আমাদের ডেলিভারি সেবা উপলব্ধ নেই। আমাদের ডেলিভারি শুধুমাত্র ধানমন্ডি, গুলশান, বনানী, উত্তরা, মিরপুর, মোহাম্মদপুর, পুরান ঢাকাসহ ঢাকা সিটির মূল এলাকায় সীমাবদ্ধ।`);
       scrollAndFocusField("customer-address");
       return;
     }
@@ -1261,7 +1261,7 @@ const Hero = () => {
                           </span>
                         </div>
                         <p className="text-[11px] text-rose-900 leading-snug font-semibold">
-                          দুঃখিত! <strong>"{detectedRestrictedArea.matchedWord}"</strong> এলাকায় আমাদের ডেলিভারি সেবা চালু নেই। ফ্রেশ ডাবের পুডিং ডেলিভারি শুধুমাত্র ধানমন্ডি, গুলশান, বনানী, উত্তরা, মিরপুর, মোহাম্মদপুরসহ ঢাকা সিটির মূল এলাকায় সীমাবদ্ধ।
+                          দুঃখিত! <strong>"{detectedRestrictedArea.matchedWord}"</strong> এলাকায় আমাদের ডেলিভারি সেবা চালু নেই। ফ্রেশ ডাবের পুডিং ডেলিভারি শুধুমাত্র ধানমন্ডি, গুলশান, বনানী, উত্তরা, মিরপুর, মোহাম্মদপুর, পুরান ঢাকাসহ ঢাকা সিটির মূল এলাকায় সীমাবদ্ধ।
                         </p>
                       </div>
                     )}
