@@ -132,7 +132,7 @@ const Hero = () => {
   const offerPrice = 700;
   const unitPrice = selectedPkg >= 2 ? offerPrice : basePrice;
   const isFreeDelivery = selectedPkg >= 5;
-  const deliveryCharge = isFreeDelivery ? 0 : 100;
+  const deliveryCharge = isFreeDelivery ? 0 : 50;
   const giftCharge = isGift ? 100 : 0;
   const totalProductPrice = selectedPkg * unitPrice;
   const regularTotal = selectedPkg * basePrice;
@@ -965,11 +965,11 @@ const Hero = () => {
                           <span>ডেলিভারি চার্জ</span>
                           {isFreeDelivery ? (
                             <span className="text-emerald-600 font-bold flex items-center gap-1.5">
-                              <span className="line-through text-gray-400 font-normal">৳১০০</span>
+                              <span className="line-through text-gray-400 font-normal">৳৫০</span>
                               <span>ফ্রি (৳০)</span>
                             </span>
                           ) : (
-                            <span>৳১০০</span>
+                            <span>৳৫০</span>
                           )}
                         </div>
                       </>
