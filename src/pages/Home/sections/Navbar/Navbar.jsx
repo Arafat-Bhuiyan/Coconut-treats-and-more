@@ -33,7 +33,7 @@ const Navbar = () => {
             {/* Top Announcement Bar */}
             <div className="bg-[#4A6741] text-white text-center text-[10px] sm:text-xs font-black tracking-wider uppercase py-2 px-3 sm:px-4 flex items-center justify-center gap-2 shadow-sm">
                 <span>🚚</span>
-                <span>FREE DELIVERY ON 5+ BOXES! (DHAKA CITY)</span>
+                <span>FREE DELIVERY ON 2+ BOXES! (DHAKA CITY)</span>
             </div>
             <div className="container mx-auto px-3 sm:px-6 py-2 sm:py-3.5 flex items-center justify-between">
                 <div className="flex items-center gap-2 relative z-50 min-w-0">

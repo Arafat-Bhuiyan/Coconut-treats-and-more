@@ -127,16 +127,13 @@ const Hero = () => {
     return () => window.removeEventListener("set-order-quantity", handleSetQuantity);
   }, []);
 
-  // Pricing calculations (1 Box = ৳750, 2+ Boxes = ৳700/box with bulk discount, 5+ Boxes = Free Delivery)
+  // Pricing calculations (1 Box = ৳750 with ৳50 delivery, 2+ Boxes = ৳750/box with FREE DELIVERY)
   const basePrice = 750;
-  const offerPrice = 700;
-  const unitPrice = selectedPkg >= 2 ? offerPrice : basePrice;
-  const isFreeDelivery = selectedPkg >= 5;
+  const unitPrice = basePrice;
+  const isFreeDelivery = selectedPkg >= 2;
   const deliveryCharge = isFreeDelivery ? 0 : 50;
   const giftCharge = isGift ? 100 : 0;
   const totalProductPrice = selectedPkg * unitPrice;
-  const regularTotal = selectedPkg * basePrice;
-  const discountAmount = regularTotal - totalProductPrice;
   const grandTotalNumber = totalProductPrice + deliveryCharge + giftCharge;
   const grandTotal = `৳${grandTotalNumber.toLocaleString()}`;
   const boxCountLabel = `${selectedPkg} ${selectedPkg === 1 ? "Box" : "Boxes"} (${selectedPkg * 6} Cups)`;
@@ -901,7 +898,7 @@ const Hero = () => {
                                 content_name: "Premium Coconut Pudding (6pc Box)",
                                 content_ids: ["coconut-pudding-6pc"],
                                 content_type: "product",
-                                value: nextPkg * (nextPkg >= 2 ? offerPrice : basePrice),
+                                value: nextPkg * basePrice,
                                 num_items: nextPkg,
                                 currency: "BDT"
                               });
@@ -926,7 +923,7 @@ const Hero = () => {
                                 content_name: "Premium Coconut Pudding (6pc Box)",
                                 content_ids: ["coconut-pudding-6pc"],
                                 content_type: "product",
-                                value: nextPkg * (nextPkg >= 2 ? offerPrice : basePrice),
+                                value: nextPkg * basePrice,
                                 num_items: nextPkg,
                                 currency: "BDT"
                               });
@@ -946,45 +943,23 @@ const Hero = () => {
                   </div>
 
                   {/* Summary Totals Breakdown */}
-                  <div className="space-y-2 pt-0.5">
-                    {selectedPkg >= 2 ? (
-                      <>
-                        <div className="flex justify-between text-xs sm:text-sm font-bold text-gray-600 uppercase">
-                          <span>মূল দাম (REGULAR PRICE)</span>
-                          <span className="line-through text-gray-400 font-bold">
-                            ৳{regularTotal.toLocaleString()}
-                          </span>
-                        </div>
-                        <div className="flex justify-between text-xs sm:text-sm font-bold text-emerald-600 uppercase">
-                          <span className="flex items-center gap-1.5">
-                            <CheckCircle size={15} /> বাল্ক অফার ছাড় (DISCOUNT)
-                          </span>
-                          <span className="font-black">- ৳{discountAmount.toLocaleString()}</span>
-                        </div>
-                        <div className="flex justify-between text-xs sm:text-sm font-bold text-gray-600 uppercase">
-                          <span>ডেলিভারি চার্জ</span>
-                          {isFreeDelivery ? (
-                            <span className="text-emerald-600 font-bold flex items-center gap-1.5">
-                              <span className="line-through text-gray-400 font-normal">৳৫০</span>
-                              <span>ফ্রি (৳০)</span>
-                            </span>
-                          ) : (
-                            <span>৳৫০</span>
-                          )}
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="flex justify-between text-xs sm:text-sm font-bold text-gray-600 uppercase">
-                          <span>সাবটোটাল</span>
-                          <span>৳{totalProductPrice.toLocaleString()}</span>
-                        </div>
-                        <div className="flex justify-between text-xs sm:text-sm font-bold text-gray-600 uppercase">
-                          <span>ডেলিভারি চার্জ</span>
-                          <span>৳{deliveryCharge}</span>
-                        </div>
-                      </>
-                    )}
+                  <div className="space-y-2.5 pt-0.5">
+                    <div className="flex justify-between text-xs sm:text-sm font-bold text-gray-600 uppercase">
+                      <span>সাবটোটাল</span>
+                      <span className="font-bold text-[#1F291E]">৳{totalProductPrice.toLocaleString()}</span>
+                    </div>
+
+                    <div className="flex justify-between items-center text-xs sm:text-sm font-bold text-gray-700 uppercase">
+                      <span>ডেলিভারি চার্জ</span>
+                      {isFreeDelivery ? (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 font-black text-xs sm:text-sm shadow-xs">
+                          <span>🚚</span>
+                          <span>ফ্রি (FREE DELIVERY)</span>
+                        </span>
+                      ) : (
+                        <span className="font-bold text-[#1F291E]">৳{deliveryCharge}</span>
+                      )}
+                    </div>
 
                     {isGift && (
                       <div className="flex justify-between items-center text-xs sm:text-sm font-bold text-amber-900 uppercase bg-amber-50/90 px-2.5 py-1.5 rounded-xl border border-amber-300">

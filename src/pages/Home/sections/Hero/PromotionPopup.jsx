@@ -104,9 +104,9 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
               <div className="absolute top-0 right-0 bg-[#4A6741] text-white text-[8px] font-black px-2 py-0.5 rounded-bl-lg uppercase tracking-wider">
                 DEAL
               </div>
-              <p className="text-[9px] text-[#4A6741] font-black uppercase tracking-wider">Bulk Offer</p>
-              <p className="text-lg sm:text-xl font-black text-[#4A6741] leading-tight">৳700</p>
-              <p className="text-[8px] text-[#4A6741]/80 font-black">per box</p>
+              <p className="text-[9px] text-[#4A6741] font-black uppercase tracking-wider">2+ Boxes</p>
+              <p className="text-lg sm:text-xl font-black text-[#4A6741] leading-tight">FREE</p>
+              <p className="text-[8px] text-[#4A6741]/80 font-black">ডেলিভারি চার্জ</p>
             </div>
           </div>
 
@@ -179,10 +179,10 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
               🎉 ২ টি বক্স একসাথে কিনলেই
             </p>
 
-            {/* Ultra-Visible 100 Taka Off Callout Badge */}
+            {/* Ultra-Visible Free Delivery Callout Badge */}
             <div className="bg-white text-amber-950 font-black text-lg sm:text-xl px-4 py-1 rounded-xl shadow-md border-2 border-amber-300 relative z-10 flex items-center gap-1.5 tracking-tight">
-              <span>🔥</span>
-              <span>নগদ ১০০ টাকা ছাড়!</span>
+              <span>🚚</span>
+              <span>সম্পূর্ণ ফ্রি ডেলিভারি!</span>
             </div>
           </div>
 
@@ -205,7 +205,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
 
             <div className="flex items-center justify-center gap-1.5 text-primary text-[10.5px] font-bold">
               <CheckCircle size={12} className="text-primary flex-shrink-0" />
-              <span>Minimum 2 boxes order required for ৳100 discount</span>
+              <span>Minimum 2 boxes order required for Free Delivery</span>
             </div>
           </div>
 
