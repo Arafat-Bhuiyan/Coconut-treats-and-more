@@ -64,12 +64,12 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
         <div className="px-5 pt-4 pb-2 text-center">
           <span className="bg-amber-50 text-amber-800 border border-amber-300 text-[10px] font-black px-3 py-0.5 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 shadow-2xs mb-1.5">
             <Sparkles size={11} fill="currentColor" className="animate-pulse text-amber-500" />
-            LIMITED TIME DEAL
+            SPECIAL DELIVERY OFFER
           </span>
           <h3 className="text-xl sm:text-2xl font-black text-husk leading-tight tracking-tight px-2">
-            Super Saver Bulk Offer!
+            Free Delivery on 2 Boxes!
           </h3>
-          <p className="text-[11px] text-husk/60 font-bold mt-0.5">Don't miss out on these premium savings</p>
+          <p className="text-[11px] text-husk/60 font-bold mt-0.5">২টি বক্স অর্ডার করলেই পাচ্ছেন সম্পূর্ণ ফ্রি ডেলিভারি</p>
         </div>
 
         {/* Horizontal Coupon Tear Line with cutouts */}
@@ -92,21 +92,23 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
 
           {/* Pricing Comparison Grid */}
           <div className="grid grid-cols-2 gap-2.5">
-            {/* Regular Price Card */}
-            <div className="bg-slate-50 p-2 rounded-2xl border border-slate-200 text-center shadow-2xs flex flex-col justify-center">
-              <p className="text-[9px] text-husk/55 font-black uppercase tracking-wider">Regular Price</p>
-              <p className="text-base sm:text-lg font-extrabold text-husk/50 line-through leading-tight">৳750</p>
-              <p className="text-[8px] text-husk/45 font-bold">per box</p>
+            {/* 1 Box Card */}
+            <div className="bg-slate-50 p-2.5 rounded-2xl border border-slate-200 text-center shadow-2xs flex flex-col justify-center">
+              <p className="text-[9px] text-husk/60 font-black uppercase tracking-wider">১ টি বক্স (6 Cups)</p>
+              <p className="text-base sm:text-lg font-black text-[#1F291E] leading-tight">৳৭৫০</p>
+              <p className="text-[9px] text-gray-500 font-bold">+ ৳৫০ ডেলিভারি</p>
             </div>
 
-            {/* Offer Price Card */}
-            <div className="bg-emerald-50/90 p-2 rounded-2xl border-2 border-[#4A6741] text-center relative overflow-hidden shadow-xs flex flex-col justify-center">
+            {/* 2 Boxes Card (Offer) */}
+            <div className="bg-emerald-50/95 p-2.5 rounded-2xl border-2 border-[#4A6741] text-center relative overflow-hidden shadow-xs flex flex-col justify-center">
               <div className="absolute top-0 right-0 bg-[#4A6741] text-white text-[8px] font-black px-2 py-0.5 rounded-bl-lg uppercase tracking-wider">
-                DEAL
+                BEST OFFER
               </div>
-              <p className="text-[9px] text-[#4A6741] font-black uppercase tracking-wider">2+ Boxes</p>
-              <p className="text-lg sm:text-xl font-black text-[#4A6741] leading-tight">FREE</p>
-              <p className="text-[8px] text-[#4A6741]/80 font-black">ডেলিভারি চার্জ</p>
+              <p className="text-[9px] text-[#4A6741] font-black uppercase tracking-wider">২ টি বক্স (12 Cups)</p>
+              <p className="text-base sm:text-lg font-black text-[#4A6741] leading-tight">৳১,৫০০</p>
+              <p className="text-[9.5px] text-emerald-700 font-black flex items-center justify-center gap-0.5">
+                <span>🚚</span> ফ্রি ডেলিভারি
+              </p>
             </div>
           </div>
 
@@ -165,9 +167,9 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
 
             {/* Top Golden Pill Badge */}
             <div className="inline-flex items-center gap-1.5 bg-amber-300 text-amber-950 px-3 py-0.5 rounded-full shadow-sm relative z-10 border border-white/80">
-              <span className="text-sm leading-none animate-bounce">🎁</span>
+              <span className="text-sm leading-none animate-bounce">🚚</span>
               <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider leading-none">
-                INSTANT DISCOUNT
+                SPECIAL OFFER
               </span>
             </div>
 
@@ -180,9 +182,9 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
             </p>
 
             {/* Ultra-Visible Free Delivery Callout Badge */}
-            <div className="bg-white text-amber-950 font-black text-lg sm:text-xl px-4 py-1 rounded-xl shadow-md border-2 border-amber-300 relative z-10 flex items-center gap-1.5 tracking-tight">
+            <div className="bg-white text-emerald-900 font-black text-xl sm:text-2xl px-5 py-1.5 rounded-xl shadow-md border-2 border-emerald-400 relative z-10 flex items-center gap-2 tracking-tight">
               <span>🚚</span>
-              <span>সম্পূর্ণ ফ্রি ডেলিভারি!</span>
+              <span className="text-emerald-800">"ফ্রি ডেলিভারি"</span>
             </div>
           </div>
 
@@ -205,7 +207,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
 
             <div className="flex items-center justify-center gap-1.5 text-primary text-[10.5px] font-bold">
               <CheckCircle size={12} className="text-primary flex-shrink-0" />
-              <span>Minimum 2 boxes order required for Free Delivery</span>
+              <span>২ টি বক্স একসাথে কিনলেই সম্পূর্ণ ফ্রি ডেলিভারি</span>
             </div>
           </div>
 
