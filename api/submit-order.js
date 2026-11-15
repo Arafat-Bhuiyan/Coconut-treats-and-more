@@ -99,6 +99,7 @@ export default async function handler(req, res) {
       "manikganj", "manikgonj", "মানিকগঞ্জ", "singair", "সিংগাইর", "saturia", "সাটুরিয়া", "সাটুরিয়া", "shibalaya", "শিবালয়", "shibaloy", "harirampur", "হরিরামপুর", "ghior", "ঘিওর", "daulatpur", "দৌলতপুর",
       "narsingdi", "নরসিংদী", "belabo", "বেলাবো", "monohardi", "মনোহরদী", "raipura", "রায়পুরা", "রায়পুরা", "shibpur", "শিবপুর",
       "savar", "সাভার", "ashulia", "আশুলিয়া", "আশুলিয়া", "keraniganj", "keranigonj", "কেরানীগঞ্জ", "কেরানিগঞ্জ",
+      "dohar", "দোহার", "joypara", "জয়পাড়া", "জয়পাড়া", "dhamrai", "ধামরাই",
 
       // যাত্রাবাড়ী, ডেমরা, জুরাইন, পোস্তগোলা, শ্যামপুর (যেখানে ডেলিভারি বন্ধ)
       "jatrabari", "jattrabari", "যাত্রাবাড়ী", "যাত্রাবাড়ি",
