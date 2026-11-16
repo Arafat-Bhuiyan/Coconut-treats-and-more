@@ -96,7 +96,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
             <div className="bg-slate-50 p-2.5 rounded-2xl border border-slate-200 text-center shadow-2xs flex flex-col justify-center">
               <p className="text-[9px] text-husk/60 font-black uppercase tracking-wider">১ টি বক্স (6 Cups)</p>
               <p className="text-base sm:text-lg font-black text-[#1F291E] leading-tight">৳৭৫০</p>
-              <p className="text-[9px] text-gray-500 font-bold">+ ৳৬০ ডেলিভারি</p>
+              <p className="text-[9px] text-gray-500 font-bold">+ ৳৫০ ডেলিভারি</p>
             </div>
 
             {/* 2 Boxes Card (Offer) */}
