@@ -127,11 +127,11 @@ const Hero = () => {
     return () => window.removeEventListener("set-order-quantity", handleSetQuantity);
   }, []);
 
-  // Pricing calculations (1 Box = ৳750 with ৳100 delivery, 2+ Boxes = ৳750/box with FREE DELIVERY)
+  // Pricing calculations (1 Box = ৳750 with ৳60 delivery, 2+ Boxes = ৳750/box with FREE DELIVERY)
   const basePrice = 750;
   const unitPrice = basePrice;
   const isFreeDelivery = selectedPkg >= 2;
-  const deliveryCharge = isFreeDelivery ? 0 : 100;
+  const deliveryCharge = isFreeDelivery ? 0 : 60;
   const giftCharge = isGift ? 100 : 0;
   const totalProductPrice = selectedPkg * unitPrice;
   const grandTotalNumber = totalProductPrice + deliveryCharge + giftCharge;

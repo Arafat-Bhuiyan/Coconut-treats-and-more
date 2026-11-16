@@ -58,7 +58,7 @@ const Order = () => {
   const basePrice = 750;
   const offerPrice = 700;
   const isFreeDelivery = quantity >= 2;
-  const deliveryCharge = isFreeDelivery ? 0 : 100;
+  const deliveryCharge = isFreeDelivery ? 0 : 60;
 
   let unitPrice = basePrice;
   if (quantity >= 5) {
