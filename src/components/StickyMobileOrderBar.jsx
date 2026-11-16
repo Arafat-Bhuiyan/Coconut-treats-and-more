@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ShoppingBag, ChevronRight } from "lucide-react";
 
-const StickyMobileOrderBar = ({ initialPkg = 2, initialTotal = "৳1,450" }) => {
+const StickyMobileOrderBar = ({ initialPkg = 2, initialTotal = "৳1,500" }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [pkg, setPkg] = useState(initialPkg);
   const [total, setTotal] = useState(initialTotal);
