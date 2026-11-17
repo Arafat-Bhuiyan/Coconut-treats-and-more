@@ -8,15 +8,13 @@ const productImg = "/pudding-3d.webp";
 const productImgFallback = "/pudding-3d.jpg";
 
 const deliveryLocations = [
-  "Baily Road, Dhaka", "Banani DOHS", "Banani, Dhaka", "Baridhara DOHS", 
+  "Banani DOHS", "Banani, Dhaka", "Baridhara DOHS", 
   "Baridhara, Dhaka", "Mohakhali DOHS", "Mirpur DOHS", "Gulshan 1", "Gulshan 2", 
-  "Gulshan Avenue", "Gulshan, Dhaka, Bangladesh", "Niketan R/A, Gulshan, Dhaka", 
-  "Bashundhara R/A", "Bashundhara Shopping Mall", "Dhanmondi, Dhaka", 
-  "Lalmatia / লালমাটিয়া", "Mohammadpur, Dhaka 1207", "Elephant Road, Dhaka", 
-  "Eskaton, Dhaka", "Uttara, Dhaka", "Diabari Uttara - দিয়াবাড়ি উত্তরা", 
-  "Wari, Dhaka", "Khilgaon, Dhaka", "Banasree, Dhaka, Bangladesh", 
-  "Aftabnagar, Dhaka", "Rampura, Dhaka", "Motijheel, Dhaka-1000", 
-  "Dhaka Cantonment", "Mirpur-1, Dhaka", "Mirpur-11.5, Pallabi", 
+  "Gulshan Avenue", "Gulshan, Dhaka", "Niketan R/A, Gulshan, Dhaka", 
+  "Bashundhara R/A", "Dhanmondi, Dhaka", 
+  "Lalmatia / লালমাটিয়া", "Mohammadpur, Dhaka 1207", 
+  "Uttara, Dhaka", "Diabari Uttara - দিয়াবাড়ি উত্তরা", 
+  "Dhaka Cantonment", "Manikdi, Dhaka", "Mirpur-1, Dhaka", "Mirpur-11.5, Pallabi", 
   "Mirpur-12, Pallabi", "Mirpur Pallabi"
 ];
 
