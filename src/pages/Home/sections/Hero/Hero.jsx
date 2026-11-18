@@ -855,20 +855,22 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Delivery Schedule Notification Banner (Item 1) */}
-            <div className="flex justify-center mb-5 px-2">
-              <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-amber-50/95 border-2 border-amber-400 rounded-full text-amber-950 font-black text-xs sm:text-sm shadow-xs text-center">
-                <span className="text-base sm:text-lg flex-shrink-0">🚚</span>
-                <span>ডেলিভারি শিডিউল: <strong>আজকে order করলে আগামীকাল delivery পাবেন</strong></span>
+            {/* Delivery Schedule Notification Banner - BOLD & CLEAR IN BENGALI */}
+            <div className="flex justify-center mb-5 px-2 w-full">
+              <div className="w-full bg-amber-50 border-2 border-amber-500 rounded-2xl p-3.5 sm:p-4 text-center shadow-md flex items-center justify-center gap-2.5 sm:gap-3">
+                <span className="text-2xl sm:text-3xl flex-shrink-0">🚚</span>
+                <p className="text-sm sm:text-base md:text-lg font-black text-amber-950 leading-snug">
+                  ডেলিভারি শিডিউল: <span className="text-emerald-900 font-black underline decoration-2 underline-offset-2">আজকে অর্ডার করলে ১ থেকে ২ দিনের মধ্যে ডেলিভারি পাবেন</span>
+                </p>
               </div>
             </div>
 
-            {/* Package Selector Cards (Item 4) */}
-            <div className="mb-6 space-y-2 text-left">
-              <label className="text-xs font-black text-gray-800 uppercase tracking-wider block">
-                প্যাকেজ নির্বাচন করুন (Select Package):
+            {/* Package Selector Cards (Ultra Clear & Bold) */}
+            <div className="mb-6 space-y-2.5 text-left">
+              <label className="text-sm font-black text-gray-950 uppercase tracking-wider block">
+                📦 আপনার প্যাকেজ নির্বাচন করুন:
               </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                 {/* Card 1: 1 Box Trial */}
                 <div
                   role="button"
@@ -888,27 +890,27 @@ const Hero = () => {
                   }}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedPkg(1); }}
                   style={{ touchAction: 'manipulation' }}
-                  className={`p-4 rounded-2xl border-2 transition-all cursor-pointer select-none text-left flex flex-col justify-between ${
+                  className={`p-4 sm:p-5 rounded-2xl border-2 transition-all cursor-pointer select-none text-left flex flex-col justify-between ${
                     selectedPkg === 1
-                      ? "bg-emerald-50/90 border-[#4A6741] ring-2 ring-[#4A6741]/25 shadow-md"
-                      : "bg-white border-gray-300 hover:border-gray-400 opacity-85"
+                      ? "bg-emerald-50 border-emerald-600 ring-2 ring-emerald-600/30 shadow-md"
+                      : "bg-white border-gray-300 hover:border-gray-400"
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[11px] font-black uppercase tracking-wider text-gray-700">
-                      [ কার্ড ১: ১ বক্স (ট্রায়াল) ]
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-black text-gray-900">
+                      ১ টি বক্স (৬ পিস)
                     </span>
-                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      selectedPkg === 1 ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400"
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                      selectedPkg === 1 ? "border-emerald-600 bg-emerald-600" : "border-gray-400 bg-white"
                     }`}>
-                      {selectedPkg === 1 && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                      {selectedPkg === 1 && <div className="w-2 h-2 rounded-full bg-white" />}
                     </div>
                   </div>
-                  <p className="text-sm sm:text-base font-black text-gray-900">
-                    দাম: ৳৭৫০ + ৫০ ডেলিভারি = <strong className="text-[#4A6741] text-base sm:text-lg">৳৮০০</strong>
+                  <p className="text-base sm:text-lg font-black text-gray-950 leading-snug">
+                    দাম: ৳৭৫০ + ৳৫০ ডেলিভারি = <span className="text-emerald-700 font-black text-xl">৳৮০০</span>
                   </p>
-                  <p className="text-[11px] font-bold text-gray-500 mt-0.5">
-                    ১টি বক্স (৬ কাপ) ট্রায়াল প্যাক
+                  <p className="text-xs font-extrabold text-gray-600 mt-1.5">
+                    মোট ১টি বক্স • ট্রায়াল প্যাক
                   </p>
                 </div>
 
@@ -931,30 +933,30 @@ const Hero = () => {
                   }}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedPkg(2); }}
                   style={{ touchAction: 'manipulation' }}
-                  className={`p-4 rounded-2xl border-2 transition-all cursor-pointer select-none text-left relative flex flex-col justify-between ${
+                  className={`p-4 sm:p-5 rounded-2xl border-2 transition-all cursor-pointer select-none text-left relative flex flex-col justify-between ${
                     selectedPkg === 2
-                      ? "bg-emerald-50/95 border-[#4A6741] ring-2 ring-[#4A6741]/30 shadow-lg scale-[1.01]"
-                      : "bg-white border-gray-300 hover:border-gray-400 opacity-85"
+                      ? "bg-emerald-50 border-emerald-600 ring-2 ring-emerald-600/40 shadow-lg"
+                      : "bg-white border-gray-300 hover:border-gray-400"
                   }`}
                 >
-                  <div className="absolute -top-2.5 right-3 bg-[#4A6741] text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs">
-                    ⭐ সবচেয়ে জনপ্রিয় - সেরা অফার
+                  <div className="inline-block self-start mb-2 bg-emerald-700 text-white text-[11px] font-black px-2.5 py-0.5 rounded-full shadow-xs">
+                    ⭐ সবচেয়ে জনপ্রিয় - সেরা অফার
                   </div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[11px] font-black uppercase tracking-wider text-[#4A6741]">
-                      [ কার্ড ২: ২ বক্স ]
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-black text-emerald-950">
+                      ২ টি বক্স (১২ পিস)
                     </span>
-                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      selectedPkg === 2 ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400"
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                      selectedPkg === 2 ? "border-emerald-600 bg-emerald-600" : "border-gray-400 bg-white"
                     }`}>
-                      {selectedPkg === 2 && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                      {selectedPkg === 2 && <div className="w-2 h-2 rounded-full bg-white" />}
                     </div>
                   </div>
-                  <p className="text-sm sm:text-base font-black text-gray-900">
-                    দাম: <strong className="text-[#4A6741] text-base sm:text-lg">৳১,৫০০</strong>
+                  <p className="text-base sm:text-lg font-black text-gray-950 leading-snug">
+                    দাম: <span className="text-emerald-700 font-black text-xl">৳১,৫০০</span>
                   </p>
-                  <p className="text-[11px] font-black text-emerald-700 mt-0.5 flex items-center gap-1">
-                    <span>🚚</span> ফ্রি ডেলিভারি! (ডেলিভারি চার্জ ৳০)
+                  <p className="text-xs font-black text-emerald-800 mt-1.5 flex items-center gap-1 bg-emerald-100/90 px-2 py-0.5 rounded-md self-start">
+                    <span>🚚</span> ডেলিভারি সম্পূর্ণ ফ্রি! (ডেলিভারি চার্জ ৳০)
                   </p>
                 </div>
               </div>
