@@ -401,8 +401,8 @@ const Order = () => {
                   <p className="text-base sm:text-lg font-black text-gray-950 leading-snug">
                     দাম: <span className="text-emerald-700 font-black text-xl">৳১,৫০০</span>
                   </p>
-                  <p className="text-xs font-black text-emerald-800 mt-1.5 flex items-center gap-1 bg-emerald-100/90 px-2 py-0.5 rounded-md self-start">
-                    <span>🚚</span> ডেলিভারি সম্পূর্ণ ফ্রি! (ডেলিভারি চার্জ ৳০)
+                  <p className="text-sm sm:text-base font-black text-emerald-800 mt-2 flex items-center gap-1.5 bg-emerald-100/90 px-3 py-1 rounded-lg self-start">
+                    <span>🚚</span> ডেলিভারি সম্পূর্ণ ফ্রি!
                   </p>
                 </div>
               </div>
