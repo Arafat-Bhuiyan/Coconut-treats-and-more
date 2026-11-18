@@ -271,7 +271,7 @@ const Order = () => {
         <div className="bg-white/85 backdrop-blur-xl border-2 border-primary/25 px-6 py-3.5 rounded-full text-center flex items-center justify-center gap-2.5 shadow-[0_8px_32px_rgba(74,103,65,0.08)]">
           <span className="text-xl">🥥</span>
           <p className="text-sm sm:text-base font-black text-primary tracking-wide">
-            100% pure fresh daber pudding , order kore felun
+            ১০০% খাঁটি ও ফ্রেশ ডাবের পুডিং — এখনই অর্ডার করে ফেলুন!
           </p>
           <span className="text-xl">✨</span>
         </div>

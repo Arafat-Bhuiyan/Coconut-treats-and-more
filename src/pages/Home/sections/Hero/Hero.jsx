@@ -848,8 +848,8 @@ const Hero = () => {
             <div className="flex justify-center my-3 px-2">
               <div className="bg-emerald-50/95 border-2 border-[#4A6741]/30 px-5 sm:px-7 py-2.5 rounded-full text-center flex items-center justify-center gap-2 shadow-xs">
                 <span className="text-base sm:text-lg">🥥</span>
-                <p className="text-xs sm:text-sm font-black text-[#4A6741] tracking-wide">
-                  100% pure fresh daber pudding , order kore felun
+                <p className="text-xs sm:text-sm md:text-base font-black text-[#4A6741] tracking-wide">
+                  ১০০% খাঁটি ও ফ্রেশ ডাবের পুডিং — এখনই অর্ডার করে ফেলুন!
                 </p>
                 <span className="text-base sm:text-lg">✨</span>
               </div>
