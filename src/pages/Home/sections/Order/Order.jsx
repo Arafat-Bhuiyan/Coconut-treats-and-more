@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { CheckCircle, Loader2, MapPin, Copy, Check, ShieldCheck, Lock, Smartphone, Banknote, Truck } from "lucide-react";
+import { CheckCircle, Loader2, MapPin, Copy, Check, ShieldCheck, Lock, Smartphone, Banknote, Truck, MessageCircle } from "lucide-react";
 import OrderSuccessPopup from "./OrderSuccessPopup";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
 import CountdownTimer from "../../../../components/CountdownTimer";
@@ -54,16 +54,9 @@ const Order = () => {
   });
 
   const basePrice = 750;
-  const offerPrice = 700;
+  const unitPrice = 750;
   const isFreeDelivery = quantity >= 2;
   const deliveryCharge = isFreeDelivery ? 0 : 50;
-
-  let unitPrice = basePrice;
-  if (quantity >= 5) {
-    unitPrice = 680; // 5 * 680 = 3,400 (Save ৳350 + Free Delivery)
-  } else if (quantity >= 2) {
-    unitPrice = offerPrice; // 2 * 700 = 1,400 (Save ৳100)
-  }
 
   const totalProductPrice = quantity * unitPrice;
   const totalOrderAmount = totalProductPrice + deliveryCharge;
@@ -141,22 +134,6 @@ const Order = () => {
       return;
     }
 
-    // Optional Email Validation (if provided, must be valid format)
-    const trimmedEmail = formData.email ? formData.email.trim() : "";
-    if (trimmedEmail) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(trimmedEmail)) {
-        submittingRef.current = false; // Release guard so button works again
-        setFormError("দয়া করে একটি সঠিক ইমেইল এড্রেস লিখুন অথবা বক্সটি খালি রাখুন।");
-        const emailInput = document.getElementsByName("email")[0];
-        if (emailInput) {
-          emailInput.scrollIntoView({ behavior: "smooth", block: "center" });
-          emailInput.focus();
-        }
-        return;
-      }
-    }
-
     if (!formData.address.trim()) {
       submittingRef.current = false; // Release guard so button works again
       setFormError("দয়া করে আপনার সম্পূর্ণ ঠিকানা লিখুন।");
@@ -164,17 +141,6 @@ const Order = () => {
       if (addressInput) {
         addressInput.scrollIntoView({ behavior: "smooth", block: "center" });
         addressInput.focus();
-      }
-      return;
-    }
-
-    if (!formData.agree) {
-      submittingRef.current = false; // Release guard so button works again
-      setFormError("অর্ডার করতে শর্তাবলীতে সম্মতি দেওয়া আবশ্যক।");
-      const termsCheckbox = document.getElementById("terms");
-      if (termsCheckbox) {
-        termsCheckbox.scrollIntoView({ behavior: "smooth", block: "center" });
-        termsCheckbox.focus();
       }
       return;
     }
@@ -300,25 +266,14 @@ const Order = () => {
         `}
       </style>
 
-      {/* Premium Quality Quote Badge */}
+      {/* 100% Pure Fresh Trust Badge */}
       <div className="flex justify-center mb-5 sm:mb-6 px-4">
-        <div
-          className="bg-white/70 backdrop-blur-xl border border-primary/20 w-[300px] sm:w-[380px] h-[58px] sm:h-[66px] rounded-[2rem] text-center flex flex-col items-center justify-center shadow-[0_8px_32px_rgba(74,103,65,0.06)] overflow-hidden relative"
-        >
-          <p
-            className={`text-sm sm:text-base font-black text-primary leading-normal transition-all duration-500 transform ${
-              quoteIndex === 0 ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none absolute"
-            }`}
-          >
-            "জিনিস যেটা ভালো, দাম তার একটু বেশি"
+        <div className="bg-white/85 backdrop-blur-xl border-2 border-primary/25 px-6 py-3.5 rounded-full text-center flex items-center justify-center gap-2.5 shadow-[0_8px_32px_rgba(74,103,65,0.08)]">
+          <span className="text-xl">🥥</span>
+          <p className="text-sm sm:text-base font-black text-primary tracking-wide">
+            100% pure fresh daber pudding , order kore felun
           </p>
-          <p
-            className={`text-sm sm:text-base font-black text-primary leading-normal transition-all duration-500 transform ${
-              quoteIndex === 1 ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none absolute"
-            }`}
-          >
-            "Good quality always costs a bit more."
-          </p>
+          <span className="text-xl">✨</span>
         </div>
       </div>
 
@@ -338,6 +293,14 @@ const Order = () => {
       </div>
 
       <div className="container mx-auto max-w-6xl">
+        {/* Delivery Schedule Notification Banner (Item 1) */}
+        <div className="flex justify-center mb-5 px-4">
+          <div className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-amber-50/95 border-2 border-amber-400 rounded-full text-amber-950 font-black text-sm sm:text-base shadow-md text-center">
+            <span className="text-xl flex-shrink-0">🚚</span>
+            <span>ডেলিভারি শিডিউল: <strong>আজকে order করলে আগামীকাল delivery পাবেন</strong></span>
+          </div>
+        </div>
+
         {/* Dhaka City Delivery Notification Pop up (Green Flashing Pill/Circle) */}
         <div className="flex justify-center mb-8">
           <div
@@ -370,11 +333,84 @@ const Order = () => {
               </span>
             </div>
 
+            {/* Package Selector Cards (Item 4) */}
+            <div className="mb-6 space-y-2">
+              <label className="text-xs sm:text-sm font-black text-husk/80 uppercase tracking-wider block">
+                প্যাকেজ নির্বাচন করুন (Select Package)
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                {/* Card 1: 1 Box Trial */}
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setQuantity(1)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setQuantity(1); }}
+                  style={{ touchAction: 'manipulation' }}
+                  className={`p-4 sm:p-5 rounded-2xl border-2 transition-all cursor-pointer select-none text-left flex flex-col justify-between ${
+                    quantity === 1
+                      ? "bg-emerald-50/90 border-primary ring-2 ring-primary/20 shadow-md"
+                      : "bg-white border-secondary/25 hover:border-primary/40 opacity-80"
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-black uppercase tracking-wider text-husk/80">
+                      [ কার্ড ১: ১ বক্স (ট্রায়াল) ]
+                    </span>
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                      quantity === 1 ? "border-primary bg-primary" : "border-gray-300"
+                    }`}>
+                      {quantity === 1 && <div className="w-2 h-2 rounded-full bg-white" />}
+                    </div>
+                  </div>
+                  <p className="text-sm sm:text-base font-black text-husk">
+                    দাম: ৳৭৫০ + ৫০ ডেলিভারি = <strong className="text-primary text-lg sm:text-xl">৳৮০০</strong>
+                  </p>
+                  <p className="text-xs font-bold text-husk/60 mt-1">
+                    ১টি বক্স (৬ পিস) ট্রায়াল প্যাক
+                  </p>
+                </div>
+
+                {/* Card 2: 2 Boxes (Most Popular) */}
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setQuantity(2)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setQuantity(2); }}
+                  style={{ touchAction: 'manipulation' }}
+                  className={`p-4 sm:p-5 rounded-2xl border-2 transition-all cursor-pointer select-none text-left relative flex flex-col justify-between ${
+                    quantity === 2
+                      ? "bg-emerald-50/95 border-primary ring-2 ring-primary/30 shadow-lg scale-[1.01]"
+                      : "bg-white border-secondary/25 hover:border-primary/40 opacity-80"
+                  }`}
+                >
+                  <div className="absolute -top-3 right-3 bg-primary text-white text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm">
+                    ⭐ সবচেয়ে জনপ্রিয় - সেরা অফার
+                  </div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-black uppercase tracking-wider text-primary">
+                      [ কার্ড ২: ২ বক্স ]
+                    </span>
+                    <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                      quantity === 2 ? "border-primary bg-primary" : "border-gray-300"
+                    }`}>
+                      {quantity === 2 && <div className="w-2 h-2 rounded-full bg-white" />}
+                    </div>
+                  </div>
+                  <p className="text-sm sm:text-base font-black text-husk">
+                    দাম: <strong className="text-primary text-lg sm:text-xl">৳১,৫০০</strong>
+                  </p>
+                  <p className="text-xs font-black text-emerald-700 mt-1 flex items-center gap-1">
+                    <span>🚚</span> ফ্রি ডেলিভারি!
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <form onSubmit={handleOrder} noValidate className="space-y-4 sm:space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label htmlFor="customer-name" className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
-                    Your Name
+                    আপনার নাম (Your Name)
                   </label>
                   <input
                     id="customer-name"
@@ -383,14 +419,14 @@ const Order = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     type="text"
-                    placeholder="Full Name"
+                    placeholder="আপনার নাম লিখুন"
                     className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
                   />
                 </div>
 
                 <div className="space-y-1">
                   <label htmlFor="customer-phone" className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider">
-                    Mobile Number
+                    মোবাইল নম্বর (Mobile Number)
                   </label>
                   <input
                     id="customer-phone"
@@ -401,7 +437,7 @@ const Order = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     type="tel"
-                    placeholder="01XXX-XXXXXX"
+                    placeholder="01XXXXXXXXX"
                     className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
                   />
                 </div>
@@ -413,12 +449,12 @@ const Order = () => {
                 className="bg-white border-2 border-primary/20 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-7 space-y-5 cursor-text"
               >
                 <p className="text-xs sm:text-sm font-black text-primary uppercase tracking-widest border-b-2 border-primary/10 pb-3 mb-2 flex items-center gap-2">
-                  <span>📍</span> Delivery Address / ডেলিভারি ঠিকানা
+                  <span>📍</span> সম্পূর্ণ ঠিকানা (বাসা/রোড/এলাকা)
                 </p>
 
                 <div className="space-y-1">
                   <label htmlFor="customer-address" className="sr-only">
-                    Delivery Address
+                    সম্পূর্ণ ঠিকানা
                   </label>
                   <textarea
                     id="customer-address"
@@ -429,31 +465,13 @@ const Order = () => {
                     value={formData.address}
                     onChange={handleInputChange}
                     rows="3"
-                    placeholder="আপনার সম্পূর্ণ ঠিকানা (এলাকার নাম, রোড নম্বর, বাড়ি নম্বর, ফ্ল্যাট নম্বর) বিস্তারিত এখানে লিখুন।"
+                    placeholder="আপনার সম্পূর্ণ ঠিকানা (বাসা নম্বর, রোড নম্বর, ফ্ল্যাট নম্বর ও এলাকা) বিস্তারিত এখানে লিখুন।"
                     className="w-full bg-transparent border-0 p-0 outline-none text-xs sm:text-base text-husk font-medium placeholder:text-husk/60 placeholder:font-bold focus:ring-0 resize-none"
                   />
                   <p className="pt-2 text-xs sm:text-sm font-black text-primary border-t border-primary/10">
                     ⚠️ অবশ্যই ফ্ল্যাট নম্বর দিবেন, যাতে ডেলিভারি দিতে সুবিধা হয়।
                   </p>
                 </div>
-              </div>
-
-              {/* Email Address Field */}
-              <div className="space-y-1">
-                <label htmlFor="customer-email" className="text-xs sm:text-sm font-bold text-husk/70 ml-1 uppercase tracking-wider flex items-center justify-between">
-                  <span>Email Address / ইমেইল ঠিকানা</span>
-                  <span className="text-[11px] text-husk/40 font-normal normal-case">(ঐচ্ছিক / Optional)</span>
-                </label>
-                <input
-                  id="customer-email"
-                  name="email"
-                  autoComplete="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  type="email"
-                  placeholder="example@gmail.com"
-                  className="w-full bg-white border-2 border-secondary/30 rounded-xl sm:rounded-2xl px-5 py-3.5 sm:py-4 outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium text-sm sm:text-base placeholder:text-husk/30"
-                />
               </div>
 
               <div className="space-y-4 pt-2">
@@ -607,24 +625,6 @@ const Order = () => {
                 </div>
               </div>
 
-              <div className="flex items-start gap-3 p-1">
-                <input
-                  type="checkbox"
-                  id="terms"
-                  name="agree"
-                  checked={formData.agree}
-                  onChange={handleInputChange}
-                  className="w-5 h-5 mt-0.5 accent-primary rounded cursor-pointer"
-                />
-                <label
-                  htmlFor="terms"
-                  className="text-xs sm:text-sm font-bold text-husk/85 cursor-pointer select-none leading-snug"
-                >
-                  I confirm that my information is correct and I agree to the{" "}
-                  <span className="text-primary underline">Terms</span>.
-                </label>
-              </div>
-
               {formError && (
                 <div className="bg-red-50 border-2 border-red-400 text-red-700 px-4 py-3 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 shadow-sm animate-pulse">
                   <span className="text-base flex-shrink-0">⚠️</span>
@@ -632,21 +632,35 @@ const Order = () => {
                 </div>
               )}
 
+              {/* Big Green Confirm Order Button (Item 2) */}
               <button
                 type="submit"
                 disabled={isSubmitting}
                 style={{ touchAction: 'manipulation' }}
-                className="w-full bg-primary hover:bg-primary-dark text-white font-black text-lg py-5 rounded-xl sm:rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-primary/30 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer select-none transition-all hover:scale-[1.01] active:scale-[0.99]"
+                className="w-full bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-black text-xl sm:text-2xl py-5 px-6 rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-emerald-600/35 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer select-none transition-all hover:scale-[1.01] active:scale-[0.99] tracking-wide"
               >
                 {isSubmitting ? (
                   <>
                     <Loader2 className="animate-spin" size={24} />
-                    PROCESSING...
+                    অর্ডার প্রক্রিয়াধীন...
                   </>
                 ) : (
-                  "CONFIRM ORDER"
+                  "অর্ডার কনফার্ম করুন"
                 )}
               </button>
+
+              {/* WhatsApp 1-Click Direct Order Button (Item 3) */}
+              <a
+                href={`https://wa.me/8801618562844?text=${encodeURIComponent("আমি ২ বক্স ডাবের পুডিং অর্ডার করতে চাই")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackFacebookEvent("Contact", { content_name: "WhatsApp 1-Click Direct Order" })}
+                style={{ touchAction: 'manipulation' }}
+                className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-sm sm:text-base py-4 px-6 rounded-2xl flex items-center justify-center gap-2.5 shadow-lg shadow-[#25D366]/25 select-none transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer text-center"
+              >
+                <MessageCircle size={22} className="flex-shrink-0" />
+                <span>🟢 ওয়েবসাইটে সমস্যা হলে হোয়াটসঅ্যাপে ১-ক্লিকে অর্ডার করুন</span>
+              </a>
 
               {/* Trust & Guarantee Badges below Submit */}
               <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 pt-2 text-[11px] sm:text-xs font-bold text-husk/75">
@@ -722,30 +736,26 @@ const Order = () => {
                 {quantity >= 2 ? (
                   <>
                     <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
-                      <span>মূল দাম (Regular Price)</span>
-                      <span className="line-through text-husk/50">৳{quantity * basePrice}</span>
+                      <span>সাবটোটাল ({quantity} বক্স)</span>
+                      <span>৳{totalProductPrice}</span>
                     </div>
                     <div className="flex justify-between text-xs sm:text-sm font-bold text-emerald-600 uppercase">
                       <span className="flex items-center gap-1.5">
-                        <CheckCircle size={14} /> {isFreeDelivery ? "মেগা অফার ছাড় (Discount)" : "বাল্ক অফার ছাড় (Discount)"}
+                        <CheckCircle size={14} /> স্পেশাল অফার
                       </span>
-                      <span>- ৳{(quantity * basePrice) - totalProductPrice}</span>
+                      <span>ফ্রি ডেলিভারি (-৳৫০)</span>
                     </div>
                     <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase items-center">
                       <span>ডেলিভারি চার্জ</span>
-                      {isFreeDelivery ? (
-                        <span className="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full font-black text-xs">
-                          FREE DELIVERY (৳0)
-                        </span>
-                      ) : (
-                        <span>৳{deliveryCharge}</span>
-                      )}
+                      <span className="text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full font-black text-xs">
+                        FREE DELIVERY (৳0)
+                      </span>
                     </div>
                   </>
                 ) : (
                   <>
                     <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
-                      <span>সাবটোটাল</span>
+                      <span>সাবটোটাল (১ বক্স)</span>
                       <span>৳{totalProductPrice}</span>
                     </div>
                     <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase">
