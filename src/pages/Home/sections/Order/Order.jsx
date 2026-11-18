@@ -365,7 +365,7 @@ const Order = () => {
                     </div>
                   </div>
                   <p className="text-base sm:text-lg font-black text-gray-950 leading-snug">
-                    দাম: ৳৭৫০ + ৳৫০ ডেলিভারি = <span className="text-emerald-700 font-black text-xl">৳৮০০</span>
+                    দাম: ৳৭৫০ + ডেলিভারি চার্জ ৫০ টাকা = <span className="text-emerald-700 font-black text-xl">মোট ৳৮০০</span>
                   </p>
                   <p className="text-xs font-extrabold text-gray-600 mt-1.5">
                     মোট ১টি বক্স • ট্রায়াল প্যাক
