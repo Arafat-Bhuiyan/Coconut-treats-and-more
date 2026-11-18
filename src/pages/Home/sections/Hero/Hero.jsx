@@ -10,7 +10,8 @@ import {
   Banknote,
   ChevronRight,
   Star,
-  Play
+  Play,
+  MessageCircle
 } from "lucide-react";
 import OrderSuccessPopup from "../Order/OrderSuccessPopup";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
@@ -843,6 +844,122 @@ const Hero = () => {
               <div className="flex-grow border-t-2 border-[#4A6741]/15"></div>
             </div>
 
+            {/* 100% Pure Fresh Trust Badge (Item 5) */}
+            <div className="flex justify-center my-3 px-2">
+              <div className="bg-emerald-50/95 border-2 border-[#4A6741]/30 px-5 sm:px-7 py-2.5 rounded-full text-center flex items-center justify-center gap-2 shadow-xs">
+                <span className="text-base sm:text-lg">🥥</span>
+                <p className="text-xs sm:text-sm font-black text-[#4A6741] tracking-wide">
+                  100% pure fresh daber pudding , order kore felun
+                </p>
+                <span className="text-base sm:text-lg">✨</span>
+              </div>
+            </div>
+
+            {/* Delivery Schedule Notification Banner (Item 1) */}
+            <div className="flex justify-center mb-5 px-2">
+              <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-amber-50/95 border-2 border-amber-400 rounded-full text-amber-950 font-black text-xs sm:text-sm shadow-xs text-center">
+                <span className="text-base sm:text-lg flex-shrink-0">🚚</span>
+                <span>ডেলিভারি শিডিউল: <strong>আজকে order করলে আগামীকাল delivery পাবেন</strong></span>
+              </div>
+            </div>
+
+            {/* Package Selector Cards (Item 4) */}
+            <div className="mb-6 space-y-2 text-left">
+              <label className="text-xs font-black text-gray-800 uppercase tracking-wider block">
+                প্যাকেজ নির্বাচন করুন (Select Package):
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                {/* Card 1: 1 Box Trial */}
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => {
+                    setSelectedPkg(1);
+                    try {
+                      trackFacebookEvent("AddToCart", {
+                        content_name: "Premium Coconut Pudding (1 Box)",
+                        content_ids: ["coconut-pudding-6pc"],
+                        content_type: "product",
+                        value: 800,
+                        num_items: 1,
+                        currency: "BDT"
+                      });
+                    } catch {}
+                  }}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedPkg(1); }}
+                  style={{ touchAction: 'manipulation' }}
+                  className={`p-4 rounded-2xl border-2 transition-all cursor-pointer select-none text-left flex flex-col justify-between ${
+                    selectedPkg === 1
+                      ? "bg-emerald-50/90 border-[#4A6741] ring-2 ring-[#4A6741]/25 shadow-md"
+                      : "bg-white border-gray-300 hover:border-gray-400 opacity-85"
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[11px] font-black uppercase tracking-wider text-gray-700">
+                      [ কার্ড ১: ১ বক্স (ট্রায়াল) ]
+                    </span>
+                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                      selectedPkg === 1 ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400"
+                    }`}>
+                      {selectedPkg === 1 && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                    </div>
+                  </div>
+                  <p className="text-sm sm:text-base font-black text-gray-900">
+                    দাম: ৳৭৫০ + ৫০ ডেলিভারি = <strong className="text-[#4A6741] text-base sm:text-lg">৳৮০০</strong>
+                  </p>
+                  <p className="text-[11px] font-bold text-gray-500 mt-0.5">
+                    ১টি বক্স (৬ কাপ) ট্রায়াল প্যাক
+                  </p>
+                </div>
+
+                {/* Card 2: 2 Boxes (Most Popular) */}
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => {
+                    setSelectedPkg(2);
+                    try {
+                      trackFacebookEvent("AddToCart", {
+                        content_name: "Premium Coconut Pudding (2 Boxes)",
+                        content_ids: ["coconut-pudding-6pc"],
+                        content_type: "product",
+                        value: 1500,
+                        num_items: 2,
+                        currency: "BDT"
+                      });
+                    } catch {}
+                  }}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedPkg(2); }}
+                  style={{ touchAction: 'manipulation' }}
+                  className={`p-4 rounded-2xl border-2 transition-all cursor-pointer select-none text-left relative flex flex-col justify-between ${
+                    selectedPkg === 2
+                      ? "bg-emerald-50/95 border-[#4A6741] ring-2 ring-[#4A6741]/30 shadow-lg scale-[1.01]"
+                      : "bg-white border-gray-300 hover:border-gray-400 opacity-85"
+                  }`}
+                >
+                  <div className="absolute -top-2.5 right-3 bg-[#4A6741] text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs">
+                    ⭐ সবচেয়ে জনপ্রিয় - সেরা অফার
+                  </div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[11px] font-black uppercase tracking-wider text-[#4A6741]">
+                      [ কার্ড ২: ২ বক্স ]
+                    </span>
+                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                      selectedPkg === 2 ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400"
+                    }`}>
+                      {selectedPkg === 2 && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                    </div>
+                  </div>
+                  <p className="text-sm sm:text-base font-black text-gray-900">
+                    দাম: <strong className="text-[#4A6741] text-base sm:text-lg">৳১,৫০০</strong>
+                  </p>
+                  <p className="text-[11px] font-black text-emerald-700 mt-0.5 flex items-center gap-1">
+                    <span>🚚</span> ফ্রি ডেলিভারি! (ডেলিভারি চার্জ ৳০)
+                  </p>
+                </div>
+              </div>
+            </div>
+
             {/* CHECKOUT ROW: Column 1 (Order Summary + Gift Card + Payment) | Column 2 (Delivery Details + Confirm Order) */}
             <div id="checkout-grid-container" className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
               
@@ -1246,40 +1363,21 @@ const Hero = () => {
                     </p>
                   </div>
 
-                  {/* Optional Email & Note */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <label htmlFor="customer-email" className="text-xs sm:text-[11px] font-black text-gray-800 tracking-tight block">
-                        ইমেইল ঠিকানা (Email - ঐচ্ছিক):
-                      </label>
-                      <input
-                        id="customer-email"
-                        type="email"
-                        name="email"
-                        autoComplete="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="example@gmail.com"
-                        style={{ touchAction: 'manipulation' }}
-                        className="w-full bg-white border-2 border-gray-300 rounded-xl px-3.5 py-2.5 text-base sm:text-sm font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label htmlFor="customer-note" className="text-xs sm:text-[11px] font-black text-gray-800 tracking-tight block">
-                        বিশেষ নির্দেশনা (Note - ঐচ্ছিক):
-                      </label>
-                      <input
-                        id="customer-note"
-                        type="text"
-                        name="note"
-                        value={formData.note}
-                        onChange={handleInputChange}
-                        placeholder="ডেলিভারি সংক্রান্ত কিছু থাকলে..."
-                        style={{ touchAction: 'manipulation' }}
-                        className="w-full bg-white border-2 border-gray-300 rounded-xl px-3.5 py-2.5 text-base sm:text-sm font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
-                      />
-                    </div>
+                  {/* Optional Note (Email removed for simplified 3-click ordering) */}
+                  <div className="space-y-1">
+                    <label htmlFor="customer-note" className="text-xs sm:text-[11px] font-black text-gray-800 tracking-tight block">
+                      বিশেষ নির্দেশনা (Note - ঐচ্ছিক):
+                    </label>
+                    <input
+                      id="customer-note"
+                      type="text"
+                      name="note"
+                      value={formData.note}
+                      onChange={handleInputChange}
+                      placeholder="ডেলিভারি সংক্রান্ত কিছু থাকলে..."
+                      style={{ touchAction: 'manipulation' }}
+                      className="w-full bg-white border-2 border-gray-300 rounded-xl px-3.5 py-2.5 text-base sm:text-sm font-medium text-gray-800 outline-none focus:border-[#4A6741] transition-all placeholder:text-gray-400"
+                    />
                   </div>
                 </div>
 
@@ -1315,11 +1413,12 @@ const Hero = () => {
                     </div>
                   )}
 
+                  {/* Big Bold Green Confirm Order Button (Item 2) */}
                   <button 
                     type="submit"
                     disabled={isSubmitting}
                     style={{ touchAction: 'manipulation' }}
-                    className="w-full relative group overflow-hidden bg-gradient-to-r from-[#4A6741] via-[#3E5837] to-[#31462A] hover:brightness-110 active:scale-[0.98] text-white p-4 rounded-2xl shadow-xl shadow-[#4A6741]/30 flex items-center justify-between transition-all cursor-pointer select-none disabled:opacity-75 disabled:cursor-not-allowed"
+                    className="w-full relative group overflow-hidden bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white p-4 sm:p-5 rounded-2xl shadow-xl shadow-emerald-600/35 flex items-center justify-between transition-all cursor-pointer select-none disabled:opacity-75 disabled:cursor-not-allowed tracking-wide"
                   >
                     {/* Shiny sweep reflection */}
                     <span className="absolute inset-0 w-1/2 h-full bg-white/10 skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out" />
@@ -1333,18 +1432,18 @@ const Hero = () => {
                         )}
                       </div>
                       <div className="text-left">
-                        <span className="block text-base sm:text-lg font-black tracking-wide leading-tight uppercase">
-                          {isSubmitting ? "PROCESSING..." : "CONFIRM ORDER"}
+                        <span className="block text-lg sm:text-xl font-black tracking-wide leading-tight">
+                          {isSubmitting ? "অর্ডার প্রক্রিয়াধীন..." : "অর্ডার কনফার্ম করুন"}
                         </span>
-                        <span className="block text-[11px] font-semibold text-emerald-100/90">
-                          {paymentMethod === "cod" ? "Cash on Delivery • Click to Complete" : "bKash Payment • Click to Complete"}
+                        <span className="block text-[11px] font-semibold text-emerald-100">
+                          {paymentMethod === "cod" ? "ক্যাশ অন ডেলিভারি (পণ্য পেয়ে টাকা দিন)" : "বিকাশ পেমেন্ট • ক্লিক করে সম্পন্ন করুন"}
                         </span>
                       </div>
                     </div>
 
                     <div className="text-right flex items-center gap-2 relative z-10">
                       <div>
-                        <span className="text-lg sm:text-xl font-black block leading-tight">{grandTotal}</span>
+                        <span className="text-lg sm:text-2xl font-black block leading-tight">{grandTotal}</span>
                         <span className="text-[10px] text-emerald-100 font-bold block">
                           {isFreeDelivery ? "FREE DELIVERY 🚚" : "Total Incl. Delivery"}
                         </span>
@@ -1354,6 +1453,19 @@ const Hero = () => {
                       </div>
                     </div>
                   </button>
+
+                  {/* WhatsApp 1-Click Order Button (Item 3) */}
+                  <a
+                    href={`https://wa.me/8801618562844?text=${encodeURIComponent("আমি ২ বক্স ডাবের পুডিং অর্ডার করতে চাই")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackFacebookEvent("Contact", { content_name: "WhatsApp 1-Click Order Clicked" })}
+                    style={{ touchAction: 'manipulation' }}
+                    className="w-full bg-[#25D366] hover:bg-[#20bd5a] active:bg-[#1caa4e] text-white font-black text-sm sm:text-base py-3.5 px-5 rounded-2xl flex items-center justify-center gap-2.5 shadow-lg shadow-[#25D366]/25 select-none transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer text-center"
+                  >
+                    <MessageCircle size={22} className="flex-shrink-0" />
+                    <span>🟢 ওয়েবসাইটে সমস্যা হলে হোয়াটসঅ্যাপে ১-ক্লিকে অর্ডার করুন</span>
+                  </a>
 
                   {/* STORAGE TIP: Placed DIRECTLY under the CONFIRM ORDER button as requested! */}
                   <div className="bg-emerald-50/90 border border-[#4A6741]/20 rounded-2xl p-3 sm:p-3.5 flex items-start gap-2.5 shadow-2xs">
