@@ -159,6 +159,17 @@ const Hero = () => {
         num_items: selectedPkg,
         currency: "BDT"
       }, overrideUserData);
+
+      if (typeof window !== "undefined" && window.ttq) {
+        window.ttq.track("InitiateCheckout", {
+          content_id: "coconut-pudding-6pc",
+          content_name: "Premium Coconut Pudding (6pc Box)",
+          content_type: "product",
+          quantity: selectedPkg,
+          value: grandTotalNumber,
+          currency: "BDT"
+        });
+      }
     } catch {
       // Ignore tracking errors
     }
@@ -429,6 +440,32 @@ const Hero = () => {
       }
     } catch (gaErr) {
       console.warn("GA Purchase event skipped:", gaErr);
+    }
+
+    // 1c. Fire TikTok Pixel Purchase (CompletePayment & PlaceAnOrder) tracking event
+    try {
+      if (typeof window !== "undefined" && window.ttq) {
+        window.ttq.track('CompletePayment', {
+          content_id: 'coconut-pudding-6pc',
+          content_type: 'product',
+          content_name: 'Premium Coconut Pudding (6pc Box)',
+          quantity: selectedPkg,
+          price: unitPrice,
+          value: grandTotalNumber,
+          currency: 'BDT'
+        });
+        window.ttq.track('PlaceAnOrder', {
+          content_id: 'coconut-pudding-6pc',
+          content_type: 'product',
+          content_name: 'Premium Coconut Pudding (6pc Box)',
+          quantity: selectedPkg,
+          price: unitPrice,
+          value: grandTotalNumber,
+          currency: 'BDT'
+        });
+      }
+    } catch (ttErr) {
+      console.warn("TikTok tracking error:", ttErr);
     }
 
     // 2. Snappy optimistic UI feedback

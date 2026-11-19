@@ -191,6 +191,32 @@ const Order = () => {
       address: fullAddress,
     });
 
+    // 1b. Fire TikTok Pixel Purchase tracking
+    try {
+      if (typeof window !== "undefined" && window.ttq) {
+        window.ttq.track('CompletePayment', {
+          content_id: 'coconut-pudding-6pc',
+          content_type: 'product',
+          content_name: 'Premium Coconut Pudding (6pc Box)',
+          quantity: quantity,
+          price: unitPrice,
+          value: totalOrderAmount,
+          currency: 'BDT'
+        });
+        window.ttq.track('PlaceAnOrder', {
+          content_id: 'coconut-pudding-6pc',
+          content_type: 'product',
+          content_name: 'Premium Coconut Pudding (6pc Box)',
+          quantity: quantity,
+          price: unitPrice,
+          value: totalOrderAmount,
+          currency: 'BDT'
+        });
+      }
+    } catch {
+      // Ignore tracking errors
+    }
+
     // 2. Optimistic: show success immediately after a brief snappy animation delay
     setTimeout(() => {
       submittingRef.current = false; // Release guard
