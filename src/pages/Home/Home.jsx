@@ -45,7 +45,7 @@ export const Home = () => {
         content_name: "Premium Coconut Pudding (6pc Box)",
         content_ids: ["coconut-pudding-6pc"],
         content_type: "product",
-        value: 1400,
+        value: 1500,
         currency: "BDT"
       }, cachedUserData);
     }, 1400);

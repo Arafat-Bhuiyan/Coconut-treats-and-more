@@ -14,6 +14,8 @@ async function sha256(message) {
   }
 }
 
+let lastInitUserKey = null;
+
 // Clean and format Bangladeshi phone numbers to international standard
 function formatPhoneForMeta(phone) {
   if (!phone) return null;
@@ -143,8 +145,12 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
   // 4. Fire Client-side Meta Pixel Event (Browser)
   if (typeof window !== "undefined" && window.fbq) {
     try {
-      // Re-initialize with Hashed Advanced Matching parameters to update user profile before tracking the event
-      window.fbq('init', '939507308912648', userData);
+      // Initialize with Hashed Advanced Matching parameters only once or when user identity changes
+      const currentKey = JSON.stringify(userData || {});
+      if (lastInitUserKey !== currentKey) {
+        window.fbq('init', '939507308912648', userData);
+        lastInitUserKey = currentKey;
+      }
       
       window.fbq('track', eventName, {
         ...eventParams,
