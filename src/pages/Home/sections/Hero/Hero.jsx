@@ -1286,7 +1286,7 @@ const Hero = () => {
 
                   {/* WhatsApp 1-Click Order Button (Item 3) */}
                   <a
-                    href={`https://wa.me/8801618562844?text=${encodeURIComponent("আমি ২ বক্স ডাবের পুডিং অর্ডার করতে চাই")}`}
+                    href={`https://wa.me/8801618562844?text=${encodeURIComponent(`আমি ${selectedPkg} বক্স ডাবের পুডিং অর্ডার করতে চাই`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackFacebookEvent("Contact", { content_name: "WhatsApp 1-Click Order Clicked" })}
