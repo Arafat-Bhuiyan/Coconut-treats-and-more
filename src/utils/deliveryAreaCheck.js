@@ -215,30 +215,39 @@ export const DHAKA_SAFE_PHRASES = [
 export function checkRestrictedDeliveryArea(rawText) {
   if (!rawText || typeof rawText !== "string") return null;
 
-  let text = rawText.toLowerCase();
+  try {
+    let text = rawText.toLowerCase();
 
-  // Strip safe Dhaka phrases to prevent false-positives
-  for (const phrase of DHAKA_SAFE_PHRASES) {
-    if (text.includes(phrase.toLowerCase())) {
-      text = text.replace(new RegExp(phrase.toLowerCase(), "g"), " ");
-    }
-  }
-
-  for (const div of OUTSIDE_DHAKA_DIVISIONS) {
-    for (const kw of div.keywords) {
-      const escaped = kw.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
-      // Accurate Unicode word boundary: prevents false positives (e.g. 'কালাচাঁদপুর' won't trigger 'চাঁদপুর', 'Manikdi' won't trigger 'Manikganj')
-      const rx = new RegExp('(?<![\\p{L}\\p{M}\\p{N}])' + escaped + '(?![\\p{L}\\p{M}\\p{N}])', 'iu');
-      if (rx.test(text)) {
-        return {
-          isRestricted: true,
-          divisionBn: div.divisionBn,
-          divisionEn: div.divisionEn,
-          matchedWord: kw,
-          displayText: `${div.divisionBn} (${div.divisionEn})`
-        };
+    // Strip safe Dhaka phrases to prevent false-positives
+    for (const phrase of DHAKA_SAFE_PHRASES) {
+      const pLower = phrase.toLowerCase();
+      if (text.includes(pLower)) {
+        text = text.split(pLower).join(" ");
       }
     }
+
+    // Universal 100% Safari/iOS/Android/FB-InApp-Browser safe word-boundary check
+    // (No ES2018 lookbehind (?<!) and no \p{L} Unicode property escapes that crash older iOS Safari/WebViews)
+    const padded = " " + text.replace(/[\s,./()\-:;!?'"।|\\_#]+/g, " ") + " ";
+
+    for (const div of OUTSIDE_DHAKA_DIVISIONS) {
+      for (const kw of div.keywords) {
+        const kwClean = kw.toLowerCase().trim();
+        if (!kwClean) continue;
+        if (padded.includes(" " + kwClean + " ")) {
+          return {
+            isRestricted: true,
+            divisionBn: div.divisionBn,
+            divisionEn: div.divisionEn,
+            matchedWord: kw,
+            displayText: `${div.divisionBn} (${div.divisionEn})`
+          };
+        }
+      }
+    }
+  } catch {
+    // Never allow delivery area check to crash order form on any browser
+    return null;
   }
 
   return null;
