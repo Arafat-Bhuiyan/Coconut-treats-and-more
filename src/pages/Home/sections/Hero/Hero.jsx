@@ -634,16 +634,26 @@ const Hero = () => {
                       scrollToCheckout(e);
                     }}
                     style={{ touchAction: 'manipulation' }}
-                    className="group relative overflow-hidden inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#2B4C23] via-[#3E6533] to-[#2B4C23] hover:from-[#355D2B] hover:via-[#47733B] hover:to-[#355D2B] active:scale-[0.98] text-white font-black py-3.5 px-6 sm:px-8 rounded-2xl transition-all duration-300 shadow-xl shadow-[#2B4C23]/35 ring-1 ring-white/20 text-base sm:text-lg cursor-pointer select-none text-center"
+                    className="group relative w-full sm:w-auto overflow-hidden flex flex-col items-center justify-center bg-gradient-to-r from-[#2B4C23] via-[#3E6533] to-[#2B4C23] hover:from-[#355D2B] hover:via-[#47733B] hover:to-[#355D2B] active:scale-[0.98] text-white py-3.5 px-5 sm:px-7 rounded-2xl transition-all duration-300 shadow-xl shadow-[#2B4C23]/35 ring-1 ring-white/20 cursor-pointer select-none text-center"
                   >
-                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
-                    <div className="w-8 h-8 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                      <ShoppingBag size={18} className="text-emerald-100" />
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+                    <div className="flex items-center justify-center gap-2.5">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <ShoppingBag size={17} className="text-emerald-100" />
+                      </div>
+                      <span className="font-black text-base sm:text-lg tracking-tight">
+                        Order Now <span className="text-emerald-200 font-bold">(কুইক অর্ডার)</span>
+                      </span>
+                      <ChevronRight size={18} strokeWidth={3} className="text-white group-hover:translate-x-1 transition-transform" />
                     </div>
-                    <span className="tracking-tight">
-                      Order Now <span className="text-emerald-200 font-bold">(কুইক অর্ডার)</span>
-                    </span>
-                    <ChevronRight size={18} strokeWidth={3} className="text-white group-hover:translate-x-1 transition-transform" />
+                    <div className="mt-2 pt-2 border-t border-white/15 w-full flex flex-col items-center gap-1 leading-snug">
+                      <span className="text-[11px] sm:text-xs font-bold text-white/95">
+                        ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
+                      </span>
+                      <span className="text-[11px] sm:text-xs font-black text-amber-300 bg-black/25 px-2.5 py-0.5 rounded-full">
+                        ⭐ ২ বক্স: ৳১,৫০০, ডেলিভারি একদম ফ্রি! 🚚
+                      </span>
+                    </div>
                   </a>
 
                   <div className="flex items-center gap-2.5 px-1">
@@ -730,7 +740,7 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* SMART QUICK ORDER BUTTON DIRECTLY UNDER VIDEO (as in 3rd screenshot) */}
+                {/* SMART QUICK ORDER BUTTON DIRECTLY UNDER VIDEO */}
                 <div className="pt-2">
                   <a
                     href="#order-form-details"
@@ -739,16 +749,26 @@ const Hero = () => {
                       scrollToCheckout(e);
                     }}
                     style={{ touchAction: 'manipulation' }}
-                    className="group relative w-full overflow-hidden inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#2B4C23] via-[#3E6533] to-[#2B4C23] hover:from-[#355D2B] hover:via-[#47733B] hover:to-[#355D2B] active:scale-[0.98] text-white font-black py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl transition-all duration-300 shadow-xl shadow-[#2B4C23]/35 ring-1 ring-white/20 text-base sm:text-lg cursor-pointer select-none text-center"
+                    className="group relative w-full overflow-hidden flex flex-col items-center justify-center bg-gradient-to-r from-[#2B4C23] via-[#3E6533] to-[#2B4C23] hover:from-[#355D2B] hover:via-[#47733B] hover:to-[#355D2B] active:scale-[0.98] text-white py-3.5 sm:py-4 px-5 sm:px-7 rounded-2xl transition-all duration-300 shadow-xl shadow-[#2B4C23]/35 ring-1 ring-white/20 cursor-pointer select-none text-center"
                   >
-                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
-                    <div className="w-8 h-8 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                      <ShoppingBag size={18} className="text-emerald-100" />
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+                    <div className="flex items-center justify-center gap-2.5">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <ShoppingBag size={17} className="text-emerald-100" />
+                      </div>
+                      <span className="font-black text-base sm:text-lg tracking-tight">
+                        Order Now <span className="text-emerald-200 font-bold">(কুইক অর্ডার)</span>
+                      </span>
+                      <ChevronRight size={18} strokeWidth={3} className="text-white group-hover:translate-x-1 transition-transform" />
                     </div>
-                    <span className="tracking-tight">
-                      Order Now <span className="text-emerald-200 font-bold">(কুইক অর্ডার)</span>
-                    </span>
-                    <ChevronRight size={18} strokeWidth={3} className="text-white group-hover:translate-x-1 transition-transform" />
+                    <div className="mt-2 pt-2 border-t border-white/15 w-full flex flex-col items-center gap-1 leading-snug">
+                      <span className="text-[11px] sm:text-xs font-bold text-white/95">
+                        ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
+                      </span>
+                      <span className="text-[11px] sm:text-xs font-black text-amber-300 bg-black/25 px-2.5 py-0.5 rounded-full">
+                        ⭐ ২ বক্স: ৳১,৫০০, ডেলিভারি একদম ফ্রি! 🚚
+                      </span>
+                    </div>
                   </a>
                 </div>
               </div>
