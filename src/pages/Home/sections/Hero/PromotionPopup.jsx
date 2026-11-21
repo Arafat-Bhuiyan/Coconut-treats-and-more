@@ -202,7 +202,7 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
               </span>
               <ShoppingBag size={19} className="pointer-events-none animate-bounce" />
-              <span className="pointer-events-none">Quick Order (কুইক অর্ডার)</span>
+              <span className="pointer-events-none">অর্ডার করুন</span>
             </button>
 
             <div className="flex items-center justify-center gap-1.5 text-primary text-[10.5px] font-bold">

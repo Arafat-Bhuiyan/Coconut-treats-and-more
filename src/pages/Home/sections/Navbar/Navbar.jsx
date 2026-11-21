@@ -75,13 +75,13 @@ const Navbar = () => {
                         href="#order"
                         onClick={scrollToOrder}
                         style={{ touchAction: 'manipulation' }}
-                        className="flex flex-col items-center justify-center bg-accent hover:bg-accent/90 text-husk py-1.5 px-4 rounded-2xl transition-all transform hover:scale-105 shadow-xl shadow-accent/20 cursor-pointer select-none leading-tight"
+                        className="flex flex-col items-center justify-center bg-[#2B4C23] hover:bg-[#355D2B] text-white py-2 px-5 rounded-2xl transition-all transform hover:scale-105 shadow-xl shadow-[#2B4C23]/30 cursor-pointer select-none leading-snug border border-white/15"
                     >
-                        <div className="flex items-center gap-1.5 font-black text-sm">
-                            <ShoppingCart size={16} />
-                            <span>Quick Order</span>
+                        <div className="flex items-center gap-1.5 font-black text-base tracking-wide text-white">
+                            <ShoppingCart size={17} className="text-emerald-200" />
+                            <span>অর্ডার করুন</span>
                         </div>
-                        <span className="text-[10px] font-extrabold text-[#1F291E]/90 mt-0.5">
+                        <span className="text-xs font-extrabold text-amber-300 mt-0.5">
                             ✅ ১ বক্স ৳৮০০ • ⭐ ২ বক্স ৳১,৫০০ ফ্রি ডেলিভারি 🚚
                         </span>
                     </a>

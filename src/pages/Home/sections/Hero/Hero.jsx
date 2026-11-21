@@ -641,16 +641,16 @@ const Hero = () => {
                       <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                         <ShoppingBag size={17} className="text-emerald-100" />
                       </div>
-                      <span className="font-black text-base sm:text-lg tracking-tight">
-                        Order Now <span className="text-emerald-200 font-bold">(কুইক অর্ডার)</span>
+                      <span className="font-black text-lg sm:text-xl tracking-wide text-white">
+                        অর্ডার করুন
                       </span>
-                      <ChevronRight size={18} strokeWidth={3} className="text-white group-hover:translate-x-1 transition-transform" />
+                      <ChevronRight size={20} strokeWidth={3} className="text-white group-hover:translate-x-1 transition-transform" />
                     </div>
-                    <div className="mt-2 pt-2 border-t border-white/15 w-full flex flex-col items-center gap-1 leading-snug">
-                      <span className="text-[11px] sm:text-xs font-bold text-white/95">
+                    <div className="mt-2 pt-2 border-t border-white/20 w-full flex flex-col items-center gap-1.5 leading-snug">
+                      <span className="text-xs sm:text-sm font-extrabold text-white">
                         ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
                       </span>
-                      <span className="text-[11px] sm:text-xs font-black text-amber-300 bg-black/25 px-2.5 py-0.5 rounded-full">
+                      <span className="text-xs sm:text-sm font-black text-amber-300 bg-black/30 px-3 py-1 rounded-full">
                         ⭐ ২ বক্স: ৳১,৫০০, ডেলিভারি একদম ফ্রি! 🚚
                       </span>
                     </div>
@@ -756,16 +756,16 @@ const Hero = () => {
                       <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                         <ShoppingBag size={17} className="text-emerald-100" />
                       </div>
-                      <span className="font-black text-base sm:text-lg tracking-tight">
-                        Order Now <span className="text-emerald-200 font-bold">(কুইক অর্ডার)</span>
+                      <span className="font-black text-lg sm:text-xl tracking-wide text-white">
+                        অর্ডার করুন
                       </span>
-                      <ChevronRight size={18} strokeWidth={3} className="text-white group-hover:translate-x-1 transition-transform" />
+                      <ChevronRight size={20} strokeWidth={3} className="text-white group-hover:translate-x-1 transition-transform" />
                     </div>
-                    <div className="mt-2 pt-2 border-t border-white/15 w-full flex flex-col items-center gap-1 leading-snug">
-                      <span className="text-[11px] sm:text-xs font-bold text-white/95">
+                    <div className="mt-2 pt-2 border-t border-white/20 w-full flex flex-col items-center gap-1.5 leading-snug">
+                      <span className="text-xs sm:text-sm font-extrabold text-white">
                         ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
                       </span>
-                      <span className="text-[11px] sm:text-xs font-black text-amber-300 bg-black/25 px-2.5 py-0.5 rounded-full">
+                      <span className="text-xs sm:text-sm font-black text-amber-300 bg-black/30 px-3 py-1 rounded-full">
                         ⭐ ২ বক্স: ৳১,৫০০, ডেলিভারি একদম ফ্রি! 🚚
                       </span>
                     </div>
