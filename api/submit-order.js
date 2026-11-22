@@ -102,7 +102,9 @@ export default async function handler(req, res) {
       "dohar", "দোহার", "joypara", "জয়পাড়া", "জয়পাড়া", "dhamrai", "ধামরাই",
 
       // যাত্রাবাড়ী, ডেমরা, জুরাইন, পোস্তগোলা, শ্যামপুর (যেখানে ডেলিভারি বন্ধ)
-      "jatrabari", "jattrabari", "যাত্রাবাড়ী", "যাত্রাবাড়ি",
+      "jatrabari", "jattrabari", "যাত্রাবাড়ী", "যাত্রাবাড়ি", "যাত্রাবাড়ি", "যাত্রাবাড়ী",
+      "shonir akhra", "shanir akhra", "shonirakhra", "শনিরআখড়া", "শনিরআখড়া", "শনির আখড়া", "শনির আখড়া",
+      "donia", "dania", "দনিয়া", "দনিয়া",
       "demra", "ডেমরা",
       "jurain", "juraine", "জুরাইন",
       "postogola", "postagola", "পোস্তগোলা",
@@ -155,7 +157,11 @@ export default async function handler(req, res) {
       "thakurgaon", "ঠাকুরগাঁও", "saidpur", "syedpur", "সৈয়দপুর", "সৈয়দপুর",
 
       // ময়মনসিংহ বিভাগ (Mymensingh Division)
-      "mymensingh", "ময়মনসিংহ", "ময়মনসিংহ", "jamalpur", "জামালপুর", "netrokona", "netrakona", "নেত্রকোণা", "নেত্রকোনা",
+      "mymensingh", "ময়মনসিংহ", "ময়মনসিংহ", "jamalpur", "জামালপুর",
+      "netrokona", "netrakona", "netro kona", "netra kona", "নেত্রকোণা", "নেত্রকোনা", "নেত্র কোনা", "নেত্র কোণা",
+      "mohonganj", "mohanganj", "মোহনগঞ্জ", "kendua", "কেন্দুয়া", "কেন্দুয়া", "kalmakanda", "কলমাকান্দা",
+      "durgapur", "দুর্গাপুর", "barhatta", "বারহাট্টা", "atpara", "আটপাড়া", "আটপাড়া",
+      "purbadhala", "পূর্বধলা", "khaliajuri", "খালিয়াজুরী", "খালিয়াজুরী",
       "sherpur", "শেরপুর", "muktagacha", "মুক্তাগাছা"
     ];
 
