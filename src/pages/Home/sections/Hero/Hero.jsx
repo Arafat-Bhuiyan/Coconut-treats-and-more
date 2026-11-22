@@ -490,15 +490,16 @@ const Hero = () => {
       setSelectedPkg(2);
     }, 350);
 
-    // 3. Send order to backend with keepalive + 3-attempt client-side resilience retry
+    // 3. Send order to backend with resilient retry (drops keepalive on retry for older mobile WebViews)
     const sendOrderToServer = async (attempt = 1) => {
       try {
-        const res = await fetch("/api/submit-order", {
+        const fetchOpts = {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(emailPayload),
-          keepalive: true,
-        });
+        };
+        if (attempt === 1) fetchOpts.keepalive = true;
+        const res = await fetch("/api/submit-order", fetchOpts);
         if (!res.ok && attempt < 3) {
           setTimeout(() => sendOrderToServer(attempt + 1), 600 * attempt);
         }
@@ -1090,22 +1091,28 @@ const Hero = () => {
               {/* COLUMN 2: Delivery Details Form (Top) + Terms Checkbox + Confirm Order + Storage Tip (Bottom) */}
               <div className="md:col-span-6 space-y-4">
                 <div className="bg-white rounded-2xl p-4 sm:p-5 border-2 border-[#4A6741]/40 shadow-sm space-y-3.5">
-                  <div className="flex items-center justify-between border-b border-gray-100 pb-2.5">
-                    <span className="text-xs sm:text-sm font-black text-[#1F291E] uppercase tracking-wider flex items-center gap-1.5">
-                      <MapPin size={16} className="text-[#4A6741]" />
-                      <span>ডেলিভারি ঠিকানা ও তথ্য (Delivery Details)</span>
-                    </span>
-                    {hasSavedInfo && (
-                      <button
-                        type="button"
-                        onClick={handleRestoreSavedInfo}
-                        style={{ touchAction: 'manipulation' }}
-                        className="text-[10px] font-black text-[#4A6741] bg-emerald-50 hover:bg-emerald-100 border border-[#4A6741]/20 px-2 py-0.5 rounded-full transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
-                        title="ক্লিক করে পূর্বের সংরক্ষিত তথ্য স্বয়ংক্রিয়ভাবে বসান"
-                      >
-                        <span>⚡ অটো ফিল</span>
-                      </button>
-                    )}
+                  <div className="border-b border-gray-100 pb-2.5 space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs sm:text-sm font-black text-[#1F291E] uppercase tracking-wider flex items-center gap-1.5">
+                        <MapPin size={16} className="text-[#4A6741]" />
+                        <span>ডেলিভারি ঠিকানা ও তথ্য (Delivery Details)</span>
+                      </span>
+                      {hasSavedInfo && (
+                        <button
+                          type="button"
+                          onClick={handleRestoreSavedInfo}
+                          style={{ touchAction: 'manipulation' }}
+                          className="text-[10px] font-black text-[#4A6741] bg-emerald-50 hover:bg-emerald-100 border border-[#4A6741]/20 px-2 py-0.5 rounded-full transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
+                          title="ক্লিক করে পূর্বের সংরক্ষিত তথ্য স্বয়ংক্রিয়ভাবে বসান"
+                        >
+                          <span>⚡ অটো ফিল</span>
+                        </button>
+                      )}
+                    </div>
+                    <p className="text-[11px] sm:text-xs font-extrabold text-[#2B4C23] bg-emerald-50 border border-[#4A6741]/25 rounded-lg px-2.5 py-1 inline-flex items-center gap-1.5">
+                      <span>🚚</span>
+                      <span>শুধুমাত্র ঢাকা মেট্রোপলিটন এরিয়াতে ডেলিভারি করা হয়।</span>
+                    </p>
                   </div>
 
                   {/* Top Form Error Banner (Visible immediately even when mobile keyboard is open!) */}
@@ -1271,7 +1278,7 @@ const Hero = () => {
                     className="w-full relative group overflow-hidden bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white p-4 sm:p-5 rounded-2xl shadow-xl shadow-emerald-600/35 flex items-center justify-between transition-all cursor-pointer select-none disabled:opacity-75 disabled:cursor-not-allowed tracking-wide"
                   >
                     {/* Shiny sweep reflection */}
-                    <span className="absolute inset-0 w-1/2 h-full bg-white/10 skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out" />
+                    <span className="pointer-events-none absolute inset-0 w-1/2 h-full bg-white/10 skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out" />
 
                     <div className="flex items-center gap-3 relative z-10">
                       <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner">
