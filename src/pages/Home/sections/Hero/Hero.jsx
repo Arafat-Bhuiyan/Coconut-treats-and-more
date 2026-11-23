@@ -615,28 +615,8 @@ const Hero = () => {
 
 
 
-            {/* DIVIDER: Clean stylish boundary before Checkout Details (tar niche order form thakbe) */}
-            <div id="order-form-details" className="scroll-mt-24 relative flex py-1 items-center">
-              <div className="flex-grow border-t-2 border-[#4A6741]/15"></div>
-              <span className="flex-shrink mx-4 text-xs font-black text-[#4A6741] uppercase tracking-widest bg-emerald-50 px-4 py-1.5 rounded-full border border-[#4A6741]/20 shadow-sm flex items-center gap-1.5">
-                <ShoppingBag size={14} /> অর্ডার ফর্ম (CHECKOUT DETAILS)
-              </span>
-              <div className="flex-grow border-t-2 border-[#4A6741]/15"></div>
-            </div>
-
-            {/* 100% Pure Fresh Trust Badge (Item 5) */}
-            <div className="flex justify-center my-3 px-2">
-              <div className="bg-emerald-50/95 border-2 border-[#4A6741]/30 px-5 sm:px-7 py-2.5 rounded-full text-center flex items-center justify-center gap-2 shadow-xs">
-                <span className="text-base sm:text-lg">🥥</span>
-                <p className="text-xs sm:text-sm md:text-base font-black text-[#4A6741] tracking-wide">
-                  ১০০% খাঁটি ও ফ্রেশ ডাবের পুডিং — এখনই অর্ডার করে ফেলুন!
-                </p>
-                <span className="text-base sm:text-lg">✨</span>
-              </div>
-            </div>
-
             {/* Delivery Schedule Notification Banner - BOLD & CLEAR IN BENGALI */}
-            <div className="flex justify-center mb-5 px-2 w-full">
+            <div id="order-form-details" className="scroll-mt-24 flex justify-center mb-4 px-2 w-full">
               <div className="w-full bg-amber-50 border-2 border-amber-500 rounded-2xl p-3.5 sm:p-4 text-center shadow-md flex items-center justify-center gap-2.5 sm:gap-3">
                 <span className="text-2xl sm:text-3xl flex-shrink-0">🚚</span>
                 <p className="text-sm sm:text-base md:text-lg font-black text-amber-950 leading-snug">
@@ -784,147 +764,9 @@ const Hero = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* 2. PAYMENT METHOD SELECTOR */}
-                <div className="space-y-2">
-                  <span className="text-xs font-black uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
-                    <Banknote size={15} className="text-[#4A6741]" />
-                    <span>মূল্য পরিশোধের মাধ্যম (PAYMENT METHOD):</span>
-                  </span>
-
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {/* Option 1: Cash on Delivery (Default Selected) */}
-                    <button
-                      type="button"
-                      id="payment-method-cod"
-                      aria-pressed={paymentMethod === "cod"}
-                      onClick={() => setPaymentMethod("cod")}
-                      style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
-                      className={`p-3 rounded-2xl border-2 transition-all cursor-pointer select-none text-left flex flex-col justify-between ${
-                        paymentMethod === "cod"
-                          ? "bg-emerald-50/90 border-[#4A6741] ring-2 ring-[#4A6741]/25 shadow-md"
-                          : "bg-white border-gray-300 hover:border-gray-400 opacity-80"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-1 w-full pointer-events-none">
-                        <span className="text-[11px] font-black uppercase text-[#4A6741] flex items-center gap-1">
-                          <Banknote size={14} /> Cash on Delivery
-                        </span>
-                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                          paymentMethod === "cod" ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400"
-                        }`}>
-                          {paymentMethod === "cod" && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
-                        </div>
-                      </div>
-                      <p className="text-xs font-black text-gray-900 pointer-events-none">
-                        ক্যাশ অন ডেলিভারি (COD)
-                      </p>
-                      <p className="text-[10px] text-gray-600 font-semibold mt-0.5 pointer-events-none">
-                        পণ্য পেয়ে টাকা দিন।
-                      </p>
-                    </button>
-
-                    {/* Option 2: bKash */}
-                    <button
-                      type="button"
-                      id="payment-method-bkash"
-                      aria-pressed={paymentMethod === "bkash"}
-                      onClick={() => setPaymentMethod("bkash")}
-                      style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
-                      className={`p-3 rounded-2xl border-2 transition-all cursor-pointer select-none text-left flex flex-col justify-between ${
-                        paymentMethod === "bkash"
-                          ? "bg-pink-50/90 border-[#D12053] ring-2 ring-[#D12053]/25 shadow-md"
-                          : "bg-white border-gray-300 hover:border-gray-400 opacity-80"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-1 w-full pointer-events-none">
-                        <span className="text-[11px] font-black uppercase text-[#D12053] flex items-center gap-1">
-                          <Smartphone size={14} /> bKash Payment
-                        </span>
-                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                          paymentMethod === "bkash" ? "border-[#D12053] bg-[#D12053]" : "border-gray-400"
-                        }`}>
-                          {paymentMethod === "bkash" && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
-                        </div>
-                      </div>
-                      <p className="text-xs font-black text-gray-900 pointer-events-none">
-                        বিকাশ (Send Money)
-                      </p>
-                      <p className="text-[10px] text-gray-600 font-semibold mt-0.5 pointer-events-none">
-                        দ্রুত ক্যাশলেস পেমেন্ট।
-                      </p>
-                    </button>
-                  </div>
-
-                  {/* If bKash Selected: Show Ultra-Smart Copy Button & Guide */}
-                  {paymentMethod === "bkash" && (
-                    <div className="bg-gradient-to-br from-pink-50/95 to-rose-50/80 p-3.5 sm:p-4 rounded-2xl border-2 border-[#D12053]/30 shadow-sm space-y-3 animate-fadeIn">
-                      <div className="flex items-center justify-between gap-2 pb-2 border-b border-[#D12053]/20">
-                        <div 
-                          onClick={handleCopyBkash} 
-                          className="cursor-pointer select-none group"
-                          title="ক্লিক করে নাম্বারটি কপি করুন"
-                        >
-                          <span className="text-[10px] font-black uppercase tracking-wider text-[#D12053] block">
-                            bKash Personal Account (ক্লিক করে কপি):
-                          </span>
-                          <span className="text-base sm:text-lg font-black text-gray-900 group-hover:text-[#D12053] transition-colors">
-                            01618562844
-                          </span>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={handleCopyBkash}
-                          style={{ touchAction: 'manipulation' }}
-                          className={`inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-xl font-black text-xs transition-all shadow-sm cursor-pointer select-none active:scale-95 ${
-                            copiedBkash
-                              ? "bg-emerald-600 text-white"
-                              : "bg-[#D12053] hover:bg-[#b01642] text-white"
-                          }`}
-                        >
-                          {copiedBkash ? (
-                            <>
-                              <Check size={14} strokeWidth={3} />
-                              <span>কপি হয়েছে!</span>
-                            </>
-                          ) : (
-                            <>
-                              <Copy size={14} />
-                              <span>নাম্বার কপি করুন</span>
-                            </>
-                          )}
-                        </button>
-                      </div>
-
-                      <div className="bg-white/80 rounded-xl p-2.5 border border-[#D12053]/15 text-[11px] text-gray-800 space-y-1 font-medium">
-                        <p className="font-extrabold text-[#D12053] text-[10px] uppercase">
-                          📝 পেমেন্ট নির্দেশিকা:
-                        </p>
-                        <p>1. বিকাশ অ্যাপে <strong className="text-gray-900">Send Money</strong> সিলেক্ট করে <strong className="text-[#D12053] font-black">01618562844</strong> নম্বরে পাঠান।</p>
-                        <p>2. মোট টাকা: <strong className="text-gray-900 font-black">{grandTotal}</strong> (ক্যাশ আউট খরচ সহ প্রযোজ্য)।</p>
-                        <p>3. টাকা পাঠানোর পর TrxID বা আপনার বিকাশ নম্বর নিচের বক্সে লিখে অর্ডার কনফার্ম করুন।</p>
-                      </div>
-
-                      <div className="space-y-1">
-                        <label htmlFor="bkash-trx" className="text-[11px] font-black text-[#D12053] uppercase block">
-                          বিকাশ TrxID বা যে নম্বর থেকে টাকা পাঠিয়েছেন:
-                        </label>
-                        <input
-                          id="bkash-trx"
-                          type="text"
-                          value={bkashTrx}
-                          onChange={(e) => setBkashTrx(e.target.value)}
-                          placeholder="e.g. 9J4K8L2M বা 01XXXXXXXXX"
-                          style={{ touchAction: 'manipulation' }}
-                          className="w-full bg-white border-2 border-[#D12053]/30 rounded-xl px-3 py-2 outline-none focus:border-[#D12053] text-base sm:text-xs font-bold text-gray-900 placeholder:text-gray-400"
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
               </div>
 
-              {/* COLUMN 2: Delivery Details Form (Top) + Terms Checkbox + Confirm Order + Storage Tip (Bottom) */}
+              {/* COLUMN 2: Delivery Details Form (Top) + Payment Method + Confirm Order + Storage Tip (Bottom) */}
               <div className="md:col-span-6 space-y-4">
                 <div className="bg-white rounded-2xl p-4 sm:p-5 border-2 border-[#4A6741]/40 shadow-sm space-y-3.5">
                   <div className="border-b border-gray-100 pb-2.5 space-y-1.5">
@@ -1074,12 +916,142 @@ const Hero = () => {
                   </div>
                 </div>
 
-                {/* Reassurance Confirmation Line (Always Active — Never Blocks Customer Orders) */}
-                <div className="flex items-center gap-2 pt-0.5 px-1">
-                  <CheckCircle size={15} className="text-[#4A6741] flex-shrink-0" />
-                  <span className="text-xs font-bold text-gray-700 select-none leading-snug">
-                    ১০০% ফ্রেশ হোমমেইড পুডিং • ক্যাশ অন ডেলিভারি সুবিধা <span className="text-[#4A6741] font-extrabold">(ঢাকা সিটি)</span>
+                {/* 2. PAYMENT METHOD SELECTOR (Directly below Delivery Details & above Confirm Order!) */}
+                <div className="space-y-2">
+                  <span className="text-xs font-black uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
+                    <Banknote size={15} className="text-[#4A6741]" />
+                    <span>মূল্য পরিশোধের মাধ্যম (PAYMENT METHOD):</span>
                   </span>
+
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {/* Option 1: Cash on Delivery (Default Selected) */}
+                    <button
+                      type="button"
+                      id="payment-method-cod"
+                      aria-pressed={paymentMethod === "cod"}
+                      onClick={() => setPaymentMethod("cod")}
+                      style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+                      className={`p-3 rounded-2xl border-2 transition-all cursor-pointer select-none text-left flex flex-col justify-between ${
+                        paymentMethod === "cod"
+                          ? "bg-emerald-50/90 border-[#4A6741] ring-2 ring-[#4A6741]/25 shadow-md"
+                          : "bg-white border-gray-300 hover:border-gray-400 opacity-80"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-1 w-full pointer-events-none">
+                        <span className="text-[11px] font-black uppercase text-[#4A6741] flex items-center gap-1">
+                          <Banknote size={14} /> Cash on Delivery
+                        </span>
+                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                          paymentMethod === "cod" ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400"
+                        }`}>
+                          {paymentMethod === "cod" && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                        </div>
+                      </div>
+                      <p className="text-xs font-black text-gray-900 pointer-events-none">
+                        ক্যাশ অন ডেলিভারি (COD)
+                      </p>
+                      <p className="text-[10px] text-gray-600 font-semibold mt-0.5 pointer-events-none">
+                        পণ্য পেয়ে টাকা দিন।
+                      </p>
+                    </button>
+
+                    {/* Option 2: bKash */}
+                    <button
+                      type="button"
+                      id="payment-method-bkash"
+                      aria-pressed={paymentMethod === "bkash"}
+                      onClick={() => setPaymentMethod("bkash")}
+                      style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+                      className={`p-3 rounded-2xl border-2 transition-all cursor-pointer select-none text-left flex flex-col justify-between ${
+                        paymentMethod === "bkash"
+                          ? "bg-pink-50/90 border-[#D12053] ring-2 ring-[#D12053]/25 shadow-md"
+                          : "bg-white border-gray-300 hover:border-gray-400 opacity-80"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-1 w-full pointer-events-none">
+                        <span className="text-[11px] font-black uppercase text-[#D12053] flex items-center gap-1">
+                          <Smartphone size={14} /> bKash Payment
+                        </span>
+                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                          paymentMethod === "bkash" ? "border-[#D12053] bg-[#D12053]" : "border-gray-400"
+                        }`}>
+                          {paymentMethod === "bkash" && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                        </div>
+                      </div>
+                      <p className="text-xs font-black text-gray-900 pointer-events-none">
+                        বিকাশ (Send Money)
+                      </p>
+                      <p className="text-[10px] text-gray-600 font-semibold mt-0.5 pointer-events-none">
+                        দ্রুত ক্যাশলেস পেমেন্ট।
+                      </p>
+                    </button>
+                  </div>
+
+                  {/* If bKash Selected: Show Ultra-Smart Copy Button & Guide */}
+                  {paymentMethod === "bkash" && (
+                    <div className="bg-gradient-to-br from-pink-50/95 to-rose-50/80 p-3.5 sm:p-4 rounded-2xl border-2 border-[#D12053]/30 shadow-sm space-y-3 animate-fadeIn">
+                      <div className="flex items-center justify-between gap-2 pb-2 border-b border-[#D12053]/20">
+                        <div 
+                          onClick={handleCopyBkash} 
+                          className="cursor-pointer select-none group"
+                          title="ক্লিক করে নাম্বারটি কপি করুন"
+                        >
+                          <span className="text-[10px] font-black uppercase tracking-wider text-[#D12053] block">
+                            bKash Personal Account (ক্লিক করে কপি):
+                          </span>
+                          <span className="text-base sm:text-lg font-black text-gray-900 group-hover:text-[#D12053] transition-colors">
+                            01618562844
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleCopyBkash}
+                          style={{ touchAction: 'manipulation' }}
+                          className={`inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-xl font-black text-xs transition-all shadow-sm cursor-pointer select-none active:scale-95 ${
+                            copiedBkash
+                              ? "bg-emerald-600 text-white"
+                              : "bg-[#D12053] hover:bg-[#b01642] text-white"
+                          }`}
+                        >
+                          {copiedBkash ? (
+                            <>
+                              <Check size={14} strokeWidth={3} />
+                              <span>কপি হয়েছে!</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy size={14} />
+                              <span>নাম্বার কপি করুন</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+
+                      <div className="bg-white/80 rounded-xl p-2.5 border border-[#D12053]/15 text-[11px] text-gray-800 space-y-1 font-medium">
+                        <p className="font-extrabold text-[#D12053] text-[10px] uppercase">
+                          📝 পেমেন্ট নির্দেশিকা:
+                        </p>
+                        <p>1. বিকাশ অ্যাপে <strong className="text-gray-900">Send Money</strong> সিলেক্ট করে <strong className="text-[#D12053] font-black">01618562844</strong> নম্বরে পাঠান।</p>
+                        <p>2. মোট টাকা: <strong className="text-gray-900 font-black">{grandTotal}</strong> (ক্যাশ আউট খরচ সহ প্রযোজ্য)।</p>
+                        <p>3. টাকা পাঠানোর পর TrxID বা আপনার বিকাশ নম্বর নিচের বক্সে লিখে অর্ডার কনফার্ম করুন।</p>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label htmlFor="bkash-trx" className="text-[11px] font-black text-[#D12053] uppercase block">
+                          বিকাশ TrxID বা যে নম্বর থেকে টাকা পাঠিয়েছেন:
+                        </label>
+                        <input
+                          id="bkash-trx"
+                          type="text"
+                          value={bkashTrx}
+                          onChange={(e) => setBkashTrx(e.target.value)}
+                          placeholder="e.g. 9J4K8L2M বা 01XXXXXXXXX"
+                          style={{ touchAction: 'manipulation' }}
+                          className="w-full bg-white border-2 border-[#D12053]/30 rounded-xl px-3 py-2 outline-none focus:border-[#D12053] text-base sm:text-xs font-bold text-gray-900 placeholder:text-gray-400"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
 
 
