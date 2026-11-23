@@ -559,13 +559,13 @@ const Hero = () => {
                 <div className="flex overflow-hidden select-none gap-3.5 sm:gap-5 py-1">
                   <div className="hero-reviews-marquee gap-3.5 sm:gap-5 min-w-full">
                     {REVIEW_IMAGES.map((img, idx) => (
-                      <div key={`hr-orig-${idx}`} className="flex-none w-[235px] sm:w-[285px] md:w-[320px] rounded-2xl overflow-hidden border border-[#4A6741]/20 shadow-sm bg-[#F8FAF7]">
-                        <img src={img} alt={`Customer Review ${idx + 1}`} className="w-full h-auto object-cover pointer-events-none" loading="lazy" decoding="async" width={320} height={240} />
+                      <div key={`hr-orig-${idx}`} className="flex-none w-[185px] sm:w-[235px] md:w-[260px] rounded-2xl overflow-hidden border border-[#4A6741]/20 shadow-sm bg-[#F8FAF7]">
+                        <img src={img} alt={`Customer Review ${idx + 1}`} className="w-full h-auto object-cover pointer-events-none" loading="lazy" decoding="async" width={260} height={195} />
                       </div>
                     ))}
                     {REVIEW_IMAGES.map((img, idx) => (
-                      <div key={`hr-dup-${idx}`} className="flex-none w-[235px] sm:w-[285px] md:w-[320px] rounded-2xl overflow-hidden border border-[#4A6741]/20 shadow-sm bg-[#F8FAF7]">
-                        <img src={img} alt={`Customer Review Duplicate ${idx + 1}`} className="w-full h-auto object-cover pointer-events-none" loading="lazy" decoding="async" width={320} height={240} />
+                      <div key={`hr-dup-${idx}`} className="flex-none w-[185px] sm:w-[235px] md:w-[260px] rounded-2xl overflow-hidden border border-[#4A6741]/20 shadow-sm bg-[#F8FAF7]">
+                        <img src={img} alt={`Customer Review Duplicate ${idx + 1}`} className="w-full h-auto object-cover pointer-events-none" loading="lazy" decoding="async" width={260} height={195} />
                       </div>
                     ))}
                   </div>
