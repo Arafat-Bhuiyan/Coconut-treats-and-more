@@ -77,24 +77,18 @@ const VideoReelStrip = () => {
     >
       <style>
         {`
-          @keyframes glideFiveReelsMobile {
-            0%   { transform: translate3d(0%, 0, 0); }
-            100% { transform: translate3d(-52%, 0, 0); }
+          @keyframes glideFiveReelsAll {
+            0%   { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
           }
           .reels-five-track {
             display: flex;
             width: max-content;
-            animation: glideFiveReelsMobile 16s ease-in-out infinite alternate;
+            animation: glideFiveReelsAll 24s linear infinite;
             will-change: transform;
           }
-          @media (min-width: 768px) {
-            .reels-five-track {
-              display: grid;
-              grid-template-columns: repeat(5, minmax(0, 1fr));
-              width: 100%;
-              animation: none;
-              transform: none;
-            }
+          .reels-five-track:hover {
+            animation-play-state: paused;
           }
         `}
       </style>
@@ -110,13 +104,15 @@ const VideoReelStrip = () => {
         </span>
       </div>
 
-      {/* 5 Live Auto-Playing Videos — Smoothly Gliding on Mobile, 5-Col Landscape on PC */}
+      {/* Continuous Smooth Sliding 5-Video Strip on BOTH Mobile & PC (cached 615KB total, auto-pauses on scroll) */}
       <div className="relative overflow-hidden rounded-2xl">
-        <div ref={trackRef} className="reels-five-track gap-2.5 sm:gap-3 py-0.5">
-          {REELS.map((reel, idx) => (
+        <div className="absolute inset-y-0 left-0 w-4 sm:w-8 bg-gradient-to-r from-[#F4F7F2] to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-4 sm:w-8 bg-gradient-to-l from-[#F4F7F2] to-transparent z-10 pointer-events-none" />
+        <div ref={trackRef} className="reels-five-track gap-2.5 sm:gap-3.5 py-0.5">
+          {[...REELS, ...REELS].map((reel, idx) => (
             <div
-              key={reel.src}
-              className="flex-none w-[142px] sm:w-[172px] md:w-full h-[195px] sm:h-[228px] md:h-[250px] rounded-2xl overflow-hidden bg-black/5 border border-[#4A6741]/20 shadow-sm relative"
+              key={`reel-loop-${idx}`}
+              className="flex-none w-[142px] sm:w-[172px] md:w-[195px] h-[195px] sm:h-[228px] md:h-[250px] rounded-2xl overflow-hidden bg-black/5 border border-[#4A6741]/20 shadow-sm relative"
             >
               <video
                 ref={(el) => { videoRefs.current[idx] = el; }}
