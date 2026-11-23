@@ -21,12 +21,10 @@ import { checkRestrictedDeliveryArea } from "../../../../utils/deliveryAreaCheck
 const REVIEW_IMAGES = Array.from({ length: 8 }, (_, i) => `/reviews/${i + 1}.webp`);
 
 const Hero = () => {
-  const videoRef = useRef(null);
   const submittingRef = useRef(false);
   const hasInitiatedCheckoutRef = useRef(false);
   const lastOrderRef = useRef({ phone: "", timestamp: 0 });
   const [orderPlaced, setOrderPlaced] = useState(false);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
   const [isGift, setIsGift] = useState(false);
   const [giftMessage, setGiftMessage] = useState("");
 
@@ -64,60 +62,6 @@ const Hero = () => {
     } catch {
       // Ignore if localStorage unavailable
     }
-  }, []);
-
-  useEffect(() => {
-    const vid = videoRef.current;
-    if (!vid) return;
-
-    vid.defaultMuted = true;
-    vid.muted = true;
-    vid.setAttribute('muted', '');
-    vid.setAttribute('playsinline', '');
-
-    const tryPlay = () => {
-      const p = vid.play();
-      if (p !== undefined) {
-        p.then(() => setIsVideoPlaying(true)).catch(() => {
-          setIsVideoPlaying(false);
-          // Unlock on first touch, click, or scroll
-          const unlock = () => {
-            vid.play().then(() => setIsVideoPlaying(true)).catch(() => {});
-            ['click', 'touchstart', 'scroll'].forEach((evt) =>
-              window.removeEventListener(evt, unlock)
-            );
-          };
-          ['click', 'touchstart', 'scroll'].forEach((evt) =>
-            window.addEventListener(evt, unlock, { once: true, passive: true })
-          );
-        });
-      }
-    };
-
-    const startVideoPlayback = () => {
-      if (!vid.getAttribute('src')) {
-        vid.src = '/hero-video-0924.mp4';
-      }
-      tryPlay();
-    };
-
-    if (document.readyState === 'complete') {
-      const t = setTimeout(startVideoPlayback, 40);
-      return () => clearTimeout(t);
-    } else {
-      window.addEventListener('load', startVideoPlayback, { once: true });
-    }
-
-    const onPlay = () => setIsVideoPlaying(true);
-    const onPause = () => setIsVideoPlaying(false);
-    vid.addEventListener('play', onPlay);
-    vid.addEventListener('pause', onPause);
-
-    return () => {
-      window.removeEventListener('load', startVideoPlayback);
-      vid.removeEventListener('play', onPlay);
-      vid.removeEventListener('pause', onPause);
-    };
   }, []);
 
   // Listen for quantity changes from popups or external triggers
@@ -1089,7 +1033,7 @@ const Hero = () => {
                     <span className="pointer-events-none absolute inset-0 w-1/2 h-full bg-white/10 skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out" />
 
                     <div className="flex items-center gap-3 relative z-10">
-                      <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner">
+                      <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shadow-inner">
                         {isSubmitting ? (
                           <Loader2 className="w-5 h-5 text-white animate-spin" />
                         ) : (

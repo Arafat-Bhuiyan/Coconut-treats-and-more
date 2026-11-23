@@ -9,61 +9,99 @@ const REELS = [
 ];
 
 /**
- * 5 Real Live Auto-Playing Videos — Slowly Sliding Back & Forth (Zero Duplicates, Zero Frozen Cards!)
- * - Every single one of the 5 cards is a real, playing <video> (total 615KB combined, Baseline 3.0 256p)
- * - Direct src + autoPlay + muted + playsInline (never blocked by Brave Mobile or iOS Safari)
- * - Smooth GPU translate3d slow glide across all 5 videos on mobile, 5-column grid on desktop
- * - Auto-pauses when scrolled down to the Order Form so checkout stays 100% super fast
+ * Ultra-Fast Continuous Sliding 5-Video Strip (Zero-Hang Mobile Hardware Decoder Safe!)
+ * - All 5 videos slide smoothly & infinitely on both Mobile & PC
+ * - Smart horizontal + vertical IntersectionObserver ensures ONLY the 2-3 videos
+ *   actually visible on screen decode at any moment (never exhausts Android/iOS MediaCodec pool!)
+ * - Auto-pauses ALL videos + animation immediately when customer scrolls down to Order Form
  */
 const VideoReelStrip = () => {
   const sectionRef = useRef(null);
+  const viewportRef = useRef(null);
   const trackRef = useRef(null);
+  const cardRefs = useRef([]);
   const videoRefs = useRef([]);
 
   useEffect(() => {
     const section = sectionRef.current;
+    const viewport = viewportRef.current;
     const track = trackRef.current;
     if (!section) return;
 
-    const setPlayState = (playing) => {
+    let isSectionVisible = true;
+    const visibleCards = new Set([0, 1, 2]);
+
+    const syncPlayback = () => {
       if (track) {
-        track.style.animationPlayState = playing ? "running" : "paused";
+        track.style.animationPlayState = isSectionVisible ? "running" : "paused";
       }
-      videoRefs.current.forEach((vid) => {
+      videoRefs.current.forEach((vid, idx) => {
         if (!vid) return;
-        vid.muted = true;
-        vid.defaultMuted = true;
-        if (playing) {
-          const p = vid.play();
-          if (p && typeof p.catch === "function") p.catch(() => {});
+        const shouldPlay = isSectionVisible && visibleCards.has(idx);
+        if (shouldPlay) {
+          vid.muted = true;
+          vid.defaultMuted = true;
+          if (vid.paused) {
+            const p = vid.play();
+            if (p && typeof p.catch === "function") p.catch(() => {});
+          }
         } else if (!vid.paused) {
           vid.pause();
         }
       });
     };
 
-    // Immediately trigger play on mount
-    setPlayState(true);
+    // Initial playback for the first visible cards only
+    syncPlayback();
 
-    // Pause cleanly when scrolled down to Order Form; resume when back in view
-    let obs = null;
+    let sectionObs = null;
+    let cardObs = null;
+
     if (typeof IntersectionObserver !== "undefined") {
-      obs = new IntersectionObserver(
+      // 1. Vertical observer: pause everything when user scrolls down to the Order Form
+      sectionObs = new IntersectionObserver(
         (entries) => {
-          setPlayState(Boolean(entries[0]?.isIntersecting));
+          isSectionVisible = Boolean(entries[0]?.isIntersecting);
+          syncPlayback();
         },
         { threshold: 0.05 }
       );
-      obs.observe(section);
+      sectionObs.observe(section);
+
+      // 2. Horizontal observer: ONLY decode the 2-3 cards currently inside the visible strip window
+      cardObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const idx = Number(entry.target.getAttribute("data-reel-idx"));
+            if (Number.isNaN(idx)) return;
+            if (entry.isIntersecting) {
+              visibleCards.add(idx);
+            } else {
+              visibleCards.delete(idx);
+            }
+          });
+          syncPlayback();
+        },
+        {
+          root: viewport,
+          rootMargin: "0px 60px 0px 60px",
+          threshold: 0.01,
+        }
+      );
+
+      cardRefs.current.forEach((card) => {
+        if (card) cardObs.observe(card);
+      });
     }
 
-    // Unlock on first touch for strict mobile Low Power Mode
-    const unlock = () => setPlayState(true);
+    // Unlock autoplay on first user interaction for strict mobile Low Power Mode
+    const unlock = () => syncPlayback();
     window.addEventListener("touchstart", unlock, { once: true, passive: true });
     window.addEventListener("click", unlock, { once: true, passive: true });
 
     return () => {
-      if (obs) obs.disconnect();
+      if (sectionObs) sectionObs.disconnect();
+      if (cardObs) cardObs.disconnect();
       window.removeEventListener("touchstart", unlock);
       window.removeEventListener("click", unlock);
     };
@@ -104,25 +142,26 @@ const VideoReelStrip = () => {
         </span>
       </div>
 
-      {/* Continuous Smooth Sliding 5-Video Strip on BOTH Mobile & PC (cached 615KB total, auto-pauses on scroll) */}
-      <div className="relative overflow-hidden rounded-2xl">
+      {/* Continuous Smooth Sliding 5-Video Strip (Viewport-Aware Decoder Pool — Zero Mobile Hang) */}
+      <div ref={viewportRef} className="relative overflow-hidden rounded-2xl">
         <div className="absolute inset-y-0 left-0 w-4 sm:w-8 bg-gradient-to-r from-[#F4F7F2] to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-4 sm:w-8 bg-gradient-to-l from-[#F4F7F2] to-transparent z-10 pointer-events-none" />
         <div ref={trackRef} className="reels-five-track gap-2.5 sm:gap-3.5 py-0.5">
           {[...REELS, ...REELS].map((reel, idx) => (
             <div
               key={`reel-loop-${idx}`}
+              ref={(el) => { cardRefs.current[idx] = el; }}
+              data-reel-idx={idx}
               className="flex-none w-[142px] sm:w-[172px] md:w-[195px] h-[195px] sm:h-[228px] md:h-[250px] rounded-2xl overflow-hidden bg-black/5 border border-[#4A6741]/20 shadow-sm relative"
             >
               <video
                 ref={(el) => { videoRefs.current[idx] = el; }}
                 src={reel.src}
                 poster={reel.poster}
-                autoPlay
                 loop
                 muted
                 playsInline
-                preload="auto"
+                preload={idx < 3 ? "auto" : "metadata"}
                 disablePictureInPicture
                 className="w-full h-full object-cover pointer-events-none"
               />
