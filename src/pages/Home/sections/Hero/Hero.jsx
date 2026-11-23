@@ -14,6 +14,7 @@ import {
   MessageCircle
 } from "lucide-react";
 import OrderSuccessPopup from "../Order/OrderSuccessPopup";
+import VideoReelStrip from "./VideoReelStrip";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
 import { checkRestrictedDeliveryArea } from "../../../../utils/deliveryAreaCheck";
 
@@ -572,75 +573,10 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* ROW 1: Focused Product Video + Pricing & 3D Order CTA (Directly above the Order Form!) */}
-            <div className="flex justify-center">
-              <div className="w-full max-w-md sm:max-w-lg space-y-4">
-                {/* Video Card */}
-                <div className="bg-[#F4F7F2] rounded-3xl p-3 relative flex flex-col justify-between overflow-hidden border border-[#4A6741]/20 shadow-md">
-                  {/* Best Seller Badge */}
-                  <div className="absolute top-3 left-3 z-20">
-                    <span className="bg-[#4A6741] text-white text-[11px] font-black px-3 py-1 rounded-full shadow-md tracking-wide uppercase">
-                      Best Seller
-                    </span>
-                  </div>
-
-                  {/* Floating Badge (with gentle playful sway animation) */}
-                  <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm p-2 sm:p-2.5 rounded-2xl shadow-xl flex items-center gap-2 border border-[#8DA47E]/20 z-20 animate-float-sway select-none pointer-events-none">
-                    <div className="bg-[#97BC62]/20 p-1.5 rounded-lg text-lg sm:text-xl">🥥</div>
-                    <div>
-                      <p className="text-[9px] sm:text-[10px] text-gray-500 font-semibold leading-tight">Made Fresh</p>
-                      <p className="font-extrabold text-[#2C332A] text-xs sm:text-sm leading-tight">Every Morning</p>
-                    </div>
-                  </div>
-
-                  {/* Video Container (Aspect 4:5 ensures full uncropped view of all pudding cups & box) */}
-                  <div 
-                    onClick={() => {
-                      if (videoRef.current) {
-                        if (!videoRef.current.getAttribute('src')) {
-                          videoRef.current.src = '/hero-video-0924.mp4';
-                        }
-                        if (videoRef.current.paused) {
-                          videoRef.current.play().then(() => setIsVideoPlaying(true)).catch(() => {});
-                        } else {
-                          videoRef.current.pause();
-                          setIsVideoPlaying(false);
-                        }
-                      }
-                    }}
-                    className="my-2 w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-md bg-[#243520] relative flex items-center justify-center cursor-pointer group"
-                  >
-                    <video 
-                      ref={videoRef}
-                      autoPlay
-                      loop 
-                      muted 
-                      playsInline
-                      preload="none"
-                      poster="/video-poster-0924.webp"
-                      className="w-full h-full object-cover object-center rounded-2xl"
-                    />
-
-                    {/* Play/Pause Overlay button when paused or blocked by browser power-saving */}
-                    {!isVideoPlaying && (
-                      <div className="absolute inset-0 bg-black/35 backdrop-blur-[1px] flex flex-col items-center justify-center gap-2 z-10 transition-all select-none">
-                        <div className="w-14 h-14 rounded-full bg-white/95 text-[#4A6741] flex items-center justify-center shadow-2xl transform group-hover:scale-110 active:scale-95 transition-transform">
-                          <Play size={26} className="ml-1 fill-current" />
-                        </div>
-                        <span className="text-white text-xs font-black bg-black/60 px-3.5 py-1 rounded-full shadow-md">
-                          ভিডিওটি প্লে করতে চাপ দিন ▶
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Bottom label under video */}
-                  <div className="text-center pt-1.5">
-                    <span className="text-[11px] font-black text-[#4A6741] uppercase tracking-wider block">
-                      6 Pieces Per Box • Fresh Made Daily
-                    </span>
-                  </div>
-                </div>
+            {/* ROW 1: Half-Height Ultra-Fast Landscape Video Strip + Pricing & 3D Order CTA */}
+            <div className="space-y-4">
+              <VideoReelStrip />
+              <div className="w-full max-w-md mx-auto">
 
                 {/* SMART QUICK ORDER BUTTON DIRECTLY UNDER VIDEO */}
                 <div className="pt-2">
