@@ -17,6 +17,8 @@ import OrderSuccessPopup from "../Order/OrderSuccessPopup";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
 import { checkRestrictedDeliveryArea } from "../../../../utils/deliveryAreaCheck";
 
+const REVIEW_IMAGES = Array.from({ length: 17 }, (_, i) => `/reviews/${i + 1}.webp`);
+
 const Hero = () => {
   const videoRef = useRef(null);
   const submittingRef = useRef(false);
@@ -522,8 +524,54 @@ const Hero = () => {
 
         {/* Unified 2-Column Shopify-Style Main Order Card */}
         <form onSubmit={handleSubmitOrder} noValidate>
-          <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border border-[#4A6741]/15 overflow-hidden p-4 sm:p-7 md:p-9 space-y-6 md:space-y-8">
+          <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border border-[#4A6741]/15 overflow-hidden p-4 sm:p-7 md:p-9 space-y-5 md:space-y-7">
             
+            {/* TOP CUSTOMER REVIEWS MARQUEE (Directly above the Product Video!) */}
+            <div id="reviews" className="scroll-mt-24 overflow-hidden relative -mx-1 sm:-mx-2 pb-1">
+              <style>
+                {`
+                  @keyframes scrollHeroReviews {
+                    from { transform: translateX(0); }
+                    to { transform: translateX(-50%); }
+                  }
+                  .hero-reviews-marquee {
+                    display: flex;
+                    animation: scrollHeroReviews 32s linear infinite;
+                    will-change: transform;
+                  }
+                  .hero-reviews-marquee:hover {
+                    animation-play-state: paused;
+                  }
+                `}
+              </style>
+              <div className="text-center mb-2.5 sm:mb-3.5">
+                <h2 className="text-xl sm:text-3xl font-black text-[#1F291E] tracking-tight leading-tight">
+                  Happy Customers Review
+                </h2>
+                <p className="text-[#1F291E]/60 text-[11px] sm:text-sm font-medium mt-0.5">
+                  We&apos;re grateful for all the love we receive on social media!
+                </p>
+              </div>
+              <div className="relative overflow-hidden">
+                <div className="absolute inset-y-0 left-0 w-6 sm:w-12 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+                <div className="absolute inset-y-0 right-0 w-6 sm:w-12 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+                <div className="flex overflow-hidden select-none gap-3 sm:gap-4 py-1">
+                  <div className="hero-reviews-marquee gap-3 sm:gap-4 min-w-full">
+                    {REVIEW_IMAGES.map((img, idx) => (
+                      <div key={`hr-orig-${idx}`} className="flex-none w-[145px] sm:w-[200px] md:w-[220px] rounded-2xl overflow-hidden border border-[#4A6741]/15 shadow-xs bg-[#F8FAF7]">
+                        <img src={img} alt={`Customer Review ${idx + 1}`} className="w-full h-auto object-cover pointer-events-none" loading="lazy" decoding="async" width={220} height={160} />
+                      </div>
+                    ))}
+                    {REVIEW_IMAGES.map((img, idx) => (
+                      <div key={`hr-dup-${idx}`} className="flex-none w-[145px] sm:w-[200px] md:w-[220px] rounded-2xl overflow-hidden border border-[#4A6741]/15 shadow-xs bg-[#F8FAF7]">
+                        <img src={img} alt={`Customer Review Duplicate ${idx + 1}`} className="w-full h-auto object-cover pointer-events-none" loading="lazy" decoding="async" width={220} height={160} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* ROW 1: Focused Product Video + Pricing & 3D Order CTA (Directly above the Order Form!) */}
             <div className="flex justify-center">
               <div className="w-full max-w-md sm:max-w-lg space-y-4">

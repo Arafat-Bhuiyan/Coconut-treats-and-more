@@ -72,7 +72,7 @@ export const Home = () => {
           setShowPromo(true);
           sessionStorage.setItem("hasShownPromo", "true");
         }
-      }, 4000);
+      }, 15000);
 
       return () => {
         clearTimeout(pixelTimer);
