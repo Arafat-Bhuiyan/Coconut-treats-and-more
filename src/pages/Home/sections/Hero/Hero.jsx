@@ -515,7 +515,7 @@ const Hero = () => {
   };
 
   return (
-    <section id="order" className="scroll-mt-20 pt-24 sm:pt-32 pb-12 sm:pb-16 px-3 sm:px-4 bg-[#F6F8F5]">
+    <section id="order" className="scroll-mt-20 pt-24 sm:pt-32 pb-4 sm:pb-8 px-3 sm:px-4 bg-[#F6F8F5]">
       <div className="container mx-auto max-w-5xl">
         
 
@@ -524,154 +524,9 @@ const Hero = () => {
         <form onSubmit={handleSubmitOrder} noValidate>
           <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border border-[#4A6741]/15 overflow-hidden p-4 sm:p-7 md:p-9 space-y-6 md:space-y-8">
             
-            {/* ROW 1: Requested Day-1 Hero Layout (Left: Logo, Badge, Title, Description, Button, 500+ Happy Customers) + (Right: Video) */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center">
-              
-              {/* ROW 1 LEFT: Logo, Title, Natural badge, Description and Order CTA (order-2 on mobile, md:order-1 on PC) */}
-              <div className="md:col-span-6 space-y-5 text-left order-2 md:order-1">
-                {/* Logo */}
-                <div>
-                  <img 
-                    src="/logo.webp" 
-                    alt="Coconut Treats & More" 
-                    width={128}
-                    height={128}
-                    fetchPriority="high"
-                    className="w-24 sm:w-32 h-auto object-contain drop-shadow-sm" 
-                  />
-                </div>
-
-                {/* 100% Natural Ingredients Badge & 4.9/5 Gold Rating Badge */}
-                <div className="flex flex-wrap items-center gap-2 pt-0.5">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#8DA47E]/20 text-[#4A6741] font-bold text-xs sm:text-sm">
-                    100% Natural Ingredients
-                  </span>
-
-                  {/* Smart Gold/Yellow Rating Badge */}
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-50 via-yellow-50 to-amber-50 border border-amber-300/80 shadow-2xs">
-                    <div className="flex items-center text-amber-500 gap-0.5">
-                      <Star size={12} className="fill-amber-400 text-amber-500" />
-                      <Star size={12} className="fill-amber-400 text-amber-500" />
-                      <Star size={12} className="fill-amber-400 text-amber-500" />
-                      <Star size={12} className="fill-amber-400 text-amber-500" />
-                      <Star size={12} className="fill-amber-400 text-amber-500" />
-                    </div>
-                    <span className="text-xs font-black text-amber-950 tracking-tight">
-                      4.9 out of 5
-                    </span>
-                    <span className="text-[11px] font-bold text-amber-800">
-                      • 1,000+ Customers
-                    </span>
-                  </div>
-                </div>
-
-                {/* Title */}
-                <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-[#2C332A] leading-tight tracking-tight break-words">
-                  Fresh Homemade <br />
-                  <span className="text-[#4A6741]">Premium Coconut Pudding</span>
-                </h1>
-
-                {/* 4 Feature Specification Cards (from 2nd screenshot - compact yet crystal clear) */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-w-xl text-left pt-0.5 pb-1">
-                  {/* Top Layer */}
-                  <div className="bg-[#F8FAF7] border border-[#4A6741]/20 rounded-xl p-2.5 sm:p-3 flex items-start gap-2 shadow-2xs">
-                    <span className="text-lg sm:text-xl flex-shrink-0 mt-0.5">🥥</span>
-                    <div className="space-y-0.5 leading-snug">
-                      <p className="text-xs font-bold text-[#1F291E]">
-                        <strong className="text-[#3E6533]">টপ লেয়ার (Top Layer):</strong> রিফ্রেশিং ফ্রেশ ডাবের পানি ও নরম ডাবের মিষ্টি শাঁস এর পুডিং।
-                      </p>
-                      <p className="text-[10px] sm:text-[10.5px] text-gray-500 font-medium">
-                        Refreshing fresh green coconut water & tender coconut chunks.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Bottom Layer */}
-                  <div className="bg-[#F8FAF7] border border-[#4A6741]/20 rounded-xl p-2.5 sm:p-3 flex items-start gap-2 shadow-2xs">
-                    <span className="text-lg sm:text-xl flex-shrink-0 mt-0.5">🥛</span>
-                    <div className="space-y-0.5 leading-snug">
-                      <p className="text-xs font-bold text-[#1F291E]">
-                        <strong className="text-[#3E6533]">বটম লেয়ার (Bottom Layer):</strong> খাঁটি গাভীর দুধের পুষ্টিকর, রিচ ও ক্রিমি সিল্কি পুডিং।
-                      </p>
-                      <p className="text-[10px] sm:text-[10.5px] text-gray-500 font-medium">
-                        Nutritious, rich, creamy & velvety pure cow milk pudding.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Pack Size */}
-                  <div className="bg-[#F8FAF7] border border-[#4A6741]/20 rounded-xl p-2.5 sm:p-3 flex items-start gap-2 shadow-2xs">
-                    <span className="text-lg sm:text-xl flex-shrink-0 mt-0.5">📦</span>
-                    <div className="space-y-0.5 leading-snug">
-                      <p className="text-xs font-bold text-[#1F291E]">
-                        <strong className="text-[#3E6533]">প্যাক সাইজ (Pack Size):</strong> প্রতি বক্সে ৬ কাপ • প্রতিদিন সকালে টাটকা তৈরি।
-                      </p>
-                      <p className="text-[10px] sm:text-[10.5px] text-gray-500 font-medium">
-                        6 Cups per Box • Freshly handcrafted every morning.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Storage */}
-                  <div className="bg-[#F8FAF7] border border-[#4A6741]/20 rounded-xl p-2.5 sm:p-3 flex items-start gap-2 shadow-2xs">
-                    <span className="text-lg sm:text-xl flex-shrink-0 mt-0.5">❄️</span>
-                    <div className="space-y-0.5 leading-snug">
-                      <p className="text-xs font-bold text-[#1F291E]">
-                        <strong className="text-[#3E6533]">সংরক্ষণ (Storage):</strong> ৪–৫ দিন নরমাল ফ্রিজে রেখে স্বাচ্ছন্দ্যে উপভোগ করুন।
-                      </p>
-                      <p className="text-[10px] sm:text-[10.5px] text-gray-500 font-medium">
-                        Keeps 4–5 days fresh in standard refrigerator.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* SMART ORDER NOW BUTTON (as in 3rd screenshot) & 500+ happy customers */}
-                <div className="flex flex-wrap items-center gap-4 pt-1">
-                  <div className="w-full sm:w-auto flex flex-col gap-2.5 bg-white border-2 border-[#4A6741]/25 rounded-2xl p-3 sm:p-3.5 shadow-sm">
-                    <div className="flex flex-col items-center gap-1 text-center leading-snug">
-                      <span className="text-xs sm:text-sm font-extrabold text-[#1F291E]">
-                        ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
-                      </span>
-                      <span className="text-xs sm:text-sm font-black text-[#2B4C23] bg-amber-100 border border-amber-300/80 px-3 py-0.5 rounded-full">
-                        ⭐ ২ বক্স: ৳১,৫০০, ডেলিভারি একদম ফ্রি! 🚚
-                      </span>
-                    </div>
-                    <a
-                      href="#order-form-details"
-                      onClick={(e) => {
-                        if (e && typeof e.preventDefault === 'function') e.preventDefault();
-                        scrollToCheckout(e);
-                      }}
-                      style={{ touchAction: 'manipulation' }}
-                      className="group relative w-full overflow-hidden inline-flex items-center justify-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-black py-3 px-6 rounded-xl border-b-4 border-emerald-800 shadow-lg shadow-emerald-600/35 transition-all duration-200 cursor-pointer select-none text-center"
-                    >
-                      <span className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
-                      <ShoppingBag size={20} className="text-white flex-shrink-0" />
-                      <span className="text-base sm:text-lg tracking-wide">
-                        অর্ডার করুন
-                      </span>
-                      <span className="text-sm sm:text-base animate-bounce">👇</span>
-                    </a>
-                  </div>
-
-                  <div className="flex items-center gap-2.5 px-1">
-                    <div className="flex -space-x-2">
-                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-1.webp" alt="Bangladeshi Customer 1" width={36} height={36} loading="lazy" decoding="async" />
-                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-2.webp" alt="Bangladeshi Customer 2" width={36} height={36} loading="lazy" decoding="async" />
-                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-3.webp" alt="Bangladeshi Customer 3" width={36} height={36} loading="lazy" decoding="async" />
-                      <img className="w-9 h-9 rounded-full border-2 border-white object-cover shadow-xs" src="/avatars/customer-4.webp" alt="Bangladeshi Customer 4" width={36} height={36} loading="lazy" decoding="async" />
-                    </div>
-                    <p className="text-xs sm:text-sm font-bold text-[#2C332A]/70">
-                      <span className="text-[#4A6741] font-black">1000+</span> happy customers
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-
-              {/* ROW 1 RIGHT: Product Video (order-1 on mobile, md:order-2 on PC) */}
-              <div className="md:col-span-6 space-y-4 order-1 md:order-2">
+            {/* ROW 1: Focused Product Video + Pricing & 3D Order CTA (Directly above the Order Form!) */}
+            <div className="flex justify-center">
+              <div className="w-full max-w-md sm:max-w-lg space-y-4">
                 {/* Video Card */}
                 <div className="bg-[#F4F7F2] rounded-3xl p-3 relative flex flex-col justify-between overflow-hidden border border-[#4A6741]/20 shadow-md">
                   {/* Best Seller Badge */}
