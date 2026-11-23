@@ -537,7 +537,7 @@ const Hero = () => {
                   }
                   .hero-reviews-marquee {
                     display: flex;
-                    animation: scrollHeroReviews 32s linear infinite;
+                    animation: scrollHeroReviews 42s linear infinite;
                     will-change: transform;
                   }
                   .hero-reviews-marquee:hover {
@@ -556,16 +556,16 @@ const Hero = () => {
               <div className="relative overflow-hidden">
                 <div className="absolute inset-y-0 left-0 w-6 sm:w-12 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
                 <div className="absolute inset-y-0 right-0 w-6 sm:w-12 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-                <div className="flex overflow-hidden select-none gap-3 sm:gap-4 py-1">
-                  <div className="hero-reviews-marquee gap-3 sm:gap-4 min-w-full">
+                <div className="flex overflow-hidden select-none gap-3.5 sm:gap-5 py-1">
+                  <div className="hero-reviews-marquee gap-3.5 sm:gap-5 min-w-full">
                     {REVIEW_IMAGES.map((img, idx) => (
-                      <div key={`hr-orig-${idx}`} className="flex-none w-[145px] sm:w-[200px] md:w-[220px] rounded-2xl overflow-hidden border border-[#4A6741]/15 shadow-xs bg-[#F8FAF7]">
-                        <img src={img} alt={`Customer Review ${idx + 1}`} className="w-full h-auto object-cover pointer-events-none" loading="lazy" decoding="async" width={220} height={160} />
+                      <div key={`hr-orig-${idx}`} className="flex-none w-[235px] sm:w-[285px] md:w-[320px] rounded-2xl overflow-hidden border border-[#4A6741]/20 shadow-sm bg-[#F8FAF7]">
+                        <img src={img} alt={`Customer Review ${idx + 1}`} className="w-full h-auto object-cover pointer-events-none" loading="lazy" decoding="async" width={320} height={240} />
                       </div>
                     ))}
                     {REVIEW_IMAGES.map((img, idx) => (
-                      <div key={`hr-dup-${idx}`} className="flex-none w-[145px] sm:w-[200px] md:w-[220px] rounded-2xl overflow-hidden border border-[#4A6741]/15 shadow-xs bg-[#F8FAF7]">
-                        <img src={img} alt={`Customer Review Duplicate ${idx + 1}`} className="w-full h-auto object-cover pointer-events-none" loading="lazy" decoding="async" width={220} height={160} />
+                      <div key={`hr-dup-${idx}`} className="flex-none w-[235px] sm:w-[285px] md:w-[320px] rounded-2xl overflow-hidden border border-[#4A6741]/20 shadow-sm bg-[#F8FAF7]">
+                        <img src={img} alt={`Customer Review Duplicate ${idx + 1}`} className="w-full h-auto object-cover pointer-events-none" loading="lazy" decoding="async" width={320} height={240} />
                       </div>
                     ))}
                   </div>
