@@ -5,6 +5,7 @@ const REELS = [
   { src: "/videos/reel-2.mp4", poster: "/videos/reel-2.webp", label: "Pure Cow Milk Layer" },
   { src: "/videos/reel-3.mp4", poster: "/videos/reel-3.webp", label: "6 Cups Per Box" },
   { src: "/videos/reel-4.mp4", poster: "/videos/reel-4.webp", label: "Made Fresh Daily" },
+  { src: "/videos/reel-5.mp4", poster: "/videos/reel-5.webp", label: "Creamy Homemade Taste" },
 ];
 
 const VideoReelStrip = () => {
@@ -89,7 +90,7 @@ const VideoReelStrip = () => {
           .video-reels-marquee {
             display: flex;
             width: max-content;
-            animation: scrollVideoReels 24s linear infinite;
+            animation: scrollVideoReels 28s linear infinite;
             will-change: transform;
           }
           .video-reels-marquee:hover {
