@@ -56,7 +56,7 @@ const StickyMobileOrderBar = ({ initialPkg = 2, initialTotal = "৳1,500" }) => 
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 backdrop-blur-md border-t-2 border-[#4A6741]/25 px-4 py-2.5 shadow-[0_-8px_25px_rgba(0,0,0,0.12)] transition-all duration-300 transform ${
+      className={`fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white border-t-2 border-[#4A6741]/25 px-4 py-2.5 shadow-[0_-8px_25px_rgba(0,0,0,0.12)] transition-all duration-300 transform ${
         isVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 pointer-events-none"
       }`}
     >

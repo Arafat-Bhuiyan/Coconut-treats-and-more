@@ -18,7 +18,7 @@ import VideoReelStrip from "./VideoReelStrip";
 import { trackFacebookEvent } from "../../../../utils/facebookTracking";
 import { checkRestrictedDeliveryArea } from "../../../../utils/deliveryAreaCheck";
 
-const REVIEW_IMAGES = Array.from({ length: 17 }, (_, i) => `/reviews/${i + 1}.webp`);
+const REVIEW_IMAGES = Array.from({ length: 8 }, (_, i) => `/reviews/${i + 1}.webp`);
 
 const Hero = () => {
   const videoRef = useRef(null);
@@ -527,17 +527,18 @@ const Hero = () => {
         <form onSubmit={handleSubmitOrder} noValidate>
           <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border border-[#4A6741]/15 overflow-hidden p-4 sm:p-7 md:p-9 space-y-5 md:space-y-7">
             
-            {/* TOP CUSTOMER REVIEWS MARQUEE (Directly above the Product Video!) */}
-            <div id="reviews" className="scroll-mt-24 overflow-hidden relative -mx-1 sm:-mx-2 pb-1">
+            {/* TOP CUSTOMER REVIEWS MARQUEE (Ultra-fast GPU-safe 8x2 strip, <4096px texture limit) */}
+            <div id="reviews" style={{ contain: "layout style paint" }} className="scroll-mt-24 overflow-hidden relative -mx-1 sm:-mx-2 pb-1">
               <style>
                 {`
                   @keyframes scrollHeroReviews {
-                    from { transform: translateX(0); }
-                    to { transform: translateX(-50%); }
+                    from { transform: translate3d(0, 0, 0); }
+                    to { transform: translate3d(-50%, 0, 0); }
                   }
                   .hero-reviews-marquee {
                     display: flex;
-                    animation: scrollHeroReviews 42s linear infinite;
+                    width: max-content;
+                    animation: scrollHeroReviews 18s linear infinite;
                     will-change: transform;
                   }
                   .hero-reviews-marquee:hover {
