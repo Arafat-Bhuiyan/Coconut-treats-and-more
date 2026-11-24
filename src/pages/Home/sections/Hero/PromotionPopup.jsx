@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { X, Sparkles, ShoppingBag, CheckCircle } from "lucide-react";
-import CountdownTimer from "../../../../components/CountdownTimer";
 
 const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
   useEffect(() => {
@@ -167,13 +166,8 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
             </div>
           </div>
 
-          {/* Countdown Timer */}
-          <div className="pt-1.5 border-t border-dashed border-gray-200 flex items-center justify-center w-full">
-            <CountdownTimer />
-          </div>
-
           {/* Close CTA */}
-          <div>
+          <div className="pt-1 border-t border-dashed border-gray-200">
             <button
               type="button"
               onClick={onClose}
