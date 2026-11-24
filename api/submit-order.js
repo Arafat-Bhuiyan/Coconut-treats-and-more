@@ -9,8 +9,11 @@ import crypto from 'crypto';
  * 3. Sends ONE authoritative Meta Conversions API Purchase event with event_id = order_id,
  *    real visitor IP, SHA-256 hashed phone + external_id, and fbp/fbc cookies.
  */
-// Server-side in-memory cache to prevent accidental double-tap order submissions within 3 seconds
+// Server-side in-memory caches:
+// 1. Prevent accidental double-tap order submissions within 3 seconds
+// 2. Guarantee Meta CAPI Purchase can NEVER be sent twice for the same order_id
 const recentOrdersCache = new Map();
+const sentCapiOrderIds = new Set();
 const DEDUPLICATION_WINDOW_MS = 3000;
 
 function sha256(val) {
@@ -91,7 +94,7 @@ function parseCookieHeader(cookieHeader, name) {
 
 function isTestOrderServer(req, orderData) {
   const metaTracking = orderData?.meta_tracking || {};
-  if (metaTracking.is_test === true) return true;
+  if (orderData?.is_test === true || metaTracking.is_test === true) return true;
   const sourceUrl = String(metaTracking.source_url || req.headers?.referer || '');
   if (/[?&]test=(1|true)(&|$)/i.test(sourceUrl)) return true;
   const note = String(orderData?.Note || '');
@@ -108,6 +111,16 @@ async function sendAuthoritativeCapiPurchase(req, orderData, orderId) {
   // NEVER send test orders to live Meta CAPI Purchase unless an explicit Meta Events Manager test_event_code is set!
   if (isTestOrderServer(req, orderData) && !testEventCode) {
     return { sent: false, skipped: true, reason: 'test_order_excluded' };
+  }
+
+  // Strictly guarantee CAPI Purchase is sent AT MOST ONCE per orderId
+  if (sentCapiOrderIds.has(orderId)) {
+    return { sent: false, skipped: true, reason: 'already_sent_for_order_id' };
+  }
+  sentCapiOrderIds.add(orderId);
+  if (sentCapiOrderIds.size > 500) {
+    const firstKey = sentCapiOrderIds.values().next().value;
+    sentCapiOrderIds.delete(firstKey);
   }
 
   const pixelId = process.env.META_PIXEL_ID || '939507308912648';

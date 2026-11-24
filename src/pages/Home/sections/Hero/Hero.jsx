@@ -416,7 +416,7 @@ const Hero = () => {
 
       if (!isTestOrder) {
         try {
-          trackFacebookEvent("Purchase", {
+          await trackFacebookEvent("Purchase", {
             value: grandTotalNumber,
             currency: "BDT",
             content_name: "Premium Coconut Pudding (6pc Box)",

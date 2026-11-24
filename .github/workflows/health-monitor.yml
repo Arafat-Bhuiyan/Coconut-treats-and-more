@@ -63,7 +63,7 @@ jobs:
                 eventTime: now,
                 eventId: 'cron-' + now,
                 eventParams: {},
-                userData: {}
+                userData: { sourceUrl: 'https://coconuttreatsmore.com/?test=1' }
               })
             });
             if (capi.status !== 200) throw new Error('Meta CAPI returned status ' + capi.status);
