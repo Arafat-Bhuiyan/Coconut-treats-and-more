@@ -571,13 +571,13 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* SLEEK HORIZONTAL PRICING & ORDER CTA BAR (Between Reviews & Video Strip) */}
-            <div className="w-full bg-white border-2 border-[#4A6741]/25 rounded-2xl px-3.5 sm:px-5 py-2.5 sm:py-3 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-4">
-              <div className="flex flex-col items-center sm:items-start gap-1 text-center sm:text-left leading-snug">
-                <span className="text-xs sm:text-sm font-extrabold text-[#1F291E]">
+            {/* ULTRA-SLIM HORIZONTAL PRICING & ORDER CTA BAR (Between Reviews & Video Strip) */}
+            <div className="w-full bg-white border border-[#4A6741]/30 rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-3">
+              <div className="flex flex-col md:flex-row items-center gap-1 md:gap-2.5 text-center md:text-left leading-tight">
+                <span className="text-[11px] sm:text-xs font-extrabold text-[#1F291E] whitespace-nowrap">
                   ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
                 </span>
-                <span className="text-xs sm:text-sm font-black text-[#2B4C23] bg-amber-100 border border-amber-300/80 px-3 py-0.5 rounded-full">
+                <span className="text-[11px] sm:text-xs font-black text-[#2B4C23] bg-amber-100 border border-amber-300/80 px-2.5 py-0.5 rounded-full whitespace-nowrap">
                   ⭐ ২ বক্স: ৳১,৫০০, ডেলিভারি একদম ফ্রি! 🚚
                 </span>
               </div>
@@ -588,14 +588,14 @@ const Hero = () => {
                   scrollToCheckout(e);
                 }}
                 style={{ touchAction: 'manipulation' }}
-                className="group relative w-full sm:w-auto sm:min-w-[230px] overflow-hidden inline-flex items-center justify-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-black py-2.5 sm:py-3 px-6 sm:px-8 rounded-xl border-b-4 border-emerald-800 shadow-lg shadow-emerald-600/35 transition-all duration-200 cursor-pointer select-none text-center flex-shrink-0"
+                className="group relative w-full sm:w-auto overflow-hidden inline-flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-black py-1.5 sm:py-2 px-5 sm:px-6 rounded-lg border-b-[3px] border-emerald-800 shadow-md shadow-emerald-600/30 transition-all duration-200 cursor-pointer select-none text-center flex-shrink-0"
               >
                 <span className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
-                <ShoppingBag size={19} className="text-white flex-shrink-0" />
-                <span className="text-base sm:text-lg tracking-wide">
+                <ShoppingBag size={16} className="text-white flex-shrink-0" />
+                <span className="text-sm sm:text-base tracking-wide">
                   অর্ডার করুন
                 </span>
-                <span className="text-sm sm:text-base">👇</span>
+                <span className="text-xs sm:text-sm">👇</span>
               </a>
             </div>
 
