@@ -1,15 +1,179 @@
+import crypto from 'crypto';
+
 /**
- * Secure Serverless Proxy for Google Apps Script
+ * Secure Serverless Proxy for Google Apps Script + Authoritative Single Meta CAPI Purchase
  * 
- * This handler runs server-side on Vercel.
- * It forwards order details to the Google Apps Script Web App URL securely.
- * 
- * NOTE: Google Apps Script Web Apps redirect POST requests.
- * We handle this by following redirects (redirect: 'follow').
+ * Runs server-side on Vercel:
+ * 1. Logs every validated order immediately in structured JSON (never lost even if Sheet fails)
+ * 2. Saves to Google Sheet & sends email (returns HTTP 502 if save fails, HTTP 200 ONLY when saved)
+ * 3. Sends ONE authoritative Meta Conversions API Purchase event with event_id = order_id,
+ *    real visitor IP, SHA-256 hashed phone + external_id, and fbp/fbc cookies.
  */
 // Server-side in-memory cache to prevent accidental double-tap order submissions within 3 seconds
 const recentOrdersCache = new Map();
-const DEDUPLICATION_WINDOW_MS = 3000; // 3 seconds double-tap guard (allows consecutive/concurrent orders freely)
+const DEDUPLICATION_WINDOW_MS = 3000;
+
+function sha256(val) {
+  if (!val) return null;
+  return crypto.createHash('sha256').update(String(val).trim().toLowerCase()).digest('hex');
+}
+
+function formatBDPhoneForMeta(phone) {
+  if (!phone) return null;
+  const bnToEnMap = { '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4', '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9' };
+  const normalized = String(phone).replace(/[০-৯]/g, (d) => bnToEnMap[d] || d);
+  let clean = normalized.replace(/[^0-9]/g, '');
+  if (clean.length === 11 && clean.startsWith('0')) clean = '880' + clean.slice(1);
+  else if (clean.length === 10 && clean.startsWith('1')) clean = '880' + clean;
+  return clean.length >= 12 ? clean : null;
+}
+
+function normalizeIp(raw) {
+  if (!raw || typeof raw !== 'string') return '';
+  let ip = raw.trim();
+  if (ip.toLowerCase().startsWith('::ffff:')) ip = ip.slice(7);
+  if (ip.startsWith('[') && ip.endsWith(']')) ip = ip.slice(1, -1);
+  return ip.trim();
+}
+
+function isPrivateOrLocalIp(ip) {
+  if (!ip) return true;
+  const lower = ip.toLowerCase();
+  if (
+    lower === '::1' ||
+    lower === 'localhost' ||
+    lower.startsWith('127.') ||
+    lower.startsWith('10.') ||
+    lower.startsWith('192.168.') ||
+    lower.startsWith('169.254.') ||
+    lower.startsWith('fc') ||
+    lower.startsWith('fd') ||
+    lower.startsWith('fe80:')
+  ) {
+    return true;
+  }
+  if (lower.startsWith('172.')) {
+    const secondOctet = parseInt(lower.split('.')[1], 10);
+    if (secondOctet >= 16 && secondOctet <= 31) return true;
+  }
+  return false;
+}
+
+function extractRealVisitorIp(req) {
+  const headers = req.headers || {};
+  const candidates = [
+    headers['cf-connecting-ip'],
+    headers['true-client-ip'],
+    headers['x-vercel-forwarded-for'],
+    headers['x-forwarded-for'],
+    headers['x-real-ip'],
+    req.socket?.remoteAddress,
+  ];
+  for (const rawHeader of candidates) {
+    if (!rawHeader) continue;
+    const parts = Array.isArray(rawHeader)
+      ? rawHeader.flatMap((v) => String(v).split(','))
+      : String(rawHeader).split(',');
+    for (const part of parts) {
+      const ip = normalizeIp(part);
+      if (ip && !isPrivateOrLocalIp(ip)) return ip;
+    }
+  }
+  return '';
+}
+
+function parseCookieHeader(cookieHeader, name) {
+  if (!cookieHeader) return null;
+  const parts = (`; ${cookieHeader}`).split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift() || null;
+  return null;
+}
+
+async function sendAuthoritativeCapiPurchase(req, orderData, orderId) {
+  const pixelId = process.env.META_PIXEL_ID || '939507308912648';
+  const accessToken = process.env.META_ACCESS_TOKEN || 'EAAc2aaZCnjKwBSfhUGBpyHwNYdCcBIZAfsCFqz7qZB5cGWt6P0di2SIT2upTOSs3ZCMivpfd7gmcKY2b2l1ZB00sZB9oLFewKhUG1KsO5SfYYslVkpqaPnaBiQYLML1MsgGfm9pDEdZApQaSGq7kPWWHjwMe0RxwvDTc4RmLo3ZB0xPnSuQWSlVhmdheCnz24AZDZD';
+  if (!accessToken) return { sent: false, reason: 'missing_token' };
+
+  const visitorIp = extractRealVisitorIp(req);
+  const formattedPhone = formatBDPhoneForMeta(orderData.Phone);
+  const hashedPhone = formattedPhone ? sha256(formattedPhone) : null;
+
+  const rawName = String(orderData.Customer || orderData.from_name || '').trim();
+  const nameParts = rawName && rawName.toLowerCase() !== 'customer' ? rawName.split(/\s+/) : [];
+  const fnHash = nameParts.length > 0 ? sha256(nameParts[0]) : null;
+  const lnHash = nameParts.length > 1 ? sha256(nameParts[nameParts.length - 1]) : null;
+  const rawEmail = String(orderData.Email || '').trim();
+  const emHash = rawEmail && rawEmail.includes('@') ? sha256(rawEmail) : null;
+
+  const metaTracking = orderData.meta_tracking || {};
+  const fbp = metaTracking.fbp || parseCookieHeader(req.headers?.cookie, '_fbp');
+  const fbc = metaTracking.fbc || parseCookieHeader(req.headers?.cookie, '_fbc');
+
+  const numericTotal =
+    typeof metaTracking.value === 'number'
+      ? metaTracking.value
+      : parseFloat(String(orderData.Total_Amount || '1500').replace(/[^0-9.]/g, '')) || 1500;
+  const numItems =
+    typeof metaTracking.num_items === 'number'
+      ? metaTracking.num_items
+      : parseInt(String(orderData.Quantity || '2').replace(/[^0-9]/g, ''), 10) || 2;
+  const unitPrice = typeof metaTracking.unit_price === 'number' ? metaTracking.unit_price : 750;
+
+  const metaPayload = {
+    data: [
+      {
+        event_name: 'Purchase',
+        event_time: Math.floor(Date.now() / 1000),
+        action_source: 'website',
+        event_id: orderId,
+        event_source_url: metaTracking.source_url || req.headers?.referer || 'https://coconuttreatsmore.com/',
+        user_data: {
+          ...(visitorIp ? { client_ip_address: visitorIp } : {}),
+          client_user_agent: req.headers?.['user-agent'] || '',
+          ...(hashedPhone ? { ph: [hashedPhone], external_id: [hashedPhone] } : {}),
+          ...(emHash ? { em: [emHash] } : {}),
+          ...(fnHash ? { fn: [fnHash] } : {}),
+          ...(lnHash ? { ln: [lnHash] } : {}),
+          ct: [sha256('dhaka')],
+          st: [sha256('dhaka')],
+          zp: [sha256('1000')],
+          country: [sha256('bd')],
+          ...(fbp ? { fbp } : {}),
+          ...(fbc ? { fbc } : {}),
+        },
+        custom_data: {
+          value: numericTotal,
+          currency: 'BDT',
+          content_name: 'Premium Coconut Pudding (6pc Box)',
+          content_ids: ['coconut-pudding-6pc'],
+          contents: [{ id: 'coconut-pudding-6pc', quantity: numItems, item_price: unitPrice }],
+          content_type: 'product',
+          num_items: numItems,
+        },
+      },
+    ],
+  };
+
+  try {
+    const resp = await fetch(`https://graph.facebook.com/v21.0/${pixelId}/events?access_token=${accessToken}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(metaPayload),
+    });
+    const json = await resp.json().catch(() => ({}));
+    return {
+      sent: resp.ok,
+      ipDetected: Boolean(visitorIp),
+      hasExternalId: Boolean(hashedPhone),
+      hasFbp: Boolean(fbp),
+      hasFbc: Boolean(fbc),
+      fbtrace_id: json?.fbtrace_id || null,
+    };
+  } catch (err) {
+    console.error('[CAPI Purchase Error]', err?.message || err);
+    return { sent: false, error: err?.message || 'capi_failed' };
+  }
+}
 
 function cleanupExpiredOrders() {
   const now = Date.now();
@@ -234,19 +398,37 @@ export default async function handler(req, res) {
     // Record order timestamp for 3-second double-tap guard
     recentOrdersCache.set(idempotencyKey, Date.now());
 
+    const orderId = orderData.order_id || `ORD_${Date.now()}_${cleanPhone.slice(-4)}`;
     orderData.Phone = phone;
     orderData.Address = address;
 
+    // Reliable structured log BEFORE external Sheet/Email calls so NO order is ever lost
+    console.log('[ORDER_RECEIVED]', JSON.stringify({
+      order_id: orderId,
+      timestamp: new Date().toISOString(),
+      customer: orderData.Customer || orderData.from_name || 'Customer',
+      phone,
+      address,
+      quantity: orderData.Quantity || '',
+      total: orderData.Total_Amount || '',
+      payment: orderData.Payment_Method || '',
+      note: orderData.Note || '',
+    }));
+
+    // Clean payload for Google Apps Script (omit internal meta_tracking object)
+    const { meta_tracking: _omitMeta, ...sheetPayload } = orderData;
+    sheetPayload.Order_ID = orderId;
+
     // Multi-Account Apps Script endpoints:
-    // 1. Coconut Script (coconuttreatsmore@gmail.com) - Writes to Main Google Sheet (1N_ZIAnGtN9Zx-NL0ncPqH1GOCAKZBWhc7_j94y0-5rY) + sends primary email
-    // 2. Ongon Script (ongon51@gmail.com) - Backup email sender (only activates when Coconut quota runs out or fails)
-    // 3. Rehab Script (rehabbhuiyian1@gmail.com) - 3rd-tier backup email sender (activates if both Coconut and Ongon fail)
+    // 1. Coconut Script (coconuttreatsmore@gmail.com) - Writes to Main Google Sheet + sends primary email
+    // 2. Ongon Script (ongon51@gmail.com) - Backup email sender
+    // 3. Rehab Script (rehabbhuiyian1@gmail.com) - 3rd-tier backup email sender
     const COCONUT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbygtsftenbteNaL_IUxy1a82Yy8Jy__jAHeK26NRG0HUrH_jVnCMkAeOyITvQ-lzW9f/exec";
     const ONGON_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuVfOKjWHGjhJm4QK3vIshvLtLF8j9_U-1OM44RNsndXo7sj4Gasa_Ta1lDvALQVCm/exec";
     const REHAB_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFcI1b96QTUub4Nt3T0cDu4bRM7b6nU7vy5VhcaHr-DfrCWAEufiLH-99QmbKbvJZ8_A/exec";
 
     // STEP 1: Always call main Coconut script first (writes to Google Sheet & sends primary email)
-    const coconutRes = await postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, orderData, 3);
+    const coconutRes = await postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, sheetPayload, 3);
 
     const coconutEmailSucceeded =
       coconutRes.ok &&
@@ -260,13 +442,13 @@ export default async function handler(req, res) {
     // STEP 2: ONLY if main Coconut script email failed or quota exhausted, trigger Ongon backup script!
     if (!coconutEmailSucceeded) {
       console.warn("[Backup Triggered] coconuttreatsmore@gmail.com quota full/failed -> sending via ongon51@gmail.com");
-      const ongonRes = await postToGoogleScriptWithRetry(ONGON_SCRIPT_URL, orderData, 3);
+      const ongonRes = await postToGoogleScriptWithRetry(ONGON_SCRIPT_URL, sheetPayload, 3);
       if (ongonRes.ok) {
         finalRes = ongonRes;
       } else {
         // STEP 3: If Ongon also fails or quota runs out, trigger Rehab backup script!
         console.warn("[3rd-Tier Backup Triggered] ongon51@gmail.com failed -> sending via rehabbhuiyian1@gmail.com");
-        const rehabRes = await postToGoogleScriptWithRetry(REHAB_SCRIPT_URL, orderData, 3);
+        const rehabRes = await postToGoogleScriptWithRetry(REHAB_SCRIPT_URL, sheetPayload, 3);
         if (rehabRes.ok) {
           finalRes = rehabRes;
         }
@@ -274,15 +456,28 @@ export default async function handler(req, res) {
     }
 
     if (!finalRes.ok && !coconutRes.ok) {
-      console.error("All Google Apps Script endpoints failed:", finalRes.error || coconutRes.error);
-      return res.status(200).json({
+      console.error('[ORDER_SAVE_FAILED]', JSON.stringify({
+        order_id: orderId,
+        phone,
+        customer: orderData.Customer || 'Customer',
+        address,
+        error: finalRes.error || coconutRes.error,
+      }));
+      // Return HTTP 502 (NEVER 200) so frontend shows error + WhatsApp button and does NOT fire Purchase!
+      return res.status(502).json({
         success: false,
-        message: finalRes.error || coconutRes.error
+        order_id: orderId,
+        message: "অর্ডার সেভ করতে সাময়িক সমস্যা হয়েছে। আবার চেষ্টা করুন অথবা WhatsApp-এ অর্ডার করুন।"
       });
     }
 
+    // STEP 4: Order is confirmed saved! Send ONE authoritative Meta CAPI Purchase event with event_id = order_id
+    const capiDebug = await sendAuthoritativeCapiPurchase(req, orderData, orderId);
+
     return res.status(200).json({
       success: true,
+      order_id: orderId,
+      capi: capiDebug,
       result: finalRes.result || coconutRes.result || { success: true }
     });
 

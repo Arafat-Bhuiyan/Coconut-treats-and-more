@@ -42,13 +42,42 @@ function getCookie(name) {
   return null;
 }
 
+// Helper to read _fbp and _fbc cookies (with localStorage & ?fbclid= fallback)
+export function getMetaBrowserIds() {
+  let fbp = getCookie('_fbp');
+  let fbc = getCookie('_fbc');
+  if (typeof window !== "undefined") {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const fbclid = urlParams.get('fbclid');
+      if (fbclid && !fbc) {
+        fbc = `fb.1.${Date.now()}.${fbclid}`;
+        localStorage.setItem("cc_fbc", fbc);
+      } else if (!fbc) {
+        fbc = localStorage.getItem("cc_fbc") || null;
+      }
+      if (!fbp) {
+        fbp = localStorage.getItem("cc_fbp");
+        if (!fbp) {
+          fbp = `fb.1.${Date.now()}.${Math.floor(1000000000 + Math.random() * 9000000000)}`;
+          localStorage.setItem("cc_fbp", fbp);
+        }
+      }
+    } catch {
+      // Ignore storage/URL parsing errors
+    }
+  }
+  return { fbp: fbp || null, fbc: fbc || null };
+}
+
 /**
  * Universal Meta Pixel and Conversions API Event Tracker
  * Sends the event to the browser-side Pixel and concurrently proxies to Conversions API
+ * Pass { browserOnly: true, eventId } when server CAPI is sent authoritatively by /api/submit-order
  */
-export async function trackFacebookEvent(eventName, eventParams = {}, rawUserData = {}) {
-  // 1. Generate unique event ID for deduplication
-  const eventId = `evt_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
+export async function trackFacebookEvent(eventName, eventParams = {}, rawUserData = {}, options = {}) {
+  // 1. Use provided eventId (e.g. orderId for Purchase deduplication) or generate unique event ID
+  const eventId = options?.eventId || `evt_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
 
   // 2. Load and cache user data for Advanced Matching
   let finalUserData = { ...rawUserData };
@@ -170,7 +199,10 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
     console.warn("[Meta Pixel] window.fbq is not loaded. Skipping browser track.");
   }
 
-  // 5. Fire Server-side Conversions API Event (Via our secure serverless proxy)
+  // 5. Fire Server-side Conversions API Event (skipped when browserOnly=true, e.g. Purchase sent from /api/submit-order)
+  if (options?.browserOnly) {
+    return;
+  }
   try {
     const payload = {
       eventName,

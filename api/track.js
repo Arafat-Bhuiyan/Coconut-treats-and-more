@@ -90,6 +90,16 @@ export default async function handler(req, res) {
     }
     const { eventName, eventTime, eventId, eventParams, userData } = body || {};
 
+    // Purchase CAPI is sent EXCLUSIVELY from /api/submit-order after order save succeeds
+    // Skipping Purchase here guarantees ZERO duplicate server Purchase events (even from cached tabs)
+    if (String(eventName || '').toLowerCase() === 'purchase') {
+      return res.status(200).json({
+        success: true,
+        skipped: true,
+        reason: 'Purchase CAPI is sent exclusively by /api/submit-order'
+      });
+    }
+
     // Retrieve Meta credentials securely from Environment Variables or configured token
     const pixelId = process.env.META_PIXEL_ID || '939507308912648';
     const accessToken = process.env.META_ACCESS_TOKEN || 'EAAc2aaZCnjKwBSfhUGBpyHwNYdCcBIZAfsCFqz7qZB5cGWt6P0di2SIT2upTOSs3ZCMivpfd7gmcKY2b2l1ZB00sZB9oLFewKhUG1KsO5SfYYslVkpqaPnaBiQYLML1MsgGfm9pDEdZApQaSGq7kPWWHjwMe0RxwvDTc4RmLo3ZB0xPnSuQWSlVhmdheCnz24AZDZD';

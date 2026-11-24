@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import OrderSuccessPopup from "../Order/OrderSuccessPopup";
 import VideoReelStrip from "./VideoReelStrip";
-import { trackFacebookEvent } from "../../../../utils/facebookTracking";
+import { trackFacebookEvent, getMetaBrowserIds } from "../../../../utils/facebookTracking";
 import { checkRestrictedDeliveryArea } from "../../../../utils/deliveryAreaCheck";
 
 const REVIEW_IMAGES = Array.from({ length: 8 }, (_, i) => `/reviews/${i + 1}.webp`);
@@ -339,14 +339,16 @@ const Hero = () => {
     }
 
     submittingRef.current = true;
-    lastOrderRef.current = { phone: orderFingerprint, timestamp: now };
     setIsSubmitting(true);
+    setFormError("");
 
     const fullAddress = rawAddress;
     const customerName = rawName || "Customer";
     const capturedPhone = standardPhone;
     const capturedName = rawName;
     const capturedEmail = rawEmail;
+    const orderId = `ORD_${Date.now()}_${capturedPhone.slice(-4)}`;
+    const { fbp, fbc } = getMetaBrowserIds();
 
     const formattedPaymentNote = paymentMethod === "cod"
       ? (rawNote ? `[Cash on Delivery] ${rawNote}` : "Cash on Delivery")
@@ -358,6 +360,7 @@ const Hero = () => {
     const combinedNote = `${formattedPaymentNote}${giftNote}`;
 
     const emailPayload = {
+      order_id: orderId,
       subject: `New Order${isGift ? " 🎁 [GIFT CARD +৳100]" : ""}: ${customerName}`,
       from_name: customerName,
       Customer: customerName,
@@ -372,82 +375,111 @@ const Hero = () => {
       Product_Total: `৳${totalProductPrice}`,
       Delivery_Charge: `৳${deliveryCharge}`,
       Gift_Charge: isGift ? "৳100" : "৳0",
-      Total_Amount: `৳${grandTotalNumber}`
+      Total_Amount: `৳${grandTotalNumber}`,
+      meta_tracking: {
+        fbp,
+        fbc,
+        value: grandTotalNumber,
+        unit_price: unitPrice,
+        num_items: selectedPkg,
+        source_url: typeof window !== "undefined" ? window.location.href : "https://coconuttreatsmore.com/",
+      },
     };
 
-    // 1. Fire Facebook Purchase tracking (wrapped in try-catch so adblockers never block orders)
+    // 1. FIRST save order reliably to /api/submit-order BEFORE showing success or firing Purchase tracking
     try {
-      trackFacebookEvent("Purchase", {
-        value: grandTotalNumber,
-        currency: "BDT",
-        content_name: "Premium Coconut Pudding (6pc Box)",
-        content_ids: ["coconut-pudding-6pc"],
-        contents: [{ id: "coconut-pudding-6pc", quantity: selectedPkg, item_price: unitPrice }],
-        content_type: "product",
-        num_items: selectedPkg,
-      }, {
-        phone: capturedPhone,
-        name: capturedName,
-        email: capturedEmail,
-        address: fullAddress,
+      const res = await fetch("/api/submit-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(emailPayload),
       });
-    } catch (fbErr) {
-      console.warn("FB Purchase event skipped:", fbErr);
-    }
 
-    // 1b. Fire Google Analytics 4 Purchase tracking event
-    try {
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'purchase', {
-          transaction_id: `ORD_${Date.now()}`,
+      let data = null;
+      try {
+        data = await res.json();
+      } catch {
+        data = null;
+      }
+
+      if (!res.ok || !data || data.success !== true) {
+        const serverMsg = data?.message;
+        throw new Error(serverMsg || `HTTP ${res.status}`);
+      }
+
+      // 2. Order is CONFIRMED saved on server! Now fire browser-only Purchase tracking with exact same orderId for 100% deduplication
+      lastOrderRef.current = { phone: orderFingerprint, timestamp: Date.now() };
+
+      try {
+        trackFacebookEvent("Purchase", {
           value: grandTotalNumber,
-          currency: 'BDT',
-          items: [{
-            item_name: 'Premium Coconut Pudding (6pc Box)',
+          currency: "BDT",
+          content_name: "Premium Coconut Pudding (6pc Box)",
+          content_ids: ["coconut-pudding-6pc"],
+          contents: [{ id: "coconut-pudding-6pc", quantity: selectedPkg, item_price: unitPrice }],
+          content_type: "product",
+          num_items: selectedPkg,
+        }, {
+          phone: capturedPhone,
+          name: capturedName,
+          email: capturedEmail,
+          address: fullAddress,
+        }, {
+          eventId: orderId,
+          browserOnly: true, // Server CAPI Purchase already sent ONCE from /api/submit-order with same event_id=orderId
+        });
+      } catch (fbErr) {
+        console.warn("FB Purchase event skipped:", fbErr);
+      }
+
+      try {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'purchase', {
+            transaction_id: orderId,
+            value: grandTotalNumber,
+            currency: 'BDT',
+            items: [{
+              item_name: 'Premium Coconut Pudding (6pc Box)',
+              quantity: selectedPkg,
+              price: unitPrice
+            }]
+          });
+        }
+      } catch (gaErr) {
+        console.warn("GA Purchase event skipped:", gaErr);
+      }
+
+      try {
+        if (typeof window !== "undefined" && window.ttq) {
+          window.ttq.track('CompletePayment', {
+            content_id: 'coconut-pudding-6pc',
+            content_type: 'product',
+            content_name: 'Premium Coconut Pudding (6pc Box)',
             quantity: selectedPkg,
-            price: unitPrice
-          }]
-        });
+            price: unitPrice,
+            value: grandTotalNumber,
+            currency: 'BDT'
+          });
+          window.ttq.track('PlaceAnOrder', {
+            content_id: 'coconut-pudding-6pc',
+            content_type: 'product',
+            content_name: 'Premium Coconut Pudding (6pc Box)',
+            quantity: selectedPkg,
+            price: unitPrice,
+            value: grandTotalNumber,
+            currency: 'BDT'
+          });
+        }
+      } catch (ttErr) {
+        console.warn("TikTok tracking error:", ttErr);
       }
-    } catch (gaErr) {
-      console.warn("GA Purchase event skipped:", gaErr);
-    }
 
-    // 1c. Fire TikTok Pixel Purchase (CompletePayment & PlaceAnOrder) tracking event
-    try {
-      if (typeof window !== "undefined" && window.ttq) {
-        window.ttq.track('CompletePayment', {
-          content_id: 'coconut-pudding-6pc',
-          content_type: 'product',
-          content_name: 'Premium Coconut Pudding (6pc Box)',
-          quantity: selectedPkg,
-          price: unitPrice,
-          value: grandTotalNumber,
-          currency: 'BDT'
-        });
-        window.ttq.track('PlaceAnOrder', {
-          content_id: 'coconut-pudding-6pc',
-          content_type: 'product',
-          content_name: 'Premium Coconut Pudding (6pc Box)',
-          quantity: selectedPkg,
-          price: unitPrice,
-          value: grandTotalNumber,
-          currency: 'BDT'
-        });
-      }
-    } catch (ttErr) {
-      console.warn("TikTok tracking error:", ttErr);
-    }
-
-    // 2. Snappy optimistic UI feedback
-    setTimeout(() => {
+      // 3. Only now show Success screen and reset form
       submittingRef.current = false;
       setIsSubmitting(false);
       setOrderPlaced(true);
       setSubmittedName(customerName);
       setShowSuccess(true);
       setHasSavedInfo(true);
-      // Reset form cleanly so subsequent orders never concatenate previous inputs
       setFormData({
         name: "",
         phone: "",
@@ -459,30 +491,19 @@ const Hero = () => {
       setPaymentMethod("cod");
       setBkashTrx("");
       setSelectedPkg(2);
-    }, 350);
-
-    // 3. Send order to backend with resilient retry (drops keepalive on retry for older mobile WebViews)
-    const sendOrderToServer = async (attempt = 1) => {
-      try {
-        const fetchOpts = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(emailPayload),
-        };
-        if (attempt === 1) fetchOpts.keepalive = true;
-        const res = await fetch("/api/submit-order", fetchOpts);
-        if (!res.ok && attempt < 3) {
-          setTimeout(() => sendOrderToServer(attempt + 1), 250 * attempt);
-        }
-      } catch (err) {
-        if (attempt < 3) {
-          setTimeout(() => sendOrderToServer(attempt + 1), 250 * attempt);
-        } else {
-          console.error("Order submit error:", err);
-        }
-      }
-    };
-    sendOrderToServer();
+    } catch (err) {
+      console.error("Order submit failed:", err);
+      submittingRef.current = false;
+      setIsSubmitting(false);
+      setOrderPlaced(false);
+      setShowSuccess(false);
+      const isAreaBlockedMsg = err?.message && err.message.includes("ডেলিভারি করা সম্ভব নয়");
+      setFormError(
+        isAreaBlockedMsg
+          ? err.message
+          : "অর্ডার পাঠানো যায়নি। ইন্টারনেট সংযোগ চেক করে আবার চেষ্টা করুন অথবা নিচের WhatsApp বাটনে ক্লিক করে অর্ডার করুন।"
+      );
+    }
   };
 
   return (
