@@ -571,6 +571,34 @@ const Hero = () => {
               </div>
             </div>
 
+            {/* SLEEK HORIZONTAL PRICING & ORDER CTA BAR (Between Reviews & Video Strip) */}
+            <div className="w-full bg-white border-2 border-[#4A6741]/25 rounded-2xl px-3.5 sm:px-5 py-2.5 sm:py-3 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-4">
+              <div className="flex flex-col items-center sm:items-start gap-1 text-center sm:text-left leading-snug">
+                <span className="text-xs sm:text-sm font-extrabold text-[#1F291E]">
+                  ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
+                </span>
+                <span className="text-xs sm:text-sm font-black text-[#2B4C23] bg-amber-100 border border-amber-300/80 px-3 py-0.5 rounded-full">
+                  ⭐ ২ বক্স: ৳১,৫০০, ডেলিভারি একদম ফ্রি! 🚚
+                </span>
+              </div>
+              <a
+                href="#order-form-details"
+                onClick={(e) => {
+                  if (e && typeof e.preventDefault === 'function') e.preventDefault();
+                  scrollToCheckout(e);
+                }}
+                style={{ touchAction: 'manipulation' }}
+                className="group relative w-full sm:w-auto sm:min-w-[230px] overflow-hidden inline-flex items-center justify-center gap-2.5 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white font-black py-2.5 sm:py-3 px-6 sm:px-8 rounded-xl border-b-4 border-emerald-800 shadow-lg shadow-emerald-600/35 transition-all duration-200 cursor-pointer select-none text-center flex-shrink-0"
+              >
+                <span className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+                <ShoppingBag size={19} className="text-white flex-shrink-0" />
+                <span className="text-base sm:text-lg tracking-wide">
+                  অর্ডার করুন
+                </span>
+                <span className="text-sm sm:text-base">👇</span>
+              </a>
+            </div>
+
             {/* ROW 1: Half-Height Ultra-Fast Landscape Video Strip + Pricing & 3D Order CTA */}
             <div className="space-y-4">
               <VideoReelStrip />
