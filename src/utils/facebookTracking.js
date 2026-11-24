@@ -70,12 +70,43 @@ export function getMetaBrowserIds() {
   return { fbp: fbp || null, fbc: fbc || null };
 }
 
+// Check if current URL is in test mode (?test=1) or has a Meta Events Manager test_event_code (?test_event_code=TEST12345)
+export function getTrackingTestFlags() {
+  if (typeof window === "undefined") return { isTestUrl: false, testEventCode: null };
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const isTestUrl = params.get('test') === '1' || params.get('test') === 'true';
+    const testEventCode = params.get('test_event_code')?.trim() || null;
+    return { isTestUrl, testEventCode };
+  } catch {
+    return { isTestUrl: false, testEventCode: null };
+  }
+}
+
+// Check if order note/address/name indicates a test order (never counted as real Purchase)
+export function isTestOrderInput(note = "", address = "", name = "") {
+  const { isTestUrl } = getTrackingTestFlags();
+  if (isTestUrl) return true;
+  const noteStr = String(note || "");
+  if (/\btest\b/i.test(noteStr) || noteStr.includes("টেস্ট")) return true;
+  const combined = `${name || ""} ${address || ""}`;
+  if (combined.includes("সিস্টেম লাইভ টেস্ট") || /\blive audit\b/i.test(combined)) return true;
+  return false;
+}
+
 /**
  * Universal Meta Pixel and Conversions API Event Tracker
  * Sends the event to the browser-side Pixel and concurrently proxies to Conversions API
  * Pass { browserOnly: true, eventId } when server CAPI is sent authoritatively by /api/submit-order
  */
 export async function trackFacebookEvent(eventName, eventParams = {}, rawUserData = {}, options = {}) {
+  // Never pollute Meta Pixel or CAPI when URL has ?test=1 (unless explicit test_event_code is given for Events Manager Test Events)
+  const { isTestUrl, testEventCode } = getTrackingTestFlags();
+  if (isTestUrl && !testEventCode) {
+    console.info(`[Meta Tracking] Skipped '${eventName}' because ?test=1 is active.`);
+    return;
+  }
+
   // 1. Use provided eventId (e.g. orderId for Purchase deduplication) or generate unique event ID
   const eventId = options?.eventId || `evt_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
 
@@ -209,6 +240,7 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
       eventTime: Math.floor(Date.now() / 1000),
       eventId,
       eventParams,
+      ...(testEventCode ? { test_event_code: testEventCode } : {}),
       userData: {
         ...userData,
         sourceUrl: typeof window !== "undefined" ? window.location.href : "https://coconuttreatsmore.com/",

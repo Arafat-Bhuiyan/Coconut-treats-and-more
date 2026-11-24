@@ -88,7 +88,7 @@ export default async function handler(req, res) {
         // failed parse
       }
     }
-    const { eventName, eventTime, eventId, eventParams, userData } = body || {};
+    const { eventName, eventTime, eventId, eventParams, userData, test_event_code } = body || {};
 
     // Purchase CAPI is sent EXCLUSIVELY from /api/submit-order after order save succeeds
     // Skipping Purchase here guarantees ZERO duplicate server Purchase events (even from cached tabs)
@@ -97,6 +97,17 @@ export default async function handler(req, res) {
         success: true,
         skipped: true,
         reason: 'Purchase CAPI is sent exclusively by /api/submit-order'
+      });
+    }
+
+    // Never send ?test=1 traffic to live Meta CAPI unless test_event_code is explicitly provided
+    const srcUrl = String(userData?.sourceUrl || req.headers?.referer || '');
+    const resolvedTestCode = String(test_event_code || process.env.META_TEST_EVENT_CODE || '').trim() || null;
+    if (/[?&]test=(1|true)(&|$)/i.test(srcUrl) && !resolvedTestCode) {
+      return res.status(200).json({
+        success: true,
+        skipped: true,
+        reason: 'test_mode_excluded'
       });
     }
 
@@ -134,6 +145,7 @@ export default async function handler(req, res) {
     };
 
     const metaPayload = {
+      ...(resolvedTestCode ? { test_event_code: resolvedTestCode } : {}),
       data: [
         {
           event_name: eventName,

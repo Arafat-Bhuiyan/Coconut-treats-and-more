@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import OrderSuccessPopup from "../Order/OrderSuccessPopup";
 import VideoReelStrip from "./VideoReelStrip";
-import { trackFacebookEvent, getMetaBrowserIds } from "../../../../utils/facebookTracking";
+import { trackFacebookEvent, getMetaBrowserIds, getTrackingTestFlags, isTestOrderInput } from "../../../../utils/facebookTracking";
 import { checkRestrictedDeliveryArea } from "../../../../utils/deliveryAreaCheck";
 
 const REVIEW_IMAGES = Array.from({ length: 8 }, (_, i) => `/reviews/${i + 1}.webp`);
@@ -349,6 +349,8 @@ const Hero = () => {
     const capturedEmail = rawEmail;
     const orderId = `ORD_${Date.now()}_${capturedPhone.slice(-4)}`;
     const { fbp, fbc } = getMetaBrowserIds();
+    const { testEventCode } = getTrackingTestFlags();
+    const isTestOrder = isTestOrderInput(rawNote, fullAddress, capturedName);
 
     const formattedPaymentNote = paymentMethod === "cod"
       ? (rawNote ? `[Cash on Delivery] ${rawNote}` : "Cash on Delivery")
@@ -383,6 +385,8 @@ const Hero = () => {
         unit_price: unitPrice,
         num_items: selectedPkg,
         source_url: typeof window !== "undefined" ? window.location.href : "https://coconuttreatsmore.com/",
+        is_test: isTestOrder,
+        ...(testEventCode ? { test_event_code: testEventCode } : {}),
       },
     };
 
@@ -406,71 +410,76 @@ const Hero = () => {
         throw new Error(serverMsg || `HTTP ${res.status}`);
       }
 
-      // 2. Order is CONFIRMED saved on server! Now fire browser-only Purchase tracking with exact same orderId for 100% deduplication
+      // 2. Order is CONFIRMED saved on server!
+      // Skip ALL ad/analytics Purchase events if Note has 'TEST' or URL has ?test=1 (never pollute real ad data!)
       lastOrderRef.current = { phone: orderFingerprint, timestamp: Date.now() };
 
-      try {
-        trackFacebookEvent("Purchase", {
-          value: grandTotalNumber,
-          currency: "BDT",
-          content_name: "Premium Coconut Pudding (6pc Box)",
-          content_ids: ["coconut-pudding-6pc"],
-          contents: [{ id: "coconut-pudding-6pc", quantity: selectedPkg, item_price: unitPrice }],
-          content_type: "product",
-          num_items: selectedPkg,
-        }, {
-          phone: capturedPhone,
-          name: capturedName,
-          email: capturedEmail,
-          address: fullAddress,
-        }, {
-          eventId: orderId,
-          browserOnly: true, // Server CAPI Purchase already sent ONCE from /api/submit-order with same event_id=orderId
-        });
-      } catch (fbErr) {
-        console.warn("FB Purchase event skipped:", fbErr);
-      }
-
-      try {
-        if (typeof window.gtag === 'function') {
-          window.gtag('event', 'purchase', {
-            transaction_id: orderId,
+      if (!isTestOrder) {
+        try {
+          trackFacebookEvent("Purchase", {
             value: grandTotalNumber,
-            currency: 'BDT',
-            items: [{
-              item_name: 'Premium Coconut Pudding (6pc Box)',
+            currency: "BDT",
+            content_name: "Premium Coconut Pudding (6pc Box)",
+            content_ids: ["coconut-pudding-6pc"],
+            contents: [{ id: "coconut-pudding-6pc", quantity: selectedPkg, item_price: unitPrice }],
+            content_type: "product",
+            num_items: selectedPkg,
+          }, {
+            phone: capturedPhone,
+            name: capturedName,
+            email: capturedEmail,
+            address: fullAddress,
+          }, {
+            eventId: orderId,
+            browserOnly: true, // Server CAPI Purchase already sent ONCE from /api/submit-order with same event_id=orderId
+          });
+        } catch (fbErr) {
+          console.warn("FB Purchase event skipped:", fbErr);
+        }
+
+        try {
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'purchase', {
+              transaction_id: orderId,
+              value: grandTotalNumber,
+              currency: 'BDT',
+              items: [{
+                item_name: 'Premium Coconut Pudding (6pc Box)',
+                quantity: selectedPkg,
+                price: unitPrice
+              }]
+            });
+          }
+        } catch (gaErr) {
+          console.warn("GA Purchase event skipped:", gaErr);
+        }
+
+        try {
+          if (typeof window !== "undefined" && window.ttq) {
+            window.ttq.track('CompletePayment', {
+              content_id: 'coconut-pudding-6pc',
+              content_type: 'product',
+              content_name: 'Premium Coconut Pudding (6pc Box)',
               quantity: selectedPkg,
-              price: unitPrice
-            }]
-          });
+              price: unitPrice,
+              value: grandTotalNumber,
+              currency: 'BDT'
+            });
+            window.ttq.track('PlaceAnOrder', {
+              content_id: 'coconut-pudding-6pc',
+              content_type: 'product',
+              content_name: 'Premium Coconut Pudding (6pc Box)',
+              quantity: selectedPkg,
+              price: unitPrice,
+              value: grandTotalNumber,
+              currency: 'BDT'
+            });
+          }
+        } catch (ttErr) {
+          console.warn("TikTok tracking error:", ttErr);
         }
-      } catch (gaErr) {
-        console.warn("GA Purchase event skipped:", gaErr);
-      }
-
-      try {
-        if (typeof window !== "undefined" && window.ttq) {
-          window.ttq.track('CompletePayment', {
-            content_id: 'coconut-pudding-6pc',
-            content_type: 'product',
-            content_name: 'Premium Coconut Pudding (6pc Box)',
-            quantity: selectedPkg,
-            price: unitPrice,
-            value: grandTotalNumber,
-            currency: 'BDT'
-          });
-          window.ttq.track('PlaceAnOrder', {
-            content_id: 'coconut-pudding-6pc',
-            content_type: 'product',
-            content_name: 'Premium Coconut Pudding (6pc Box)',
-            quantity: selectedPkg,
-            price: unitPrice,
-            value: grandTotalNumber,
-            currency: 'BDT'
-          });
-        }
-      } catch (ttErr) {
-        console.warn("TikTok tracking error:", ttErr);
+      } else {
+        console.info("[Tracking] Test order detected (Note has TEST or ?test=1) — skipped Meta Pixel, GA4 & TikTok Purchase.");
       }
 
       // 3. Only now show Success screen and reset form

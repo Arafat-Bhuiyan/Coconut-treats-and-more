@@ -89,7 +89,27 @@ function parseCookieHeader(cookieHeader, name) {
   return null;
 }
 
+function isTestOrderServer(req, orderData) {
+  const metaTracking = orderData?.meta_tracking || {};
+  if (metaTracking.is_test === true) return true;
+  const sourceUrl = String(metaTracking.source_url || req.headers?.referer || '');
+  if (/[?&]test=(1|true)(&|$)/i.test(sourceUrl)) return true;
+  const note = String(orderData?.Note || '');
+  if (/\btest\b/i.test(note) || note.includes('টেস্ট')) return true;
+  const addrAndName = `${orderData?.Customer || ''} ${orderData?.Address || ''}`;
+  if (addrAndName.includes('সিস্টেম লাইভ টেস্ট') || /\blive audit\b/i.test(addrAndName)) return true;
+  return false;
+}
+
 async function sendAuthoritativeCapiPurchase(req, orderData, orderId) {
+  const metaTracking = orderData.meta_tracking || {};
+  const testEventCode = String(metaTracking.test_event_code || process.env.META_TEST_EVENT_CODE || '').trim() || null;
+
+  // NEVER send test orders to live Meta CAPI Purchase unless an explicit Meta Events Manager test_event_code is set!
+  if (isTestOrderServer(req, orderData) && !testEventCode) {
+    return { sent: false, skipped: true, reason: 'test_order_excluded' };
+  }
+
   const pixelId = process.env.META_PIXEL_ID || '939507308912648';
   const accessToken = process.env.META_ACCESS_TOKEN || 'EAAc2aaZCnjKwBSfhUGBpyHwNYdCcBIZAfsCFqz7qZB5cGWt6P0di2SIT2upTOSs3ZCMivpfd7gmcKY2b2l1ZB00sZB9oLFewKhUG1KsO5SfYYslVkpqaPnaBiQYLML1MsgGfm9pDEdZApQaSGq7kPWWHjwMe0RxwvDTc4RmLo3ZB0xPnSuQWSlVhmdheCnz24AZDZD';
   if (!accessToken) return { sent: false, reason: 'missing_token' };
@@ -105,7 +125,6 @@ async function sendAuthoritativeCapiPurchase(req, orderData, orderId) {
   const rawEmail = String(orderData.Email || '').trim();
   const emHash = rawEmail && rawEmail.includes('@') ? sha256(rawEmail) : null;
 
-  const metaTracking = orderData.meta_tracking || {};
   const fbp = metaTracking.fbp || parseCookieHeader(req.headers?.cookie, '_fbp');
   const fbc = metaTracking.fbc || parseCookieHeader(req.headers?.cookie, '_fbc');
 
@@ -120,6 +139,7 @@ async function sendAuthoritativeCapiPurchase(req, orderData, orderId) {
   const unitPrice = typeof metaTracking.unit_price === 'number' ? metaTracking.unit_price : 750;
 
   const metaPayload = {
+    ...(testEventCode ? { test_event_code: testEventCode } : {}),
     data: [
       {
         event_name: 'Purchase',
