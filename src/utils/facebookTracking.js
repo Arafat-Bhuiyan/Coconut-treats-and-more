@@ -89,7 +89,12 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
   if (finalUserData.phone) {
     const formattedPhone = formatPhoneForMeta(finalUserData.phone);
     if (formattedPhone) {
-      userData.ph = await sha256(formattedPhone);
+      const hashedPhone = await sha256(formattedPhone);
+      if (hashedPhone) {
+        userData.ph = hashedPhone;
+        // Send SHA-256 hashed phone number as external_id for high Event Match Quality (EMQ)
+        userData.external_id = hashedPhone;
+      }
     }
   }
 
@@ -174,6 +179,7 @@ export async function trackFacebookEvent(eventName, eventParams = {}, rawUserDat
       eventParams,
       userData: {
         ...userData,
+        sourceUrl: typeof window !== "undefined" ? window.location.href : "https://coconuttreatsmore.com/",
         userAgent: typeof navigator !== "undefined" ? navigator.userAgent : '',
       }
     };
