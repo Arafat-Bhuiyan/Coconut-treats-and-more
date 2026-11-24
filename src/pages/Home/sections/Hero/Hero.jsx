@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useMemo } from "react";
 import { 
   ShoppingBag, 
   MapPin, 
@@ -47,7 +47,28 @@ const Hero = () => {
   });
 
   const [hasSavedInfo, setHasSavedInfo] = useState(false);
-  const detectedRestrictedArea = checkRestrictedDeliveryArea(formData.address);
+  const saveTimerRef = useRef(null);
+  const reviewsSectionRef = useRef(null);
+  const reviewsTrackRef = useRef(null);
+  const detectedRestrictedArea = useMemo(
+    () => checkRestrictedDeliveryArea(formData.address),
+    [formData.address]
+  );
+
+  // Pause top reviews marquee when customer scrolls down to Order Form (0% GPU load during checkout)
+  useEffect(() => {
+    const sec = reviewsSectionRef.current;
+    const trk = reviewsTrackRef.current;
+    if (!sec || !trk || typeof IntersectionObserver === "undefined") return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        trk.style.animationPlayState = entries[0]?.isIntersecting ? "running" : "paused";
+      },
+      { threshold: 0.02 }
+    );
+    obs.observe(sec);
+    return () => obs.disconnect();
+  }, []);
 
   // Detect saved customer info in localStorage so user can 1-tap "⚡ অটো ফিল" if desired without pre-dirtying inputs
   useEffect(() => {
@@ -189,17 +210,20 @@ const Hero = () => {
         ...prev,
         [name]: nextVal
       };
-      // Auto-save to localStorage so returning customer never types twice
-      try {
-        localStorage.setItem("coconut_customer_info", JSON.stringify({
-          name: next.name,
-          phone: next.phone,
-          address: next.address,
-          email: next.email
-        }));
-      } catch {
-        // Ignore localStorage write errors
-      }
+      // Debounced auto-save to localStorage (prevents synchronous eMMC write lag on budget Android phones)
+      if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+      saveTimerRef.current = setTimeout(() => {
+        try {
+          localStorage.setItem("coconut_customer_info", JSON.stringify({
+            name: next.name,
+            phone: next.phone,
+            address: next.address,
+            email: next.email
+          }));
+        } catch {
+          // Ignore localStorage write errors
+        }
+      }, 400);
       return next;
     });
   };
@@ -448,11 +472,11 @@ const Hero = () => {
         if (attempt === 1) fetchOpts.keepalive = true;
         const res = await fetch("/api/submit-order", fetchOpts);
         if (!res.ok && attempt < 3) {
-          setTimeout(() => sendOrderToServer(attempt + 1), 600 * attempt);
+          setTimeout(() => sendOrderToServer(attempt + 1), 250 * attempt);
         }
       } catch (err) {
         if (attempt < 3) {
-          setTimeout(() => sendOrderToServer(attempt + 1), 600 * attempt);
+          setTimeout(() => sendOrderToServer(attempt + 1), 250 * attempt);
         } else {
           console.error("Order submit error:", err);
         }
@@ -471,8 +495,8 @@ const Hero = () => {
         <form onSubmit={handleSubmitOrder} noValidate>
           <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border border-[#4A6741]/15 overflow-hidden p-4 sm:p-7 md:p-9 space-y-5 md:space-y-7">
             
-            {/* TOP CUSTOMER REVIEWS MARQUEE (Ultra-fast GPU-safe 8x2 strip, <4096px texture limit) */}
-            <div id="reviews" style={{ contain: "layout style paint" }} className="scroll-mt-24 overflow-hidden relative -mx-1 sm:-mx-2 pb-1">
+            {/* TOP CUSTOMER REVIEWS MARQUEE (Auto-pauses when scrolled to Order Form) */}
+            <div ref={reviewsSectionRef} id="reviews" style={{ contain: "layout style paint" }} className="scroll-mt-24 overflow-hidden relative -mx-1 sm:-mx-2 pb-1">
               <style>
                 {`
                   @keyframes scrollHeroReviews {
@@ -482,8 +506,7 @@ const Hero = () => {
                   .hero-reviews-marquee {
                     display: flex;
                     width: max-content;
-                    animation: scrollHeroReviews 18s linear infinite;
-                    will-change: transform;
+                    animation: scrollHeroReviews 20s linear infinite;
                   }
                   .hero-reviews-marquee:hover {
                     animation-play-state: paused;
@@ -502,7 +525,7 @@ const Hero = () => {
                 <div className="absolute inset-y-0 left-0 w-6 sm:w-12 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
                 <div className="absolute inset-y-0 right-0 w-6 sm:w-12 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
                 <div className="flex overflow-hidden select-none gap-3.5 sm:gap-5 py-1">
-                  <div className="hero-reviews-marquee gap-3.5 sm:gap-5 min-w-full">
+                  <div ref={reviewsTrackRef} className="hero-reviews-marquee gap-3.5 sm:gap-5 min-w-full">
                     {REVIEW_IMAGES.map((img, idx) => (
                       <div key={`hr-orig-${idx}`} className="flex-none w-[185px] sm:w-[235px] md:w-[260px] rounded-2xl overflow-hidden border border-[#4A6741]/20 shadow-sm bg-[#F8FAF7]">
                         <img src={img} alt={`Customer Review ${idx + 1}`} className="w-full h-auto object-cover pointer-events-none" loading="lazy" decoding="async" width={260} height={195} />
@@ -548,7 +571,7 @@ const Hero = () => {
                       <span className="text-base sm:text-lg tracking-wide">
                         অর্ডার করুন
                       </span>
-                      <span className="text-sm sm:text-base animate-bounce">👇</span>
+                      <span className="text-sm sm:text-base">👇</span>
                     </a>
                   </div>
                 </div>

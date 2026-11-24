@@ -125,7 +125,7 @@ const Testimonials = () => {
                                     <span className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
                                     <ShoppingBag size={20} className="text-white flex-shrink-0" />
                                     <span className="text-base sm:text-lg tracking-wide">অর্ডার করুন</span>
-                                    <span className="text-sm sm:text-base animate-bounce">👆</span>
+                                    <span className="text-sm sm:text-base">👆</span>
                                 </a>
                             </div>
 

@@ -36,10 +36,10 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3.5 sm:p-6 animate-fade-in">
-      {/* Backdrop blur with fade-in */}
+      {/* Solid fast backdrop (zero backdrop-blur lag on normal smartphones) */}
       <div
         onClick={onClose}
-        className="absolute inset-0 bg-[#161a14]/80 backdrop-blur-md transition-opacity duration-200"
+        className="absolute inset-0 bg-[#161a14]/80 transition-opacity duration-200"
       />
 
       {/* Modal Container */}
@@ -112,62 +112,19 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
             </div>
           </div>
 
-          <style>{`
-            @keyframes discountCardPulse {
-              0%, 100% {
-                box-shadow: 0 0 18px 4px rgba(245, 158, 11, 0.75), 0 0 32px 8px rgba(251, 191, 36, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.65);
-                border-color: #fbbf24;
-                transform: scale(1);
-              }
-              50% {
-                box-shadow: 0 0 26px 8px rgba(245, 158, 11, 0.95), 0 0 45px 14px rgba(251, 191, 36, 0.65), inset 0 1px 3px rgba(255, 255, 255, 0.85);
-                border-color: #fde047;
-                transform: scale(1.015);
-              }
-            }
-            @keyframes shimmerSweep {
-              0% { transform: translateX(-120%) skewX(-15deg); }
-              100% { transform: translateX(220%) skewX(-15deg); }
-            }
-            @keyframes greenOrderBlink {
-              0%, 100% {
-                box-shadow: 0 0 0 0 rgba(74, 103, 65, 0.6), 0 6px 18px -3px rgba(74, 103, 65, 0.4);
-              }
-              50% {
-                box-shadow: 0 0 18px 5px rgba(52, 211, 153, 0.65), 0 10px 24px -2px rgba(74, 103, 65, 0.5);
-              }
-            }
-            .popup-discount-highlight {
-              animation: discountCardPulse 1.8s ease-in-out infinite;
-            }
-            .popup-shimmer-bar {
-              animation: shimmerSweep 2.6s infinite;
-            }
-            .popup-green-blink-btn {
-              animation: greenOrderBlink 1.5s ease-in-out infinite;
-            }
-          `}</style>
-
-          {/* Eye-Catching Bold 24K Golden Instant Discount Banner with Strong Golden Glow Border */}
+          {/* Eye-Catching Bold 24K Golden Instant Discount Banner (Zero-Lag Static Glow) */}
           <div
             onClick={handleClaim}
             style={{
               touchAction: 'manipulation',
               background: 'linear-gradient(135deg, #92400E 0%, #B45309 25%, #D97706 60%, #B45309 100%)',
+              boxShadow: '0 0 20px 4px rgba(245, 158, 11, 0.55)',
             }}
-            className="popup-discount-highlight rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center gap-1.5 relative overflow-hidden cursor-pointer select-none border-[3px] border-amber-300"
+            className="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center justify-center gap-1.5 relative overflow-hidden cursor-pointer select-none border-[3px] border-amber-300"
           >
-            {/* Animated Shimmer Light Sweep */}
-            <span
-              className="popup-shimmer-bar pointer-events-none absolute inset-0 w-1/2 h-full"
-              style={{
-                background: 'linear-gradient(90deg, transparent, rgba(255, 251, 235, 0.42), transparent)',
-              }}
-            />
-
             {/* Top Golden Pill Badge */}
             <div className="inline-flex items-center gap-1.5 bg-amber-300 text-amber-950 px-3 py-0.5 rounded-full shadow-sm relative z-10 border border-white/80">
-              <span className="text-sm leading-none animate-bounce">🚚</span>
+              <span className="text-sm leading-none">🚚</span>
               <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-wider leading-none">
                 SPECIAL OFFER
               </span>
@@ -198,10 +155,9 @@ const PromotionPopup = ({ isOpen, onClose, onClaim }) => {
             >
               <span className="pointer-events-none absolute inset-0 bg-white/20 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
               <span className="pointer-events-none relative flex h-3 w-3 flex-shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-300"></span>
               </span>
-              <ShoppingBag size={19} className="pointer-events-none animate-bounce" />
+              <ShoppingBag size={19} className="pointer-events-none" />
               <span className="pointer-events-none">অর্ডার করুন</span>
             </button>
 

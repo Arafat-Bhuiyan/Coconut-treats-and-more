@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const REELS = [
   { src: "/videos/reel-1.mp4", poster: "/videos/reel-1.webp", label: "Fresh Coconut Pudding" },
@@ -8,102 +8,83 @@ const REELS = [
   { src: "/videos/reel-5.mp4", poster: "/videos/reel-5.webp", label: "Creamy Homemade Taste" },
 ];
 
+const LOOP_REELS = [...REELS, ...REELS];
+
 /**
- * Ultra-Fast Continuous Sliding 5-Video Strip (Zero-Hang Mobile Hardware Decoder Safe!)
- * - All 5 videos slide smoothly & infinitely on both Mobile & PC
- * - Smart horizontal + vertical IntersectionObserver ensures ONLY the 2-3 videos
- *   actually visible on screen decode at any moment (never exhausts Android/iOS MediaCodec pool!)
- * - Auto-pauses ALL videos + animation immediately when customer scrolls down to Order Form
+ * Super-Fast Zero-Hang Continuous Sliding 5-Video Strip
+ * - On normal/budget Android smartphones, mounting 10 <video> elements allocates 10 native
+ *   MediaPlayer/SurfaceTexture layers and freezes the WebView.
+ * - Solution: Only cards CURRENTLY visible inside the strip mount a <video> element (2-3 max on mobile),
+ *   while offscreen cards stay lightweight 10KB WebP <img> posters (0 MediaPlayers!).
+ * - When the customer scrolls down to the Order Form, ALL <video> elements unmount (0 decoders, 0 GPU load)
+ *   so typing and tapping "অর্ডার কনফার্ম করুন" is 100% instant on any smartphone!
  */
 const VideoReelStrip = () => {
   const sectionRef = useRef(null);
   const viewportRef = useRef(null);
   const trackRef = useRef(null);
   const cardRefs = useRef([]);
-  const videoRefs = useRef([]);
+
+  const [sectionVisible, setSectionVisible] = useState(true);
+  const [activeIndices, setActiveIndices] = useState(() => new Set([0, 1, 2]));
 
   useEffect(() => {
     const section = sectionRef.current;
     const viewport = viewportRef.current;
     const track = trackRef.current;
-    if (!section) return;
+    if (!section || typeof IntersectionObserver === "undefined") return;
 
-    let isSectionVisible = true;
-    const visibleCards = new Set([0, 1, 2]);
-
-    const syncPlayback = () => {
-      if (track) {
-        track.style.animationPlayState = isSectionVisible ? "running" : "paused";
-      }
-      videoRefs.current.forEach((vid, idx) => {
-        if (!vid) return;
-        const shouldPlay = isSectionVisible && visibleCards.has(idx);
-        if (shouldPlay) {
-          vid.muted = true;
-          vid.defaultMuted = true;
-          if (vid.paused) {
-            const p = vid.play();
-            if (p && typeof p.catch === "function") p.catch(() => {});
-          }
-        } else if (!vid.paused) {
-          vid.pause();
+    // 1. Vertical observer: unmount all videos & pause animation when scrolled down to Order Form
+    const sectionObs = new IntersectionObserver(
+      (entries) => {
+        const isVis = Boolean(entries[0]?.isIntersecting);
+        setSectionVisible(isVis);
+        if (track) {
+          track.style.animationPlayState = isVis ? "running" : "paused";
         }
-      });
-    };
+      },
+      { threshold: 0.02 }
+    );
+    sectionObs.observe(section);
 
-    // Initial playback for the first visible cards only
-    syncPlayback();
-
-    let sectionObs = null;
-    let cardObs = null;
-
-    if (typeof IntersectionObserver !== "undefined") {
-      // 1. Vertical observer: pause everything when user scrolls down to the Order Form
-      sectionObs = new IntersectionObserver(
-        (entries) => {
-          isSectionVisible = Boolean(entries[0]?.isIntersecting);
-          syncPlayback();
-        },
-        { threshold: 0.05 }
-      );
-      sectionObs.observe(section);
-
-      // 2. Horizontal observer: ONLY decode the 2-3 cards currently inside the visible strip window
-      cardObs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
+    // 2. Horizontal observer: mount <video> ONLY for the 2-3 cards actually visible on screen
+    const cardObs = new IntersectionObserver(
+      (entries) => {
+        setActiveIndices((prev) => {
+          let changed = false;
+          const next = new Set(prev);
+          for (const entry of entries) {
             const idx = Number(entry.target.getAttribute("data-reel-idx"));
-            if (Number.isNaN(idx)) return;
+            if (Number.isNaN(idx)) continue;
             if (entry.isIntersecting) {
-              visibleCards.add(idx);
+              if (!next.has(idx)) {
+                next.add(idx);
+                changed = true;
+              }
             } else {
-              visibleCards.delete(idx);
+              if (next.has(idx)) {
+                next.delete(idx);
+                changed = true;
+              }
             }
-          });
-          syncPlayback();
-        },
-        {
-          root: viewport,
-          rootMargin: "0px 60px 0px 60px",
-          threshold: 0.01,
-        }
-      );
+          }
+          return changed ? next : prev;
+        });
+      },
+      {
+        root: viewport,
+        rootMargin: "0px 30px 0px 30px",
+        threshold: 0.01,
+      }
+    );
 
-      cardRefs.current.forEach((card) => {
-        if (card) cardObs.observe(card);
-      });
-    }
-
-    // Unlock autoplay on first user interaction for strict mobile Low Power Mode
-    const unlock = () => syncPlayback();
-    window.addEventListener("touchstart", unlock, { once: true, passive: true });
-    window.addEventListener("click", unlock, { once: true, passive: true });
+    cardRefs.current.forEach((card) => {
+      if (card) cardObs.observe(card);
+    });
 
     return () => {
-      if (sectionObs) sectionObs.disconnect();
-      if (cardObs) cardObs.disconnect();
-      window.removeEventListener("touchstart", unlock);
-      window.removeEventListener("click", unlock);
+      sectionObs.disconnect();
+      cardObs.disconnect();
     };
   }, []);
 
@@ -122,8 +103,7 @@ const VideoReelStrip = () => {
           .reels-five-track {
             display: flex;
             width: max-content;
-            animation: glideFiveReelsAll 24s linear infinite;
-            will-change: transform;
+            animation: glideFiveReelsAll 26s linear infinite;
           }
           .reels-five-track:hover {
             animation-play-state: paused;
@@ -142,31 +122,49 @@ const VideoReelStrip = () => {
         </span>
       </div>
 
-      {/* Continuous Smooth Sliding 5-Video Strip (Viewport-Aware Decoder Pool — Zero Mobile Hang) */}
+      {/* Continuous Smooth Sliding 5-Video Strip (Only Visible Cards Mount <video> — Zero Hang!) */}
       <div ref={viewportRef} className="relative overflow-hidden rounded-2xl">
         <div className="absolute inset-y-0 left-0 w-4 sm:w-8 bg-gradient-to-r from-[#F4F7F2] to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-4 sm:w-8 bg-gradient-to-l from-[#F4F7F2] to-transparent z-10 pointer-events-none" />
         <div ref={trackRef} className="reels-five-track gap-2.5 sm:gap-3.5 py-0.5">
-          {[...REELS, ...REELS].map((reel, idx) => (
-            <div
-              key={`reel-loop-${idx}`}
-              ref={(el) => { cardRefs.current[idx] = el; }}
-              data-reel-idx={idx}
-              className="flex-none w-[142px] sm:w-[172px] md:w-[195px] h-[195px] sm:h-[228px] md:h-[250px] rounded-2xl overflow-hidden bg-black/5 border border-[#4A6741]/20 shadow-sm relative"
-            >
-              <video
-                ref={(el) => { videoRefs.current[idx] = el; }}
-                src={reel.src}
-                poster={reel.poster}
-                loop
-                muted
-                playsInline
-                preload={idx < 3 ? "auto" : "metadata"}
-                disablePictureInPicture
-                className="w-full h-full object-cover pointer-events-none"
-              />
-            </div>
-          ))}
+          {LOOP_REELS.map((reel, idx) => {
+            const shouldMountVideo = sectionVisible && activeIndices.has(idx);
+            return (
+              <div
+                key={`reel-loop-${idx}`}
+                ref={(el) => { cardRefs.current[idx] = el; }}
+                data-reel-idx={idx}
+                className="flex-none w-[142px] sm:w-[172px] md:w-[195px] h-[195px] sm:h-[228px] md:h-[250px] rounded-2xl overflow-hidden bg-[#e8ede5] border border-[#4A6741]/20 shadow-sm relative"
+              >
+                <img
+                  src={reel.poster}
+                  alt={reel.label}
+                  width={195}
+                  height={250}
+                  loading={idx < 3 ? "eager" : "lazy"}
+                  decoding="async"
+                  className="w-full h-full object-cover pointer-events-none"
+                />
+                {shouldMountVideo && (
+                  <video
+                    src={reel.src}
+                    poster={reel.poster}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="auto"
+                    disablePictureInPicture
+                    onCanPlay={(e) => {
+                      const p = e.currentTarget.play();
+                      if (p && typeof p.catch === "function") p.catch(() => {});
+                    }}
+                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
 

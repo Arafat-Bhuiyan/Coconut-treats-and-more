@@ -112,7 +112,7 @@ const Navbar = () => {
             {/* Mobile Drawer — Conditionally mounted only when open to save mobile GPU compositing */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 bg-white/85 z-40 flex flex-col pt-28 px-6 md:hidden backdrop-blur-2xl animate-fadeIn"
+                    className="fixed inset-0 bg-white/98 z-40 flex flex-col pt-28 px-6 md:hidden animate-fadeIn"
                 >
                     <div className="flex flex-col gap-4">
                         {navLinks.map((link) => (

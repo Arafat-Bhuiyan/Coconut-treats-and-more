@@ -31,10 +31,10 @@ const OrderSuccessPopup = ({ isOpen, onClose, customerName, isGift = false, gift
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      {/* Backdrop */}
+      {/* Fast Solid Backdrop */}
       <div
         onClick={onClose}
-        className={`absolute inset-0 bg-[#161a14]/80 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`absolute inset-0 bg-[#161a14]/80 transition-opacity duration-200 ${
           isAnimated ? "opacity-100" : "opacity-0"
         }`}
       />
@@ -63,7 +63,6 @@ const OrderSuccessPopup = ({ isOpen, onClose, customerName, isGift = false, gift
               isAnimated ? "scale-100" : "scale-0"
             }`}
           >
-            <div className="absolute inset-0 animate-ping rounded-full bg-primary/20" />
             <CheckCircle2 size={64} className="text-primary relative z-10" />
           </div>
         </div>
