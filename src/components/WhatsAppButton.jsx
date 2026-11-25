@@ -5,11 +5,34 @@ import { trackFacebookEvent } from "../utils/facebookTracking";
 const WhatsAppButton = () => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [inCheckout, setInCheckout] = useState(false);
 
   // Show button after a short delay for a smooth entrance
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 1500);
     return () => clearTimeout(timer);
+  }, []);
+
+  // Auto-hide floating button on mobile when customer is inside the Checkout Form so it never overlaps inputs or Confirm Order button
+  useEffect(() => {
+    const checkPosition = () => {
+      if (window.innerWidth >= 768) {
+        setInCheckout(false);
+        return;
+      }
+      const checkoutEl = document.getElementById("checkout-grid-container");
+      if (!checkoutEl) return;
+      const rect = checkoutEl.getBoundingClientRect();
+      const wh = window.innerHeight || document.documentElement.clientHeight;
+      setInCheckout(rect.top < wh * 0.9 && rect.bottom > 60);
+    };
+    checkPosition();
+    window.addEventListener("scroll", checkPosition, { passive: true });
+    window.addEventListener("resize", checkPosition, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", checkPosition);
+      window.removeEventListener("resize", checkPosition);
+    };
   }, []);
 
   const whatsappNumber = "8801618562844"; // +8801618562844
@@ -22,12 +45,15 @@ const WhatsAppButton = () => {
     });
   };
 
+  const shouldShow = visible && !inCheckout;
+
   return (
     <div
       className="fixed bottom-4 sm:bottom-6 left-3 sm:left-6 z-40 flex flex-col items-start gap-3 transition-all duration-300 pointer-events-none"
       style={{
-        transform: visible ? "scale(1)" : "scale(0.75)",
-        opacity: visible ? 1 : 0
+        transform: shouldShow ? "scale(1)" : "scale(0.75)",
+        opacity: shouldShow ? 1 : 0,
+        visibility: shouldShow ? "visible" : "hidden"
       }}
     >
       {/* Tooltip / Chat Bubble - Only rendered when open to prevent invisible overlay blocking clicks */}

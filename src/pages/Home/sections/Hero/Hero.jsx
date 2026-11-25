@@ -640,33 +640,80 @@ const Hero = () => {
 
 
 
-            {/* Delivery Schedule Notification Banner - BOLD & CLEAR IN BENGALI */}
-            <div id="order-form-details" className="scroll-mt-24 flex justify-center mb-4 px-2 w-full">
-              <div className="w-full bg-amber-50 border-2 border-amber-500 rounded-2xl p-3.5 sm:p-4 text-center shadow-md flex items-center justify-center gap-2.5 sm:gap-3">
-                <span className="text-2xl sm:text-3xl flex-shrink-0">🚚</span>
-                <p className="text-sm sm:text-base md:text-lg font-black text-amber-950 leading-snug">
-                  ডেলিভারি শিডিউল: <span className="text-emerald-900 font-black underline decoration-2 underline-offset-2">আজকে অর্ডার করলে ১ থেকে ২ দিনের মধ্যে ডেলিভারি পাবেন</span>
+            {/* Delivery Schedule Notification Banner - COMPACT & CLEAR IN BENGALI */}
+            <div id="order-form-details" className="scroll-mt-24 flex justify-center mb-2 px-1 w-full">
+              <div className="w-full bg-amber-50 border border-amber-400 rounded-xl px-3 py-2 text-center shadow-xs flex items-center justify-center gap-2">
+                <span className="text-lg sm:text-xl flex-shrink-0">🚚</span>
+                <p className="text-xs sm:text-sm md:text-base font-black text-amber-950 leading-snug">
+                  ডেলিভারি শিডিউল: <span className="text-emerald-900 font-black">আজকে অর্ডার করলে ১–২ দিনের মধ্যে ডেলিভারি পাবেন</span>
                 </p>
               </div>
             </div>
 
 
 
-            {/* CHECKOUT ROW: Column 1 (Order Summary + Gift Card + Payment) | Column 2 (Delivery Details + Confirm Order) */}
-            <div id="checkout-grid-container" className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
+            {/* CHECKOUT ROW: Column 1 (Order Summary) | Column 2 (Delivery Details + Payment + Confirm Order) */}
+            <div id="checkout-grid-container" className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-start">
               
-              {/* COLUMN 1: Order Summary (Top) + Gift Card Option (Middle) + Payment Method Selector (Bottom) */}
-              <div className="md:col-span-6 space-y-4">
+              {/* COLUMN 1: Order Summary Card with 1-Tap 1 Box / 2 Boxes Quick Selector */}
+              <div className="md:col-span-6 space-y-3">
                 {/* 1. ORDER SUMMARY CARD */}
-                <div className="bg-white rounded-2xl p-4 sm:p-5 border-2 border-[#4A6741]/40 shadow-sm space-y-4">
-                  <div className="flex items-center justify-between border-b border-gray-100 pb-2.5">
+                <div className="bg-white rounded-2xl p-3.5 sm:p-5 border-2 border-[#4A6741]/40 shadow-sm space-y-3">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-2">
                     <span className="text-xs sm:text-sm font-black text-[#1F291E] uppercase tracking-wider flex items-center gap-1.5">
-                      <ShoppingBag size={16} className="text-[#4A6741]" />
-                      <span>Order Summary</span>
+                      <ShoppingBag size={15} className="text-[#4A6741]" />
+                      <span>প্যাকেজ সিলেক্ট করুন (Order Summary)</span>
                     </span>
-                    <span className="text-[11px] font-black text-[#4A6741] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/60">
+                    <span className="text-[11px] font-black text-[#4A6741] bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
                       {boxCountLabel}
                     </span>
+                  </div>
+
+                  {/* 1-TAP PACKAGE SELECTOR (Eliminates ৳1,500 sticker shock for first-time 1-box buyers!) */}
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedPkg(1)}
+                      style={{ touchAction: 'manipulation' }}
+                      className={`p-2.5 rounded-xl border-2 text-left transition-all cursor-pointer select-none ${
+                        selectedPkg === 1
+                          ? "bg-emerald-50 border-[#4A6741] ring-2 ring-[#4A6741]/20 shadow-xs"
+                          : "bg-slate-50/80 border-gray-200 hover:border-gray-300"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black text-[#1F291E]">১ বক্স (৬ কাপ)</span>
+                        <div className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
+                          selectedPkg === 1 ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400"
+                        }`}>
+                          {selectedPkg === 1 && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                        </div>
+                      </div>
+                      <p className="text-sm font-black text-[#4A6741] mt-0.5">৳৭৫০</p>
+                      <p className="text-[10px] text-gray-600 font-bold">+ ৳৫০ ডেলিভারি = ৳৮০০</p>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setSelectedPkg(2)}
+                      style={{ touchAction: 'manipulation' }}
+                      className={`p-2.5 rounded-xl border-2 text-left transition-all cursor-pointer select-none relative overflow-hidden ${
+                        selectedPkg >= 2
+                          ? "bg-emerald-50 border-[#4A6741] ring-2 ring-[#4A6741]/20 shadow-xs"
+                          : "bg-amber-50/50 border-amber-300 hover:border-amber-400"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-black text-[#1F291E]">⭐ ২ বক্স (১২ কাপ)</span>
+                        <div className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
+                          selectedPkg >= 2 ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400"
+                        }`}>
+                          {selectedPkg >= 2 && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                        </div>
+                      </div>
+                      <p className="text-sm font-black text-[#4A6741] mt-0.5">৳১,৫০০</p>
+                      <p className="text-[10px] text-emerald-700 font-black">🚚 ডেলিভারি ফ্রি!</p>
+                    </button>
                   </div>
 
                   {/* Product Info Row */}
@@ -1103,42 +1150,42 @@ const Hero = () => {
                     </div>
                   )}
 
-                  {/* Big Bold Green Confirm Order Button (Item 2) */}
+                  {/* Big Bold Green Confirm Order Button (Clean Non-Wrapping Mobile Layout) */}
                   <button 
                     type="submit"
                     disabled={isSubmitting}
                     style={{ touchAction: 'manipulation' }}
-                    className="w-full relative group overflow-hidden bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white p-4 sm:p-5 rounded-2xl shadow-xl shadow-emerald-600/35 flex items-center justify-between transition-all cursor-pointer select-none disabled:opacity-75 disabled:cursor-not-allowed tracking-wide"
+                    className="w-full relative group overflow-hidden bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white px-4 py-3.5 sm:p-5 rounded-2xl border-b-4 border-emerald-800 shadow-xl shadow-emerald-600/35 flex items-center justify-between gap-2 transition-all cursor-pointer select-none disabled:opacity-75 disabled:cursor-not-allowed"
                   >
                     {/* Shiny sweep reflection */}
                     <span className="pointer-events-none absolute inset-0 w-1/2 h-full bg-white/10 skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out" />
 
-                    <div className="flex items-center gap-3 relative z-10">
-                      <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shadow-inner">
+                    <div className="flex items-center gap-2.5 relative z-10 min-w-0">
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/20 flex items-center justify-center shadow-inner flex-shrink-0">
                         {isSubmitting ? (
                           <Loader2 className="w-5 h-5 text-white animate-spin" />
                         ) : (
                           <ShoppingBag className="w-5 h-5 text-white" />
                         )}
                       </div>
-                      <div className="text-left">
-                        <span className="block text-lg sm:text-xl font-black tracking-wide leading-tight">
+                      <div className="text-left min-w-0">
+                        <span className="block text-base sm:text-xl font-black tracking-tight leading-tight whitespace-nowrap">
                           {isSubmitting ? "অর্ডার প্রক্রিয়াধীন..." : "অর্ডার কনফার্ম করুন"}
                         </span>
-                        <span className="block text-[11px] font-semibold text-emerald-100">
-                          {paymentMethod === "cod" ? "ক্যাশ অন ডেলিভারি (পণ্য পেয়ে টাকা দিন)" : "বিকাশ পেমেন্ট • ক্লিক করে সম্পন্ন করুন"}
+                        <span className="block text-[10.5px] sm:text-[11px] font-semibold text-emerald-100 truncate">
+                          {paymentMethod === "cod" ? "ক্যাশ অন ডেলিভারি (পণ্য পেয়ে টাকা)" : "বিকাশ পেমেন্ট • সম্পন্ন করুন"}
                         </span>
                       </div>
                     </div>
 
-                    <div className="text-right flex items-center gap-2 relative z-10">
+                    <div className="text-right flex items-center gap-1.5 relative z-10 flex-shrink-0">
                       <div>
-                        <span className="text-lg sm:text-2xl font-black block leading-tight">{grandTotal}</span>
-                        <span className="text-[10px] text-emerald-100 font-bold block">
-                          {isFreeDelivery ? "FREE DELIVERY 🚚" : "Total Incl. Delivery"}
+                        <span className="text-base sm:text-2xl font-black block leading-tight whitespace-nowrap">{grandTotal}</span>
+                        <span className="text-[9.5px] sm:text-[10px] text-emerald-100 font-bold block whitespace-nowrap">
+                          {isFreeDelivery ? "FREE DELIVERY 🚚" : "ডেলিভারি সহ"}
                         </span>
                       </div>
-                      <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
                         <ChevronRight className="w-4 h-4 text-white" strokeWidth={3} />
                       </div>
                     </div>

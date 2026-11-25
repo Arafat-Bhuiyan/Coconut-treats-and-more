@@ -68,7 +68,7 @@ export const Home = () => {
         const isUserTyping = activeTag === 'INPUT' || activeTag === 'TEXTAREA';
         const checkoutEl = document.getElementById("order-form-details");
         const isAtCheckout = checkoutEl
-          ? checkoutEl.getBoundingClientRect().top < window.innerHeight * 0.55
+          ? checkoutEl.getBoundingClientRect().top < window.innerHeight * 0.9
           : false;
         const isInteractWithCheckout = checkoutEl && document.activeElement
           ? checkoutEl.contains(document.activeElement)
