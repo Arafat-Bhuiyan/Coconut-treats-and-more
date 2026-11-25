@@ -108,12 +108,12 @@ const Testimonials = () => {
                         {/* Pricing + 3D Order Button & Happy Customers */}
                         <div className="flex flex-wrap items-center gap-4 pt-2">
                             <div className="w-full sm:w-auto flex flex-col gap-2.5 bg-white border-2 border-[#4A6741]/25 rounded-2xl p-3 sm:p-3.5 shadow-sm">
-                                <div className="flex flex-col items-center gap-1 text-center leading-snug">
-                                    <span className="text-xs sm:text-sm font-extrabold text-[#1F291E]">
-                                        ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
+                                <div className="flex flex-col items-center gap-1.5 text-center leading-snug">
+                                    <span className="w-full text-base sm:text-lg font-black text-emerald-950 bg-amber-300 border-2 border-amber-500 px-3.5 py-1.5 rounded-xl shadow-xs">
+                                        ⭐ ২ বক্স ১,৫০০৳ — ডেলিভারি একদম ফ্রি! 🚚
                                     </span>
-                                    <span className="text-xs sm:text-sm font-black text-[#2B4C23] bg-amber-100 border border-amber-300/80 px-3 py-0.5 rounded-full">
-                                        ⭐ ২ বক্স: ৳১,৫০০, ডেলিভারি একদম ফ্রি! 🚚
+                                    <span className="text-xs sm:text-sm font-bold text-gray-700">
+                                        ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
                                     </span>
                                 </div>
                                 <a

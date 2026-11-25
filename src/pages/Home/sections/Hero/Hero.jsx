@@ -574,11 +574,11 @@ const Hero = () => {
             {/* ULTRA-SLIM HORIZONTAL PRICING & ORDER CTA BAR (Between Reviews & Video Strip) */}
             <div className="w-full bg-white border border-[#4A6741]/30 rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-3">
               <div className="flex flex-col md:flex-row items-center gap-1 md:gap-2.5 text-center md:text-left leading-tight">
-                <span className="text-[11px] sm:text-xs font-extrabold text-[#1F291E] whitespace-nowrap">
-                  ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
+                <span className="text-sm sm:text-base font-black text-emerald-950 bg-amber-300 border-2 border-amber-500 px-3 py-0.5 rounded-full shadow-2xs whitespace-nowrap">
+                  ⭐ ২ বক্স ১,৫০০৳ • ফ্রি ডেলিভারি! 🚚
                 </span>
-                <span className="text-[11px] sm:text-xs font-black text-[#2B4C23] bg-amber-100 border border-amber-300/80 px-2.5 py-0.5 rounded-full whitespace-nowrap">
-                  ⭐ ২ বক্স: ৳১,৫০০, ডেলিভারি একদম ফ্রি! 🚚
+                <span className="text-[11px] sm:text-xs font-bold text-gray-700 whitespace-nowrap">
+                  ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি ৳৫০ = ৳৮০০
                 </span>
               </div>
               <a
@@ -606,13 +606,13 @@ const Hero = () => {
 
                 {/* SMART QUICK ORDER BUTTON DIRECTLY UNDER VIDEO */}
                 <div className="pt-2">
-                  <div className="w-full flex flex-col gap-2.5 bg-white border-2 border-[#4A6741]/25 rounded-2xl p-3 sm:p-3.5 shadow-sm">
-                    <div className="flex flex-col items-center gap-1 text-center leading-snug">
-                      <span className="text-xs sm:text-sm font-extrabold text-[#1F291E]">
-                        ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
+                  <div className="w-full flex flex-col gap-2.5 bg-white border-2 border-[#4A6741]/25 rounded-2xl p-3 sm:p-4 shadow-sm">
+                    <div className="flex flex-col items-center gap-1.5 text-center leading-snug">
+                      <span className="w-full text-base sm:text-lg font-black text-emerald-950 bg-amber-300 border-2 border-amber-500 px-3.5 py-1.5 rounded-xl shadow-xs">
+                        ⭐ ২ বক্স ১,৫০০৳ — ডেলিভারি একদম ফ্রি! 🚚
                       </span>
-                      <span className="text-xs sm:text-sm font-black text-[#2B4C23] bg-amber-100 border border-amber-300/80 px-3 py-0.5 rounded-full">
-                        ⭐ ২ বক্স: ৳১,৫০০, ডেলিভারি একদম ফ্রি! 🚚
+                      <span className="text-xs sm:text-sm font-bold text-gray-700">
+                        ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
                       </span>
                     </div>
                     <a
@@ -699,20 +699,20 @@ const Hero = () => {
                       style={{ touchAction: 'manipulation' }}
                       className={`p-2.5 rounded-xl border-2 text-left transition-all cursor-pointer select-none relative overflow-hidden ${
                         selectedPkg >= 2
-                          ? "bg-emerald-50 border-[#4A6741] ring-2 ring-[#4A6741]/20 shadow-xs"
-                          : "bg-amber-50/50 border-amber-300 hover:border-amber-400"
+                          ? "bg-amber-50 border-amber-500 ring-2 ring-amber-400/35 shadow-sm"
+                          : "bg-amber-50/60 border-amber-400 hover:border-amber-500"
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-black text-[#1F291E]">⭐ ২ বক্স (১২ কাপ)</span>
+                        <span className="text-xs sm:text-sm font-black text-emerald-950">⭐ ২ বক্স (১২ কাপ)</span>
                         <div className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
-                          selectedPkg >= 2 ? "border-[#4A6741] bg-[#4A6741]" : "border-gray-400"
+                          selectedPkg >= 2 ? "border-emerald-700 bg-emerald-700" : "border-gray-400"
                         }`}>
                           {selectedPkg >= 2 && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
                         </div>
                       </div>
-                      <p className="text-sm font-black text-[#4A6741] mt-0.5">৳১,৫০০</p>
-                      <p className="text-[10px] text-emerald-700 font-black">🚚 ডেলিভারি ফ্রি!</p>
+                      <p className="text-lg sm:text-xl font-black text-emerald-800 leading-tight mt-0.5">১,৫০০৳</p>
+                      <p className="text-[11px] text-emerald-800 font-black">🚚 ডেলিভারি একদম ফ্রি!</p>
                     </button>
                   </div>
 
