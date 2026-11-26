@@ -1,75 +1,125 @@
+import net from 'net';
+
 /**
  * Secure Serverless Proxy for Meta Conversions API (CAPI)
  * 
  * Runs server-side on Vercel.
- * - Extracts the TRUE visitor IP address (never server/private/proxy IP)
- * - Forwards SHA-256 hashed external_id (from phone) + Advanced Matching fields
+ * - Extracts the TRUE visitor IP address (IPv4 & IPv6) from Cloudflare / Vercel / Proxy headers
+ * - NEVER falls back to server/socket/private IP addresses
+ * - Purchase events are intentionally handled exclusively by /api/submit-order
  */
 
 function normalizeIp(raw) {
   if (!raw || typeof raw !== 'string') return '';
-  let ip = raw.trim();
-  // Strip IPv4-mapped IPv6 prefix (e.g. ::ffff:103.120.45.10 -> 103.120.45.10)
+  let ip = raw.trim().replace(/^"|"$/g, '');
+
+  // Handle RFC 7239 Forwarded header tokens like for="[2400:...]:443" or for=103.120.45.10
+  if (ip.toLowerCase().startsWith('for=')) {
+    ip = ip.slice(4).trim().replace(/^"|"$/g, '');
+  }
+
+  // Handle bracketed IPv6 with optional port: [2400:cb00::1]:443 -> 2400:cb00::1
+  if (ip.startsWith('[')) {
+    const closeIdx = ip.indexOf(']');
+    if (closeIdx !== -1) {
+      ip = ip.slice(1, closeIdx);
+    }
+  } else if (/^\d{1,3}(?:\.\d{1,3}){3}:\d+$/.test(ip)) {
+    // Strip port from IPv4:port
+    ip = ip.slice(0, ip.lastIndexOf(':'));
+  }
+
+  // Strip IPv4-mapped IPv6 prefix (::ffff:103.120.45.10 -> 103.120.45.10)
   if (ip.toLowerCase().startsWith('::ffff:')) {
-    ip = ip.slice(7);
+    const v4Part = ip.slice(7);
+    if (net.isIP(v4Part) === 4) {
+      ip = v4Part;
+    }
   }
-  // Strip surrounding brackets on IPv6 if present
-  if (ip.startsWith('[') && ip.endsWith(']')) {
-    ip = ip.slice(1, -1);
-  }
+
+  // Strip IPv6 zone index if any (e.g. %eth0)
+  const pctIdx = ip.indexOf('%');
+  if (pctIdx !== -1) ip = ip.slice(0, pctIdx);
+
   return ip.trim();
 }
 
-function isPrivateOrLocalIp(ip) {
-  if (!ip) return true;
+function isPublicIp(ip) {
+  const version = net.isIP(ip);
+  if (!version) return false;
   const lower = ip.toLowerCase();
-  if (
-    lower === '::1' ||
-    lower === 'localhost' ||
-    lower.startsWith('127.') ||
-    lower.startsWith('10.') ||
-    lower.startsWith('192.168.') ||
-    lower.startsWith('169.254.') ||
-    lower.startsWith('fc') ||
-    lower.startsWith('fd') ||
-    lower.startsWith('fe80:')
-  ) {
+
+  if (version === 4) {
+    const parts = lower.split('.').map(Number);
+    if (parts.length !== 4 || parts.some(Number.isNaN)) return false;
+    const [a, b] = parts;
+    if (
+      a === 0 ||                         // 0.0.0.0/8
+      a === 10 ||                        // 10.0.0.0/8 private
+      a === 127 ||                       // 127.0.0.0/8 loopback
+      (a === 169 && b === 254) ||        // 169.254.0.0/16 link-local
+      (a === 172 && b >= 16 && b <= 31) || // 172.16.0.0/12 private
+      (a === 192 && b === 168) ||        // 192.168.0.0/16 private
+      a >= 224                           // multicast / reserved
+    ) {
+      return false;
+    }
     return true;
   }
-  // 172.16.0.0 - 172.31.255.255
-  if (lower.startsWith('172.')) {
-    const secondOctet = parseInt(lower.split('.')[1], 10);
-    if (secondOctet >= 16 && secondOctet <= 31) return true;
+
+  // IPv6 public check
+  if (
+    lower === '::' ||
+    lower === '::1' ||
+    lower.startsWith('fc') ||
+    lower.startsWith('fd') ||
+    lower.startsWith('fe8') ||
+    lower.startsWith('fe9') ||
+    lower.startsWith('fea') ||
+    lower.startsWith('feb') ||
+    lower.startsWith('ff')
+  ) {
+    return false;
   }
-  return false;
+  return true;
 }
 
 function extractRealVisitorIp(req) {
   const headers = req.headers || {};
-  // Priority order: Cloudflare -> True-Client-IP -> Vercel Edge -> X-Forwarded-For -> X-Real-IP -> socket
-  const candidates = [
-    headers['cf-connecting-ip'],
-    headers['true-client-ip'],
-    headers['x-vercel-forwarded-for'],
-    headers['x-forwarded-for'],
-    headers['x-real-ip'],
-    req.socket?.remoteAddress,
+  // Strict priority order — NEVER fall back to req.socket.remoteAddress (server/proxy IP)
+  const headerSources = [
+    ['cf-connecting-ip', headers['cf-connecting-ip']],
+    ['true-client-ip', headers['true-client-ip']],
+    ['x-vercel-forwarded-for', headers['x-vercel-forwarded-for']],
+    ['x-forwarded-for', headers['x-forwarded-for']],
+    ['x-real-ip', headers['x-real-ip']],
+    ['forwarded', headers['forwarded']],
   ];
 
-  for (const rawHeader of candidates) {
-    if (!rawHeader) continue;
-    const parts = Array.isArray(rawHeader)
-      ? rawHeader.flatMap((v) => String(v).split(','))
-      : String(rawHeader).split(',');
+  let firstPublicV4 = null;
 
-    for (const part of parts) {
-      const ip = normalizeIp(part);
-      if (ip && !isPrivateOrLocalIp(ip)) {
-        return ip;
+  for (const [sourceName, rawHeader] of headerSources) {
+    if (!rawHeader) continue;
+    const rawList = Array.isArray(rawHeader) ? rawHeader : [String(rawHeader)];
+    const tokens = rawList.flatMap((v) =>
+      sourceName === 'forwarded' ? v.split(/[;,]/g) : v.split(',')
+    );
+
+    for (const token of tokens) {
+      const ip = normalizeIp(token);
+      if (!ip || !isPublicIp(ip)) continue;
+      const version = net.isIP(ip);
+      // Prefer public IPv6 when available (unique per mobile device, avoids CGNAT IPv4 sharing)
+      if (version === 6) {
+        return { ip, version: 6, source: sourceName };
+      }
+      if (version === 4 && !firstPublicV4) {
+        firstPublicV4 = { ip, version: 4, source: sourceName };
       }
     }
   }
-  return '';
+
+  return firstPublicV4 || { ip: '', version: 0, source: 'none' };
 }
 
 export default async function handler(req, res) {
@@ -91,7 +141,6 @@ export default async function handler(req, res) {
     const { eventName, eventTime, eventId, eventParams, userData, test_event_code } = body || {};
 
     // Purchase CAPI is sent EXCLUSIVELY from /api/submit-order after order save succeeds
-    // Skipping Purchase here guarantees ZERO duplicate server Purchase events (even from cached tabs)
     if (String(eventName || '').toLowerCase() === 'purchase') {
       return res.status(200).json({
         success: true,
@@ -100,6 +149,10 @@ export default async function handler(req, res) {
       });
     }
 
+    // Extract true visitor IP (IPv4 or IPv6 — never server/private IP)
+    const ipInfo = extractRealVisitorIp(req);
+    const visitorIp = ipInfo.ip;
+
     // Never send ?test=1 traffic to live Meta CAPI unless test_event_code is explicitly provided
     const srcUrl = String(userData?.sourceUrl || req.headers?.referer || '');
     const resolvedTestCode = String(test_event_code || process.env.META_TEST_EVENT_CODE || '').trim() || null;
@@ -107,7 +160,12 @@ export default async function handler(req, res) {
       return res.status(200).json({
         success: true,
         skipped: true,
-        reason: 'test_mode_excluded'
+        reason: 'test_mode_excluded',
+        metaDebug: {
+          ipDetected: Boolean(visitorIp),
+          ipVersion: ipInfo.version,
+          ipSource: ipInfo.source,
+        }
       });
     }
 
@@ -122,9 +180,6 @@ export default async function handler(req, res) {
         message: "Meta Access Token not configured on the server."
       });
     }
-
-    // Extract true visitor IP (never private/server IP)
-    const visitorIp = extractRealVisitorIp(req);
 
     // Prepare payload for Meta Graph API
     const metaUserData = {
@@ -188,6 +243,8 @@ export default async function handler(req, res) {
       result,
       metaDebug: {
         ipDetected: Boolean(visitorIp),
+        ipVersion: ipInfo.version,
+        ipSource: ipInfo.source,
         hasExternalId: Boolean(userData?.external_id),
       }
     });
