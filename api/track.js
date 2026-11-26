@@ -86,13 +86,14 @@ function isPublicIp(ip) {
 
 function extractRealVisitorIp(req) {
   const headers = req.headers || {};
-  // Strict priority order — NEVER fall back to req.socket.remoteAddress (server/proxy IP)
+  // Strict priority order — Vercel Edge authoritative header first (prevents spoofed cf-connecting-ip on direct Vercel)
+  // NEVER fall back to req.socket.remoteAddress (server/proxy IP)
   const headerSources = [
-    ['cf-connecting-ip', headers['cf-connecting-ip']],
-    ['true-client-ip', headers['true-client-ip']],
     ['x-vercel-forwarded-for', headers['x-vercel-forwarded-for']],
     ['x-forwarded-for', headers['x-forwarded-for']],
     ['x-real-ip', headers['x-real-ip']],
+    ['cf-connecting-ip', headers['cf-connecting-ip']],
+    ['true-client-ip', headers['true-client-ip']],
     ['forwarded', headers['forwarded']],
   ];
 
