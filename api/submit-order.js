@@ -464,8 +464,12 @@ export default async function handler(req, res) {
     const ONGON_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuVfOKjWHGjhJm4QK3vIshvLtLF8j9_U-1OM44RNsndXo7sj4Gasa_Ta1lDvALQVCm/exec";
     const REHAB_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFcI1b96QTUub4Nt3T0cDu4bRM7b6nU7vy5VhcaHr-DfrCWAEufiLH-99QmbKbvJZ8_A/exec";
 
-    // STEP 1: Always call main Coconut script first (max 2 attempts × 4.5s = safely within Vercel 10s limit)
-    const coconutRes = await postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, sheetPayload, 2, 4500);
+    // STEP 1: Run primary Google Sheet save (single 7.5s attempt to prevent duplicate rows)
+    // IN PARALLEL with authoritative Meta CAPI Purchase (2.5s timeout) so total stays strictly < 10s Vercel limit!
+    const [coconutRes, capiDebug] = await Promise.all([
+      postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, sheetPayload, 1, 7500),
+      sendAuthoritativeCapiPurchase(req, orderData, orderId),
+    ]);
 
     const coconutEmailSucceeded =
       coconutRes.ok &&
@@ -476,16 +480,15 @@ export default async function handler(req, res) {
 
     let finalRes = coconutRes;
 
-    // STEP 2: ONLY if main Coconut script email failed or quota exhausted, trigger fast Ongon backup!
+    // STEP 2: ONLY if primary failed or quota exhausted, trigger fast backup within remaining Vercel budget
     if (!coconutEmailSucceeded) {
       console.warn("[Backup Triggered] coconuttreatsmore@gmail.com quota full/failed -> sending via ongon51@gmail.com");
-      const ongonRes = await postToGoogleScriptWithRetry(ONGON_SCRIPT_URL, sheetPayload, 1, 3500);
+      const ongonRes = await postToGoogleScriptWithRetry(ONGON_SCRIPT_URL, sheetPayload, 1, 1800);
       if (ongonRes.ok) {
         finalRes = ongonRes;
       } else {
-        // STEP 3: If Ongon also fails, trigger fast Rehab backup!
         console.warn("[3rd-Tier Backup Triggered] ongon51@gmail.com failed -> sending via rehabbhuiyian1@gmail.com");
-        const rehabRes = await postToGoogleScriptWithRetry(REHAB_SCRIPT_URL, sheetPayload, 1, 3000);
+        const rehabRes = await postToGoogleScriptWithRetry(REHAB_SCRIPT_URL, sheetPayload, 1, 1500);
         if (rehabRes.ok) {
           finalRes = rehabRes;
         }
@@ -500,16 +503,13 @@ export default async function handler(req, res) {
         address,
         error: finalRes.error || coconutRes.error,
       }));
-      // Return HTTP 502 (NEVER 200) so frontend shows error + WhatsApp button and does NOT fire Purchase!
+      // Return HTTP 502 (NEVER 200) so frontend shows error + WhatsApp button
       return res.status(502).json({
         success: false,
         order_id: orderId,
         message: "অর্ডার সেভ করতে সাময়িক সমস্যা হয়েছে। আবার চেষ্টা করুন অথবা WhatsApp-এ অর্ডার করুন।"
       });
     }
-
-    // STEP 4: Order is confirmed saved! Send ONE authoritative Meta CAPI Purchase event with event_id = order_id
-    const capiDebug = await sendAuthoritativeCapiPurchase(req, orderData, orderId);
 
     return res.status(200).json({
       success: true,
