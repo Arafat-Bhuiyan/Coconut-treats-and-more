@@ -523,8 +523,15 @@ const Hero = () => {
 
         {/* Unified 2-Column Shopify-Style Main Order Card */}
         <form onSubmit={handleSubmitOrder} noValidate>
-          <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border border-[#4A6741]/15 overflow-hidden p-4 sm:p-7 md:p-9 space-y-5 md:space-y-7">
+          <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border border-[#4A6741]/15 overflow-hidden p-4 sm:p-7 md:p-9 space-y-4 md:space-y-6">
             
+            {/* COMPACT EVENT & PARTY CATERING NOTICE (Top of Card, above Reviews) */}
+            <div className="bg-emerald-50/90 border border-[#4A6741]/25 rounded-xl px-3 py-1.5 text-center">
+              <p className="text-[11px] sm:text-xs font-extrabold text-[#2B4C23] leading-snug">
+                🎉 জন্মদিন, বিয়ে, গায়ে হলুদ, অফিস পার্টি বা যে কোনো অনুষ্ঠানে ডেসার্ট হিসাবে আমাদের প্রিমিয়াম কোকোনাট পুডিং ডেলিভারি করা হয়
+              </p>
+            </div>
+
             {/* TOP CUSTOMER REVIEWS MARQUEE (Auto-pauses when scrolled to Order Form) */}
             <div ref={reviewsSectionRef} id="reviews" style={{ contain: "layout style paint" }} className="scroll-mt-24 overflow-hidden relative -mx-1 sm:-mx-2 pb-1">
               <style>
