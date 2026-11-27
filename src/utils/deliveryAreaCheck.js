@@ -44,7 +44,9 @@ export const OUTSIDE_DHAKA_DIVISIONS = [
       "jurain", "juraine", "জুরাইন",
       "postogola", "postagola", "পোস্তগোলা",
       "shyampur", "shampur", "শ্যামপুর",
-      "dholaipar", "dholaypar", "dholaiphar", "ধোলাইপাড়", "ধোলাইপাড়"
+      "dholaipar", "dholaypar", "dholaiphar", "ধোলাইপাড়", "ধোলাইপাড়",
+      "gandaria", "gendaria", "গেন্ডারিয়া", "গেন্ডারিয়া", "গেণ্ডারিয়া", "গেণ্ডারিয়া",
+      "matuail", "matuwail", "মাতুয়াইল", "মাতুয়াইল"
     ]
   },
   // ৩. উত্তরাঞ্চল

@@ -307,6 +307,8 @@ export default async function handler(req, res) {
       "postogola", "postagola", "পোস্তগোলা",
       "shyampur", "shampur", "শ্যামপুর",
       "dholaipar", "dholaypar", "dholaiphar", "ধোলাইপাড়", "ধোলাইপাড়",
+      "gandaria", "gendaria", "গেন্ডারিয়া", "গেন্ডারিয়া", "গেণ্ডারিয়া", "গেণ্ডারিয়া",
+      "matuail", "matuwail", "মাতুয়াইল", "মাতুয়াইল",
 
       // উত্তরাঞ্চল
       "tangail", "টাঙ্গাইল", "mirzapur", "মির্জাপুর", "delduar", "দেলদুয়ার", "দেলদুয়ার", "ghatail", "ঘাটাইল", "madhupur", "মধুপুর", "sakhipur", "সখিপুর", "kalihati", "কালিহাতী", "gopalpur", "গোপালপুর", "bhuapur", "ভূঞাপুর", "nagarpur", "নাগরপুর", "dhanbari", "ধনবাড়ী",
