@@ -56,7 +56,7 @@ const Order = () => {
   const basePrice = 750;
   const unitPrice = 750;
   const isFreeDelivery = quantity >= 2;
-  const deliveryCharge = isFreeDelivery ? 0 : 70;
+  const deliveryCharge = isFreeDelivery ? 0 : 50;
 
   const totalProductPrice = quantity * unitPrice;
   const totalOrderAmount = totalProductPrice + deliveryCharge;
@@ -700,7 +700,7 @@ const Order = () => {
                       <span className="flex items-center gap-1.5">
                         <CheckCircle size={14} /> স্পেশাল অফার
                       </span>
-                      <span>ফ্রি ডেলিভারি (-৳৭০)</span>
+                      <span>ফ্রি ডেলিভারি (-৳৫০)</span>
                     </div>
                     <div className="flex justify-between text-xs sm:text-sm font-bold text-husk/85 uppercase items-center">
                       <span>ডেলিভারি চার্জ</span>
