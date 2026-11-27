@@ -82,7 +82,7 @@ const Navbar = () => {
                             <span>অর্ডার করুন</span>
                         </div>
                         <span className="text-xs font-extrabold text-amber-300 mt-0.5">
-                            ✅ ১ বক্স ৳৮০০ • ⭐ ২ বক্স ৳১,৫০০ ফ্রি ডেলিভারি 🚚
+                            ✅ ১ বক্স ৳৮২০ • ⭐ ২ বক্স ৳১,৫০০ ফ্রি ডেলিভারি 🚚
                         </span>
                     </a>
                 </div>

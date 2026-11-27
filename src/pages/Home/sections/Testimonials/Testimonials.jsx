@@ -113,7 +113,7 @@ const Testimonials = () => {
                                         ⭐ ২ বক্স ১,৫০০৳ — ডেলিভারি একদম ফ্রি! 🚚
                                     </span>
                                     <span className="text-xs sm:text-sm font-bold text-gray-700">
-                                        ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
+                                        ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৭০ = ৳৮২০
                                     </span>
                                 </div>
                                 <a

@@ -96,11 +96,11 @@ const Hero = () => {
     return () => window.removeEventListener("set-order-quantity", handleSetQuantity);
   }, []);
 
-  // Pricing calculations (1 Box = ৳750 with ৳50 delivery, 2+ Boxes = ৳750/box with FREE DELIVERY)
+  // Pricing calculations (1 Box = ৳750 with ৳70 delivery = ৳820, 2+ Boxes = ৳750/box with FREE DELIVERY)
   const basePrice = 750;
   const unitPrice = basePrice;
   const isFreeDelivery = selectedPkg >= 2;
-  const deliveryCharge = isFreeDelivery ? 0 : 50;
+  const deliveryCharge = isFreeDelivery ? 0 : 70;
   const giftCharge = isGift ? 100 : 0;
   const totalProductPrice = selectedPkg * unitPrice;
   const grandTotalNumber = totalProductPrice + deliveryCharge + giftCharge;
@@ -596,7 +596,7 @@ const Hero = () => {
                   ⭐ ২ বক্স ১,৫০০৳ • ফ্রি ডেলিভারি! 🚚
                 </span>
                 <span className="text-[11px] sm:text-xs font-bold text-gray-700 whitespace-nowrap">
-                  ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি ৳৫০ = ৳৮০০
+                  ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি ৳৭০ = ৳৮২০
                 </span>
               </div>
               <a
@@ -630,7 +630,7 @@ const Hero = () => {
                         ⭐ ২ বক্স ১,৫০০৳ — ডেলিভারি একদম ফ্রি! 🚚
                       </span>
                       <span className="text-xs sm:text-sm font-bold text-gray-700">
-                        ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৫০ = ৳৮০০
+                        ✅ ১ বক্স: ৳৭৫০ + ডেলিভারি চার্জ ৳৭০ = ৳৮২০
                       </span>
                     </div>
                     <a
@@ -708,7 +708,7 @@ const Hero = () => {
                         </div>
                       </div>
                       <p className="text-sm font-black text-[#4A6741] mt-0.5">৳৭৫০</p>
-                      <p className="text-[10px] text-gray-600 font-bold">+ ৳৫০ ডেলিভারি = ৳৮০০</p>
+                      <p className="text-[10px] text-gray-600 font-bold">+ ৳৭০ ডেলিভারি = ৳৮২০</p>
                     </button>
 
                     <button
