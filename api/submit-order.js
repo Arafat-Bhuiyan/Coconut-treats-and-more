@@ -192,6 +192,7 @@ async function sendAuthoritativeCapiPurchase(req, orderData, orderId) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(metaPayload),
+      signal: AbortSignal.timeout(2500),
     });
     const json = await resp.json().catch(() => ({}));
     return {
@@ -217,7 +218,7 @@ function cleanupExpiredOrders() {
   }
 }
 
-async function postToGoogleScriptWithRetry(url, payload, maxAttempts = 3) {
+async function postToGoogleScriptWithRetry(url, payload, maxAttempts = 2, timeoutMs = 4500) {
   let lastError = null;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
@@ -227,7 +228,8 @@ async function postToGoogleScriptWithRetry(url, payload, maxAttempts = 3) {
           'Content-Type': 'application/json',
         },
         redirect: 'follow',
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(timeoutMs),
       });
 
       const text = await response.text();
@@ -462,8 +464,8 @@ export default async function handler(req, res) {
     const ONGON_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuVfOKjWHGjhJm4QK3vIshvLtLF8j9_U-1OM44RNsndXo7sj4Gasa_Ta1lDvALQVCm/exec";
     const REHAB_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzFcI1b96QTUub4Nt3T0cDu4bRM7b6nU7vy5VhcaHr-DfrCWAEufiLH-99QmbKbvJZ8_A/exec";
 
-    // STEP 1: Always call main Coconut script first (writes to Google Sheet & sends primary email)
-    const coconutRes = await postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, sheetPayload, 3);
+    // STEP 1: Always call main Coconut script first (max 2 attempts × 4.5s = safely within Vercel 10s limit)
+    const coconutRes = await postToGoogleScriptWithRetry(COCONUT_SCRIPT_URL, sheetPayload, 2, 4500);
 
     const coconutEmailSucceeded =
       coconutRes.ok &&
@@ -474,16 +476,16 @@ export default async function handler(req, res) {
 
     let finalRes = coconutRes;
 
-    // STEP 2: ONLY if main Coconut script email failed or quota exhausted, trigger Ongon backup script!
+    // STEP 2: ONLY if main Coconut script email failed or quota exhausted, trigger fast Ongon backup!
     if (!coconutEmailSucceeded) {
       console.warn("[Backup Triggered] coconuttreatsmore@gmail.com quota full/failed -> sending via ongon51@gmail.com");
-      const ongonRes = await postToGoogleScriptWithRetry(ONGON_SCRIPT_URL, sheetPayload, 3);
+      const ongonRes = await postToGoogleScriptWithRetry(ONGON_SCRIPT_URL, sheetPayload, 1, 3500);
       if (ongonRes.ok) {
         finalRes = ongonRes;
       } else {
-        // STEP 3: If Ongon also fails or quota runs out, trigger Rehab backup script!
+        // STEP 3: If Ongon also fails, trigger fast Rehab backup!
         console.warn("[3rd-Tier Backup Triggered] ongon51@gmail.com failed -> sending via rehabbhuiyian1@gmail.com");
-        const rehabRes = await postToGoogleScriptWithRetry(REHAB_SCRIPT_URL, sheetPayload, 3);
+        const rehabRes = await postToGoogleScriptWithRetry(REHAB_SCRIPT_URL, sheetPayload, 1, 3000);
         if (rehabRes.ok) {
           finalRes = rehabRes;
         }

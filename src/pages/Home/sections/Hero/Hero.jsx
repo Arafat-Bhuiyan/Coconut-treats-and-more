@@ -264,6 +264,12 @@ const Hero = () => {
       e.preventDefault();
     }
     window.dispatchEvent(new CustomEvent("close-promo-popup"));
+    // Dismiss mobile soft keyboard cleanly so error/success feedback is never hidden behind keyboard
+    try {
+      if (document.activeElement && typeof document.activeElement.blur === 'function') {
+        document.activeElement.blur();
+      }
+    } catch { /* ignore */ }
     if (submittingRef.current) return;
     submittingRef.current = true;
 
@@ -405,25 +411,52 @@ const Hero = () => {
       },
     };
 
-    // 1. FIRST save order reliably to /api/submit-order BEFORE showing success or firing Purchase tracking
+    // 1. FIRST save order reliably to /api/submit-order with automatic mobile 4G retry (same order_id = zero duplicates!)
+    const postOrderWithRetry = async (maxAttempts = 2) => {
+      let lastErr = null;
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+        const timer = controller ? setTimeout(() => controller.abort(), 11000) : null;
+        try {
+          const res = await fetch("/api/submit-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(emailPayload),
+            ...(controller ? { signal: controller.signal } : {}),
+          });
+          if (timer) clearTimeout(timer);
+
+          let data = null;
+          try {
+            data = await res.json();
+          } catch {
+            data = null;
+          }
+
+          if (res.ok && data && data.success === true) {
+            return { res, data };
+          }
+          // Do not retry 400 validation errors (e.g. outside-Dhaka restricted area)
+          if (res.status === 400) {
+            throw new Error(data?.message || "Invalid order details");
+          }
+          lastErr = new Error(data?.message || `HTTP ${res.status}`);
+        } catch (err) {
+          if (timer) clearTimeout(timer);
+          if (err?.message && err.message.includes("ডেলিভারি করা সম্ভব নয়")) {
+            throw err;
+          }
+          lastErr = err;
+        }
+        if (attempt < maxAttempts) {
+          await new Promise((r) => setTimeout(r, 450));
+        }
+      }
+      throw lastErr || new Error("Order submit failed");
+    };
+
     try {
-      const res = await fetch("/api/submit-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(emailPayload),
-      });
-
-      let data = null;
-      try {
-        data = await res.json();
-      } catch {
-        data = null;
-      }
-
-      if (!res.ok || !data || data.success !== true) {
-        const serverMsg = data?.message;
-        throw new Error(serverMsg || `HTTP ${res.status}`);
-      }
+      await postOrderWithRetry(2);
 
       // 2. Order is CONFIRMED saved on server!
       // Skip ALL ad/analytics Purchase events if Note has 'TEST' or URL has ?test=1 (never pollute real ad data!)
