@@ -525,10 +525,21 @@ const Hero = () => {
         <form onSubmit={handleSubmitOrder} noValidate>
           <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-xl border border-[#4A6741]/15 overflow-hidden p-4 sm:p-7 md:p-9 space-y-4 md:space-y-6">
             
-            {/* COMPACT EVENT & PARTY CATERING NOTICE (Top of Card, above Reviews) */}
-            <div className="bg-emerald-50/90 border border-[#4A6741]/25 rounded-xl px-3 py-1.5 text-center">
-              <p className="text-[11px] sm:text-xs font-extrabold text-[#2B4C23] leading-snug">
-                🎉 জন্মদিন, বিয়ে, গায়ে হলুদ, অফিস পার্টি বা যে কোনো অনুষ্ঠানে ডেসার্ট হিসাবে আমাদের প্রিমিয়াম কোকোনাট পুডিং ডেলিভারি করা হয়
+            {/* COMPACT EVENT & PARTY CATERING NOTICE (Green + Soft Golden Accent & Gentle GPU Blink) */}
+            <div className="bg-gradient-to-r from-emerald-50 via-amber-100/90 to-emerald-50 border border-amber-400/90 rounded-xl px-3 py-1.5 text-center shadow-2xs">
+              <style>
+                {`
+                  @keyframes gentleEventBlink {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0.68; }
+                  }
+                  .event-notice-blink {
+                    animation: gentleEventBlink 2.2s ease-in-out infinite;
+                  }
+                `}
+              </style>
+              <p className="event-notice-blink text-[11px] sm:text-xs font-extrabold text-[#1E3A1A] leading-snug">
+                ✨ <span className="text-amber-800">জন্মদিন, বিয়ে, গায়ে হলুদ, অফিস পার্টি</span> বা যে কোনো অনুষ্ঠানে ডেসার্ট হিসাবে আমাদের প্রিমিয়াম কোকোনাট পুডিং ডেলিভারি করা হয় ✨
               </p>
             </div>
 
