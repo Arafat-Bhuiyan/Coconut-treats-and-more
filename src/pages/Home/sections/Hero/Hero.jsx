@@ -105,8 +105,21 @@ const Hero = () => {
   const totalProductPrice = selectedPkg * unitPrice;
   const grandTotalNumber = totalProductPrice + deliveryCharge + giftCharge;
   const grandTotal = `৳${grandTotalNumber.toLocaleString()}`;
+  // 3+ Boxes: 60% Advance via bKash + 1.85% bKash Cashout Charge (Informational — submit still works so team can call!)
+  const isAdvanceRequired = selectedPkg >= 3;
+  const advanceBaseAmount = Math.round(grandTotalNumber * 0.6);
+  const bkashCashoutCharge = Math.ceil(advanceBaseAmount * 0.0185);
+  const totalBkashAdvance = advanceBaseAmount + bkashCashoutCharge;
+  const dueOnDeliveryAmount = grandTotalNumber - advanceBaseAmount;
   const boxCountLabel = `${selectedPkg} ${selectedPkg === 1 ? "Box" : "Boxes"} (${selectedPkg * 6} Cups)`;
   const isPhoneValid = formData.phone.length === 11 && formData.phone.startsWith("01");
+
+  // Auto-select bKash info panel when 3+ boxes selected (customer can still submit without TrxID)
+  useEffect(() => {
+    if (selectedPkg >= 3) {
+      setPaymentMethod("bkash");
+    }
+  }, [selectedPkg]);
 
   // Emit package & price updates for the floating sticky order bar
   useEffect(() => {
@@ -352,9 +365,11 @@ const Hero = () => {
     const { testEventCode } = getTrackingTestFlags();
     const isTestOrder = isTestOrderInput(rawNote, fullAddress, capturedName);
 
-    const formattedPaymentNote = paymentMethod === "cod"
-      ? (rawNote ? `[Cash on Delivery] ${rawNote}` : "Cash on Delivery")
-      : `[bKash] TrxID/No: ${bkashTrx.trim() || "Not provided"}${rawNote ? ` | ${rawNote}` : ""}`;
+    const formattedPaymentNote = isAdvanceRequired
+      ? `[3+ Box | 60% bKash Advance: ৳${advanceBaseAmount} + Cashout ৳${bkashCashoutCharge} = ৳${totalBkashAdvance} | Due COD (40%): ৳${dueOnDeliveryAmount} | TrxID: ${bkashTrx.trim() || "Pending (Call to confirm)"}]${rawNote ? ` | ${rawNote}` : ""}`
+      : paymentMethod === "cod"
+        ? (rawNote ? `[Cash on Delivery] ${rawNote}` : "Cash on Delivery")
+        : `[bKash] TrxID/No: ${bkashTrx.trim() || "Not provided"}${rawNote ? ` | ${rawNote}` : ""}`;
 
     const giftNote = isGift
       ? ` | [🎁 GIFT CARD (+৳100) - Card Note: "${giftMessage.trim() || "শুভেচ্ছা রইলো"}"]`
@@ -852,6 +867,31 @@ const Hero = () => {
                         {grandTotal}
                       </span>
                     </div>
+
+                    {/* 3+ BOXES: 60% bKash Advance + 1.85% Cashout Charge Info Card */}
+                    {isAdvanceRequired && (
+                      <div className="bg-pink-50/90 border-2 border-[#D12053]/35 rounded-xl p-3 space-y-1.5 text-xs shadow-2xs">
+                        <p className="font-black text-[#D12053] flex items-center gap-1.5 text-xs">
+                          <span>📢</span>
+                          <span>৩ বা ততোধিক বক্সের অর্ডারে ৬০% অগ্রিম বিকাশ প্রযোজ্য</span>
+                        </p>
+                        <div className="space-y-1 text-[11px] sm:text-xs font-bold text-gray-800 pt-0.5">
+                          <div className="flex justify-between">
+                            <span>৬০% অগ্রিম + ক্যাশআউট চার্জ (১.৮৫%):</span>
+                            <span className="text-[#D12053] font-black">
+                              ৳{advanceBaseAmount.toLocaleString()} + ৳{bkashCashoutCharge} = ৳{totalBkashAdvance.toLocaleString()}
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>বাকি ৪০% ডেলিভারির সময় (COD):</span>
+                            <span className="text-emerald-800 font-black">৳{dueOnDeliveryAmount.toLocaleString()}</span>
+                          </div>
+                        </div>
+                        <p className="text-[10.5px] font-bold text-gray-600 pt-1 border-t border-[#D12053]/15">
+                          📞 এখনই টাকা না পাঠিয়েও অর্ডার কনফার্ম করতে পারবেন—আমাদের প্রতিনিধি কল করে পেমেন্ট ও ডেলিভারি নিশ্চিত করবেন।
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1122,13 +1162,24 @@ const Hero = () => {
                           📝 পেমেন্ট নির্দেশিকা:
                         </p>
                         <p>1. বিকাশ অ্যাপে <strong className="text-gray-900">Send Money</strong> সিলেক্ট করে <strong className="text-[#D12053] font-black">01618562844</strong> নম্বরে পাঠান।</p>
-                        <p>2. মোট টাকা: <strong className="text-gray-900 font-black">{grandTotal}</strong> (ক্যাশ আউট খরচ সহ প্রযোজ্য)।</p>
-                        <p>3. টাকা পাঠানোর পর TrxID বা আপনার বিকাশ নম্বর নিচের বক্সে লিখে অর্ডার কনফার্ম করুন।</p>
+                        {isAdvanceRequired ? (
+                          <>
+                            <p>
+                              2. ৬০% অগ্রিম: <strong className="text-[#D12053] font-black">৳{advanceBaseAmount.toLocaleString()}</strong> + ক্যাশআউট চার্জ <strong className="text-gray-900 font-black">৳{bkashCashoutCharge}</strong> = মোট <strong className="text-[#D12053] font-black">৳{totalBkashAdvance.toLocaleString()}</strong> পাঠান। (বাকি <strong className="text-emerald-800 font-black">৳{dueOnDeliveryAmount.toLocaleString()}</strong> পণ্য পেয়ে দেবেন)।
+                            </p>
+                            <p>3. টাকা পাঠিয়ে নিচে TrxID দিন—অথবা এখনই টাকা না পাঠিয়েও অর্ডার কনফার্ম করতে পারবেন, পরে আমাদের প্রতিনিধি কল করে কনফার্ম করবেন।</p>
+                          </>
+                        ) : (
+                          <>
+                            <p>2. মোট টাকা: <strong className="text-gray-900 font-black">{grandTotal}</strong> (ক্যাশ আউট খরচ সহ প্রযোজ্য)।</p>
+                            <p>3. টাকা পাঠানোর পর TrxID বা আপনার বিকাশ নম্বর নিচের বক্সে লিখে অর্ডার কনফার্ম করুন।</p>
+                          </>
+                        )}
                       </div>
 
                       <div className="space-y-1">
                         <label htmlFor="bkash-trx" className="text-[11px] font-black text-[#D12053] uppercase block">
-                          বিকাশ TrxID বা যে নম্বর থেকে টাকা পাঠিয়েছেন:
+                          বিকাশ TrxID বা যে নম্বর থেকে টাকা পাঠিয়েছেন {isAdvanceRequired ? "(ঐচ্ছিক — পরে কল করেও কনফার্ম করা যাবে)" : ""}:
                         </label>
                         <input
                           id="bkash-trx"
